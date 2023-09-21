@@ -1,0 +1,14 @@
+{
+  "name": "KCAMathsHub",
+  "version": "0.0.0",
+  "description": "A community-based platform for providing peer-assistance with Math school work and questions; currently available internally at KCA.",
+  "main": "index.js",
+  "repository": "https://github.com/timthedev07/KCAMathsHub",
+  "author": "Tim <timpersonal07@gmail.com>",
+  "contributors": [
+    "Mykola <mikola.starovoit@gmail.com>",
+    "Elena <hehewohaowanmei@gmail.com>"
+  ],
+  "license": "none",
+  "private": true
+}
