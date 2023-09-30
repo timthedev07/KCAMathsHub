@@ -9,9 +9,7 @@ datasource db {
 
 model User {
   // next auth
-  name               String?
   email              String?   @unique
-  emailVerified      DateTime?
   image              String?
   accounts           Account[]
   sessions           Session[]
