@@ -8,29 +8,44 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  // next auth
+  name               String?
+  email              String?   @unique
+  emailVerified      DateTime?
+  image              String?
+  accounts           Account[]
+  sessions           Session[]
+  // custom
+  id                 String    @id @default(cuid())
+  username           String?
+  blocked            Boolean   @default(false)
+  answererReputation Int
+  joinedDate         DateTime  @default(now())
+  joinedYear         Int?      @db.SmallInt // the year group of the user when joined; only applies to
+  role               Role      @relation(fields: [roleId], references: [id])
+  roleId             Int       @db.SmallInt
+}
+
+model Role {
+  id   Int    @id @default(autoincrement()) @db.SmallInt
+  name String @unique @db.VarChar(16)
+  User User[]
 }
 
 // Next Auth Tables
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
