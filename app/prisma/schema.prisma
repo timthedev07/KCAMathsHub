@@ -9,25 +9,71 @@ datasource db {
 
 model User {
   // next auth
-  email              String?   @unique
+  email              String?    @unique
   image              String?
   accounts           Account[]
   sessions           Session[]
   // custom
-  id                 String    @id @default(cuid())
+  id                 String     @id @default(cuid())
   username           String?
-  blocked            Boolean   @default(false)
-  answererReputation Int       @default(100)
-  joinedDate         DateTime  @default(now())
-  joinedYear         Int?      @db.SmallInt // the year group of the user when joined; only applies to
-  role               Role      @relation(fields: [roleId], references: [id])
-  roleId             Int       @default(1) @db.SmallInt
+  blocked            Boolean    @default(false)
+  answererReputation Int        @default(100)
+  joinedDate         DateTime   @default(now())
+  joinedYear         Int?       @db.SmallInt // the year group of the user when joined; only applies to
+  role               Role       @relation(fields: [roleId], references: [id])
+  roleId             Int        @default(1) @db.SmallInt
+  questions          Question[]
+  answers            Answer[]   @relation("WrittenAnswers")
+  moderatedAnswers   Answer[]   @relation("ModeratedAnswers")
 }
 
 model Role {
-  id   Int    @id @default(autoincrement()) @db.SmallInt
-  name String @unique @db.VarChar(16)
-  User User[]
+  id    Int    @id @default(autoincrement()) @db.SmallInt
+  name  String @unique @db.VarChar(16)
+  users User[]
+}
+
+model ImageAttachment {
+  id         Int       @id @default(autoincrement())
+  name       String?   @db.VarChar(128)
+  imgUrl     String
+  // question relation
+  question   Question? @relation(fields: [questionId], references: [id])
+  questionId String?
+  // otherwise, answer relation
+  answer     Answer?   @relation(fields: [answerId], references: [id])
+  answerId   String?
+}
+
+model Question {
+  id           String            @id @default(cuid())
+  title        String            @db.VarChar(128)
+  content      String            @db.VarChar(5000)
+  // attachment relation
+  attachments  ImageAttachment[]
+  // question relation
+  questioner   User              @relation(fields: [questionerId], references: [id])
+  questionerId String
+  // answer relation
+  answer       Answer?
+}
+
+model Answer {
+  id          String            @id @default(cuid())
+  content     String            @db.VarChar(5000)
+  helpful     Boolean?
+  // attachments relation
+  attachments ImageAttachment[]
+  moderated   Boolean           @default(false)
+  // answerer relation
+  answerer    User              @relation("WrittenAnswers", fields: [answererId], references: [id])
+  answererId  String
+  // question relation
+  question    Question          @relation(fields: [questionId], references: [id])
+  questionId  String            @unique
+  // moderator relation
+  moderator   User?             @relation("ModeratedAnswers", fields: [moderatorId], references: [id])
+  moderatorId String?
 }
 
 // Next Auth Tables
