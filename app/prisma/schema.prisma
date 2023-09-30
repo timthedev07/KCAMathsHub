@@ -17,7 +17,7 @@ model User {
   id                 String    @id @default(cuid())
   username           String?
   blocked            Boolean   @default(false)
-  answererReputation Int       @default(0)
+  answererReputation Int       @default(100)
   joinedDate         DateTime  @default(now())
   joinedYear         Int?      @db.SmallInt // the year group of the user when joined; only applies to
   role               Role      @relation(fields: [roleId], references: [id])
