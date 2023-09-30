@@ -13,6 +13,24 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (
+        !(
+          user.email?.endsWith("@kcpupils.org") &&
+          user.email?.endsWith("@kings.education") &&
+          user.email?.endsWith("@kingsgroup.org")
+        ) ||
+        !user.email
+      ) {
+        return false;
+      }
+
+      const u = await prisma.user.findFirst({ where: { email: user.email } });
+
+      return process.env.NODE_ENV === "development";
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
