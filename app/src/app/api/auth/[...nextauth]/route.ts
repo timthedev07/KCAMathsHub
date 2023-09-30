@@ -16,21 +16,21 @@ const handler = NextAuth({
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       // only allow internal users
-      if (
-        !(
-          user.email?.endsWith("@kcpupils.org") &&
-          user.email?.endsWith("@kings.education") &&
-          user.email?.endsWith("@kingsgroup.org")
-        ) ||
-        !user.email
-      ) {
-        return false;
-      }
+      // if (
+      //   !(
+      //     user.email?.endsWith("@kcpupils.org") &&
+      //     user.email?.endsWith("@kings.education") &&
+      //     user.email?.endsWith("@kingsgroup.org")
+      //   ) ||
+      //   !user.email
+      // ) {
+      //   return false;
+      // }
 
       const u = await prisma.user.findFirst({ where: { email: user.email } });
 
       // forbid blocked users
-      if (!u || u.blocked) return false;
+      if (u && u.blocked) return false;
 
       return process.env.NODE_ENV === "development";
     },
