@@ -41,7 +41,7 @@ export const authOptions: AuthOptions = {
       session.user.image = user.image || null;
       session.user.joinedDate = user.joinedDate;
       session.user.joinedYear = user.joinedYear;
-      session.user.roleId = user.roleId;
+      session.user.role = user.role;
       session.user.username = user.username;
       return session;
     },
