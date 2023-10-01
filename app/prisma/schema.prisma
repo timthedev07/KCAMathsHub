@@ -9,22 +9,23 @@ datasource db {
 
 model User {
   // next auth
-  email               String?    @unique
+  email               String?      @unique
   image               String?
   accounts            Account[]
   sessions            Session[]
   // custom
   usernameLastUpdated DateTime?
-  id                  String     @id @default(cuid())
+  id                  String       @id @default(cuid())
   username            String?
-  blocked             Boolean    @default(false)
-  answererReputation  Int        @default(100)
-  joinedDate          DateTime   @default(now())
-  joinedYear          Int?       @db.SmallInt // the year group of the user when joined; only applies to
-  role                String     @default("inquirer") @db.VarChar(16)
+  blocked             Boolean      @default(false)
+  answererReputation  Int          @default(100)
+  joinedDate          DateTime     @default(now())
+  joinedYear          Int?         @db.SmallInt // the year group of the user when joined; only applies to
+  role                String       @default("inquirer") @db.VarChar(16)
   questions           Question[]
-  answers             Answer[]   @relation("WrittenAnswers")
-  moderatedAnswers    Answer[]   @relation("ModeratedAnswers")
+  answers             Answer[]     @relation("WrittenAnswers")
+  moderatedAnswers    Answer[]     @relation("ModeratedAnswers")
+  moderation          Moderation[]
 }
 
 model ImageAttachment {
@@ -68,6 +69,20 @@ model Answer {
   // moderator relation
   moderator   User?             @relation("ModeratedAnswers", fields: [moderatorId], references: [id])
   moderatorId String?
+  moderations Moderation[]
+}
+
+model Moderation {
+  id                String   @id @default(cuid())
+  moderationComment String?  @db.VarChar(5000)
+  approval          Boolean  @default(false)
+  timestamp         DateTime @default(now())
+  // moderator relation
+  moderator         User     @relation(fields: [moderatorId], references: [id])
+  moderatorId       String
+  // answer relation
+  answer            Answer   @relation(fields: [answerId], references: [id])
+  answerId          String
 }
 
 // Next Auth Tables
