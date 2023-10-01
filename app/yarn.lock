@@ -229,6 +229,29 @@
   dependencies:
     tslib "^2.4.0"
 
+"@tanstack/query-core@4.35.7":
+  version "4.35.7"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.35.7.tgz#31d6f520ab8abedb6024d2d870af8afca764d048"
+  integrity sha512-PgDJtX75ubFS0WCYFM7DqEoJ4QbxU3S5OH3gJSI40xr7UVVax3/J4CM3XUMOTs+EOT5YGEfssi3tfRVGte4DEw==
+
+"@tanstack/react-query@^4.35.7":
+  version "4.35.7"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.35.7.tgz#35a1db50156411b2a9eb68a020bae416948939db"
+  integrity sha512-0MankquP/6EOM2ATfEov6ViiKemey5uTbjGlFMX1xGotwNaqC76YKDMJdHumZupPbZcZPWAeoPGEHQmVKIKoOQ==
+  dependencies:
+    "@tanstack/query-core" "4.35.7"
+    use-sync-external-store "^1.2.0"
+
+"@trpc/client@^10.38.5":
+  version "10.38.5"
+  resolved "https://registry.yarnpkg.com/@trpc/client/-/client-10.38.5.tgz#f689e76e20bd88ecd231b2fe36b65a022438bb3e"
+  integrity sha512-tpGUsoAP+3CD/1KRqMdWZ+zebvB68/86SaVPAYHaEDozTFLQdNqTe98DS/T0S4hfh7WCKbMSObj40SCzE8amKQ==
+
+"@trpc/react-query@^10.38.5":
+  version "10.38.5"
+  resolved "https://registry.yarnpkg.com/@trpc/react-query/-/react-query-10.38.5.tgz#0a36138d2a2221cfb68339c172addbd57ec4914b"
+  integrity sha512-cGpKfiQen3ba3lTII3+Y6Hm3KnC60AS9n2AYt07I7LZx/GknsGHq4h570imdIxr6Qb5LtYe3DFV13kzbm+yGeA==
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.9.tgz#df4907fc07a886922637b15e02d4cebc4c0021b2"
@@ -2595,6 +2618,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-sync-external-store@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
+  integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
 
 util-deprecate@^1.0.2:
   version "1.0.2"
