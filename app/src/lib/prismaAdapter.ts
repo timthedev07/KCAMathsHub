@@ -14,8 +14,14 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
         },
       })) as any;
     },
-    getUser: (id) => p.user.findUnique({ where: { id } }) as any,
-    getUserByEmail: (email) => p.user.findUnique({ where: { email } }) as any,
+    getUser: (id) =>
+      p.user.findUnique({
+        where: { id },
+      }) as any,
+    getUserByEmail: (email) =>
+      p.user.findUnique({
+        where: { email },
+      }) as any,
     async getUserByAccount(provider_providerAccountId) {
       const account = await p.account.findUnique({
         where: { provider_providerAccountId },
