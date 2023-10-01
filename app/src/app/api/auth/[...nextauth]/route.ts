@@ -13,8 +13,9 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user /**account, profile, email, credentials */ }) {
       // only allow internal users
       // if (
       //   !(
@@ -33,6 +34,18 @@ export const authOptions: AuthOptions = {
       if (u && u.blocked) return false;
 
       return process.env.NODE_ENV === "development";
+    },
+    async session({ session, user }) {
+      session.user.id = user.id;
+      session.user.answererReputation = user.answererReputation;
+      session.user.blocked = user.blocked;
+      session.user.email = user.email;
+      session.user.image = user.image || null;
+      session.user.joinedDate = user.joinedDate;
+      session.user.joinedYear = user.joinedYear;
+      session.user.roleId = user.roleId;
+      session.user.username = user.username;
+      return session;
     },
   },
 };
