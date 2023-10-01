@@ -1,6 +1,6 @@
 # Colors
 
-- Primary Background: #2a2626
+- Primary Background: #151517
 - Primary Accent Background: #469ad7
 - Secondary Accent Background: #e67d3e
 - Accent text color: #e9e3e7
