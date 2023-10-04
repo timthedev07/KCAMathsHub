@@ -13,6 +13,9 @@ The stack:
   - tRPC
   - PostgresQL
   - Prisma
+- Storage
+  - Mykola's Dad's MySQL
+  - AWS S3
 
 ## Setup Instructions for Developers
 
