@@ -12,7 +12,6 @@ export const updateUsername = publicProcedure
     })
   )
   .mutation(async ({ input: { id, username } }) => {
-    await prisma.$connect();
     const lastUpdate = (
       await prisma.user.findFirst({
         where: { id },
