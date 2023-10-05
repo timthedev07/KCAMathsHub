@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .scrollbar-no-space {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+}
