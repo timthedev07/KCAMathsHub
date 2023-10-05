@@ -4,6 +4,9 @@ import { randomUUID } from "crypto";
 import { S3Client } from "@aws-sdk/client-s3";
 import { getUrl } from "../../../aws/urlFormatter";
 import { ImgUrlsType } from "../../../types/upload";
+import sharp from "sharp";
+
+const IMG_QUALITY_THRESHOLD = 1500;
 
 const uploadFile = async (s3Client: S3Client, Key: string, Body: Buffer) => {
   return new Promise(async function (resolve, reject) {
@@ -46,9 +49,32 @@ const POST = async (request: Request) => {
       const extension = t[t.length - 1];
 
       const buffer = Buffer.from(await file.arrayBuffer());
+
+      // use sharp
+      const img = sharp(buffer);
+      const metadata = await img.metadata();
+      const w = metadata.width;
+      const h = metadata.height;
+
+      // downsizing logic
+      if (h && w && w * h > IMG_QUALITY_THRESHOLD ** 2) {
+        let newW, newH;
+        if (w > h) {
+          // horizontal
+          newW = IMG_QUALITY_THRESHOLD;
+          newH = Math.floor((newW / w) * h);
+        } else {
+          newH = IMG_QUALITY_THRESHOLD;
+          newW = Math.floor((newH / h) * w);
+        }
+        img.resize({ width: newW, height: newH });
+      }
+
+      const newBuffer = await img.toBuffer();
       const fname = randomUUID() + "." + extension;
+
       try {
-        await uploadFile(awsS3Client, fname, buffer);
+        await uploadFile(awsS3Client, fname, newBuffer);
         imgUrls.push({ url: getUrl(fname), name: `Attachment_${a}` });
         a++;
       } catch (err) {
