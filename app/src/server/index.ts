@@ -1,10 +1,12 @@
 import { router } from "./trpc";
-import { updateUsername } from "./crud/initUsername";
-import { addAttachments } from "./crud/addAttachment";
+import { updateUsername } from "./crud/user/initUsername";
+import { addAttachments } from "./crud/questions/addAttachment";
+import { initReferral } from "./crud/user/initReferral";
 
 export const appRouter = router({
   updateUsername,
   addAttachments,
+  initReferral,
 });
 
 export type AppRouter = typeof appRouter;

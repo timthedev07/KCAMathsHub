@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { publicProcedure } from "../trpc";
-import prisma from "../../db";
+import { publicProcedure } from "../../trpc";
+import prisma from "../../../db";
 
 const DAYS_BETWEEN_UPDATE = 60;
 
