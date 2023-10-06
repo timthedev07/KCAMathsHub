@@ -26,6 +26,7 @@ model User {
   answers             Answer[]     @relation("WrittenAnswers")
   moderatedAnswers    Answer[]     @relation("ModeratedAnswers")
   moderation          Moderation[]
+  referral            Referral?
 }
 
 model ImageAttachment {
@@ -83,6 +84,12 @@ model Moderation {
   // answer relation
   answer            Answer   @relation(fields: [answerId], references: [id])
   answerId          String
+}
+
+model Referral {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
 }
 
 // Next Auth Tables
