@@ -3,6 +3,7 @@
 import { FC, useState } from "react";
 import { trpc } from "../trpc/client";
 import { Button } from "./reusable/Button";
+import { getReferralLink } from "../lib/referralLinkFormatter";
 
 interface InitReferralProps {
   userId: string;
@@ -32,7 +33,7 @@ export const InitReferral: FC<InitReferralProps> = ({ userId }) => {
       ) : (
         ""
       )}
-      <span>{link || "No Link Yet"}</span>
+      <span>{link || (data && getReferralLink(data)) || "No Link Yet"}</span>
     </div>
   );
 };
