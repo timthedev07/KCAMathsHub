@@ -2,7 +2,9 @@
 
 import { FC, useEffect } from "react";
 import { trpc } from "../../../../trpc/client";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { TRPCClientErrorLike } from "@trpc/client";
+import { AppRouter } from "../../../../server";
 
 interface UpdateComponentProps {
   r: string;
@@ -21,11 +23,12 @@ export const UpdateComponent: FC<UpdateComponentProps> = ({ r, userId }) => {
           userId,
         });
         push("/");
-      } catch (err) {
-        console.log(err);
+      } catch (err: any) {
+        push(`/error?err=${encodeURIComponent(err.message)}`);
       }
     })();
-  }, [r, userId, accept, push]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <div></div>;
 };
