@@ -16,7 +16,8 @@ const GET = async (request: Request) => {
     url = url.slice(0, url.length - 1);
   }
 
-  const d = new URLSearchParams(url);
+  const b = url.split("?");
+  const d = new URLSearchParams(b[b.length - 1]);
   const r = d.get("r");
 
   if (!r)
@@ -24,8 +25,6 @@ const GET = async (request: Request) => {
       { message: "Invalid referral code." },
       { status: 400 }
     );
-
-  console.log("Got through shit");
 
   await acceptReferral(u.id, r);
 
