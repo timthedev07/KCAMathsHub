@@ -11,6 +11,7 @@ const Home = async () => {
     <div className="p-64">
       <SignInButton signedIn={!!session?.user} />
       <Link href="/account/complete-signup">Complete Sign Up</Link>
+      <Link href="/account/complete-signup">Complete Sign Up</Link>
       <Link href="/account/profile">Profile</Link>
       <AttachmentUpload />
       {!!session?.user.id ? <InitReferral userId={session.user.id} /> : ""}
