@@ -15,11 +15,12 @@ export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
       <OAuthButton
         provider="google"
         onClick={async () => {
+          console.log("r", r);
           if (r)
             await signIn("google", {
               callbackUrl: `${HOST}/account/signin/success=true&r=${r}`,
             });
-          else await signIn("google", { callbackUrl: "/" });
+          else await signIn("google");
         }}
       />
     </div>
