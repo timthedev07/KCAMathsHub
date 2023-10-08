@@ -10,7 +10,13 @@ const GET = async (request: Request) => {
 
   if (!u) return Response.json({}, { status: 401 });
 
-  const d = new URLSearchParams(request.url);
+  let url = request.url;
+
+  if (url.endsWith("#")) {
+    url = url.slice(0, url.length - 1);
+  }
+
+  const d = new URLSearchParams(url);
   const r = d.get("r");
 
   if (!r)
