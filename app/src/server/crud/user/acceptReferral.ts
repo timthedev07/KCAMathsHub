@@ -14,10 +14,17 @@ export const acceptReferral = publicProcedure
     })
   )
   .mutation(async ({ input: { referralId, userId } }) => {
-    if (!(await prisma.user.findFirst({ where: { id: userId } }))) {
+    const acceptingUser = await prisma.user.findFirst({
+      where: { id: userId },
+    });
+
+    if (!acceptingUser || acceptingUser.acceptedReferralId) {
+      // if there is no such user or the user already accepted a referral
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
+
     const creator = await prisma.user.findFirst({ where: { referralId } }); // find the user who created the referral
+
     if (!creator) {
       throw new TRPCError({
         code: "BAD_REQUEST",
