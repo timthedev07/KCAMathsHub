@@ -29,7 +29,6 @@ model User {
   moderation          Moderation[]
   referralCreated     Referral?    @relation("ReferralCreator")
   referralAccepted    Referral?    @relation("ReferralAccepted", fields: [acceptedReferralId], references: [id])
-  referralId          String?
   acceptedReferralId  String?
 }
 
