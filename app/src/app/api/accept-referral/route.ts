@@ -8,7 +8,10 @@ const GET = async (request: Request) => {
 
   const u = session?.user;
 
-  if (!u) return Response.json({}, { status: 401 });
+  if (!u)
+    return Response.redirect(
+      `/error?err=${encodeURIComponent("Unauthorized")}`
+    );
 
   let url = request.url;
 
@@ -21,9 +24,8 @@ const GET = async (request: Request) => {
   const r = d.get("r");
 
   if (!r)
-    return Response.json(
-      { message: "Invalid referral code." },
-      { status: 400 }
+    return Response.redirect(
+      `/error?err=${encodeURIComponent("Invalid Referral Code")}`
     );
 
   await acceptReferral(u.id, r);
