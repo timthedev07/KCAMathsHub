@@ -18,6 +18,7 @@ export const updateUsername = publicProcedure
         select: { usernameLastUpdated: true },
       })
     )?.usernameLastUpdated?.valueOf();
+
     if (
       !lastUpdate || // first username or ...
       lastUpdate <= Date.now() - DAYS_BETWEEN_UPDATE * 24 * 60 * 60 * 1000 // N days gone
