@@ -3,8 +3,6 @@
 import { FC, useEffect } from "react";
 import { trpc } from "../../../../trpc/client";
 import { useRouter } from "next/navigation";
-import { TRPCClientErrorLike } from "@trpc/client";
-import { AppRouter } from "../../../../server";
 
 interface UpdateComponentProps {
   r: string;
