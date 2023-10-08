@@ -15,6 +15,7 @@ export const InitReferral: FC<InitReferralProps> = ({ userId }) => {
   const { isLoading, data } = trpc.getReferralId.useQuery({
     userId,
   });
+
   const k = data || link;
 
   return (
@@ -39,7 +40,7 @@ export const InitReferral: FC<InitReferralProps> = ({ userId }) => {
         <Button
           color="cyan"
           onClick={() => {
-            navigator.clipboard.writeText(getReferralLink(k));
+            navigator.clipboard.writeText(k);
           }}
         >
           Copy Referral Link
