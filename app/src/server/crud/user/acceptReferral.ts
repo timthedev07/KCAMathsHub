@@ -4,6 +4,7 @@ import prisma from "../../../db";
 import { TRPCError } from "@trpc/server";
 
 export const REFERRAL_REP_GAIN = 20;
+export const ACCEPT_REP_GAIN = 50;
 
 export const acceptReferral = publicProcedure
   .input(
@@ -31,7 +32,12 @@ export const acceptReferral = publicProcedure
 
     await prisma.user.update({
       where: { id: creator.id },
-      data: { answererReputation: { increment: REFERRAL_REP_GAIN } },
+      data: { inquirerReputation: { increment: REFERRAL_REP_GAIN } },
+    });
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { inquirerReputation: { increment: ACCEPT_REP_GAIN } },
     });
     return true;
   });
