@@ -18,7 +18,7 @@ export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
           console.log("r", r);
           if (r)
             await signIn("google", {
-              callbackUrl: `${HOST}/account/signin/success=true&r=${r}`,
+              callbackUrl: `${HOST}/account/signin/${r}?success=true`,
             });
           else await signIn("google");
         }}
