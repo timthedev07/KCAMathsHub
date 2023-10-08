@@ -37,10 +37,10 @@ model ImageAttachment {
   name       String?   @db.VarChar(128)
   imgUrl     String
   // question relation
-  question   Question? @relation(fields: [questionId], references: [id])
+  question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId String?
   // otherwise, answer relation
-  answer     Answer?   @relation(fields: [answerId], references: [id])
+  answer     Answer?   @relation(fields: [answerId], references: [id], onDelete: Cascade)
   answerId   String?
 }
 
@@ -51,8 +51,8 @@ model Question {
   // attachment relation
   attachments  ImageAttachment[]
   // question relation
-  questioner   User              @relation(fields: [questionerId], references: [id])
-  questionerId String
+  questioner   User?             @relation(fields: [questionerId], references: [id], onDelete: SetNull)
+  questionerId String?
   // answer relation
   answer       Answer?
 }
@@ -65,13 +65,13 @@ model Answer {
   attachments ImageAttachment[]
   moderated   Boolean           @default(false)
   // answerer relation
-  answerer    User              @relation("WrittenAnswers", fields: [answererId], references: [id])
-  answererId  String
+  answerer    User?             @relation("WrittenAnswers", fields: [answererId], references: [id], onDelete: SetNull)
+  answererId  String?
   // question relation
-  question    Question          @relation(fields: [questionId], references: [id])
+  question    Question          @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId  String            @unique
   // moderator relation
-  moderator   User?             @relation("ModeratedAnswers", fields: [moderatorId], references: [id])
+  moderator   User?             @relation("ModeratedAnswers", fields: [moderatorId], references: [id], onDelete: SetNull)
   moderatorId String?
   moderations Moderation[]
 }
@@ -82,16 +82,16 @@ model Moderation {
   approval          Boolean  @default(false)
   timestamp         DateTime @default(now())
   // moderator relation
-  moderator         User     @relation(fields: [moderatorId], references: [id])
-  moderatorId       String
+  moderator         User?    @relation(fields: [moderatorId], references: [id], onDelete: SetNull)
+  moderatorId       String?
   // answer relation
-  answer            Answer   @relation(fields: [answerId], references: [id])
+  answer            Answer   @relation(fields: [answerId], references: [id], onDelete: Cascade)
   answerId          String
 }
 
 model Referral {
   id            String @id @default(cuid())
-  user          User   @relation("ReferralCreator", fields: [userId], references: [id])
+  user          User   @relation("ReferralCreator", fields: [userId], references: [id], onDelete: Cascade)
   userId        String @unique
   acceptedUsers User[] @relation("ReferralAccepted")
 }
