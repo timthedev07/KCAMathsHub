@@ -35,7 +35,7 @@ export const InitReferral: FC<InitReferralProps> = ({ userId }) => {
       ) : (
         ""
       )}
-      <span>{link || (data && getReferralLink(data)) || "No Link Yet"}</span>
+      <span>{link || data || "No Link Yet"}</span>
       {k ? (
         <Button
           color="cyan"
