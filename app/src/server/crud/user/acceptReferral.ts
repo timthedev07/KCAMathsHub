@@ -18,9 +18,16 @@ export const acceptReferral = publicProcedure
       where: { id: userId },
     });
 
-    if (!acceptingUser || acceptingUser.acceptedReferralId) {
+    if (!acceptingUser) {
       // if there is no such user or the user already accepted a referral
       throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    if (acceptingUser.acceptedReferralId) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You have already accepted a referral.",
+      });
     }
 
     const creator = await prisma.user.findFirst({ where: { referralId } }); // find the user who created the referral
@@ -29,6 +36,13 @@ export const acceptReferral = publicProcedure
       throw new TRPCError({
         code: "BAD_REQUEST",
         message: "Referral not found",
+      });
+    }
+
+    if (acceptingUser.id === creator.id) {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: "You can't join through your own referral link.",
       });
     }
 
