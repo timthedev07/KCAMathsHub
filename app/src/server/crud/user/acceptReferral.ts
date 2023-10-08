@@ -30,7 +30,9 @@ export const acceptReferral = publicProcedure
       });
     }
 
-    const creator = await prisma.user.findFirst({ where: { referralId } }); // find the user who created the referral
+    const creator = await prisma.user.findFirst({
+      where: { referralCreated: { id: referralId } },
+    }); // find the user who created the referral
 
     if (!creator) {
       throw new TRPCError({
