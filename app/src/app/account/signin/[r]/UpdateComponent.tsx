@@ -2,6 +2,7 @@
 
 import { FC, useEffect } from "react";
 import { trpc } from "../../../../trpc/client";
+import { redirect } from "next/navigation";
 
 interface UpdateComponentProps {
   r: string;
@@ -18,6 +19,7 @@ export const UpdateComponent: FC<UpdateComponentProps> = ({ r, userId }) => {
           referralId: r,
           userId,
         });
+        redirect("/");
       } catch (err) {
         console.log(err);
       }
