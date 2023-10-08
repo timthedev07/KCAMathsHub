@@ -30,7 +30,7 @@ const GET = async (request: Request) => {
 
   await acceptReferral(u.id, r);
 
-  return Response.json({}, { status: 201 });
+  return Response.redirect("/");
 };
 
 export { GET };
