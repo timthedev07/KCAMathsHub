@@ -2,7 +2,7 @@
 
 import { FC, useEffect } from "react";
 import { trpc } from "../../../../trpc/client";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 interface UpdateComponentProps {
   r: string;
@@ -11,6 +11,7 @@ interface UpdateComponentProps {
 
 export const UpdateComponent: FC<UpdateComponentProps> = ({ r, userId }) => {
   const accept = trpc.acceptReferral.useMutation().mutateAsync;
+  const { push } = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -19,12 +20,12 @@ export const UpdateComponent: FC<UpdateComponentProps> = ({ r, userId }) => {
           referralId: r,
           userId,
         });
-        redirect("/");
+        push("/");
       } catch (err) {
         console.log(err);
       }
     })();
-  }, [r, userId, accept]);
+  }, [r, userId, accept, push]);
 
   return <div></div>;
 };
