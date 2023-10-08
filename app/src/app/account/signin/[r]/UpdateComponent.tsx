@@ -13,10 +13,14 @@ export const UpdateComponent: FC<UpdateComponentProps> = ({ r, userId }) => {
 
   useEffect(() => {
     (async () => {
-      const a = await accept({
-        referralId: r,
-        userId,
-      });
+      try {
+        await accept({
+          referralId: r,
+          userId,
+        });
+      } catch (err) {
+        console.log(err);
+      }
     })();
   }, [r, userId, accept]);
 
