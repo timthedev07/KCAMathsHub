@@ -15,9 +15,10 @@ export const InitReferral: FC<InitReferralProps> = ({ userId }) => {
   const { isLoading, data } = trpc.getReferralId.useQuery({
     userId,
   });
+  const k = data || link;
 
   return (
-    <div className="border border-cyan-500 rounded-md p-12 flex flex-col items-center justify-between">
+    <div className="border border-cyan-500 rounded-md p-12 gap-8 flex flex-col items-center justify-between">
       {isLoading ? (
         "..."
       ) : data === false ? (
@@ -34,6 +35,18 @@ export const InitReferral: FC<InitReferralProps> = ({ userId }) => {
         ""
       )}
       <span>{link || (data && getReferralLink(data)) || "No Link Yet"}</span>
+      {k ? (
+        <Button
+          color="cyan"
+          onClick={() => {
+            navigator.clipboard.writeText(getReferralLink(k));
+          }}
+        >
+          Copy Referral Link
+        </Button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
