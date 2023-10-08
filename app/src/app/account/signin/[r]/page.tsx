@@ -2,21 +2,16 @@ import { NextPage } from "next";
 import { SignInPanel } from "../../../../components/SignInPanel";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../api/auth/[...nextauth]/route";
-import { UpdateComponent } from "./UpdateComponent";
 import { redirect } from "next/navigation";
 
 interface Params {
   params: { r: string; success: string | null | undefined };
-  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-const P: NextPage<Params> = async ({ params: { r }, searchParams }) => {
-  const success = searchParams?.success;
+const P: NextPage<Params> = async ({ params: { r } }) => {
   const session = await getServerSession(authOptions);
 
-  if (success === "true" && session?.user) {
-    return <UpdateComponent r={r} userId={session.user.id} />;
-  } else if (success !== "true" && session) {
+  if (session) {
     return redirect("/account/profile");
   }
 
