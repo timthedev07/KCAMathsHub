@@ -2,17 +2,15 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { acceptReferral } from "../../../lib/db/account/referral";
 import { HOST } from "../../../lib/hostAddr";
+import { genErrPageRoute } from "../../../lib/genErrPageRoute";
+import { TRPCError } from "@trpc/server";
 
 const GET = async (request: Request) => {
-  //http://localhost:3000/account/signin/http://localhost:3000/account/signin/clnhy99op000smzqnhtppcq03
   const session = await getServerSession(authOptions);
 
   const u = session?.user;
 
-  if (!u)
-    return Response.redirect(
-      `/error?err=${encodeURIComponent("Unauthorized")}`
-    );
+  if (!u) return Response.redirect(genErrPageRoute("Unauthorized"));
 
   let url = request.url;
 
@@ -24,12 +22,13 @@ const GET = async (request: Request) => {
   const d = new URLSearchParams(b[b.length - 1]);
   const r = d.get("r");
 
-  if (!r)
-    return Response.redirect(
-      `${HOST}/error?err=${encodeURIComponent("Invalid Referral Code")}`
-    );
+  if (!r) return Response.redirect(genErrPageRoute("Invalid Referral Code"));
 
-  await acceptReferral(u.id, r);
+  try {
+    await acceptReferral(u.id, r);
+  } catch (err: unknown) {
+    return Response.redirect(genErrPageRoute((err as TRPCError).message));
+  }
 
   return Response.redirect(`${HOST}`);
 };
