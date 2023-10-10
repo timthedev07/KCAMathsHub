@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { acceptReferral } from "../../../lib/db/account/referral";
+import { HOST } from "../../../lib/hostAddr";
 
 const GET = async (request: Request) => {
   //http://localhost:3000/account/signin/http://localhost:3000/account/signin/clnhy99op000smzqnhtppcq03
@@ -25,12 +26,12 @@ const GET = async (request: Request) => {
 
   if (!r)
     return Response.redirect(
-      `/error?err=${encodeURIComponent("Invalid Referral Code")}`
+      `${HOST}/error?err=${encodeURIComponent("Invalid Referral Code")}`
     );
 
   await acceptReferral(u.id, r);
 
-  return Response.redirect("/");
+  return Response.redirect(`${HOST}`);
 };
 
 export { GET };
