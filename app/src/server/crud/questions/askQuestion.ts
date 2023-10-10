@@ -40,6 +40,9 @@ export const askQuestion = publicProcedure
       });
     }
 
+    let finalId;
+
+    // insert question
     try {
       const askedQuestion = await prisma.question.create({
         data: {
@@ -51,11 +54,13 @@ export const askQuestion = publicProcedure
           questioner: { connect: { id: userId } },
         },
       });
-      return askedQuestion.id;
+      finalId = askedQuestion.id;
     } catch (err: any) {
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: err.message,
       });
     }
+
+    return finalId;
   });
