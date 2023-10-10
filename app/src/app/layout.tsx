@@ -19,7 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Script src="http://localhost:8097"></Script>
+      {process.env.NODE_ENV === "development" ? (
+        <Script src="http://localhost:8097"></Script>
+      ) : (
+        ""
+      )}
       <body className={inter.className + ` bg-primary-bg text-text-color`}>
         <TRPCProvider>{children}</TRPCProvider>
       </body>
