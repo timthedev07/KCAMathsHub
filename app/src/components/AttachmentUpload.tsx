@@ -81,7 +81,7 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
       </div>
       <div
         {...getRootProps()}
-        className="flex min-h-[300px] text-center items-center justify-center w-full border-orange-800 border rounded-xl h-full"
+        className="flex p-8 min-h-[300px] text-center items-center justify-center w-full border-orange-800 border rounded-xl h-full"
       >
         <input {...getInputProps()} type="file" accept="image/*" />
         {isDragActive ? (
