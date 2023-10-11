@@ -17,7 +17,7 @@ export const TextArea: FC<TextAreaProps> = ({
   ...props
 }) => {
   return (
-    <LabelWrapper>
+    <LabelWrapper label={label} className={containerClassName}>
       <textarea
         className={`${inputBase} ${className || ""}`}
         {...props}
