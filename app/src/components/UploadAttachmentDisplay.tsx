@@ -6,6 +6,7 @@ import { FileWithIdAndObjURL } from "./AttachmentUpload";
 
 interface UploadAttachmentDisplayProps {
   file: FileWithIdAndObjURL;
+  // eslint-disable-next-line no-unused-vars
   deleteFile: (file: FileWithIdAndObjURL) => void;
 }
 
