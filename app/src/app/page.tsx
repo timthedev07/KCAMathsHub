@@ -2,12 +2,13 @@ import Link from "next/link";
 import { SignInButton } from "../components/SignInButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-import { AttachmentUpload } from "../components/AttachmentUpload";
 import { InitReferral } from "../components/InitReferral";
 import { QuestionForm } from "../components/QuestionForm";
 
 const Home = async () => {
   const session = await getServerSession(authOptions);
+  const uid = session?.user.id;
+
   return (
     <div className="p-64 flex flex-col gap-12">
       <SignInButton signedIn={!!session?.user} />
@@ -16,9 +17,15 @@ const Home = async () => {
         <Link href="/account/complete-signup">Complete Sign Up</Link>
         <Link href="/account/profile">Profile</Link>
       </div>
-      <QuestionForm />
-      <AttachmentUpload />
-      {!!session?.user.id ? <InitReferral userId={session.user.id} /> : ""}
+      {}
+      {!!uid ? (
+        <>
+          <QuestionForm userId={uid} />
+          <InitReferral userId={session.user.id} />
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

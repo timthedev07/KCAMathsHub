@@ -12,7 +12,7 @@ interface InitReferralProps {
 export const InitReferral: FC<InitReferralProps> = ({ userId }) => {
   const [link, setLink] = useState<string | null>(null);
   const initReferral = trpc.initReferral.useMutation().mutateAsync;
-  const { isLoading, data } = trpc.getReferralId.useQuery({
+  const { isLoading, data } = trpc.getReferral.useQuery({
     userId,
   });
 
