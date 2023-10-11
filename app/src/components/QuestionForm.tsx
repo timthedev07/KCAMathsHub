@@ -3,10 +3,10 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { Input } from "./reusable/Input";
 import { TextArea } from "./reusable/TextArea";
-import { useSession } from "next-auth/react";
 import { trpc } from "../trpc/client";
 import { Button } from "./reusable/Button";
-import { AttachmentUpload } from "./AttachmentUpload";
+import { AttachmentUpload, FL } from "./AttachmentUpload";
+import { uploadToAPI } from "../lib/attachmentClientUpload";
 
 interface QuestionFormProps {
   userId: string;
@@ -18,35 +18,50 @@ interface FormData {
 }
 
 export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormData>(() => ({
     title: "",
     content: "",
-  });
+  }));
+  // bring in mutations
+  const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
   const ask = trpc.askQuestion.useMutation().mutateAsync;
 
-  const handleSubmit = (e: FormEvent) => {
+  // keep track off files
+  const [files, setFiles] = useState<FL>([]);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    ask({ ...formData, userId, attachmentIds: [] });
+
+    // upload -> submission logic
+    const atts = await uploadToAPI(files, addAttachments);
+
+    try {
+      const quid = await ask({ ...formData, userId, attachmentIds: atts });
+      console.log(quid);
+    } catch (err: any) {
+      console.log(err);
+    }
   };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const n = e.target.name;
     setFormData((prev) => {
+      const n = e.target.name;
       return { ...prev, [n]: e.target.value };
     });
-    console.log(formData);
   };
 
   return (
     <form
-      className="dev-border-orange w-full p-24 flex-col flex gap-12"
+      className="dev-border-orange w-full p-8 md:p-24 flex-col flex gap-12"
       onSubmit={handleSubmit}
     >
-      <Input name="title" onChange={handleChange} label="Title" />
-      <TextArea name="content" onChange={handleChange} label="Content" />
-      <AttachmentUpload />
+      <div className="flex flex-col gap-8">
+        <Input name="title" onChange={handleChange} label="Title" />
+        <TextArea name="content" onChange={handleChange} label="Content" />
+      </div>
+      <AttachmentUpload files={files} setFiles={setFiles} />
       <Button type="submit">Ask</Button>
     </form>
   );
