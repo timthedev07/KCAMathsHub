@@ -6,7 +6,9 @@ import { UploadAttachmentDisplay } from "./UploadAttachmentDisplay";
 import { ImgUrlsType } from "../types/upload";
 import { trpc } from "../trpc/client";
 
-interface AttachmentUploadProps {}
+interface AttachmentUploadProps {
+  setAttachmentIds?: (ids: number[]) => void;
+}
 
 export interface FileWithIdAndObjURL {
   file: File;
@@ -14,9 +16,11 @@ export interface FileWithIdAndObjURL {
   url: string;
 }
 
-export const AttachmentUpload: FC<AttachmentUploadProps> = ({}) => {
+export const AttachmentUpload: FC<AttachmentUploadProps> = ({
+  setAttachmentIds = () => {},
+}) => {
   const [files, setFiles] = useState<FileWithIdAndObjURL[]>([]);
-  const addAttachments = trpc.addAttachments.useMutation().mutate;
+  const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
 
   const onDrop = useCallback((fl: File[]) => {
     for (const file of fl) {
@@ -56,13 +60,14 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({}) => {
     });
 
     const data = ((await res.json()) as { imgUrls: ImgUrlsType }).imgUrls;
-    addAttachments(
+    const atts = await addAttachments(
       data.map(({ name, url }) => ({ url: url, attachmentName: name }))
     );
+    setAttachmentIds(atts);
   };
 
   return (
-    <div className="w-[700px] h-[656px] rounded-xl border border-green-500 my-20 p-10 flex flex-col gap-10">
+    <div className="rounded-xl border border-green-500 p-10 flex flex-col gap-10">
       <div className="overflow-hidden h-64 border-orange-500 border rounded-xl">
         <div className="h-full flex gap-4 px-4 items-center scroll-x overflow-scroll scrollbar-no-space scrollbar-thin">
           {files.map((file) => (
@@ -76,7 +81,7 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({}) => {
       </div>
       <div
         {...getRootProps()}
-        className="flex text-center items-center justify-center w-full border-orange-800 border rounded-xl h-full"
+        className="flex min-h-[300px] text-center items-center justify-center w-full border-orange-800 border rounded-xl h-full"
       >
         <input {...getInputProps()} type="file" accept="image/*" />
         {isDragActive ? (
