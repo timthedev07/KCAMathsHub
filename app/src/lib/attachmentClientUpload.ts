@@ -11,7 +11,7 @@ export const uploadToAPI = async (
     v: inferRouterInputs<AppRouter>["addAttachments"]
   ) => Promise<inferRouterOutputs<AppRouter>["addAttachments"]>
 ) => {
-  if (files.length < 1) return;
+  if (files.length < 1) return [];
 
   const formData = new FormData();
   let i = 0;
