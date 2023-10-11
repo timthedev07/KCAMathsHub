@@ -26,10 +26,25 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
     for (const file of fl) {
       if (file.type.startsWith("image")) {
         const uniqueId = `${Date.now()}_${file.name}_${Math.random() * 10}`;
-        setFiles((prev) => [
-          { file, id: uniqueId, url: URL.createObjectURL(file) },
-          ...prev,
-        ]);
+
+        setFiles((prev) => {
+          let isDup = false;
+
+          for (const f of prev) {
+            if (
+              f.file.size === file.size &&
+              f.file.name === file.name &&
+              f.file.lastModified === file.lastModified
+            ) {
+              isDup = true;
+              break;
+            }
+          }
+
+          return isDup
+            ? prev
+            : [{ file, id: uniqueId, url: URL.createObjectURL(file) }, ...prev];
+        });
       }
     }
   }, []);
