@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { TRPCProvider } from "../trpc/Provider";
 import Script from "next/script";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {process.env.NODE_ENV === "development" ? (
-        <Script src="http://localhost:8097"></Script>
-      ) : (
-        ""
-      )}
       <body className={inter.className + ` bg-primary-bg text-text-color`}>
         <TRPCProvider>{children}</TRPCProvider>
       </body>
