@@ -15,6 +15,7 @@ export const addAttachments = publicProcedure
     )
   )
   .mutation(async ({ input: attachments }) => {
+    const ids = [];
     for (const { url, attachmentName, answerId, questionId } of attachments) {
       if (!!answerId && !!questionId) {
         throw new TRPCError({
@@ -22,7 +23,7 @@ export const addAttachments = publicProcedure
           message: `Only one of 'answerId' and 'questionId' of '${url} (${attachmentName})' should be provided to indicate the specified relation.`,
         });
       }
-      await prisma.imageAttachment.create({
+      const { id } = await prisma.imageAttachment.create({
         data: {
           imgUrl: url,
           name: attachmentName,
@@ -30,6 +31,7 @@ export const addAttachments = publicProcedure
           questionId,
         },
       });
+      ids.push(id);
     }
-    return true;
+    return ids;
   });
