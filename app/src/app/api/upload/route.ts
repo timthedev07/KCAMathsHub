@@ -8,6 +8,12 @@ import sharp from "sharp";
 
 const IMG_QUALITY_THRESHOLD = 1500;
 
+const placeholders = [
+  "https://placehold.co/600x400@2x.png?font=montserrat",
+  "https://placehold.co/800@3x.png?font=montserrat",
+  "https://placehold.co/1000x500@3x.png?font=montserrat",
+];
+
 const uploadFile = async (s3Client: S3Client, Key: string, Body: Buffer) => {
   return new Promise(async function (resolve, reject) {
     try {
@@ -34,52 +40,62 @@ const POST = async (request: Request) => {
   if (fileCount < 1)
     return Response.json({ message: "No files provided" }, { status: 400 });
 
-  const awsS3Client = createAWSS3Client();
-
   // fname is the uuid file name; name is Attachment_1, Attachment_2, etc.
   const imgUrls: ImgUrlsType = [];
 
-  let a = 1;
+  if (process.env.NODE_ENV === "production") {
+    const awsS3Client = createAWSS3Client();
 
-  for (let i = 0; i < fileCount; i++) {
-    const file = formData.get(`file_${i}`)?.valueOf()! as unknown as File;
+    let a = 1;
 
-    if (file.type.startsWith("image/")) {
-      const t = file.name.split(".");
-      const extension = t[t.length - 1];
+    for (let i = 0; i < fileCount; i++) {
+      const file = formData.get(`file_${i}`)?.valueOf()! as unknown as File;
 
-      const buffer = Buffer.from(await file.arrayBuffer());
+      if (file.type.startsWith("image/")) {
+        const t = file.name.split(".");
+        const extension = t[t.length - 1];
 
-      // use sharp
-      const img = sharp(buffer);
-      const metadata = await img.metadata();
-      const w = metadata.width;
-      const h = metadata.height;
+        const buffer = Buffer.from(await file.arrayBuffer());
 
-      // downsizing logic
-      if (h && w && w * h > IMG_QUALITY_THRESHOLD ** 2) {
-        let newW, newH;
-        if (w > h) {
-          // horizontal
-          newW = IMG_QUALITY_THRESHOLD;
-          newH = Math.floor((newW / w) * h);
-        } else {
-          newH = IMG_QUALITY_THRESHOLD;
-          newW = Math.floor((newH / h) * w);
+        // use sharp
+        const img = sharp(buffer);
+        const metadata = await img.metadata();
+        const w = metadata.width;
+        const h = metadata.height;
+
+        // downsizing logic
+        if (h && w && w * h > IMG_QUALITY_THRESHOLD ** 2) {
+          let newW, newH;
+          if (w > h) {
+            // horizontal
+            newW = IMG_QUALITY_THRESHOLD;
+            newH = Math.floor((newW / w) * h);
+          } else {
+            newH = IMG_QUALITY_THRESHOLD;
+            newW = Math.floor((newH / h) * w);
+          }
+          img.resize({ width: newW, height: newH });
         }
-        img.resize({ width: newW, height: newH });
-      }
 
-      const newBuffer = await img.toBuffer();
-      const fname = randomUUID() + "." + extension;
+        const newBuffer = await img.toBuffer();
+        const fname = randomUUID() + "." + extension;
 
-      try {
-        await uploadFile(awsS3Client, fname, newBuffer);
-        imgUrls.push({ url: getUrl(fname), name: `Attachment_${a}` });
-        a++;
-      } catch (err) {
-        console.log(err);
+        try {
+          await uploadFile(awsS3Client, fname, newBuffer);
+          imgUrls.push({ url: getUrl(fname), name: `Attachment_${a}` });
+          a++;
+        } catch (err) {
+          console.log(err);
+        }
       }
+    }
+  } else {
+    for (let i = 0; i < fileCount; i++) {
+      const d = placeholders[Math.floor(Math.random() * placeholders.length)];
+      imgUrls.push({
+        name: d.split("/")[1].split("@")[0],
+        url: d,
+      });
     }
   }
 
