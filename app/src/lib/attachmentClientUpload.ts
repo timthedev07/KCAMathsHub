@@ -21,14 +21,23 @@ export const uploadToAPI = async (
   }
   formData.append("file_count", `${i}`);
 
-  const res = await fetch("/api/upload", {
-    body: formData,
-    method: "POST",
-  });
+  try {
+    const res = await fetch("/api/upload", {
+      body: formData,
+      method: "POST",
+    });
 
-  const data = ((await res.json()) as { imgUrls: ImgUrlsType }).imgUrls;
-  const atts = await addAttachments(
-    data.map(({ name, url }) => ({ url: url, attachmentName: name }))
-  );
-  return atts;
+    if (!res.ok) {
+      return [];
+    }
+
+    const data = ((await res.json()) as { imgUrls: ImgUrlsType }).imgUrls;
+    const atts = await addAttachments(
+      data.map(({ name, url }) => ({ url: url, attachmentName: name }))
+    );
+    return atts;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
 };
