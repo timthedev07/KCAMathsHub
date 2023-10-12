@@ -7,4 +7,7 @@ export const pageURLs = {
   error(msg?: string) {
     return `${HOST}/error?err=${msg}`;
   },
+  question(quid: string) {
+    return `${HOST}/questions/${quid}`;
+  },
 };
