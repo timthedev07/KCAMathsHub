@@ -10,5 +10,5 @@ export const getReferral = publicProcedure
     if (!referral) {
       return false;
     }
-    return pageURLs.referralLink(referral.id);
+    return pageURLs.referral(referral.id);
   });

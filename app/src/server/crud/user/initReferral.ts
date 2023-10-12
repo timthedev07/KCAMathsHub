@@ -19,5 +19,5 @@ export const initReferral = publicProcedure
         },
       },
     });
-    return pageURLs.referralLink(res.id);
+    return pageURLs.referral(res.id);
   });
