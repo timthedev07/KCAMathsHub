@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
-import { TRPCError } from "@trpc/server";
 
 const userSelection = { username: true, image: true, id: true };
 const attachmentSelection = { name: true, imgUrl: true };
