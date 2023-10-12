@@ -25,8 +25,7 @@ model User {
   role                String       @default("inquirer") @db.VarChar(16)
   questions           Question[]
   answers             Answer[]     @relation("WrittenAnswers")
-  moderatedAnswers    Answer[]     @relation("ModeratedAnswers")
-  moderation          Moderation[]
+  moderations         Moderation[] @relation("Moderation")
   referralCreated     Referral?    @relation("ReferralCreator")
   referralAccepted    Referral?    @relation("ReferralAccepted", fields: [acceptedReferralId], references: [id])
   acceptedReferralId  String?
@@ -70,10 +69,8 @@ model Answer {
   // question relation
   question    Question          @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId  String            @unique
-  // moderator relation
-  moderator   User?             @relation("ModeratedAnswers", fields: [moderatorId], references: [id], onDelete: SetNull)
-  moderatorId String?
-  moderations Moderation[]
+  // moderations relation
+  moderations Moderation[]      @relation("AnswerModerations")
 }
 
 model Moderation {
@@ -82,10 +79,10 @@ model Moderation {
   approval          Boolean  @default(false)
   timestamp         DateTime @default(now())
   // moderator relation
-  moderator         User?    @relation(fields: [moderatorId], references: [id], onDelete: SetNull)
+  moderator         User?    @relation("Moderation", fields: [moderatorId], references: [id], onDelete: SetNull)
   moderatorId       String?
   // answer relation
-  answer            Answer   @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  answer            Answer   @relation("AnswerModerations", fields: [answerId], references: [id], onDelete: Cascade)
   answerId          String
 }
 
