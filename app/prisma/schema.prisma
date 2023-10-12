@@ -49,6 +49,7 @@ model Question {
   content      String            @db.VarChar(5000)
   // attachment relation
   attachments  ImageAttachment[]
+  category     String
   // question relation
   questioner   User?             @relation(fields: [questionerId], references: [id], onDelete: SetNull)
   questionerId String?
