@@ -12,7 +12,7 @@ export const getQuestion = publicProcedure
       quid: z.string(),
     })
   )
-  .mutation(async ({ input: { quid } }) => {
+  .query(async ({ input: { quid } }) => {
     const q = await prisma.question.findUnique({
       where: { id: quid },
       include: {
