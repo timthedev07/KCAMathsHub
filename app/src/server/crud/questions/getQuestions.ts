@@ -1,16 +1,13 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
-import { StudentStages } from "../../../types/StudentStage";
+import { StudentStages } from "../../../types/StudentStage.d";
 import { TRPCError } from "@trpc/server";
 
 export const getQuestions = publicProcedure
   .input(
     z.object({
-      category: z
-        .enum([...StudentStages, "all"])
-        .optional()
-        .default("all"),
+      category: z.enum(StudentStages).optional(), // undefined => all
       limit: z.number().max(50).min(10).optional().default(20),
       pageNum: z.number().min(1).optional().default(1),
       sortBy: z.enum(["timestamp"]).optional().default("timestamp"),
@@ -30,7 +27,6 @@ export const getQuestions = publicProcedure
         },
       });
     } catch (err: any) {
-      console.log(err);
       throw new TRPCError({
         code: "BAD_REQUEST",
         message: err?.message || "Unknown error.",
