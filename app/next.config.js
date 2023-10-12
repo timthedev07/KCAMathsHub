@@ -2,7 +2,8 @@
 const nextConfig = {
   images: {
     domains: [
-      `https://${process.env.S3_BUCKET_NAME}.s3-${process.env.AWS_REGION}.amazonaws.com/`,
+      `${process.env.S3_BUCKET_NAME}.s3-${process.env.AWS_REGION}.amazonaws.com/`,
+      "placehold.co",
     ],
   },
 };
