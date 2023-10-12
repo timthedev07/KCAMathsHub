@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
-import { getReferralLink } from "../../../lib/pageURLGen";
+import { pageURLs } from "../../../lib/pageURLGen";
 
 export const initReferral = publicProcedure
   .input(
@@ -19,5 +19,5 @@ export const initReferral = publicProcedure
         },
       },
     });
-    return getReferralLink(res.id);
+    return pageURLs.referralLink(res.id);
   });
