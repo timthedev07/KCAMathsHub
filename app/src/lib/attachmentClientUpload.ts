@@ -8,7 +8,6 @@ import { ImgUrlsType } from "../types/upload";
 export const uploadToAPI = async (
   files: FileWithIdAndObjURL[],
   addAttachments: (
-    // eslint-disable-next-line no-unused-vars
     _: inferRouterInputs<AppRouter>["addAttachments"]
   ) => Promise<inferRouterOutputs<AppRouter>["addAttachments"]>
 ) => {
