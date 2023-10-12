@@ -12,7 +12,7 @@ export const getQuestions = publicProcedure
         .optional()
         .default("all"),
       limit: z.number().max(50).min(10).optional().default(20),
-      pageNum: z.number().min(1),
+      pageNum: z.number().min(1).optional().default(1),
       sortBy: z.enum(["timestamp"]).optional().default("timestamp"),
       order: z.enum(["asc", "desc"]).optional().default("desc"),
     })
