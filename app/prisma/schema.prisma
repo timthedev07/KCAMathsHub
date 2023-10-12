@@ -47,6 +47,7 @@ model Question {
   id           String            @id @default(cuid())
   title        String            @db.VarChar(128)
   content      String            @db.VarChar(5000)
+  timestamp    DateTime          @default(now())
   // attachment relation
   attachments  ImageAttachment[]
   category     String
@@ -61,6 +62,7 @@ model Answer {
   id          String            @id @default(cuid())
   content     String            @db.VarChar(5000)
   helpful     Boolean?
+  timestamp   DateTime          @default(now())
   // attachments relation
   attachments ImageAttachment[]
   moderated   Boolean           @default(false)
