@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { acceptReferral } from "../../../lib/db/account/referral";
 import { HOST } from "../../../lib/hostAddr";
-import { genErrPageRoute } from "../../../lib/genErrPageRoute";
+import { genErrPageRoute } from "../../../lib/pageURLGen";
 import { TRPCError } from "@trpc/server";
 
 const GET = async (request: Request) => {
