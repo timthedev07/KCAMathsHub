@@ -17,7 +17,7 @@
   .dev-border-red {
     @apply border border-red-500 rounded-md;
   }
-  .dev-border-gree {
+  .dev-border-green {
     @apply border border-green-400 rounded-md;
   }
 }
