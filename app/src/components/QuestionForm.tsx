@@ -7,6 +7,9 @@ import { trpc } from "../trpc/client";
 import { Button } from "./reusable/Button";
 import { AttachmentUpload, FL } from "./AttachmentUpload";
 import { uploadToAPI } from "../lib/attachmentClientUpload";
+import { useRouter } from "next/navigation";
+import { pageURLs } from "../lib/pageURLGen";
+import { TRPCError } from "@trpc/server";
 
 interface QuestionFormProps {
   userId: string;
@@ -18,6 +21,7 @@ interface FormData {
 }
 
 export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
+  const { push } = useRouter();
   const [formData, setFormData] = useState<FormData>(() => ({
     title: "",
     content: "",
@@ -37,9 +41,10 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
 
     try {
       const quid = await ask({ ...formData, userId, attachmentIds: atts });
-      console.log(quid);
-    } catch (err: any) {
-      console.log(err);
+      push(pageURLs.question(quid));
+    } catch (err: unknown) {
+      const msg = (err as TRPCError).message;
+      push(pageURLs.error(msg));
     }
   };
 
