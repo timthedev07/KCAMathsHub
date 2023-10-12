@@ -1,10 +1,10 @@
-import { StudentStage } from "../types/StudentStage";
+import { StudentStageType } from "../types/StudentStage";
 import { getCurrYear } from "./getCurrYear";
 
 export const classifyKSCategory = (
   userJoinedDate: Date,
   userJoinedYear: number
-): StudentStage => {
+): StudentStageType => {
   const curr = getCurrYear(userJoinedDate, userJoinedYear);
 
   if (curr <= 6) {
