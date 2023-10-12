@@ -21,8 +21,7 @@
     "lint": "next lint",
     "dev:migrate": "dotenv -e .env.local -- prisma migrate dev --name",
     "dev:studio": "dotenv -e .env.local -- prisma studio",
-    "dev:db-push": "dotenv -e .env.local -- prisma db push",
-    "db-shell": "psql -h localhost -d KCAMathsHub_local -U postgres"
+    "dev:db-push": "dotenv -e .env.local -- prisma db push"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.427.0",
