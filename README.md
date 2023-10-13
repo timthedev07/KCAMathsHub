@@ -1,6 +1,6 @@
 # KCAMathsHub
 
-This is a project dedicated to provide an online platform for students to ask questions related to Math; this targets students from primary to KS4.
+This is a project dedicated to providing an online platform for students to ask questions related to Math; this targets students from primary to KS4.
 
 The stack:
 
@@ -11,10 +11,10 @@ The stack:
   - Tailwind
 - Backend
   - tRPC
-  - PostgresQL
+  - PostgreSQL
   - Prisma
 - Storage
-  - Mykola's Dad's MySQL
+  - MySQL
   - AWS S3
 
 ## Setup Instructions for Developers
@@ -27,7 +27,7 @@ Setup nodejs and yarn (package manager):
 npm install --global yarn
 ```
 
-Close the terminal window and open a new on your desktop.
+Close the terminal window and open a new one on your desktop.
 
 First, clone the repository and install deps:
 
