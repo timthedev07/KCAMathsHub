@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { TRPCProvider } from "../trpc/Provider";
+import { AppLayout } from "../components/AppLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className + ` bg-primary-bg text-text-color`}>
-        <TRPCProvider>{children}</TRPCProvider>
+    <html lang="en" className="bg-primary-bg text-text-color">
+      <body className={inter.className}>
+        <TRPCProvider>
+          <AppLayout>{children}</AppLayout>
+        </TRPCProvider>
       </body>
     </html>
   );

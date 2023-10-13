@@ -10,10 +10,15 @@ const config: Config = {
   safelist: ["bg-emerald-600", "bg-cyan-600", "bg-orange-600", "bg-red-600"], // these are for dev buttons, may be unnecessary in prod
   theme: {
     extend: {
+      gridTemplateRows: {
+        desktop: "70px auto",
+        tablet: "",
+      },
       colors: {
         "primary-bg": "#151517",
-        "primary-accent-bg": "#469ad7",
+        "primary-accent-bg": "#1b2033",
         "secondary-accent-bg": "#e67d3e",
+        "tertiary-accent-bg": "#469ad7",
         "text-color": "#e9e3e7",
         "aux-text-color": "#e9e3e7a0",
       },
