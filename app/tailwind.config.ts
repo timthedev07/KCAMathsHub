@@ -18,7 +18,7 @@ const config: Config = {
         "primary-bg": "#151517",
         "primary-accent-bg": "#1b2033",
         "secondary-accent-bg": "#e67d3e",
-        "tertiary-accent-bg": "#469ad7",
+        "tertiary-accent-bg": "#2284c9",
         "text-color": "#e9e3e7",
         "aux-text-color": "#e9e3e7a0",
       },
