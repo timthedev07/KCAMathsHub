@@ -36,7 +36,7 @@ export const Nav: FC<NavProps> = ({
 
       <div
         className={`transition-[width] ${transDuration} ${
-          sidebarOpen ? "w-5/6" : "w-full"
+          sidebarOpen ? "w-7/12 xmd:w-9/12 lg:w-5/6" : "w-full"
         } absolute bottom-0 right-0 border-b-2 border-b-slate-600/50`}
       ></div>
     </nav>

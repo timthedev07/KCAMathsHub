@@ -18,7 +18,7 @@ export const SideBar: FC<SidebarProps> = ({ open, bg, transDuration }) => {
         open
           ? "translate-x-0 ease-out opacity-100"
           : "-translate-x-full ease-in opacity-0"
-      } px-5 py-8 overflow-hidden row-start-2 row-end-3 col-start-1 col-end-3 overflow-y-auto z-10 scrollbar-in-light-bg`}
+      } px-5 py-8 overflow-hidden row-start-2 row-end-3 col-start-1 lg:col-end-3 xmd:col-end-4 col-end-6 overflow-y-auto z-10 scrollbar-in-light-bg`}
     >
       <ul
         className={`transition ${transDuration} ${

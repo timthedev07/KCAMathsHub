@@ -22,6 +22,7 @@ const config: Config = {
         "text-color": "#e9e3e7",
         "aux-text-color": "#e9e3e7a0",
       },
+      screens: { xmd: "880px" },
     },
   },
   plugins: [require("@headlessui/tailwindcss")],
