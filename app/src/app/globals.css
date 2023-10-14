@@ -2,7 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --scroll-bar-border: 3.5px solid rgba(0, 0, 0, 0);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6e6e6e;
+  border-radius: 100vw;
+  border: var(--scroll-bar-border);
+  background-clip: padding-box;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #878787;
+  border-radius: 100vw;
+  border: var(--scroll-bar-border);
+  background-clip: padding-box;
+}
+
 @layer utilities {
+  .scrollbar-in-light-bg::-webkit-scrollbar-track {
+    @apply bg-neutral-800;
+  }
+
   .scrollbar-no-space {
     overflow-y: auto;
     scrollbar-gutter: stable;
