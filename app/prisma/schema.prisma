@@ -44,18 +44,26 @@ model ImageAttachment {
 }
 
 model Question {
-  id           String            @id @default(cuid())
-  title        String            @db.VarChar(128)
-  content      String            @db.VarChar(5000)
-  timestamp    DateTime          @default(now())
+  id           String             @id @default(cuid())
+  title        String             @db.VarChar(128)
+  content      String             @db.VarChar(5000)
+  timestamp    DateTime           @default(now())
   // attachment relation
   attachments  ImageAttachment[]
   category     String
   // question relation
-  questioner   User?             @relation(fields: [questionerId], references: [id], onDelete: SetNull)
+  questioner   User?              @relation(fields: [questionerId], references: [id], onDelete: SetNull)
   questionerId String?
   // answer relation
   answer       Answer?
+  // categories relation
+  categories   QuestionCategory[] @relation("QuestionCategory")
+}
+
+model QuestionCategory {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique @db.VarChar(16)
+  questions Question[] @relation("QuestionCategory")
 }
 
 model Answer {
