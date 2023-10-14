@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { HomeSVG } from "../../../svgs/sidebar/Home";
+import { Hamburger } from "../../../svgs/sidebar/Hamburger";
 
 interface NavProps {
   className?: string;
@@ -23,9 +24,13 @@ export const Nav: FC<NavProps> = ({
           onClick={() => {
             if (onHomeClick) onHomeClick();
           }}
-          className="w-9 h-9 flex justify-center items-center bg-tertiary-accent-bg rounded-md"
+          className="w-9 h-9 flex justify-center group items-center bg-tertiary-accent-bg rounded-md"
         >
-          <HomeSVG className="w-6 h-6 cursor-pointer" />
+          <Hamburger
+            className={`${
+              sidebarOpen ? "rotate-180" : ""
+            } transition duration-300 fill-neutral-200 group-hover:fill-white w-5 h-5 cursor-pointer`}
+          />
         </button>
       </div>
 
