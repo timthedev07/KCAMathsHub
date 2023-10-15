@@ -21,7 +21,8 @@
     "lint": "next lint",
     "dev:migrate": "dotenv -e .env.local -- prisma migrate dev --name",
     "dev:studio": "dotenv -e .env.local -- prisma studio",
-    "dev:db-push": "dotenv -e .env.local -- prisma db push"
+    "dev:db-push": "dotenv -e .env.local -- prisma db push",
+    "prod:studio": "dotenv -e .env.prod -- prisma studio"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.427.0",
