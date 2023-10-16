@@ -23,6 +23,26 @@ const config: Config = {
         "aux-text-color": "#e9e3e7a0",
       },
       screens: { xmd: "880px" },
+      animation: {
+        "loading-grow": "loadingGrow 2s cubic-bezier(1,.11,0,.89) forwards",
+        appear: "appear 200ms ease-out forwards",
+      },
+      keyframes: () => ({
+        appear: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        loadingGrow: {
+          from: {
+            left: "0",
+            width: "0",
+          },
+          to: {
+            left: "0",
+            width: "100%",
+          },
+        },
+      }),
     },
   },
   plugins: [require("@headlessui/tailwindcss")],
