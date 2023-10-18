@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import {
   createContext,
   ReactNode,
@@ -29,8 +28,6 @@ export const useAppLoading = () => {
 export const AppLoadingProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const router = useRouter();
-
   const [appLoading, setAppLoading] = useState(false);
   const [withCover, setWithCover] = useState(false);
 
