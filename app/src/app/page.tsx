@@ -5,6 +5,8 @@ import { authOptions } from "./api/auth/[...nextauth]/route";
 import { InitReferral } from "../components/InitReferral";
 import { QuestionForm } from "../components/QuestionForm";
 import { QuestionsDisplay } from "../components/QuestionsDisplay";
+import { Message } from "../components/Message";
+import { LatexEditor } from "@/components/LatexEditor";
 
 const Home = async () => {
   const session = await getServerSession(authOptions);
@@ -14,6 +16,7 @@ const Home = async () => {
     <div className="p-8 sm:p-24 md:p-64 flex flex-col gap-12">
       <QuestionsDisplay />
       <SignInButton signedIn={!!session?.user} />
+      <LatexEditor />
       <div className="dev-border-red flex flex-col gap-4 p-12">
         <Link href="/account/signin">Sign In</Link>
         <Link href="/account/complete-signup">Complete Sign Up</Link>
