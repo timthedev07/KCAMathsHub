@@ -53,6 +53,7 @@ export const defaultSettingsCopilot: CreateThemeOptions["settings"] = {
   gutterBackground: c.background,
   gutterForeground: c.foreground,
   lineHighlight: c.activeLine,
+  gutterBorder: c.foreground,
 };
 
 export const latexTheme = createTheme({

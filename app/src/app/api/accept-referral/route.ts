@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "../../../lib/authoptions";
 import { acceptReferral } from "../../../lib/db/account/referral";
 import { HOST } from "../../../lib/hostAddr";
 import { pageURLs } from "../../../lib/pageURLGen";

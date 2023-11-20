@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { redirect } from "next/navigation";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
+import { authOptions } from "../../../lib/authoptions";
 import { getServerSession } from "next-auth/next";
 import { EnterUsername } from "../../../components/EnterUsername";
 

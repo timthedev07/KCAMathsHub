@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { SignInPanel } from "../../../components/SignInPanel";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
+import { authOptions } from "../../../lib/authoptions";
 import { redirect } from "next/navigation";
 
 const SignIn: NextPage = async () => {

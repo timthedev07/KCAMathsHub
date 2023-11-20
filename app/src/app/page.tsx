@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SignInButton } from "../components/SignInButton";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "../lib/authoptions";
 import { InitReferral } from "../components/InitReferral";
 import { QuestionForm } from "../components/QuestionForm";
 import { QuestionsDisplay } from "../components/QuestionsDisplay";
