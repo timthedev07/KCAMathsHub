@@ -2,11 +2,17 @@
 
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 
-interface UserExpandableProps {}
+interface UserExpandableProps {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-export const UserExpandable: FC<UserExpandableProps> = ({}) => {
+export const UserExpandable: FC<UserExpandableProps> = ({
+  isOpen,
+  setIsOpen,
+}) => {
   const { data } = useSession();
 
   const user = data?.user!; // we are sure that data?.user has to be nonnull
