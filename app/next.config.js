@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [
       `${process.env.S3_BUCKET_NAME}.s3-${process.env.AWS_REGION}.amazonaws.com/`,
       "placehold.co",
+      "lh3.googleusercontent.com",
     ],
   },
 };
