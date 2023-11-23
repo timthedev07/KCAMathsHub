@@ -5,16 +5,12 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
-  useEffect,
   useState,
 } from "react";
 
 interface AppLoadingContextType {
   appLoading: boolean;
-  setAppLoading: (
-    loading: SetStateAction<boolean>,
-    withCoverElement?: boolean
-  ) => void;
+  setAppLoading: (_: SetStateAction<boolean>, __?: boolean) => void;
 }
 const AppLoadingContext = createContext<AppLoadingContextType>({
   appLoading: true,
