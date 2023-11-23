@@ -3,20 +3,23 @@
 import { FC, ReactNode, useState } from "react";
 import { Nav } from "./basis/nav";
 import { SideBar } from "./basis/sidebar";
+import { Session } from "next-auth";
 
 interface AppLayoutProps {
   children: ReactNode;
+  session: Session | null;
 }
 
 const barsBG = "bg-primary-accent-bg";
 const barTransDuration = "duration-300";
 
-export const AppLayout: FC<AppLayoutProps> = ({ children }) => {
+export const AppLayout: FC<AppLayoutProps> = ({ children, session }) => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
   return (
     <div className="grid grid-cols-12 grid-rows-desktop overflow-hidden h-screen w-full">
       <Nav
+        session={session}
         transDuration={barTransDuration}
         sidebarOpen={sidebarOpen}
         bg={barsBG}
