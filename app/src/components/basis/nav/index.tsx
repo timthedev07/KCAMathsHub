@@ -1,6 +1,8 @@
 import { FC } from "react";
-import { HomeSVG } from "../../../svgs/sidebar/Home";
 import { Hamburger } from "../../../svgs/sidebar/Hamburger";
+import { SignInButton } from "../../SignInButton";
+import { ConditionalProfilePic } from "./ConditionalProfilePic";
+import { Session } from "next-auth";
 
 interface NavProps {
   className?: string;
@@ -8,6 +10,7 @@ interface NavProps {
   bg: string;
   sidebarOpen: boolean;
   transDuration: string;
+  session: Session | null;
 }
 
 export const Nav: FC<NavProps> = ({
@@ -16,10 +19,12 @@ export const Nav: FC<NavProps> = ({
   onHomeClick,
   sidebarOpen,
   transDuration,
+  session,
 }) => {
+  const u = session?.user;
   return (
-    <nav className={`${bg} py-4 ${className || ""} relative`}>
-      <div className="flex items-center justify-start gap-8 px-8">
+    <nav className={`${bg} ${className || ""} relative`}>
+      <div className="flex items-center justify-start gap-8 px-8 h-full">
         <button
           onClick={() => {
             if (onHomeClick) onHomeClick();
@@ -32,6 +37,13 @@ export const Nav: FC<NavProps> = ({
             } transition duration-300 fill-neutral-200 group-hover:fill-white w-5 h-5 cursor-pointer`}
           />
         </button>
+        <div className="ml-auto">
+          {u!! ? (
+            <ConditionalProfilePic user={u} />
+          ) : (
+            <SignInButton signedIn={false} />
+          )}
+        </div>
       </div>
 
       <div
