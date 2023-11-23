@@ -1,9 +1,9 @@
-import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { TRPCProvider } from "../trpc/Provider";
 import { AppLayout } from "../components/AppLayout";
 import { AppLoadingProvider } from "../components/TopLoadingBar";
+import { TRPCProvider } from "../trpc/Provider";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
