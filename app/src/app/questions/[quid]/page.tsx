@@ -1,17 +1,16 @@
 import { NextPage } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../lib/authoptions";
-import { SSRCaller } from "../../../server";
-import { redirect } from "next/navigation";
-import { pageURLs } from "../../../lib/pageURLGen";
 import Image from "next/image";
+import { redirect } from "next/navigation";
+import { getServerSession } from "../../../lib/authoptions";
+import { pageURLs } from "../../../lib/pageURLGen";
+import { SSRCaller } from "../../../server";
 
 interface Props {
   params: { quid: string };
 }
 
 const getSSRProps = async (quid: string) => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
   const question = await SSRCaller.getQuestion({ quid });
 
   if (!question) {

@@ -1,15 +1,14 @@
 import { NextPage } from "next";
-import { SignInPanel } from "../../../../components/SignInPanel";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../../lib/authoptions";
 import { redirect } from "next/navigation";
+import { SignInPanel } from "../../../../components/SignInPanel";
+import { getServerSession } from "../../../../lib/authoptions";
 
 interface Params {
   params: { r: string; success: string | null | undefined };
 }
 
 const P: NextPage<Params> = async ({ params: { r } }) => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
 
   if (session) {
     return redirect("/account/profile");

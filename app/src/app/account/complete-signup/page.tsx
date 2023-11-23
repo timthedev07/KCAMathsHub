@@ -1,11 +1,10 @@
 import { NextPage } from "next";
 import { redirect } from "next/navigation";
-import { authOptions } from "../../../lib/authoptions";
-import { getServerSession } from "next-auth/next";
 import { EnterUsername } from "../../../components/EnterUsername";
+import { getServerSession } from "../../../lib/authoptions";
 
 const CompleteSignup: NextPage = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
 
   if (!session?.user || !!session.user.username) redirect("/");
 

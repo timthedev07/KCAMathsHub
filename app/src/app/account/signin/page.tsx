@@ -1,11 +1,10 @@
 import { NextPage } from "next";
-import { SignInPanel } from "../../../components/SignInPanel";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../../lib/authoptions";
 import { redirect } from "next/navigation";
+import { SignInPanel } from "../../../components/SignInPanel";
+import { getServerSession } from "../../../lib/authoptions";
 
 const SignIn: NextPage = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
 
   if (session?.user) {
     return redirect("/account/profile");

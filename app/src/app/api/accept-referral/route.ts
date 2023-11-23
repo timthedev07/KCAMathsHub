@@ -1,12 +1,11 @@
+import { TRPCError } from "@trpc/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../../lib/authoptions";
 import { acceptReferral } from "../../../lib/db/account/referral";
 import { HOST } from "../../../lib/hostAddr";
 import { pageURLs } from "../../../lib/pageURLGen";
-import { TRPCError } from "@trpc/server";
 
 const GET = async (request: Request) => {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession();
 
   const u = session?.user;
 
