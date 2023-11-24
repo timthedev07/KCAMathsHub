@@ -21,7 +21,8 @@ const config: Config = {
         "tertiary-accent-bg": "#2284c9",
         "text-color": "#e9e3e7",
         "aux-text-color": "#e9e3e7a0",
-        "footer-bg": "#395f91",
+        "footer-bg-a": "#1f3270",
+        "footer-bg-b": "#2e4180",
       },
       screens: { xmd: "880px" },
       animation: {
