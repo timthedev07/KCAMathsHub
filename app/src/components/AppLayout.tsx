@@ -4,6 +4,7 @@ import { FC, ReactNode, useState } from "react";
 import { Nav } from "./basis/nav";
 import { SideBar } from "./basis/sidebar";
 import { Session } from "next-auth";
+import { Footer } from "./basis/footer";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -33,7 +34,7 @@ export const AppLayout: FC<AppLayoutProps> = ({ children, session }) => {
       />
       <div className="row-start-2 row-end-3 col-span-full overflow-y-auto">
         <main>{children}</main>
-        <footer className="bg-secondary-accent-bg h-96"></footer>
+        <Footer />
       </div>
     </div>
   );
