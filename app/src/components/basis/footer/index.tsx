@@ -3,51 +3,78 @@ import { LogoSVG } from "../../Logo";
 
 interface FooterProps {}
 
-const sBase = "flex-col flex flex-1 gap-8";
-const bt = "border-b border-slate-300/30 lg:border-0 pt-4 lg:pt-0 h-14";
-
 const FooterSection: FC<{ heading: string; children?: ReactNode }> = ({
   children,
   heading,
 }) => {
   return (
-    <section className={`${sBase} mt-10`}>
-      <h3 className={`${bt} font-semibold text-xl`}>{heading}</h3>
-      <div className={"text-slate-300"}>{children}</div>
-    </section>
+    <div>
+      <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase text-white">{heading}</h2>
+      <ul className="text-gray-500 text-gray-400 font-medium">
+          {children}
+      </ul>
+    </div>
   );
 };
 
 export const Footer: FC<FooterProps> = ({}) => {
   return (
-    <footer className="bg-gradient-to-br from-footer-bg-a to-slate-800 from-0% to-80% flex flex-col">
-      <section className="flex min-h-[384px] justify-center px-16 lg:px-24 py-20 gap-16 flex-col lg:flex-row">
-        <section
-          className={`${sBase} w-full min-w-[25%] items-center justify-start`}
-        >
-          <div className="flex w-[80%] lg:w-auto justify-center items-center gap-2 rounded-lg p-4 px-8 glass-morphism border-slate-300/20 border bg-opacity-30 bg-slate-900">
-            <LogoSVG className="w-16 h-16" />
-            <h1 className="font-bold font-roboto text-2xl">KCAMathsHub</h1>
+    <footer className="bg-white dark:bg-slate-900">
+        <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+            <div className="md:flex md:justify-between">
+              <div className="flex w-[80%] lg:w-auto justify-center items-center gap-2 rounded-lg p-4 px-8 glass-morphism border-slate-300/20 border bg-opacity-30 bg-slate-900">
+                <LogoSVG className="w-16 h-16" />
+                <h1 className="font-bold font-roboto text-2xl">KCAMathsHub</h1>
+              </div>
+              <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                <FooterSection heading="Creators">
+                  <li className="mb-4">
+                    Tim Bao
+                  </li>
+                  <li className="mb-4">
+                    Mykola Starovoit
+                  </li>  
+                  <li>
+                    Elena Zhuang
+                  </li>
+                </FooterSection>
+                <FooterSection heading="Legal">
+                  <li className="mb-4">
+                    <a href="#" className="hover:underline">Privacy Policy</a>
+                  </li>
+                  <li>
+                      <a href="#" className="hover:underline">Terms &amp; Conditions</a>
+                  </li>
+                </FooterSection>
+                <FooterSection heading="Contact us">
+                    <li className="mb-4">
+                      mikola.sta@kcpupil.org
+                    </li>
+                    <li className="mb-4">
+                      tim.bao@kcpupils.org
+                    </li>
+                    <li>
+                      elena.zhu@kcpupils.org
+                    </li>
+                </FooterSection>
+              </div>
           </div>
-        </section>
-        <FooterSection heading="Creators">
-          <ul>
-            <li>Tim</li>
-            <li>Mykola</li>
-            <li>Elena</li>
-          </ul>
-        </FooterSection>
-        <FooterSection heading="Links"></FooterSection>
-        <FooterSection heading="Contact us"></FooterSection>
-      </section>
-      <section className="h-24">
-        <hr className="w-[70%] mx-auto border-0 bg-slate-400/50 h-[1px]" />
-        <div className="px-36 flex items-center justify-end h-full">
-          <span className="text-sm text-slate-300">
-            2023-{new Date().getFullYear()} &copy; Tim, Mykola & Elena
-          </span>
+          <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+          <div className="sm:flex sm:items-center sm:justify-between">
+              <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">`2023-{new Date().getFullYear()} &copy; Tim, Mykola & Elena`
+              </span>
+              <div className="flex mt-4 sm:justify-center sm:mt-0">
+                  <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                      "Inst, twitter logos"
+                  </a>
+              </div>
+          </div>
         </div>
-      </section>
     </footer>
+
   );
 };
+
+
+
+
