@@ -5,7 +5,9 @@ const nextConfig = {
       `${process.env.S3_BUCKET_NAME}.s3-${process.env.AWS_REGION}.amazonaws.com/`,
       "placehold.co",
       "lh3.googleusercontent.com",
-    ],
+    ].map((each) => {
+      return { hostname: each };
+    }),
   },
 };
 
