@@ -6,6 +6,7 @@ import { getReferral } from "./crud/user/getReferralId";
 import { askQuestion } from "./crud/questions/askQuestion";
 import { getQuestion } from "./crud/questions/getQuestion";
 import { getQuestions } from "./crud/questions/getQuestions";
+import { getUser } from "./crud/user/getUser";
 
 export const appRouter = router({
   updateUsername,
@@ -15,6 +16,7 @@ export const appRouter = router({
   askQuestion,
   getQuestion,
   getQuestions,
+  getUser,
 });
 
 export type AppRouter = typeof appRouter;
