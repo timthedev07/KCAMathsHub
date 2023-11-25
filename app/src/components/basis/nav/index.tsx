@@ -23,7 +23,7 @@ export const Nav: FC<NavProps> = ({
 }) => {
   const u = session?.user;
   return (
-    <nav className={`${bg} ${className || ""} relative`}>
+    <nav className={`${bg} ${className || ""} relative z-20`}>
       <div className="flex items-center justify-start gap-8 px-8 h-full">
         <button
           onClick={() => {

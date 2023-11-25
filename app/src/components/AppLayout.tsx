@@ -31,6 +31,7 @@ export const AppLayout: FC<AppLayoutProps> = ({ children, session }) => {
         transDuration={barTransDuration}
         bg={barsBG}
         open={sidebarOpen}
+        setOpen={setSidebarOpen}
       />
       <div className="row-start-2 row-end-3 col-span-full overflow-y-auto">
         <main>{children}</main>
