@@ -2,22 +2,32 @@ import { Dispatch, FC, SetStateAction } from "react";
 import { Item } from "./Item";
 import { HomeSVG } from "../../../svgs/sidebar/Home";
 import { AccountSVG } from "../../../svgs/sidebar/Account";
-import { signOut } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { LogoutSVG } from "../../../svgs/sidebar/Logout";
+import { Session } from "next-auth";
+import { LoginSVG } from "../../../svgs/sidebar/Login";
+import { AskSVG } from "../../../svgs/sidebar/Ask";
 
 interface SidebarProps {
   open: boolean;
   bg: string;
   transDuration: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  session: Session | null;
 }
+
+const SidebarSep = () => {
+  return <hr className="opacity-50 bg-slate-600 border-slate-600" />;
+};
 
 export const SideBar: FC<SidebarProps> = ({
   open,
   bg,
   transDuration,
   setOpen,
+  session,
 }) => {
+  const loggedIn = !!session?.user;
   return (
     <>
       <aside
@@ -33,14 +43,19 @@ export const SideBar: FC<SidebarProps> = ({
           } flex flex-col gap-4`}
         >
           <Item action="/" text="Home" Icon={HomeSVG} />
+          <Item action="/questions/ask" text="Ask Question" Icon={AskSVG} />
           <Item action="/account" text="Account" Icon={AccountSVG} />
-          <hr className="opacity-50 bg-slate-600 border-slate-600" />
+          <SidebarSep />
           <Item
             action={async () => {
-              await signOut();
+              if (loggedIn) {
+                await signOut();
+              } else {
+                await signIn();
+              }
             }}
-            text="Log out"
-            Icon={LogoutSVG}
+            text={loggedIn ? "Sign out" : "Sign in"}
+            Icon={loggedIn ? LogoutSVG : LoginSVG}
           />
         </ul>
       </aside>
