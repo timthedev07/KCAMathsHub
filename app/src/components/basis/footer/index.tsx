@@ -20,7 +20,7 @@ const FooterSection: FC<{ heading: string; children?: ReactNode }> = ({
   heading,
 }) => {
   return (
-    <section className={`${sBase} mt-8`}>
+    <section className={`${sBase} mt-8 lg:mt-0`}>
       <h3
         className={`border-b border-slate-300/30 lg:border-0 pt-4 lg:pt-0 h-12 lg:h-auto lg:mb-2 font-semibold uppercase`}
       >
@@ -36,7 +36,7 @@ export const Footer: FC<FooterProps> = ({}) => {
   const startY = 2023;
   return (
     <footer className="bg-gradient-to-br from-footer-bg-a to-slate-950 from-0% to-80% flex flex-col lg:px-24">
-      <section className="flex lg:h-72 h-max justify-center py-20 gap-16 flex-col lg:flex-row">
+      <section className="flex lg:h-72 h-max justify-center py-16 gap-16 flex-col lg:flex-row">
         <section
           className={`${sBase} w-full h-32 lg:h-full flex-1 items-center lg:items-start justify-center`}
         >
