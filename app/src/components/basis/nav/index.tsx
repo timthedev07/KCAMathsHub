@@ -38,7 +38,7 @@ export const Nav: FC<NavProps> = ({
           />
         </button>
         <div className="ml-auto">
-          {u!! ? (
+          {!!u ? (
             <ConditionalProfilePic user={u} />
           ) : (
             <SignInButton signedIn={false} />
