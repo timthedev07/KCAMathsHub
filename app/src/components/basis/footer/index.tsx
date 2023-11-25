@@ -20,7 +20,7 @@ const FooterSection: FC<{ heading: string; children?: ReactNode }> = ({
 
 export const Footer: FC<FooterProps> = ({}) => {
   return (
-    <footer className="bg-gradient-to-br from-footer-bg-a to-slate-900 from-0% to-80% flex flex-col">
+    <footer className="bg-gradient-to-br from-footer-bg-a to-slate-950 from-0% to-80% flex flex-col">
       <section className="flex min-h-[384px] justify-center px-16 lg:px-36 py-20 gap-16 flex-col lg:flex-row">
         <section
           className={`${sBase} w-full min-w-[25%] items-center justify-start`}
