@@ -3,7 +3,7 @@ import { LogoSVG } from "../../Logo";
 
 interface FooterProps {}
 
-const sBase = "flex-col flex flex-1 gap-8";
+const sBase = "flex-col flex flex-1 gap-8 lg:gap-0";
 const bt = "border-b border-slate-300/30 lg:border-0 pt-4 lg:pt-0 h-14";
 
 const FooterSection: FC<{ heading: string; children?: ReactNode }> = ({
@@ -20,8 +20,8 @@ const FooterSection: FC<{ heading: string; children?: ReactNode }> = ({
 
 export const Footer: FC<FooterProps> = ({}) => {
   return (
-    <footer className="bg-gradient-to-br from-footer-bg-a to-slate-800 from-0% to-80% flex flex-col">
-      <section className="flex min-h-[384px] justify-center px-16 lg:px-24 py-20 gap-16 flex-col lg:flex-row">
+    <footer className="bg-gradient-to-br from-footer-bg-a to-slate-900 from-0% to-80% flex flex-col">
+      <section className="flex min-h-[384px] justify-center px-16 lg:px-36 py-20 gap-16 flex-col lg:flex-row">
         <section
           className={`${sBase} w-full min-w-[25%] items-center justify-start`}
         >
@@ -30,15 +30,18 @@ export const Footer: FC<FooterProps> = ({}) => {
             <h1 className="font-bold font-roboto text-2xl">KCAMathsHub</h1>
           </div>
         </section>
-        <FooterSection heading="Creators">
-          <ul>
-            <li>Tim</li>
-            <li>Mykola</li>
-            <li>Elena</li>
-          </ul>
-        </FooterSection>
-        <FooterSection heading="Links"></FooterSection>
-        <FooterSection heading="Contact us"></FooterSection>
+        <div className="flex flex-col lg:flex-row gap-24">
+          {" "}
+          <FooterSection heading="Creators">
+            <ul>
+              <li>Tim</li>
+              <li>Mykola</li>
+              <li>Elena</li>
+            </ul>
+          </FooterSection>
+          <FooterSection heading="Links"></FooterSection>
+          <FooterSection heading="Contact us"></FooterSection>
+        </div>
       </section>
       <section className="h-24">
         <hr className="w-[70%] mx-auto border-0 bg-slate-400/50 h-[1px]" />
