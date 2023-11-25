@@ -43,8 +43,8 @@ export const SideBar: FC<SidebarProps> = ({
           } flex flex-col gap-4`}
         >
           <Item action="/" text="Home" Icon={HomeSVG} />
-          <Item action="/questions/ask" text="Ask Question" Icon={AskSVG} />
           <Item action="/account" text="Account" Icon={AccountSVG} />
+          <Item action="/questions/ask" text="Ask Question" Icon={AskSVG} />
           <SidebarSep />
           <Item
             action={async () => {
