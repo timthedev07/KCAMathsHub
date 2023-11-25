@@ -90,10 +90,10 @@ export const Footer: FC<FooterProps> = ({}) => {
         <div className="flex items-center justify-between h-full ">
           <div className="flex gap-4">
             <Link href="" passHref>
-              <InstagramSVG className="w-8 text-slate-300" />
+              <InstagramSVG className="w-7 text-slate-200" />
             </Link>
             <Link href="" passHref>
-              <XSVG className="w-8  text-slate-300" />
+              <XSVG className="w-7 text-slate-200" />
             </Link>
           </div>
           <span className="text-sm text-slate-300">
