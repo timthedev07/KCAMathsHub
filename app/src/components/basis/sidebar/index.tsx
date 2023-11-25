@@ -7,6 +7,7 @@ import { LogoutSVG } from "../../../svgs/sidebar/Logout";
 import { Session } from "next-auth";
 import { LoginSVG } from "../../../svgs/sidebar/Login";
 import { AskSVG } from "../../../svgs/sidebar/Ask";
+import { JoinSVG } from "../../../svgs/sidebar/Join";
 
 interface SidebarProps {
   open: boolean;
@@ -44,7 +45,12 @@ export const SideBar: FC<SidebarProps> = ({
         >
           <Item action="/" text="Home" Icon={HomeSVG} />
           <Item action="/account" text="Account" Icon={AccountSVG} />
-          <Item action="/questions/ask" text="Ask Question" Icon={AskSVG} />
+          <Item action="/questions/ask" text="Ask question" Icon={AskSVG} />
+          <Item
+            action="https://forms.gle/BdoFRQmFPEbjunpb9"
+            text="Join our team"
+            Icon={JoinSVG}
+          />
           <SidebarSep />
           <Item
             action={async () => {
