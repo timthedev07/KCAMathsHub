@@ -56,7 +56,7 @@
   }
 
   .glass-morphism {
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    box-shadow: 0 8px 32px 0 rgba(30, 39, 158, 0.37);
     backdrop-filter: blur(11px);
     -webkit-backdrop-filter: blur(11px);
   }
