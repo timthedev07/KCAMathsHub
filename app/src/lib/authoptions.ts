@@ -21,6 +21,9 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/user/signin",
   },
+  session: {
+    strategy: "jwt",
+  },
   callbacks: {
     async signIn({ user /**account, profile, email, credentials */ }) {
       // only allow internal users
