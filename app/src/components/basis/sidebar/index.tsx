@@ -44,7 +44,7 @@ export const SideBar: FC<SidebarProps> = ({
           } flex flex-col gap-4`}
         >
           <Item action="/" text="Home" Icon={HomeSVG} />
-          <Item action="/account" text="Account" Icon={AccountSVG} />
+          <Item action="/user/profile" text="Account" Icon={AccountSVG} />
           <Item action="/questions/ask" text="Ask question" Icon={AskSVG} />
           <Item
             action="https://forms.gle/BdoFRQmFPEbjunpb9"
