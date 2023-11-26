@@ -7,6 +7,7 @@ import { AuthOptions, getServerSession as _ } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "../db";
 import { PrismaAdapter } from "./prismaAdapter";
+import { Role } from "../types/role";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -53,6 +54,10 @@ export const authOptions: AuthOptions = {
       session.user.username = user.username;
       session.user.inquirerReputation = user.inquirerReputation;
       return session;
+    },
+    async jwt({ token, user }) {
+      token.role = user.role as Role;
+      return token;
     },
   },
 };
