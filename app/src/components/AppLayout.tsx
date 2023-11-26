@@ -11,7 +11,7 @@ interface AppLayoutProps {
   session: Session | null;
 }
 
-const barsBG = "bg-primary-accent-bg";
+const barsBG = "bg-primary-bg";
 const barTransDuration = "duration-300";
 
 export const AppLayout: FC<AppLayoutProps> = ({ children, session }) => {

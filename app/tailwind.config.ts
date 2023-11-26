@@ -15,7 +15,7 @@ const config: Config = {
         tablet: "",
       },
       colors: {
-        "primary-bg": "#151517",
+        "primary-bg": "#09090a",
         "primary-accent-bg": "#1b2033",
         "secondary-accent-bg": "#e67d3e",
         "tertiary-accent-bg": "#2284c9",
