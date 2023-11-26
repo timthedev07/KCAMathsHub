@@ -43,16 +43,28 @@ export const SideBar: FC<SidebarProps> = ({
             open ? "blur-none" : "blur-sm"
           } flex flex-col gap-4`}
         >
-          <Item action="/" text="Home" Icon={HomeSVG} />
-          <Item action="/user/profile" text="Account" Icon={AccountSVG} />
-          <Item action="/questions/ask" text="Ask question" Icon={AskSVG} />
+          <Item setOpen={setOpen} action="/" text="Home" Icon={HomeSVG} />
           <Item
+            setOpen={setOpen}
+            action="/user/profile"
+            text="Account"
+            Icon={AccountSVG}
+          />
+          <Item
+            setOpen={setOpen}
+            action="/questions/ask"
+            text="Ask question"
+            Icon={AskSVG}
+          />
+          <Item
+            setOpen={setOpen}
             action="https://forms.gle/BdoFRQmFPEbjunpb9"
             text="Join our team"
             Icon={JoinSVG}
           />
           <SidebarSep />
           <Item
+            setOpen={setOpen}
             action={async () => {
               if (loggedIn) {
                 await signOut();
