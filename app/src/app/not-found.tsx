@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const NotFound: NextPage = () => {
   const router = useRouter();
   return (
-    <div className="w-full h-[90vh] flex flex-col gap-10 justify-center items-center pt-24 text-center">
+    <div className="w-full flex flex-col gap-10 justify-center items-center pt-24 text-center">
       <h1 className="text-red-400 font-bold text-8xl">404</h1>
       <h4 className="text-red-200/80 text-lg font-semibold">Page not Found</h4>
       <div className="w-full flex justify-center items-center gap-10">
