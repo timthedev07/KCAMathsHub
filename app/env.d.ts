@@ -3,6 +3,7 @@ declare global {
     interface ProcessEnv {
       NEXTAUTH_SECRET: string;
       DATABASE_URL: string;
+      NEXTAUTH_URL: string;
       GOOGLE_CLIENT_ID: string;
       GOOGLE_CLIENT_SECRET: string;
       AWS_ACCESS_KEY_ID: string;
@@ -13,4 +14,4 @@ declare global {
   }
 }
 
-export {};
+export {}
