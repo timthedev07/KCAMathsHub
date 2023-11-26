@@ -7,7 +7,7 @@ const SignIn: NextPage = async () => {
   const session = await getServerSession();
 
   if (session?.user) {
-    return redirect("/account/profile");
+    return redirect("/user/profile");
   }
 
   return (

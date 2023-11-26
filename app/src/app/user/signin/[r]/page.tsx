@@ -10,8 +10,8 @@ interface Params {
 const P: NextPage<Params> = async ({ params: { r } }) => {
   const session = await getServerSession();
 
-  if (session) {
-    return redirect("/account/profile");
+  if (session?.user) {
+    return redirect("/user/profile");
   }
 
   return (

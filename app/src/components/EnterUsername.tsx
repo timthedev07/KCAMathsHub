@@ -27,11 +27,11 @@ export const EnterUsername: FC<EnterUsernameProps> = ({ id }) => {
             { id, username },
             {
               onSuccess: () => {
-                router.push("/account/profile");
+                router.push("/user/profile");
               },
               onError: (e) => {
                 console.log(e.message);
-                router.push("/account/profile");
+                router.push("/user/profile");
               },
             }
           );

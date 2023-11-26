@@ -19,7 +19,7 @@ export const authOptions: AuthOptions = {
   ],
   secret: process.env.NEXT_AUTH_SECRET,
   pages: {
-    signIn: "/account/signin",
+    signIn: "/user/signin",
   },
   callbacks: {
     async signIn({ user /**account, profile, email, credentials */ }) {

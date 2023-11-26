@@ -11,7 +11,7 @@ const UserProfile: NextPage<Params> = async ({ params: { uid } }) => {
   const session = await getServerSession();
 
   if (session?.user && session.user.id === uid) {
-    return redirect("/account/profile");
+    return redirect("/user/profile");
   }
 
   const u = await getServerUser(uid);

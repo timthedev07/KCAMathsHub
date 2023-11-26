@@ -2,7 +2,7 @@ import { HOST } from "./hostAddr";
 
 export const pageURLs = {
   referral(referralId: string) {
-    return `${HOST}/account/signin/${referralId}`;
+    return `${HOST}/user/signin/${referralId}`;
   },
   error(msg?: string) {
     return `${HOST}/error?err=${msg}`;

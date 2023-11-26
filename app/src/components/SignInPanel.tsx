@@ -6,7 +6,7 @@ import { OAuthButton } from "react-auth-provider-buttons";
 import { HOST } from "../lib/hostAddr";
 
 interface SignInPanelProps {
-  r?: string | null; // from /account/signin/[r]
+  r?: string | null; // from /user/signin/[r]
 }
 
 export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
