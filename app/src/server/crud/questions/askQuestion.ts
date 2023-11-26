@@ -3,6 +3,7 @@ import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
 import { TRPCError } from "@trpc/server";
 import { classifyKSCategory } from "../../../lib/classifyKSCategory";
+import { getCurrYear } from "../../../lib/getCurrYear";
 
 export const TITLE_LIMIT = [8, 128];
 export const CONTENT_LIMIT = [50, 5000];
@@ -62,6 +63,7 @@ export const askQuestion = publicProcedure
           },
           questioner: { connect: { id: userId } },
           category: classifyKSCategory(u.joinedDate, u.joinedYear),
+          yearGroupAsked: getCurrYear(u.joinedDate, u.joinedYear),
         },
       });
       finalId = askedQuestion.id;
