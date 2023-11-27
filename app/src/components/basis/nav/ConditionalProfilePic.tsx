@@ -24,7 +24,7 @@ export const ConditionalProfilePic: FC<ConditionalProfilePicProps> = ({
           <Image
             fill
             src={user.image || ""}
-            className="rounded-full"
+            className="rounded-full select-none"
             alt="profile image"
           />
         </div>
