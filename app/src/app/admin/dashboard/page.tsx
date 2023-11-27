@@ -1,7 +1,13 @@
 import { NextPage } from "next";
+import { withAccessGuard } from "../../../lib/accessGuard";
+import { WithSessionProps } from "../../../types/withSessionPage";
 
-const AdminDashboard: NextPage = () => {
+const AdminDashboard: NextPage<WithSessionProps> = () => {
   return <></>;
 };
 
-export default AdminDashboard;
+export default await withAccessGuard(
+  AdminDashboard,
+  "admin",
+  "/error?msg=Shit"
+);

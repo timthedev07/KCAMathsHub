@@ -1,10 +1,11 @@
 import { NextPage } from "next";
-import { getServerSession } from "../../../lib/authoptions";
+import { withAccessGuard } from "../../../lib/accessGuard";
+import { WithSessionProps } from "../../../types/withSessionPage";
 
-const Profile: NextPage = async () => {
-  const u = (await getServerSession())?.user;
+const Profile: NextPage<WithSessionProps> = async ({ session }) => {
+  const u = session?.user;
 
   return <div className="p-32">{JSON.stringify(u, null, 2)}</div>;
 };
 
-export default Profile;
+export default await withAccessGuard(Profile, "inquirer");
