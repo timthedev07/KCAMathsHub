@@ -22,7 +22,7 @@ export const authOptions: AuthOptions = {
     signIn: "/user/signin",
   },
   session: {
-    strategy: "jwt",
+    strategy: "database",
   },
   callbacks: {
     async signIn({ user /**account, profile, email, credentials */ }) {
