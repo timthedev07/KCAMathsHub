@@ -1,22 +1,21 @@
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC } from "react";
 
+export type ButtonColor =
+  | "purple-blue"
+  | "cyan-blue"
+  | "green-blue"
+  | "purple-pink"
+  | "pink-orange";
+
 export interface ButtonProps
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  color?: "orange" | "emerald" | "cyan" | "red";
+  color: ButtonColor;
+  variant: "solid" | "outlined";
 }
 
-export const Button: FC<ButtonProps> = ({
-  color = "emerald",
-  className: _,
-  ...props
-}) => {
-  return (
-    <button
-      {...props}
-      className={`px-3 py-2 rounded-md bg-${color}-600 text-white font-bold`}
-    ></button>
-  );
+export const Button: FC<ButtonProps> = ({ ...props }) => {
+  return <button {...props} className=""></button>;
 };
