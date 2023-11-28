@@ -6,6 +6,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/reusable-vars/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/flowbite-react/**/*.js",
   ],
   safelist: ["bg-emerald-600", "bg-cyan-600", "bg-orange-600", "bg-red-600"], // these are for dev buttons, may be unnecessary in prod
   theme: {
