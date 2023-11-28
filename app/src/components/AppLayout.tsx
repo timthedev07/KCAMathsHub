@@ -35,7 +35,7 @@ export const AppLayout: FC<AppLayoutProps> = ({ children, session }) => {
         session={session}
       />
       <div className="row-start-2 row-end-3 col-span-full overflow-y-auto">
-        <main className="min-h-[90vh]">{children}</main>
+        <main className="min-h-[95vh]">{children}</main>
         <Footer />
       </div>
     </div>
