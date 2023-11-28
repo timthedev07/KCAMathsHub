@@ -1,7 +1,7 @@
 "use client";
 import { NextPage } from "next";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "../../components/reusable/Button";
+import { Button } from "flowbite-react";
 
 const ErrorPage: NextPage = () => {
   const { get } = useSearchParams();

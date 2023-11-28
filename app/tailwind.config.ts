@@ -45,6 +45,6 @@ const config: Config = {
       }),
     },
   },
-  plugins: [require("@headlessui/tailwindcss")],
+  plugins: [require("flowbite/plugin")],
 };
 export default config;

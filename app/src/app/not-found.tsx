@@ -3,6 +3,7 @@
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Button } from "flowbite-react";
 
 const NotFound: NextPage = () => {
   const router = useRouter();
@@ -18,7 +19,9 @@ const NotFound: NextPage = () => {
         >
           Previous
         </button>
-        <Link href="/">Home</Link>
+        <Link href="/" passHref>
+          <Button color="purple-blue">Home</Button>
+        </Link>
       </div>
     </div>
   );

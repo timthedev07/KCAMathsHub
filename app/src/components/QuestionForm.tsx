@@ -4,7 +4,7 @@ import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { Input } from "./reusable/Input";
 import { TextArea } from "./reusable/TextArea";
 import { trpc } from "../trpc/client";
-import { Button } from "./reusable/Button";
+import { Button } from "flowbite-react";
 import { AttachmentUpload, FL } from "./AttachmentUpload";
 import { uploadToAPI } from "../lib/attachmentClientUpload";
 import { useRouter } from "next/navigation";
