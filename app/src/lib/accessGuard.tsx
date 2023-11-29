@@ -19,7 +19,13 @@ const redirectWrapped = (redirectURL: string) => {
 export const withAccessGuard = async <T,>(
   Page: NextPage<WithSessionProps<T>>,
   role: AccessRole,
-  rejectionRedirectUrl: string = "/"
+  rejectionRedirectUrls: {
+    unauthed: string;
+    noAccess: string;
+  } = {
+    unauthed: "/user/signin",
+    noAccess: "/",
+  }
 ) => {
   const session = await getServerSession();
   const u = session?.user;
@@ -27,30 +33,30 @@ export const withAccessGuard = async <T,>(
 
   // if the page requires authentication but the user is not logged in
   if (role !== "public" && !u) {
-    return redirectWrapped(rejectionRedirectUrl);
+    return redirectWrapped(rejectionRedirectUrls.unauthed);
   }
 
   switch (role) {
     case "admin": {
       if (userRole !== "admin") {
-        return redirectWrapped(rejectionRedirectUrl);
+        return redirectWrapped(rejectionRedirectUrls.noAccess);
       }
     }
     case "moderator": {
       if (!roleChecker(userRole, ["admin", "moderator"])) {
-        return redirectWrapped(rejectionRedirectUrl);
+        return redirectWrapped(rejectionRedirectUrls.noAccess);
       }
     }
     case "answerer": {
       if (!roleChecker(userRole, ["admin", "moderator", "answerer"])) {
-        return redirectWrapped(rejectionRedirectUrl);
+        return redirectWrapped(rejectionRedirectUrls.noAccess);
       }
     }
     case "inquirer": {
       if (
         !roleChecker(userRole, ["admin", "moderator", "answerer", "inquirer"])
       ) {
-        return redirectWrapped(rejectionRedirectUrl);
+        return redirectWrapped(rejectionRedirectUrls.noAccess);
       }
     }
   }
