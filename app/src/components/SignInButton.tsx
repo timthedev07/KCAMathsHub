@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "flowbite-react";
 import { signIn, signOut } from "next-auth/react";
 import { FC } from "react";
 
@@ -8,14 +9,15 @@ interface SignInButtonProps {
 
 export const SignInButton: FC<SignInButtonProps> = ({ signedIn }) => {
   return (
-    <button
+    <Button
       onClick={() => {
         if (signedIn) signOut();
         else signIn("google");
       }}
-      className="px-4 py-2 flex justify-center text-black items-center font-bold rounded-md bg-slate-300"
+      color="blue"
+      className="font-bold"
     >
       Sign {signedIn ? "out" : "in"}
-    </button>
+    </Button>
   );
 };

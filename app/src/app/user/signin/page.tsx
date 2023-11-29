@@ -11,10 +11,7 @@ const SignIn: NextPage = async () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <h1 className="w-full text-center dev-orange-border p-24 font-2xl">
-        SIGN IN NOW
-      </h1>
+    <div className="w-full flex min-h-[90vh] flex-col justify-center items-center">
       <SignInPanel />
     </div>
   );
