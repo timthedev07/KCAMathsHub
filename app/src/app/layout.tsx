@@ -5,6 +5,7 @@ import { AppLoadingProvider } from "../components/TopLoadingBar";
 import { TRPCProvider } from "../trpc/Provider";
 import "./globals.css";
 import { getServerSession } from "../lib/authoptions";
+import { ThemeModeScript } from "flowbite-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,9 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en" className="bg-primary-bg text-text-color">
+      <head>
+        <ThemeModeScript mode="dark" />
+      </head>
       <body className={inter.className}>
         <TRPCProvider>
           <AppLoadingProvider>
