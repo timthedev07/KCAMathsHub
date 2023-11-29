@@ -52,6 +52,7 @@
     "react-auth-provider-buttons": "^0.0.4",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-icons": "^4.12.0",
     "react-latex": "^2.0.0",
     "sharp": "^0.32.6",
     "zod": "^3.22.4"
