@@ -6,11 +6,11 @@ import { WithSessionProps } from "../types/withSessionPage";
 
 export const roleChecker = (userRoles: Role[], targetRoles: Role[]) => {
   for (const targetRole of targetRoles) {
-    if (!userRoles.includes(targetRole)) {
-      return false;
+    if (userRoles.includes(targetRole)) {
+      return true;
     }
   }
-  return true;
+  return false;
 };
 
 const redirectWrapped = (redirectURL: string) => {
@@ -38,6 +38,9 @@ export const withAccessGuard = async <T,>(
   if (!u || !userRoles) {
     return redirectWrapped(rejectionRedirectUrls.unauthed);
   }
+
+  console.log(userRoles);
+  console.log(acceptedRoles);
 
   if (!roleChecker(userRoles, acceptedRoles)) {
     return redirectWrapped(rejectionRedirectUrls.noAccess);
