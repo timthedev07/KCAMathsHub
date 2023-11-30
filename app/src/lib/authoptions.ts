@@ -53,14 +53,12 @@ export const authOptions: AuthOptions = {
       session.user.image = user.image || null;
       session.user.joinedDate = user.joinedDate;
       session.user.joinedYear = user.joinedYear;
-      session.user.role = user.role;
+      session.user.roles = (user.roles as unknown as { name: string }[]).map(
+        (each) => each.name
+      ) as unknown as Role[];
       session.user.username = user.username;
       session.user.inquirerReputation = user.inquirerReputation;
       return session;
-    },
-    async jwt({ token, user }) {
-      token.role = user.role as Role;
-      return token;
     },
   },
 };
