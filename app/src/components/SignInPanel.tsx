@@ -13,7 +13,7 @@ interface SignInPanelProps {
 
 export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
   return (
-    <div className="w-10/12 md:w-[356px] px-12 min-h-[456px] shadow-lg bg-neutral-900 rounded-md flex flex-col justify-evenly items-center gap-8 py-8">
+    <div className="w-10/12 md:w-[356px] px-12 min-h-[456px] shadow-lg bg-neutral-900 rounded-lg flex flex-col justify-evenly items-center gap-8 py-8">
       <div className="rounded-full bg-neutral-950 shadow-xl overflow-hidden flex justify-center items-center w-24 h-24">
         <LogoSVG className="w-9/12 h-9/12 mb-2" />
       </div>
