@@ -22,13 +22,19 @@ model User {
   inquirerReputation  Int          @default(100)
   joinedDate          DateTime     @default(now())
   joinedYear          Int?         @db.SmallInt // the year group of the user when joined; only applies to students
-  role                String       @default("inquirer") @db.VarChar(16)
+  roles               Role[]
   questions           Question[]
   answers             Answer[]     @relation("WrittenAnswers")
   moderations         Moderation[] @relation("Moderation")
   referralCreated     Referral?    @relation("ReferralCreator")
   referralAccepted    Referral?    @relation("ReferralAccepted", fields: [acceptedReferralId], references: [id])
   acceptedReferralId  String?
+}
+
+model Role {
+  name   String  @id @unique
+  users  User[]
+  userId String?
 }
 
 model ImageAttachment {
