@@ -32,6 +32,10 @@
   background-clip: padding-box;
 }
 
+.focus\:ring-cyan-300:focus {
+  --tw-ring-opacity: 0 !important;
+}
+
 @layer utilities {
   .scrollbar-in-light-bg::-webkit-scrollbar-track {
     @apply bg-neutral-800;
