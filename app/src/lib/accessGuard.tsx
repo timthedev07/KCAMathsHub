@@ -4,10 +4,13 @@ import { getServerSession } from "./authoptions";
 import { redirect } from "next/navigation";
 import { WithSessionProps } from "../types/withSessionPage";
 
-export type AccessRole = Role | "public";
-
-export const roleChecker = (userRole: Role, targetRoles: Role[]) => {
-  return targetRoles.includes(userRole);
+export const roleChecker = (userRoles: Role[], targetRoles: Role[]) => {
+  for (const targetRole of targetRoles) {
+    if (!userRoles.includes(targetRole)) {
+      return false;
+    }
+  }
+  return true;
 };
 
 const redirectWrapped = (redirectURL: string) => {
@@ -18,7 +21,7 @@ const redirectWrapped = (redirectURL: string) => {
 
 export const withAccessGuard = async <T,>(
   Page: NextPage<WithSessionProps<T>>,
-  role: AccessRole,
+  acceptedRoles: Role[],
   rejectionRedirectUrls: {
     unauthed: string;
     noAccess: string;
@@ -29,37 +32,17 @@ export const withAccessGuard = async <T,>(
 ) => {
   const session = await getServerSession();
   const u = session?.user;
-  const userRole = u?.role as Role;
+  const userRoles = u?.roles;
 
   // if the page requires authentication but the user is not logged in
-  if (role !== "public" && !u) {
+  if (!u || !userRoles) {
     return redirectWrapped(rejectionRedirectUrls.unauthed);
   }
 
-  switch (role) {
-    case "admin": {
-      if (userRole !== "admin") {
-        return redirectWrapped(rejectionRedirectUrls.noAccess);
-      }
-    }
-    case "moderator": {
-      if (!roleChecker(userRole, ["admin", "moderator"])) {
-        return redirectWrapped(rejectionRedirectUrls.noAccess);
-      }
-    }
-    case "answerer": {
-      if (!roleChecker(userRole, ["admin", "moderator", "answerer"])) {
-        return redirectWrapped(rejectionRedirectUrls.noAccess);
-      }
-    }
-    case "inquirer": {
-      if (
-        !roleChecker(userRole, ["admin", "moderator", "answerer", "inquirer"])
-      ) {
-        return redirectWrapped(rejectionRedirectUrls.noAccess);
-      }
-    }
+  if (!roleChecker(userRoles, acceptedRoles)) {
+    return redirectWrapped(rejectionRedirectUrls.noAccess);
   }
+
   // eslint-disable-next-line react/display-name
   return (props: T) => <Page session={session} {...props} />;
 };
