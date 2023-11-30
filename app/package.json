@@ -12,7 +12,7 @@
   "license": "LGPL-3.0-or-later",
   "private": true,
   "prisma": {
-    "seed": "dotenv -e .env.local -- ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/scripts/populateRoles.ts"
+    "seed": "dotenv -e .env.local -- ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/scripts/prePopulateRoles.ts"
   },
   "scripts": {
     "dev": "next dev",
