@@ -39,9 +39,6 @@ export const withAccessGuard = async <T,>(
     return redirectWrapped(rejectionRedirectUrls.unauthed);
   }
 
-  console.log(userRoles);
-  console.log(acceptedRoles);
-
   if (!roleChecker(userRoles, acceptedRoles)) {
     return redirectWrapped(rejectionRedirectUrls.noAccess);
   }
