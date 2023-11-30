@@ -6,7 +6,7 @@ import { WithSessionProps } from "../types/withSessionPage";
 
 export type AccessRole = Role | "public";
 
-const roleChecker = (userRole: Role, targetRoles: Role[]) => {
+export const roleChecker = (userRole: Role, targetRoles: Role[]) => {
   return targetRoles.includes(userRole);
 };
 
