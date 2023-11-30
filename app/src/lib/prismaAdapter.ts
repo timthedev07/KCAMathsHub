@@ -11,26 +11,32 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
           email: data.email,
           joinedYear: year,
           image: data.image,
+          roles: { connect: { name: "inquirer" } }, // defaults to inquirer
         },
       })) as any;
     },
     getUser: (id) =>
       p.user.findUnique({
         where: { id },
+        include: { roles: { select: { name: true } } },
       }) as any,
     getUserByEmail: (email) =>
       p.user.findUnique({
         where: { email },
+        include: { roles: { select: { name: true } } },
       }) as any,
     async getUserByAccount(provider_providerAccountId) {
       const account = await p.account.findUnique({
         where: { provider_providerAccountId },
-        select: { user: true },
+        select: { user: { include: { roles: { select: { name: true } } } } },
       });
       return (account?.user ?? null) as any;
     },
-    updateUser: ({ id, ...data }) =>
-      p.user.update({ where: { id }, data }) as any,
+    updateUser: ({ id, roles: _, ...data }) =>
+      p.user.update({
+        where: { id },
+        data,
+      }) as any,
     deleteUser: (id) => p.user.delete({ where: { id } }) as any,
     linkAccount: (data) =>
       p.account.create({ data }) as unknown as AdapterAccount,
@@ -41,7 +47,7 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
     async getSessionAndUser(sessionToken) {
       const userAndSession = await p.session.findUnique({
         where: { sessionToken },
-        include: { user: true },
+        include: { user: { include: { roles: { select: { name: true } } } } },
       });
       if (!userAndSession) return null;
       const { user, ...session } = userAndSession;
