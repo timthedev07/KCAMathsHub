@@ -89,7 +89,7 @@ export const Footer: FC<FooterProps> = ({}) => {
         <hr className="w-full mx-auto border-0 bg-slate-400/50 h-[1px] hidden lg:block" />
         <div className="flex items-center justify-between h-full ">
           <div className="flex gap-4">
-            <Link href="" passHref>
+            <Link href="https://www.instagram.com/kcamathshub/" passHref>
               <InstagramSVG className="w-7 text-slate-200" />
             </Link>
             <Link href="" passHref>
