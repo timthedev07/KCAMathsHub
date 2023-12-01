@@ -66,6 +66,8 @@ model Question {
   categories     QuestionCategory[] @relation("QuestionCategory")
   // yearGroup
   yearGroupAsked Int
+  // answered
+  answered       Boolean            @default(false)
 }
 
 model QuestionCategory {
