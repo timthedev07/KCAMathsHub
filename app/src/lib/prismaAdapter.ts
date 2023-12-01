@@ -1,13 +1,36 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import type { Adapter, AdapterAccount } from "next-auth/adapters";
 
+const baseString = "01234abcd".split("");
+
+const countToBaseN = (count: number, N = baseString.length) => {
+  if (count === 0) {
+    return "0";
+  }
+  const digits: string[] = [];
+
+  while (count > 0) {
+    digits.push(baseString[count % N]);
+    count = Math.floor(count / N);
+  }
+
+  while (digits.length < 4) {
+    digits.push("0");
+  }
+
+  return digits.reverse().join("");
+};
+
 export function PrismaAdapter(p: PrismaClient): Adapter {
   return {
     createUser: async (data) => {
       const a = data.name!.split("Year");
       const year = parseInt(a[a.length - 1].trim());
+      const count = await p.user.count();
+      const newUname = `u#${countToBaseN(count)}`;
       return (await p.user.create({
         data: {
+          username: newUname,
           email: data.email,
           joinedYear: year,
           image: data.image,
