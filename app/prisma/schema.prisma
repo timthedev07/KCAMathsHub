@@ -61,7 +61,7 @@ model Question {
   questioner     User?              @relation(fields: [questionerId], references: [id], onDelete: SetNull)
   questionerId   String?
   // answer relation
-  answer         Answer?
+  answer         Answer[]
   // categories relation
   categories     QuestionCategory[] @relation("QuestionCategory")
   // yearGroup
@@ -77,7 +77,7 @@ model QuestionCategory {
 model Answer {
   id          String            @id @default(cuid())
   content     String            @db.VarChar(5000)
-  helpful     Boolean?
+  accepted    Boolean?
   timestamp   DateTime          @default(now())
   // attachments relation
   attachments ImageAttachment[]
@@ -87,7 +87,7 @@ model Answer {
   answererId  String?
   // question relation
   question    Question          @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  questionId  String            @unique
+  questionId  String
   // moderations relation
   moderations Moderation[]      @relation("AnswerModerations")
 }
