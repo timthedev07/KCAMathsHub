@@ -4,9 +4,6 @@ import type { Adapter, AdapterAccount } from "next-auth/adapters";
 const baseString = "01234abcd".split("");
 
 const countToBaseN = (count: number, N = baseString.length) => {
-  if (count === 0) {
-    return "0";
-  }
   const digits: string[] = [];
 
   while (count > 0) {
