@@ -49,7 +49,7 @@ export const Nav: FC<NavProps> = ({
       <div
         className={`transition-[width] ${transDuration} ${
           sidebarOpen
-            ? "w-[calc(58.333333%+2px)] xmd:w-[calc(75%+2px)] lg:w-[calc(83.333333%+2px)]"
+            ? "w-[calc(41.6667%+2px)] xmd:w-[calc(75%+2px)] lg:w-[calc(83.333333%+2px)]"
             : "w-full"
         } absolute bottom-0 right-0 border-b-2 border-b-slate-600/50`}
       ></div>
