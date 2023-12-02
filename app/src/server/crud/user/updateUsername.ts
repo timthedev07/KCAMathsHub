@@ -2,8 +2,7 @@ import { z } from "zod";
 import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
 import { updateIntervalCheck } from "../../../lib/updateIntervalCheck";
-
-export const DAYS_BETWEEN_USERNAME_UPDATE = 60;
+import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../data/updateIntervals";
 
 export const updateUsername = publicProcedure
   .input(
