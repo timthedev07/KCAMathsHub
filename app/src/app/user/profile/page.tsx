@@ -5,6 +5,7 @@ import { Tabs, TabItem, Avatar } from "flowbite-react";
 import { getCurrYear } from "../../../lib/getCurrYear";
 import { RoleBadge } from "../../../components/user-profile/RoleBadge";
 import { UsernameEditable } from "../../../components/user-profile/username-editable";
+
 const Profile: NextPage<WithSessionProps> = async ({ session }) => {
   const u = session!.user;
 
