@@ -3,10 +3,10 @@
  */
 export const updateIntervalCheck = (
   lastUpdateTimestampMS: number | undefined,
-  interval: number
+  intervalDays: number
 ) => {
   return (
     !lastUpdateTimestampMS || // first username or ...
-    lastUpdateTimestampMS <= Date.now() - interval * 24 * 60 * 60 * 1000
+    lastUpdateTimestampMS <= Date.now() - intervalDays * 24 * 60 * 60 * 1000
   ); // N days gone
 };
