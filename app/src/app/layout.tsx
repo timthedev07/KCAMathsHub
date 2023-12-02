@@ -22,7 +22,7 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession();
   return (
-    <html lang="en" className="bg-primary-bg text-text-color">
+    <html lang="en" className="bg-primary-bg dark text-text-color">
       <head>
         <ThemeModeScript mode="dark" />
       </head>
