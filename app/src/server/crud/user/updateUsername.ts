@@ -1,8 +1,9 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
+import { updateIntervalCheck } from "../../../lib/updateIntervalCheck";
 
-const DAYS_BETWEEN_UPDATE = 60;
+export const DAYS_BETWEEN_USERNAME_UPDATE = 60;
 
 export const updateUsername = publicProcedure
   .input(
@@ -19,10 +20,7 @@ export const updateUsername = publicProcedure
       })
     )?.usernameLastUpdated?.valueOf();
 
-    if (
-      !lastUpdate || // first username or ...
-      lastUpdate <= Date.now() - DAYS_BETWEEN_UPDATE * 24 * 60 * 60 * 1000 // N days gone
-    )
+    if (updateIntervalCheck(lastUpdate, DAYS_BETWEEN_USERNAME_UPDATE))
       await prisma.user.update({
         data: { username, usernameLastUpdated: new Date(Date.now()) },
         where: { id },
