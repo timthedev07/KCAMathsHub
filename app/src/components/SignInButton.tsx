@@ -1,7 +1,7 @@
 "use client";
-import { Button } from "flowbite-react";
 import { signIn, signOut } from "next-auth/react";
 import { FC } from "react";
+import { Button } from "./reusable/Button";
 
 interface SignInButtonProps {
   signedIn: boolean;

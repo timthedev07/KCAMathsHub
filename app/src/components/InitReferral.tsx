@@ -2,7 +2,7 @@
 
 import { FC, useState } from "react";
 import { trpc } from "../trpc/client";
-import { Button } from "flowbite-react";
+import { Button } from "./reusable/Button";
 
 interface InitReferralProps {
   userId: string;
