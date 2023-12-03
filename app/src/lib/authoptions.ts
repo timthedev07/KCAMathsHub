@@ -48,6 +48,7 @@ export const authOptions: AuthOptions = {
     async session({ session, user }) {
       session.user.id = user.id;
       session.user.answererReputation = user.answererReputation;
+      session.user.usernameLastUpdated = user.usernameLastUpdated;
       session.user.blocked = user.blocked;
       session.user.email = user.email;
       session.user.image = user.image || null;
