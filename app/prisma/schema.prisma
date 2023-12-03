@@ -18,7 +18,7 @@ model User {
   bioLastUpdated      DateTime?
   usernameLastUpdated DateTime?
   id                  String       @id @default(cuid())
-  username            String       @unique
+  username            String       @unique @db.VarChar(16)
   blocked             Boolean      @default(false)
   answererReputation  Int          @default(100)
   inquirerReputation  Int          @default(100)
