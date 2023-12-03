@@ -3,6 +3,7 @@ import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
 import { updateIntervalCheck } from "../../../lib/updateIntervalCheck";
 import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../data/updateIntervals";
+import { TRPCError } from "@trpc/server";
 
 export const updateUsername = publicProcedure
   .input(
@@ -24,4 +25,10 @@ export const updateUsername = publicProcedure
         data: { username, usernameLastUpdated: new Date(Date.now()) },
         where: { id },
       });
+    else {
+      throw new TRPCError({
+        code: "FORBIDDEN",
+        message: `Username last updated within ${DAYS_BETWEEN_USERNAME_UPDATE} days.`,
+      });
+    }
   });
