@@ -13,6 +13,12 @@ export const updateUsername = publicProcedure
     })
   )
   .mutation(async ({ input: { id, username } }) => {
+    if (username.length > 16) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Username cannot be longer than 16 characters.",
+      });
+    }
     const lastUpdate = (
       await prisma.user.findFirst({
         where: { id },
