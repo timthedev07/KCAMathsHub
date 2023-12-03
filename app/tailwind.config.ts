@@ -28,6 +28,7 @@ const config: Config = {
       animation: {
         "loading-grow": "loadingGrow 2s cubic-bezier(1,.11,0,.89) forwards",
         appear: "appear 200ms ease-out forwards",
+        appearSlow: "appear 800ms ease-out forwards",
       },
       keyframes: () => ({
         appear: {
