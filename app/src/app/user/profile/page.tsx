@@ -19,7 +19,7 @@ const Profile: NextPage<WithSessionProps> = async ({ session }) => {
               <div className="flex items-center gap-8 py-8 flex-col xl:flex-row">
                 <Avatar size="xl" rounded img={u.image || undefined} />
                 <div className="flex flex-col gap-3 flex-1">
-                  <UsernameEditable user={u} />
+                  <UsernameEditable session={session} />
                   <span className="text-sm text-neutral-300/70 px-2">
                     {u.email}
                   </span>

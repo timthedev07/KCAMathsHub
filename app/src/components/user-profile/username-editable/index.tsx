@@ -1,28 +1,41 @@
-import { Session } from "next-auth";
+"use client";
 import { FC } from "react";
 import { Editable } from "./Editable";
 import { updateIntervalCheck } from "../../../lib/updateIntervalCheck";
 import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../data/updateIntervals";
+import { withClientSession } from "../../../lib/withClientSession";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 interface UsernameEditableProps {
   editable?: boolean;
-  user: Session["user"];
+  session: Session | null;
 }
 
-export const spanBase = "font-bold text-xl";
+export const spanBase = "py-1 px-2 font-bold text-xl";
 
-export const UsernameEditable: FC<UsernameEditableProps> = ({
-  editable = true,
-  user,
-}) => {
+const C: FC<UsernameEditableProps> = ({ editable = true }) => {
+  const { data } = useSession();
+
+  const lastUpdate = data!.user.usernameLastUpdated;
+  const user = data!.user;
+
+  console.log(
+    !editable ||
+      (lastUpdate &&
+        !updateIntervalCheck(
+          lastUpdate.valueOf(),
+          DAYS_BETWEEN_USERNAME_UPDATE
+        ))
+  );
   if (
     !editable ||
-    !updateIntervalCheck(
-      user.usernameLastUpdated ? user.usernameLastUpdated.valueOf() : undefined,
-      DAYS_BETWEEN_USERNAME_UPDATE
-    )
+    (lastUpdate &&
+      !updateIntervalCheck(lastUpdate.valueOf(), DAYS_BETWEEN_USERNAME_UPDATE))
   )
     return <span className={spanBase}>{user.username}</span>;
 
   return <Editable user={user} />;
 };
+
+export const UsernameEditable = withClientSession(C);
