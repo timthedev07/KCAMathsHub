@@ -28,12 +28,17 @@ const config: Config = {
       animation: {
         "loading-grow": "loadingGrow 2s cubic-bezier(1,.11,0,.89) forwards",
         appear: "appear 200ms ease-out forwards",
-        appearSlow: "appear 800ms ease-out forwards",
+        appearSlow: "appear 500ms ease-out forwards",
+        fadeSlow: "fade 500ms ease-out forwards",
       },
       keyframes: () => ({
         appear: {
           from: { opacity: "0" },
           to: { opacity: "1" },
+        },
+        fade: {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
         },
         loadingGrow: {
           from: {
