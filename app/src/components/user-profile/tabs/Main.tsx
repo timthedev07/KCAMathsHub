@@ -6,32 +6,29 @@ import { BadgesDisplay } from "../BadgesDisplay";
 import { getCurrYear } from "../../../lib/getCurrYear";
 import { roleChecker } from "../../../lib/accessGuard";
 import { Session } from "next-auth";
+import { viewPanelBase } from ".";
 
 interface MainProfileTabProps {
-  session: Session | null;
+  user: Session["user"];
 }
 
 const ProfileSubDisplay: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <div className="shadow-2xl flex-1 bg-slate-900 rounded-xl h-1/2">
-      {children}
-    </div>
-  );
+  return <div className={`${viewPanelBase} flex-1 h-1/2`}>{children}</div>;
 };
 
-export const MainProfileTab: FC<MainProfileTabProps> = ({ session }) => {
-  if (!session?.user) return null;
-
-  const u = session.user;
+export const MainProfileTab: FC<MainProfileTabProps> = ({ user }) => {
+  const u = user;
 
   return (
     <div className="w-full h-auto lg:h-[70vh] flex lg:flex-row flex-col gap-8 p-2">
       {/* This is the main profile section */}
-      <div className="shadow-2xl flex-1 w-full h-full bg-slate-900 rounded-xl flex flex-col py-8 px-8 md:px-16">
+      <div
+        className={`flex-1 w-full h-full ${viewPanelBase} flex flex-col py-8 px-8 md:px-16`}
+      >
         <div className="flex items-center gap-8 py-8 flex-col xl:flex-row">
           <Avatar size="xl" rounded img={u.image || undefined} />
           <div className="flex flex-col gap-3 flex-1">
-            <UsernameEditable session={session} />
+            <UsernameEditable />
             <span className="text-sm text-neutral-300/70 px-2">{u.email}</span>
             {u.joinedYear ? (
               <span className="text-sm text-neutral-300/70 px-2">

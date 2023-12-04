@@ -4,11 +4,9 @@ import { Editable } from "./Editable";
 import { updateIntervalCheck } from "../../../lib/updateIntervalCheck";
 import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../data/updateIntervals";
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
 
 interface UsernameEditableProps {
   editable?: boolean;
-  session: Session | null;
 }
 
 export const spanBase = "py-1 px-2 font-bold text-xl font-mono";

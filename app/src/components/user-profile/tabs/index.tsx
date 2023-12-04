@@ -22,7 +22,7 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ session }) => {
     <Tabs aria-label="Default tabs" style="underline">
       {/* main profile tab */}
       <TabItem active title="Profile">
-        <MainProfileTab session={session} />
+        <MainProfileTab user={u} />
       </TabItem>
 
       {roleChecker(u.roles, ["inquirer"]) ? (
