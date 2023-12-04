@@ -1,5 +1,5 @@
 "use client";
-import { Avatar } from "flowbite-react";
+import { Avatar, Tooltip } from "flowbite-react";
 import { FC, PropsWithChildren } from "react";
 import { UsernameEditable } from "./username-editable";
 import { BadgesDisplay } from "../../BadgesDisplay";
@@ -8,16 +8,22 @@ import { roleChecker } from "../../../../lib/accessGuard";
 import { Session } from "next-auth";
 import { viewPanelBase } from "..";
 import { EditableTextArea } from "./EditableTextArea";
+import { BiSolidHelpCircle } from "react-icons/bi";
+import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../data/updateIntervals";
 
 interface MainProfileTabProps {
   user: Session["user"];
+  sameUser?: boolean;
 }
 
 const ProfileSubDisplay: FC<PropsWithChildren> = ({ children }) => {
   return <div className={`${viewPanelBase} flex-1 h-1/2`}>{children}</div>;
 };
 
-export const MainProfileTab: FC<MainProfileTabProps> = ({ user: u }) => {
+export const MainProfileTab: FC<MainProfileTabProps> = ({
+  user: u,
+  sameUser = false,
+}) => {
   return (
     <div className="w-full sm:w-10/12 min-w-[460px] sm:mx-auto lg:w-full h-auto lg:h-[70vh] flex lg:flex-row flex-col lg:gap-8 p-2">
       {/* This is the main profile section */}
@@ -50,8 +56,17 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({ user: u }) => {
         </div>
 
         <div className="flex flex-col h-full gap-4">
-          <span className="font-semibold">Bio</span>
-          <EditableTextArea user={u} />
+          <span className="font-semibold flex gap-1.5 text-lg items-center">
+            Bio{" "}
+            {sameUser ? (
+              <Tooltip
+                content={`Bios can only be updated once very ${DAYS_BETWEEN_BIO_UPDATE} days`}
+              >
+                <BiSolidHelpCircle className="w-5 h-5 cursor-pointer text-slate-100/90 transition duration-200 hover:text-slate-100" />
+              </Tooltip>
+            ) : null}
+          </span>
+          <EditableTextArea user={u} sameUser={sameUser} />
         </div>
       </div>
       <div className="flex flex-col gap-8 flex-1 h-96 md:h-auto px-8">
