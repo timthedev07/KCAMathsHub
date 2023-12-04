@@ -1,7 +1,7 @@
-import { NextPage } from "next";
 import Link from "next/link";
+import { NextPage } from "../../types/nextpage";
 
-const NextPage: NextPage = () => {
+const PrivacyPoliciesPage: NextPage = () => {
   return (
     <>
       <h1>Privacy Policy for KCAMathsHub</h1>
@@ -225,4 +225,4 @@ const NextPage: NextPage = () => {
   );
 };
 
-export default NextPage;
+export default PrivacyPoliciesPage;

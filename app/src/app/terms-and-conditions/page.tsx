@@ -1,5 +1,5 @@
-import { NextPage } from "next";
 import Link from "next/link";
+import { NextPage } from "../../types/nextpage";
 
 const TermsConditions: NextPage = () => {
   return (

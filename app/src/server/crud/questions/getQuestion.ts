@@ -20,7 +20,7 @@ export const getQuestion = publicProcedure
           select: {
             answerer: { select: userSelection },
             content: true,
-            helpful: true,
+            accepted: true,
             attachments: { select: attachmentSelection },
             moderated: true,
             moderations: {

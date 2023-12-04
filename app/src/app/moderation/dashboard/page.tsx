@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { NextPage } from "../../../types/nextpage";
 
 const ModeratorDashboard: NextPage = () => {
   return <></>;

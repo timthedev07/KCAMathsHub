@@ -1,9 +1,9 @@
-import { NextPage } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { getServerSession } from "../../../lib/authoptions";
 import { pageURLs } from "../../../lib/pageURLGen";
 import { SSRCaller } from "../../../server";
+import { NextPage } from "../../../types/nextpage";
 
 interface Props {
   params: { quid: string };

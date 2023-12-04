@@ -1,7 +1,7 @@
-import { NextPage } from "next";
 import { getServerSession } from "../../../../lib/authoptions";
 import { notFound, redirect } from "next/navigation";
 import { getServerUser } from "../../../../server/crud/user/getUser";
+import { NextPage } from "../../../../types/nextpage";
 
 interface Params {
   params: { uid: string; success: string | null | undefined };

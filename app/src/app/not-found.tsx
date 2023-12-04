@@ -1,9 +1,9 @@
 "use client";
 
-import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "../components/reusable/Button";
+import { NextPage } from "../types/nextpage";
 
 const NotFound: NextPage = () => {
   const router = useRouter();

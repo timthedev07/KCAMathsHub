@@ -1,7 +1,7 @@
-import { NextPage } from "next";
 import { redirect } from "next/navigation";
 import { SignInPanel } from "../../../components/SignInPanel";
 import { getServerSession } from "../../../lib/authoptions";
+import { NextPage } from "../../../types/nextpage";
 
 const SignIn: NextPage = async () => {
   const session = await getServerSession();
