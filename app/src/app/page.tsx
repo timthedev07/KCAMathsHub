@@ -1,5 +1,4 @@
 import { SignInButton } from "../components/SignInButton";
-import { InitReferral } from "../components/InitReferral";
 import { QuestionForm } from "../components/QuestionForm";
 import { QuestionsDisplay } from "../components/QuestionsDisplay";
 import { LatexEditor } from "@/components/LatexEditor";
@@ -17,7 +16,6 @@ const Home = async () => {
       {!!uid ? (
         <>
           <QuestionForm userId={uid} />
-          <InitReferral userId={session.user.id} />
         </>
       ) : (
         ""
