@@ -1,16 +1,15 @@
 "use client";
-import { TabItem } from "flowbite-react";
 import { useSession } from "next-auth/react";
 import { FC } from "react";
 import { InitReferral } from "../../InitReferral";
-import { Session } from "next-auth";
 import { trpc } from "../../../trpc/client";
+import { Session } from "next-auth";
 
 interface ReferralTabProps {
   session: Session | null;
 }
 
-export const ReferralTab: FC<ReferralTabProps> = ({}) => {
+export const ReferralTab: FC<ReferralTabProps> = ({ session }) => {
   const { data } = useSession();
   const { data: referralData } = trpc.getReferralEntity.useQuery({
     userId: data?.user.id,
@@ -20,10 +19,8 @@ export const ReferralTab: FC<ReferralTabProps> = ({}) => {
   const referralCreated = !!referralData;
 
   return (
-    <TabItem title="Referral">
-      <div>
-        <InitReferral userId={data?.user.id || ""} />
-      </div>
-    </TabItem>
+    <div>
+      <InitReferral userId={data?.user.id || ""} />
+    </div>
   );
 };

@@ -18,14 +18,23 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ session }) => {
 
   return (
     <Tabs aria-label="Default tabs" style="underline">
-      <MainProfileTab />
-      <QuestionsTab />
+      {/* main profile tab */}
+      <TabItem active title="Profile">
+        <MainProfileTab session={session} />
+      </TabItem>
+
+      {roleChecker(u.roles, ["inquirer"]) ? (
+        <TabItem title="Questions">
+          <QuestionsTab />
+        </TabItem>
+      ) : null}
+
       {roleChecker(u.roles, ["answerer"]) ? (
         <TabItem title="Answers"></TabItem>
-      ) : (
-        <></>
-      )}
-      <ReferralTab session={session} />
+      ) : null}
+      <TabItem title="Referral">
+        <ReferralTab session={session} />
+      </TabItem>
     </Tabs>
   );
 };
