@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { FC } from "react";
 import { InitReferral } from "../../InitReferral";
 import { Session } from "next-auth";
+import { trpc } from "../../../trpc/client";
 
 interface ReferralTabProps {
   session: Session | null;
@@ -11,6 +12,12 @@ interface ReferralTabProps {
 
 export const ReferralTab: FC<ReferralTabProps> = ({}) => {
   const { data } = useSession();
+  const { data: referralData } = trpc.getReferralEntity.useQuery({
+    userId: data?.user.id,
+  });
+  const users = referralData?.acceptedUsers;
+  const link = referralData?.url;
+  const referralCreated = !!referralData;
 
   return (
     <TabItem title="Referral">
