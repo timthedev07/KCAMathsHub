@@ -12,13 +12,15 @@ interface UsernameEditableProps {
   session: Session | null;
 }
 
-export const spanBase = "py-1 px-2 font-bold text-xl";
+export const spanBase = "py-1 px-2 font-bold text-xl font-mono";
 
 const C: FC<UsernameEditableProps> = ({ editable = true }) => {
   const { data } = useSession();
 
-  const lastUpdate = data!.user.usernameLastUpdated;
-  const user = data!.user;
+  if (!data) return;
+
+  const lastUpdate = data.user.usernameLastUpdated;
+  const user = data.user;
 
   if (
     !editable ||

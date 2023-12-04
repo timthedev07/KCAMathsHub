@@ -3,12 +3,12 @@ import { roleChecker, withAccessGuard } from "../../../lib/accessGuard";
 import { WithSessionProps } from "../../../types/withSessionPage";
 import { Tabs, TabItem, Avatar } from "flowbite-react";
 import { getCurrYear } from "../../../lib/getCurrYear";
-import { RoleBadge } from "../../../components/user-profile/RoleBadge";
 import { UsernameEditable } from "../../../components/user-profile/username-editable";
 import { Textarea } from "flowbite-react";
 import { FC, PropsWithChildren } from "react";
 import { QuestionsTab } from "../../../components/user-profile/tabs/Questions";
 import { ReferralTab } from "../../../components/user-profile/tabs/Referral";
+import { BadgesDisplay } from "../../../components/user-profile/BadgesDisplay";
 
 const ProfileSubDisplay: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -42,13 +42,7 @@ const Profile: NextPage<WithSessionProps> = async ({ session }) => {
                   ) : (
                     <></>
                   )}
-                  <ul className="flex gap-2 flex-wrap px-2">
-                    {["inquirer", "admin", "answerer", "moderator"]
-                      .toSorted()
-                      .map((each) => (
-                        <RoleBadge role={each as any} key={each} />
-                      ))}
-                  </ul>
+                  <BadgesDisplay roles={u.roles} />
                 </div>
               </div>
               <div className="flex flex-col h-full gap-4">
