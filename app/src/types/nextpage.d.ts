@@ -1,1 +1,1 @@
-export type NextPage<ParamsType> = FC<{ params: ParamsType }>;
+export type NextPage<ParamsType extends {}> = FC<{ params: ParamsType }>;
