@@ -1,1 +1,2 @@
 export const DAYS_BETWEEN_USERNAME_UPDATE = 60;
+export const DAYS_BETWEEN_BIO_UPDATE = 1;
