@@ -30,8 +30,6 @@ export const withAccessGuard = async <T,>(
     const u = session?.user;
     const userRoles = u?.roles;
 
-    console.log(session);
-
     // if the page requires authentication but the user is not logged in
     if (!u || !userRoles) {
       redirect(rejectionRedirectUrls.unauthed);
