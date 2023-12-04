@@ -6,4 +6,4 @@ const AdminDashboard: NextPage<WithSessionProps> = () => {
   return <></>;
 };
 
-export default await withAccessGuard(AdminDashboard, "admin");
+export default await withAccessGuard(AdminDashboard, ["admin"]);

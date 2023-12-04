@@ -3,7 +3,6 @@ import { FC } from "react";
 import { Editable } from "./Editable";
 import { updateIntervalCheck } from "../../../lib/updateIntervalCheck";
 import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../data/updateIntervals";
-import { withClientSession } from "../../../lib/withClientSession";
 import { useSession } from "next-auth/react";
 import { Session } from "next-auth";
 
@@ -14,7 +13,9 @@ interface UsernameEditableProps {
 
 export const spanBase = "py-1 px-2 font-bold text-xl font-mono";
 
-const C: FC<UsernameEditableProps> = ({ editable = true }) => {
+export const UsernameEditable: FC<UsernameEditableProps> = ({
+  editable = true,
+}) => {
   const { data } = useSession();
 
   if (!data) return;
@@ -31,5 +32,3 @@ const C: FC<UsernameEditableProps> = ({ editable = true }) => {
 
   return <Editable user={user} />;
 };
-
-export const UsernameEditable = withClientSession(C);
