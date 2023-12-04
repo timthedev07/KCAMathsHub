@@ -67,7 +67,7 @@ export const Editable: FC<EditableProps> = ({ user }) => {
             setEditable(false);
             setSuccess(true);
             setShowToast(true);
-            await update({ user: { ...user, username: inputUsername } });
+            await update({ user: { ...user, username: inputUsername.trim() } });
           } catch (err) {
             const msg = (err as any).message;
             setSuccess(false);
