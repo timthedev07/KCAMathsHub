@@ -29,9 +29,7 @@ export const ConditionalProfilePic: FC<ConditionalProfilePicProps> = ({
           />
         </div>
       </div>
-      {isOpen && (
-        <UserExpandable user={user} isOpen={isOpen} setIsOpen={setIsOpen} />
-      )}
+      {isOpen && <UserExpandable user={user} setIsOpen={setIsOpen} />}
     </div>
   );
 };
