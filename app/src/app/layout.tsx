@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppLayout } from "../components/AppLayout";
-import { AppLoadingProvider } from "../components/TopLoadingBar";
+import { AppLoadingProvider } from "../components/contexts/TopLoadingBar";
 import { TRPCProvider } from "../trpc/Provider";
 import "./globals.css";
 import { getServerSession } from "../lib/authoptions";
+import SessionProvider from "../components/contexts/SessionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,14 +21,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession();
+
   return (
     <html lang="en" className="bg-primary-bg dark text-text-color">
       <body className={inter.className}>
-        <TRPCProvider>
-          <AppLoadingProvider>
-            <AppLayout session={session}>{children}</AppLayout>
-          </AppLoadingProvider>
-        </TRPCProvider>
+        <SessionProvider session={session}>
+          <TRPCProvider>
+            <AppLoadingProvider>
+              <AppLayout session={session}>{children}</AppLayout>
+            </AppLoadingProvider>
+          </TRPCProvider>
+        </SessionProvider>
       </body>
     </html>
   );
