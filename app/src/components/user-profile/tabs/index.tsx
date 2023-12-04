@@ -11,6 +11,8 @@ interface ProfileTabsProps {
   session: Session | null;
 }
 
+export const viewPanelBase = "bg-slate-900 rounded-xl shadow-2xl";
+
 export const ProfileTabs: FC<ProfileTabsProps> = ({ session }) => {
   const u = session?.user;
 
@@ -33,7 +35,7 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ session }) => {
         <TabItem title="Answers"></TabItem>
       ) : null}
       <TabItem title="Referral">
-        <ReferralTab session={session} />
+        <ReferralTab />
       </TabItem>
     </Tabs>
   );
