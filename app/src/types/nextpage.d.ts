@@ -1,3 +1,1 @@
-export type NextPage<
-  T extends { params: Record<string, string> } = { params: {} }
-> = FC<T>;
+export type NextPage<T> = FC<T>;
