@@ -13,12 +13,6 @@ export const roleChecker = (userRoles: Role[], targetRoles: Role[]) => {
   return false;
 };
 
-const redirectWrapped = (redirectURL: string) => {
-  return (() => {
-    redirect(redirectURL);
-  }) as NextPage;
-};
-
 export const withAccessGuard = async <T,>(
   Page: NextPage<WithSessionProps<T>>,
   acceptedRoles: Role[],
@@ -27,22 +21,25 @@ export const withAccessGuard = async <T,>(
     noAccess: string;
   } = {
     unauthed: "/user/signin",
-    noAccess: "/",
+    noAccess: "/questions/ask",
   }
 ) => {
-  const session = await getServerSession();
-  const u = session?.user;
-  const userRoles = u?.roles;
-
-  // if the page requires authentication but the user is not logged in
-  if (!u || !userRoles) {
-    return redirectWrapped(rejectionRedirectUrls.unauthed);
-  }
-
-  if (!roleChecker(userRoles, acceptedRoles)) {
-    return redirectWrapped(rejectionRedirectUrls.noAccess);
-  }
-
   // eslint-disable-next-line react/display-name
-  return (props: T) => <Page session={session} {...props} />;
+  return async (props: T) => {
+    const session = await getServerSession();
+    const u = session?.user;
+    const userRoles = u?.roles;
+
+    console.log(session);
+
+    // if the page requires authentication but the user is not logged in
+    if (!u || !userRoles) {
+      redirect(rejectionRedirectUrls.unauthed);
+    }
+
+    if (!roleChecker(userRoles, acceptedRoles)) {
+      redirect(rejectionRedirectUrls.noAccess);
+    }
+    return <Page session={session} {...props} />;
+  };
 };
