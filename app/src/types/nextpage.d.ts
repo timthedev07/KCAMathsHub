@@ -1,1 +1,1 @@
-export type NextPage<T> = FC<T>;
+export type NextPage<T = {}> = FC<T>;
