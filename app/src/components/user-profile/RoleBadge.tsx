@@ -20,9 +20,11 @@ interface RoleBadgeProps {
 export const RoleBadge: FC<RoleBadgeProps> = ({ role }) => {
   const Icon = iconMap[role];
   return (
-    <div className="transition duration-200 cursor-pointer select-none hover:bg-slate-400/30 flex bg-blur shadow-lg bg-slate-600/20 gap-2 border border-slate-300/40 rounded-md justify-center items-center py-1 w-min px-3">
+    <div className="group transition duration-200 cursor-pointer select-none hover:bg-slate-400/30 flex bg-blur shadow-lg bg-slate-600/20 gap-2 border border-slate-300/40 rounded-md justify-center items-center py-1.5 w-min px-2">
       <Icon className="w-4" />
-      <span className="capitalize text-sm">{role}</span>
+      <span className="capitalize text-xs text-slate-200/70 group-hover:text-slate-200/90 transition duration-200">
+        {role}
+      </span>
     </div>
   );
 };

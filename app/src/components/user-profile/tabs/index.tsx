@@ -8,13 +8,13 @@ import { roleChecker } from "../../../lib/accessGuard";
 import { ReferralTab } from "./Referral";
 
 interface ProfileTabsProps {
-  session: Session | null;
+  user: Session["user"];
 }
 
 export const viewPanelBase = "bg-slate-900 rounded-xl shadow-2xl";
 
-export const ProfileTabs: FC<ProfileTabsProps> = ({ session }) => {
-  const u = session?.user;
+export const ProfileTabs: FC<ProfileTabsProps> = ({ user }) => {
+  const u = user;
 
   if (!u) return null;
 
