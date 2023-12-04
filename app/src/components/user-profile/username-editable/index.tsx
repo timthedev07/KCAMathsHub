@@ -20,14 +20,6 @@ const C: FC<UsernameEditableProps> = ({ editable = true }) => {
   const lastUpdate = data!.user.usernameLastUpdated;
   const user = data!.user;
 
-  console.log(
-    !editable ||
-      (lastUpdate &&
-        !updateIntervalCheck(
-          lastUpdate.valueOf(),
-          DAYS_BETWEEN_USERNAME_UPDATE
-        ))
-  );
   if (
     !editable ||
     (lastUpdate &&
