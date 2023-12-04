@@ -1,12 +1,13 @@
 "use client";
-import { Avatar, Textarea } from "flowbite-react";
+import { Avatar } from "flowbite-react";
 import { FC, PropsWithChildren } from "react";
-import { UsernameEditable } from "../username-editable";
-import { BadgesDisplay } from "../BadgesDisplay";
-import { getCurrYear } from "../../../lib/getCurrYear";
-import { roleChecker } from "../../../lib/accessGuard";
+import { UsernameEditable } from "./username-editable";
+import { BadgesDisplay } from "../../BadgesDisplay";
+import { getCurrYear } from "../../../../lib/getCurrYear";
+import { roleChecker } from "../../../../lib/accessGuard";
 import { Session } from "next-auth";
-import { viewPanelBase } from ".";
+import { viewPanelBase } from "..";
+import { EditableTextArea } from "./EditableTextArea";
 
 interface MainProfileTabProps {
   user: Session["user"];
@@ -16,9 +17,7 @@ const ProfileSubDisplay: FC<PropsWithChildren> = ({ children }) => {
   return <div className={`${viewPanelBase} flex-1 h-1/2`}>{children}</div>;
 };
 
-export const MainProfileTab: FC<MainProfileTabProps> = ({ user }) => {
-  const u = user;
-
+export const MainProfileTab: FC<MainProfileTabProps> = ({ user: u }) => {
   return (
     <div className="w-full sm:w-10/12 min-w-[460px] sm:mx-auto lg:w-full h-auto lg:h-[70vh] flex lg:flex-row flex-col lg:gap-8 p-2">
       {/* This is the main profile section */}
@@ -52,7 +51,7 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({ user }) => {
 
         <div className="flex flex-col h-full gap-4">
           <span className="font-semibold">Bio</span>
-          <Textarea className="min-h-[156px] h-full resize-none text-sm"></Textarea>
+          <EditableTextArea user={u} />
         </div>
       </div>
       <div className="flex flex-col gap-8 flex-1 h-96 md:h-auto px-8">
