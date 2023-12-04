@@ -26,6 +26,13 @@ export const updateUsername = publicProcedure
       })
     )?.usernameLastUpdated?.valueOf();
 
+    if (await prisma.user.findFirst({ where: { username } })) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Username already taken.",
+      });
+    }
+
     if (updateIntervalCheck(lastUpdate, DAYS_BETWEEN_USERNAME_UPDATE))
       await prisma.user.update({
         data: { username, usernameLastUpdated: new Date(Date.now()) },
