@@ -34,14 +34,14 @@ export const UserExpandable: FC<UserExpandableProps> = ({
           </h5>
           <BadgesDisplay center roles={user.roles} />
           <div className="flex mt-4 md:mt-6 gap-4">
-            <Button color="lime">
+            <Button>
               <a href="/user/profile">Profile</a>
             </Button>
             <Button
               onClick={async () => {
                 await signOut();
               }}
-              color="teal"
+              color="yellow"
             >
               Log out
             </Button>
