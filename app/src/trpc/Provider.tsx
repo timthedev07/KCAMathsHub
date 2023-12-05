@@ -21,7 +21,7 @@ export const TRPCProvider = ({ children }: { children: React.ReactNode }) => {
     trpc.createClient({
       links: [
         loggerLink({
-          enabled: () => true,
+          enabled: () => false,
         }),
         httpBatchLink({
           url,
