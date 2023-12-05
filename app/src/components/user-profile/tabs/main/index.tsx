@@ -1,6 +1,6 @@
 "use client";
 import { Avatar, Tooltip } from "flowbite-react";
-import { FC, PropsWithChildren } from "react";
+import { FC } from "react";
 import { UsernameEditable } from "./username-editable";
 import { BadgesDisplay } from "../../BadgesDisplay";
 import { getCurrYear } from "../../../../lib/getCurrYear";
@@ -10,15 +10,13 @@ import { viewPanelBase } from "..";
 import { EditableTextArea } from "./EditableTextArea";
 import { BiSolidHelpCircle } from "react-icons/bi";
 import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../data/updateIntervals";
+import { ProfileSubDisplay } from "./ProfileSubDisplay";
+import { QList } from "./item-display/QList";
 
 interface MainProfileTabProps {
   user: Session["user"];
   sameUser?: boolean;
 }
-
-const ProfileSubDisplay: FC<PropsWithChildren> = ({ children }) => {
-  return <div className={`${viewPanelBase} flex-1 h-1/2`}>{children}</div>;
-};
 
 export const MainProfileTab: FC<MainProfileTabProps> = ({
   user: u,
@@ -82,9 +80,7 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
 
         {/* questions display */}
 
-        <ProfileSubDisplay>
-          {u.roles.includes("moderator") ? <></> : u.roles.includes("answerer")}
-        </ProfileSubDisplay>
+        <QList uid={u.id} />
       </div>
     </div>
   );
