@@ -58,6 +58,7 @@ model Question {
   timestamp      DateTime           @default(now())
   // attachment relation
   attachments    ImageAttachment[]
+  category       String // key stage
   // question relation
   questioner     User?              @relation(fields: [questionerId], references: [id], onDelete: SetNull)
   questionerId   String?
