@@ -36,14 +36,14 @@ export const Footer: FC<FooterProps> = ({}) => {
   const startY = 2023;
 
   return (
-    <footer className="bg-gradient-to-br from-blue-950 to-slate-950 from-0% to-80% flex flex-col lg:px-24 border-t-2 border-slate-600/70">
+    <footer className="bg-slate-900/60 from-0% to-80% flex flex-col lg:px-24 border-t-2 border-slate-600/70">
       <section className="flex lg:h-72 h-max justify-center py-16 gap-16 flex-col lg:flex-row">
         <section
           className={`${sBase} w-full h-32 lg:h-full flex-1 items-center lg:items-start justify-center`}
         >
           <Link
             href="/"
-            className="transition-all duration-200 hover:scale-[1.02] cursor-pointer flex h-full justify-center items-center gap-2 rounded-xl w-80 glass-morphism border-slate-300/20 border bg-opacity-30 bg-slate-900"
+            className="transition-all duration-200 hover:scale-[1.02] cursor-pointer flex h-full justify-center items-center gap-2 rounded-xl w-80 shadow-2xl border-slate-300/20 border bg-opacity-30 bg-slate-900"
           >
             <LogoSVG className="w-16 h-16" />
             <h1 className="font-bold font-roboto text-2xl">KCAMathsHub</h1>
