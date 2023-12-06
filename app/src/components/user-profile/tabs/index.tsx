@@ -19,7 +19,7 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user }) => {
   if (!u) return null;
 
   return (
-    <Tabs aria-label="Default tabs" style="underline">
+    <Tabs style="underline">
       {/* main profile tab */}
       <TabItem active title="Profile">
         <MainProfileTab user={u} sameUser />
