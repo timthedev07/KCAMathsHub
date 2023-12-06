@@ -109,8 +109,6 @@ export const ReferralTab: FC = ({}) => {
         <p className="text-3xl ml-auto italic">The more you get</p>
       </div>
 
-
-
       <div
         className={`lg:w-1/2 h-full ${viewPanelBase} flex flex-col py-8 px-8 md:px-12 items-center`}
       >
