@@ -12,6 +12,7 @@ import { BiSolidHelpCircle } from "react-icons/bi";
 import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../data/updateIntervals";
 import { ProfileSubDisplay } from "./ProfileSubDisplay";
 import { QList } from "./item-display/QList";
+import { MdEmail } from "react-icons/md";
 
 interface MainProfileTabProps {
   user: Session["user"];
@@ -23,24 +24,30 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
   sameUser = false,
 }) => {
   return (
-    <div className="w-full sm:w-10/12 min-w-[460px] sm:mx-auto lg:w-full h-auto lg:h-[70vh] flex lg:flex-row flex-col lg:gap-8 p-2">
+    <div className="w-full sm:w-10/12 min-w-[460px] sm:mx-auto lg:w-full h-auto lg:h-[70vh] flex lg:flex-row flex-col gap-8 p-2">
       {/* This is the main profile section */}
       <div
-        className={`flex-1 h-full ${viewPanelBase} flex flex-col py-8 px-8 md:px-12`}
+        className={`lg:w-1/2 h-full ${viewPanelBase} flex flex-col py-8 px-8 md:px-12`}
       >
         <div className="flex flex-col mb-8 gap-6">
           <div className="flex items-center gap-4 md:gap-8 pt-8 flex-col lg:flex-row">
-            <Avatar
-              size={"lg"}
-              className="w-20 h-20"
-              rounded
-              img={u.image || undefined}
-            />
+            <div className="w-20 h-20">
+              <Avatar
+                size={"lg"}
+                className=""
+                rounded
+                img={u.image || undefined}
+              />
+            </div>
+
             <div className="flex flex-col gap-3">
               <UsernameEditable />
-              <span className="text-sm text-neutral-300/70 px-2 break-words">
-                {u.email}
-              </span>
+              <Tooltip content={u.email} placement="top">
+                <span className="text-sm text-neutral-300/70 px-2 flex gap-1 items-center cursor-pointer hover:text-neutral-200/80 transition duration-200">
+                  <MdEmail className="w-5 h-5" />
+                  Email
+                </span>
+              </Tooltip>
               {u.joinedYear ? (
                 <span className="text-sm text-neutral-300/70 px-2">
                   Year {getCurrYear(u.joinedDate, u.joinedYear)}
@@ -72,7 +79,7 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
           <EditableTextArea user={u} sameUser={sameUser} />
         </div>
       </div>
-      <div className="flex flex-col gap-8 flex-1 lg:h-full md:h-auto py-8 lg:py-0 lg:px-8">
+      <div className="flex flex-col gap-8 lg:w-1/2 lg:h-full md:h-auto py-8 lg:py-0">
         {roleChecker(u.roles, ["answerer", "moderator"]) ? (
           <ProfileSubDisplay>
             {u.roles.includes("moderator") ? (
