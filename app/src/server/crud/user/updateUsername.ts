@@ -19,6 +19,14 @@ export const updateUsername = publicProcedure
         message: "Username cannot be longer than 16 characters.",
       });
     }
+
+    if (username.includes(" ")) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Username cannot contain spaces.",
+      });
+    }
+
     const lastUpdate = (
       await prisma.user.findFirst({
         where: { id },
