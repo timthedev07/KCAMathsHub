@@ -21,19 +21,14 @@ export const QList: FC<QListProps> = ({ uid }) => {
             Questions
           </h2>
           <ol className="last:border-b-0 flex flex-col">
-            {[...data, ...data, ...data, ...data, ...data, ...data].map(
-              (each, ind) => (
-                <>
-                  <Question question={each} key={each.id} />
-                  {ind <
-                  [...data, ...data, ...data, ...data, ...data, ...data]
-                    .length -
-                    1 ? (
-                    <hr className="h-[1px] border-0 bg-slate-400/30" />
-                  ) : null}
-                </>
-              )
-            )}
+            {data.map((each, ind) => (
+              <>
+                <Question question={each} key={each.id} />
+                {ind < data.length - 1 ? (
+                  <hr className="h-[1px] border-0 bg-slate-400/30" />
+                ) : null}
+              </>
+            ))}
           </ol>
         </div>
       )}

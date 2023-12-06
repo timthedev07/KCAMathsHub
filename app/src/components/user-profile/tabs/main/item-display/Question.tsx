@@ -31,7 +31,7 @@ export const Question: FC<QuestionProps> = ({
           ) : null}
         </div>
         <ul className="flex gap-2 items-start grow-[1] flex-wrap">
-          {[...categories, ...categories].map((each, ind) => (
+          {categories.map((each, ind) => (
             <QCategoryBadge name={each.name} ind={ind} key={each.name} />
           ))}
         </ul>
