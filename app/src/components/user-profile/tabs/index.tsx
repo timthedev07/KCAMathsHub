@@ -11,7 +11,7 @@ interface ProfileTabsProps {
   user: Session["user"];
 }
 
-export const viewPanelBase = "bg-slate-900 rounded-xl shadow-2xl";
+export const viewPanelBase = "bg-slate-900/60 rounded-xl shadow-2xl";
 
 export const ProfileTabs: FC<ProfileTabsProps> = ({ user }) => {
   const u = user;
