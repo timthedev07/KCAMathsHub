@@ -30,10 +30,15 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
       >
         <div className="flex flex-col mb-8 gap-6">
           <div className="flex items-center gap-4 md:gap-8 pt-8 flex-col lg:flex-row">
-            <Avatar size="lg" rounded img={u.image || undefined} />
-            <div className="flex flex-col gap-3 flex-1">
+            <Avatar
+              size={"lg"}
+              className="w-20 h-20"
+              rounded
+              img={u.image || undefined}
+            />
+            <div className="flex flex-col gap-3">
               <UsernameEditable />
-              <span className="text-sm text-neutral-300/70 px-2">
+              <span className="text-sm text-neutral-300/70 px-2 break-words">
                 {u.email}
               </span>
               {u.joinedYear ? (
@@ -67,7 +72,7 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
           <EditableTextArea user={u} sameUser={sameUser} />
         </div>
       </div>
-      <div className="flex flex-col gap-8 flex-1 h-96 md:h-auto px-8">
+      <div className="flex flex-col gap-8 flex-1 lg:h-full md:h-auto py-8 lg:py-0 lg:px-8">
         {roleChecker(u.roles, ["answerer", "moderator"]) ? (
           <ProfileSubDisplay>
             {u.roles.includes("moderator") ? (
