@@ -25,7 +25,7 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user }) => {
         <MainProfileTab user={u} sameUser />
       </TabItem>
 
-      {roleChecker(u.roles, ["inquirer"]) ? (
+      {roleChecker(u.roles, ["moderator", "answerer"]) ? (
         <TabItem title="Questions">
           <QuestionsTab />
         </TabItem>
@@ -33,6 +33,10 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user }) => {
 
       {roleChecker(u.roles, ["answerer"]) ? (
         <TabItem title="Answers"></TabItem>
+      ) : null}
+
+      {roleChecker(u.roles, ["moderator"]) ? (
+        <TabItem title="Moderations"></TabItem>
       ) : null}
       <TabItem title="Referral">
         <ReferralTab />
