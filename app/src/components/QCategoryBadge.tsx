@@ -1,0 +1,26 @@
+import { FC } from "react";
+
+interface QCategoryBadgeProps {
+  name: string;
+  ind: number;
+}
+
+const colors = [
+  "bg-amber-600/80",
+  "bg-lime-600/80",
+  "bg-cyan-600/80",
+  "bg-indigo-600/80",
+  "bg-rose-600/80",
+];
+
+export const QCategoryBadge: FC<QCategoryBadgeProps> = ({ name, ind }) => {
+  return (
+    <span
+      className={`rounded-lg text-xs text-white/80 px-3 font-semibold flex justify-center items-center h-6 ${
+        colors[ind % colors.length]
+      }`}
+    >
+      {name}
+    </span>
+  );
+};
