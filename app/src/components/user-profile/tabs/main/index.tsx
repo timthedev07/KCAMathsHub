@@ -17,7 +17,7 @@ interface MainProfileTabProps {
   sameUser?: boolean;
 }
 
-export const MainProfileTab: FC<MainProfileTabProps> = ({
+export const  MainProfileTab: FC<MainProfileTabProps> = ({
   user: u,
   sameUser = false,
 }) => {
