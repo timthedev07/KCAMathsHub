@@ -9,7 +9,6 @@ import { viewPanelBase } from "..";
 import { EditableTextArea } from "./EditableTextArea";
 import { BiSolidHelpCircle } from "react-icons/bi";
 import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../data/updateIntervals";
-import { ProfileSubDisplay } from "./ProfileSubDisplay";
 import { QList } from "./item-display/QList";
 import { MdEmail } from "react-icons/md";
 
@@ -79,15 +78,13 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
         </div>
       </div>
       <div className="flex flex-col gap-8 lg:w-1/2 lg:h-full md:h-auto py-8 lg:py-0">
-        <ProfileSubDisplay>
-          {u.roles.includes("moderator") ? (
-            <></>
-          ) : u.roles.includes("answerer") ? (
-            <></>
-          ) : (
-            <QList uid={u.id} />
-          )}
-        </ProfileSubDisplay>
+        {u.roles.includes("moderator") ? (
+          <></>
+        ) : u.roles.includes("answerer") ? (
+          <></>
+        ) : (
+          <QList uid={u.id} />
+        )}
       </div>
     </div>
   );
