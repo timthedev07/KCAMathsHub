@@ -4,7 +4,6 @@ import { FC } from "react";
 import { UsernameEditable } from "./username-editable";
 import { BadgesDisplay } from "../../BadgesDisplay";
 import { getCurrYear } from "../../../../lib/getCurrYear";
-import { roleChecker } from "../../../../lib/accessGuard";
 import { Session } from "next-auth";
 import { viewPanelBase } from "..";
 import { EditableTextArea } from "./EditableTextArea";
@@ -80,19 +79,15 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
         </div>
       </div>
       <div className="flex flex-col gap-8 lg:w-1/2 lg:h-full md:h-auto py-8 lg:py-0">
-        {roleChecker(u.roles, ["answerer", "moderator"]) ? (
-          <ProfileSubDisplay>
-            {u.roles.includes("moderator") ? (
-              <></>
-            ) : u.roles.includes("answerer") ? (
-              <></>
-            ) : null}
-          </ProfileSubDisplay>
-        ) : null}
-
-        {/* questions display */}
-
-        <QList uid={u.id} />
+        <ProfileSubDisplay>
+          {u.roles.includes("moderator") ? (
+            <></>
+          ) : u.roles.includes("answerer") ? (
+            <></>
+          ) : (
+            <QList uid={u.id} />
+          )}
+        </ProfileSubDisplay>
       </div>
     </div>
   );
