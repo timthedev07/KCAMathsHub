@@ -43,7 +43,7 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
             <div className="flex flex-col gap-3">
               <UsernameEditable />
               <Tooltip content={u.email} placement="top">
-                <span className="text-sm text-neutral-300/70 px-2 flex gap-1 items-center cursor-pointer hover:text-neutral-200/80 transition duration-200">
+                <span className="text-sm text-neutral-300/70 px-2 flex gap-1 items-center cursor-pointer hover:text-neutral-200/80 transition duration-20">
                   <MdEmail className="w-5 h-5" />
                   Email
                 </span>
@@ -59,8 +59,8 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
             </div>
           </div>
           <BadgesDisplay
-            center
-            className="xl:hidden flex flex-wrap mx-auto"
+            // center
+            className="xl:hidden flex flex-wrap mx-0 md:mx-auto lg:mx-0"
             roles={u.roles}
           />
         </div>
