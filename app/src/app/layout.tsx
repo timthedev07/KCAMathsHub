@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppLayout } from "../components/AppLayout";
-import { AppLoadingProvider } from "../components/contexts/TopLoadingBar";
 import { TRPCProvider } from "../trpc/Provider";
 import "./globals.css";
 import { getServerSession } from "../lib/authoptions";
 import SessionProvider from "../components/contexts/SessionProvider";
+import { PageProgressBarProvider } from "../components/contexts/ProgressProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,9 +27,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <SessionProvider session={session}>
           <TRPCProvider>
-            <AppLoadingProvider>
+            <PageProgressBarProvider>
               <AppLayout session={session}>{children}</AppLayout>
-            </AppLoadingProvider>
+            </PageProgressBarProvider>
           </TRPCProvider>
         </SessionProvider>
       </body>
