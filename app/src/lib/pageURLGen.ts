@@ -10,4 +10,7 @@ export const pageURLs = {
   question(quid: string) {
     return `${HOST}/questions/${quid}`;
   },
+  user(uid: string) {
+    return `${HOST}/user/profile/${uid}`;
+  },
 };
