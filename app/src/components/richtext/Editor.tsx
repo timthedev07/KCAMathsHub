@@ -26,6 +26,37 @@ import {
   CreateLink,
 } from "@mdxeditor/editor";
 
+export interface EditorExtraProps {}
+
+const rest = [
+  headingsPlugin(),
+  listsPlugin(),
+  quotePlugin(),
+  thematicBreakPlugin(),
+  markdownShortcutPlugin(),
+  linkPlugin(),
+  linkDialogPlugin(),
+  tablePlugin(),
+];
+
+const toolbar = toolbarPlugin({
+  toolbarContents: () => (
+    <>
+      <UndoRedo />
+      <Separator />
+      <BoldItalicUnderlineToggles />
+      <Separator></Separator>
+      <ListsToggle />
+      <Separator />
+      <BlockTypeSelect />
+      <Separator />
+      <CreateLink />
+      <InsertTable />
+      <InsertThematicBreak />
+    </>
+  ),
+});
+
 // Only import this to the next file
 export default function InitializedMDXEditor({
   editorRef,
@@ -34,34 +65,7 @@ export default function InitializedMDXEditor({
   return (
     <MDXEditor
       className="dark-theme dark-editor prose"
-      plugins={[
-        // Example Plugin Usage
-        headingsPlugin(),
-        listsPlugin(),
-        quotePlugin(),
-        thematicBreakPlugin(),
-        markdownShortcutPlugin(),
-        linkPlugin(),
-        linkDialogPlugin(),
-        tablePlugin(),
-        toolbarPlugin({
-          toolbarContents: () => (
-            <>
-              <UndoRedo />
-              <Separator />
-              <BoldItalicUnderlineToggles />
-              <Separator></Separator>
-              <ListsToggle />
-              <Separator />
-              <BlockTypeSelect />
-              <Separator />
-              <CreateLink />
-              <InsertTable />
-              <InsertThematicBreak />
-            </>
-          ),
-        }),
-      ]}
+      plugins={props.readOnly ? rest : [...rest, toolbar]}
       {...props}
       ref={editorRef}
     />
