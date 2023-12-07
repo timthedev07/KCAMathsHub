@@ -22,57 +22,71 @@ export const askQuestion = publicProcedure
           "Please write more than 50 characters as the question content"
         )
         .max(CONTENT_LIMIT[1], "Too many words for the content"),
-      userId: z.string().nonempty("Invalid user"),
+      userId: z.string().min(1),
       attachmentIds: z.number().array(),
+      anonymous: z.boolean(),
+      categories: z.array(
+        z.object({
+          id: z.number(),
+          name: z.string(),
+        })
+      ),
     })
   )
-  .mutation(async ({ input: { attachmentIds, content, title, userId } }) => {
-    const u = await prisma.user.findFirst({ where: { id: userId } });
+  .mutation(
+    async ({
+      input: { attachmentIds, content, title, userId, anonymous, categories },
+    }) => {
+      const u = await prisma.user.findFirst({ where: { id: userId } });
 
-    if (!u)
-      throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid user" });
+      if (!u)
+        throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid user" });
 
-    if (!u.joinedYear) {
-      throw new TRPCError({
-        code: "FORBIDDEN",
-        message: "At this stage, only students can ask questions.",
+      if (!u.joinedYear) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "At this stage, only students can ask questions.",
+        });
+      }
+
+      const attachments = await prisma.imageAttachment.findMany({
+        where: { id: { in: attachmentIds } },
       });
-    }
 
-    const attachments = await prisma.imageAttachment.findMany({
-      where: { id: { in: attachmentIds } },
-    });
+      if (attachmentIds.length !== attachments.length) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Invalid attachments",
+        });
+      }
 
-    if (attachmentIds.length !== attachments.length) {
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "Invalid attachments",
-      });
-    }
+      let finalId;
 
-    let finalId;
-
-    // insert question
-    try {
-      const askedQuestion = await prisma.question.create({
-        data: {
-          content,
-          title,
-          attachments: {
-            connect: attachments,
+      // insert question
+      try {
+        const askedQuestion = await prisma.question.create({
+          data: {
+            content,
+            title,
+            attachments: {
+              connect: attachments,
+            },
+            questioner: { connect: { id: userId } },
+            category: classifyKSCategory(u.joinedDate, u.joinedYear),
+            yearGroupAsked: getCurrYear(u.joinedDate, u.joinedYear),
+            anonymous,
+            timestamp: new Date(),
+            categories: { connect: categories },
           },
-          questioner: { connect: { id: userId } },
-          category: classifyKSCategory(u.joinedDate, u.joinedYear),
-          yearGroupAsked: getCurrYear(u.joinedDate, u.joinedYear),
-        },
-      });
-      finalId = askedQuestion.id;
-    } catch (err: any) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: err.message,
-      });
-    }
+        });
+        finalId = askedQuestion.id;
+      } catch (err: any) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: err.message,
+        });
+      }
 
-    return finalId;
-  });
+      return finalId;
+    }
+  );
