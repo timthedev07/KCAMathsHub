@@ -71,8 +71,13 @@ export const ReferralTab: FC = ({}) => {
       <Link href={pageURLs.user(id)}>
         <li className="w-full py-3 px-4 flex justify-between items-center text-base text-slate-100/70 hover:text-slate-50/90 hover:bg-slate-500/30 transition duration-200 cursor-pointer bg-slate-500/20 rounded-lg border border-slate-500/30">
           <div className="flex gap-3 items-center">
-            <div className="w-8 h-8 relative">
-              <Image alt="user image" src={userProfilePic} fill />
+            <div className="w-9 h-9 relative">
+              <Image
+                alt="user image"
+                className="rounded-full"
+                src={userProfilePic}
+                fill
+              />
             </div>
             <span>{children}</span>
           </div>
