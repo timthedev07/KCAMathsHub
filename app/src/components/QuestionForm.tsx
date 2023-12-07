@@ -20,7 +20,7 @@ interface QuestionFormProps {
 interface FormData {
   title: string;
   content: string;
-  categories: string[];
+  categories: { id: number; name: string }[];
 }
 
 export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
@@ -97,7 +97,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
         />
         <ul>
           {formData.categories.map((each) => (
-            <li key={each}>{each}</li>
+            <li key={`${each.id}_${each.name}`}>{each.name}</li>
           ))}
         </ul>
       </div>

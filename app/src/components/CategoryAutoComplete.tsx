@@ -1,10 +1,11 @@
 import { FC, Suspense, useState } from "react";
 import { trpc } from "../trpc/client";
 import { Combobox } from "@headlessui/react";
+import { MAX_CATEGORIES_NUM } from "../constants/catMax";
 
 interface CategoryAutoCompleteProps {
-  addCategory: (_: string) => void;
-  selectedCategories: string[];
+  addCategory: (_: { id: number; name: string }) => void;
+  selectedCategories: { id: number; name: string }[];
 }
 
 const Component: FC<CategoryAutoCompleteProps> = ({
@@ -20,11 +21,18 @@ const Component: FC<CategoryAutoCompleteProps> = ({
 
   const filtered =
     query === ""
-      ? data.filter((a) => !selectedCategories.includes(a.name))
+      ? data.filter(
+          (a) =>
+            selectedCategories.findIndex(
+              (k) => k.id === a.id && k.name === a.name
+            ) < 0
+        )
       : data.filter((category) => {
           return (
             category.name.toLowerCase().includes(query.toLowerCase()) &&
-            !selectedCategories.includes(category.name)
+            selectedCategories.findIndex(
+              (k) => k.id === category.id && k.name === category.name
+            ) < 0
           );
         });
 
@@ -36,35 +44,43 @@ const Component: FC<CategoryAutoCompleteProps> = ({
         // if the value is
         if (
           selectedCategories.every((val) => {
-            return val !== v.name;
-          })
+            return val.name !== v.name;
+          }) &&
+          selectedCategories.length < MAX_CATEGORIES_NUM
         ) {
-          addCategory(v.name);
+          addCategory(v);
           setQuery("");
         }
       }}
+      disabled={selectedCategories.length >= MAX_CATEGORIES_NUM}
     >
       <Combobox.Input
         className="bg-neutral-900 rounded-md border-slate-200/20 w-full"
         onChange={(event) => setQuery(event.target.value)}
       />
       <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04]">
-        {filtered.map((each) => (
-          <Combobox.Option
-            className="p-3 hover:bg-blue-200/10 cursor-pointer transition duration-200 text-white/80 hover:text-white text-sm hover:font-semibold"
-            key={each.name}
-            value={each}
-          >
-            {each.name
-              .split(" ")
-              .map((each) =>
-                each.toLowerCase() !== "and"
-                  ? each[0].toUpperCase() + each.substring(1)
-                  : "and"
-              )
-              .join(" ")}
-          </Combobox.Option>
-        ))}
+        {filtered.length === 0 && query !== "" ? (
+          <div className="p-3 cursor-pointer text-white text-sm">
+            No categories found
+          </div>
+        ) : (
+          filtered.map((each) => (
+            <Combobox.Option
+              className="p-3 hover:bg-blue-200/10 cursor-pointer transition duration-200 text-white/80 hover:text-white text-sm hover:font-semibold"
+              key={each.name}
+              value={each}
+            >
+              {each.name
+                .split(" ")
+                .map((each) =>
+                  each.toLowerCase() !== "and"
+                    ? each[0].toUpperCase() + each.substring(1)
+                    : "and"
+                )
+                .join(" ")}
+            </Combobox.Option>
+          ))
+        )}
       </Combobox.Options>
     </Combobox>
   );
