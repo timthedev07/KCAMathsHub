@@ -10,7 +10,6 @@ export const userQuestionListDisplaySelect = {
     select: {
       name: true,
     },
-    take: 3,
   },
 } satisfies Prisma.QuestionSelect;
 
