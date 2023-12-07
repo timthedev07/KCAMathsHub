@@ -57,8 +57,13 @@
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.12.0",
     "react-latex": "^2.0.0",
+    "rehype-sanitize": "^6.0.0",
+    "rehype-stringify": "^10.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.0.0",
     "sharp": "^0.32.6",
     "superjson": "^2.2.1",
+    "unified": "^11.0.4",
     "zod": "^3.22.4"
   },
   "devDependencies": {
