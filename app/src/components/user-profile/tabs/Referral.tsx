@@ -6,12 +6,12 @@ import { Button } from "../../reusable/Button";
 import { viewPanelBase } from ".";
 import { LoadingSpin } from "../../LoadingSpin";
 import { useState } from "react";
-import { LogoSVG } from "@/components/Logo";
 import Link from "next/link";
 import { pageURLs } from "../../../lib/pageURLGen";
 import { Toast, Tooltip } from "flowbite-react";
 import Image from "next/image";
 import { FaCheckCircle, FaCopy } from "react-icons/fa";
+import { BsAwardFill } from "react-icons/bs";
 
 export const ReferralTab: FC = ({}) => {
   const { data, status } = useSession();
@@ -43,40 +43,26 @@ export const ReferralTab: FC = ({}) => {
 
   const buttonNotClickedCode = (
     <div
-      className={`bg-slate-900/60 rounded-xl shadow-2xl w-full h-[70vh] flex gap-4 flex-col items-center p-2`}
+      className={`bg-slate-900/60 rounded-xl shadow-2xl w-full h-[70vh] flex gap-16 justify-center flex-col items-center`}
     >
-      <LogoSVG className="w-32 h-32 mt-[100px]" />
-      <p className="text-5xl mt-[10px]">
-        Refer a friend and boost your question
+      <div className="rounded-3xl text-cyan-600 w-40 h-40 flex justify-center items-center bg-cyan-300/10">
+        <BsAwardFill className="w-28 h-28" />
+      </div>
+      <p className="text-3xl font-semibold">
+        Invite users for reputation boosts!
       </p>
-      {link ? (
-        <div className="mt-[30px]">
-          <Button
-            size="xl"
-            color="cyan"
-            onClick={() => {
-              navigator.clipboard.writeText(link);
-              setButtonClicked(!buttonClicked);
-            }}
-          >
-            Copy Referral Link
-          </Button>
-        </div>
-      ) : null}
-      {!referralCreated ? (
-        <div className="mt-[30px]">
-          <Button
-            size="xl"
-            className=""
-            onClick={async () => {
-              await initReferral({ userId: u.id });
-              setButtonClicked(true);
-            }}
-          >
-            Create referral link
-          </Button>
-        </div>
-      ) : null}
+      <div className="">
+        <Button
+          size="lg"
+          className="text-slate-100/90"
+          onClick={async () => {
+            await initReferral({ userId: u.id });
+            setButtonClicked(true);
+          }}
+        >
+          Create referral link
+        </Button>
+      </div>
     </div>
   );
 
