@@ -9,10 +9,11 @@ export const getUserDisplayQuestions = publicProcedure
       uid: z.string(),
     })
   )
-  .query(
-    async ({ input: { uid } }) =>
+  .query(async ({ input: { uid } }) =>
+    (
       await prisma.question.findMany({
         where: { questionerId: uid },
         select: userQuestionListDisplaySelect,
       })
+    ).toReversed()
   );
