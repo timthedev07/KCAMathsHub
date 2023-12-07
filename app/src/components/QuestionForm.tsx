@@ -71,8 +71,6 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
     });
   };
 
-  console.log(formData.categories);
-
   return (
     <form
       className="dev-border-orange w-full p-8 lg:p-24 flex-col flex gap-12"
@@ -89,6 +87,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
           />
         </div>
         <CategoryAutoComplete
+          selectedCategories={formData.categories}
           addCategory={(c) => {
             setFormData((prev) => ({
               ...prev,
@@ -96,6 +95,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
             }));
           }}
         />
+        <ul>
+          {formData.categories.map((each) => (
+            <li key={each}>{each}</li>
+          ))}
+        </ul>
       </div>
       <AttachmentUpload files={files} setFiles={setFiles} />
       <Button type="submit">Ask</Button>
