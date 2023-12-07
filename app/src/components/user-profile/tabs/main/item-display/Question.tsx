@@ -34,7 +34,7 @@ export const Question: FC<QuestionProps> = ({
               {title}
             </span>
             <span className="text-xs text-white/60">
-              {timestamp.toLocaleDateString()}
+              {timestamp.toLocaleString()}
             </span>
           </div>
           <div
