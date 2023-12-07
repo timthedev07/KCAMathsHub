@@ -12,6 +12,8 @@ import { QEditor } from "./richtext/ForwardRefEditor";
 import { CategoryAutoComplete } from "./CategoryAutoComplete";
 import { TRPCClientError } from "@trpc/client";
 import { AppRouter } from "../server";
+import { StyledWrapper } from "./richtext/StyledWrapper";
+import { ToggleSwitch } from "flowbite-react";
 
 interface QuestionFormProps {
   userId: string;
@@ -21,6 +23,7 @@ interface FormData {
   title: string;
   content: string;
   categories: { id: number; name: string }[];
+  anonymous: boolean;
 }
 
 export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
@@ -29,6 +32,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
     title: "",
     content: "",
     categories: [],
+    anonymous: false,
   }));
   // bring in mutations
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
@@ -78,14 +82,14 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
     >
       <div className="flex flex-col gap-8">
         <Input name="title" onChange={handleChange} label="Title" />
-        <div className="border border-slate-400/40 rounded-lg p-4 bg-slate-300/[0.07]">
+        <StyledWrapper>
           <QEditor
             markdown={formData.content}
             onChange={(val) => {
               setFormData((prev) => ({ ...prev, content: val }));
             }}
           />
-        </div>
+        </StyledWrapper>
         <CategoryAutoComplete
           selectedCategories={formData.categories}
           addCategory={(c) => {
@@ -95,11 +99,13 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
             }));
           }}
         />
-        <ul>
-          {formData.categories.map((each) => (
-            <li key={`${each.id}_${each.name}`}>{each.name}</li>
-          ))}
-        </ul>
+        Anonymous?
+        <ToggleSwitch
+          checked={formData.anonymous}
+          onChange={(val) => {
+            setFormData((prev) => ({ ...prev, anonymous: val }));
+          }}
+        />
       </div>
       <AttachmentUpload files={files} setFiles={setFiles} />
       <Button type="submit">Ask</Button>
