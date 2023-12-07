@@ -7,10 +7,11 @@ import { AttachmentUpload, FL } from "./AttachmentUpload";
 import { uploadToAPI } from "../lib/attachmentClientUpload";
 import { useRouter } from "next/navigation";
 import { pageURLs } from "../lib/pageURLGen";
-import { TRPCError } from "@trpc/server";
 import { Button } from "./reusable/Button";
 import { QEditor } from "./richtext/ForwardRefEditor";
 import { CategoryAutoComplete } from "./CategoryAutoComplete";
+import { TRPCClientError } from "@trpc/client";
+import { AppRouter } from "../server";
 
 interface QuestionFormProps {
   userId: string;
@@ -46,8 +47,18 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
       const quid = await ask({ ...formData, userId, attachmentIds: atts });
       push(pageURLs.question(quid));
     } catch (err: unknown) {
-      const msg = (err as TRPCError).message;
-      push(pageURLs.error(msg));
+      const msg = (err as TRPCClientError<AppRouter>).data?.zodError
+        ?.fieldErrors;
+
+      if (!msg) return;
+
+      push(
+        pageURLs.error(
+          msg[Object.keys(msg || {})[0]]
+            ? msg![Object.keys(msg || {})[0]]![0]
+            : ""
+        )
+      );
     }
   };
 
@@ -60,9 +71,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
     });
   };
 
+  console.log(formData.categories);
+
   return (
     <form
-      className="dev-border-orange w-full p-8 md:p-24 flex-col flex gap-12"
+      className="dev-border-orange w-full p-8 lg:p-24 flex-col flex gap-12"
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col gap-8">
