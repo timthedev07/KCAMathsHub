@@ -5,6 +5,7 @@ import { pageURLs } from "../../../../../lib/pageURLGen";
 import { QCategoryBadge } from "../../../../QCategoryBadge";
 import { FaCheckCircle } from "react-icons/fa";
 import { FaUserSecret } from "react-icons/fa";
+import { dateTimeDisplay } from "../../../../../lib/datetimeDisplay";
 
 interface QuestionProps {
   question: UserQuestionListDisplay;
@@ -34,7 +35,7 @@ export const Question: FC<QuestionProps> = ({
               {title}
             </span>
             <span className="text-xs text-white/60">
-              {timestamp.toLocaleString()}
+              {dateTimeDisplay(timestamp)}
             </span>
           </div>
           <div
