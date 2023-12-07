@@ -25,7 +25,6 @@ export const ReferralTab: FC = ({}) => {
     },
   }).mutateAsync;
 
-  const [buttonClicked, setButtonClicked] = useState(false);
   const [showToast, setShowToast] = useState<boolean>(false);
 
   if (status === "loading") {
@@ -57,7 +56,6 @@ export const ReferralTab: FC = ({}) => {
           className="text-slate-100/90"
           onClick={async () => {
             await initReferral({ userId: u.id });
-            setButtonClicked(true);
           }}
         >
           Create referral link
