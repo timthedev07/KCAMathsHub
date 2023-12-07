@@ -11,6 +11,7 @@ export const userQuestionListDisplaySelect = {
       name: true,
     },
   },
+  anonymous: true,
 } satisfies Prisma.QuestionSelect;
 
 export type UserQuestionListDisplay = Prisma.QuestionGetPayload<{
