@@ -10,7 +10,7 @@ export const getReferralEntity = publicProcedure
       where: { userId },
       include: {
         acceptedUsers: {
-          select: { username: true, id: true },
+          select: { username: true, id: true, image: true },
         },
       },
     });
