@@ -11,14 +11,11 @@ const P: NextPage<Params> = async ({ params: { r } }) => {
   const session = await getServerSession();
 
   if (session?.user) {
-    return redirect("/user/profile");
+    return redirect("/");
   }
 
   return (
-    <div className="w-full flex flex-col items-center gap-12">
-      <h1 className="w-full text-center dev-orange-border p-24 font-2xl">
-        Join with a referral code to get a 20+ reputation head start!
-      </h1>
+    <div className="w-full flex min-h-[90vh] flex-col justify-center items-center">
       <SignInPanel r={r} />
     </div>
   );

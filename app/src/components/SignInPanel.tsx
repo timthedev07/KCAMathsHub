@@ -18,6 +18,11 @@ export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
         <LogoSVG className="w-9/12 h-9/12 mb-2" />
       </div>
       <h1 className="font-bold text-xl text-center">Login as a member</h1>
+      {r && (
+        <span className="text-sm text-center text-white/80">
+          Join with a 20+ reputation head start!
+        </span>
+      )}
       <OAuthButton
         provider="google"
         onClick={async () => {
