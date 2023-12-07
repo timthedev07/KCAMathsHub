@@ -1,0 +1,32 @@
+.prose h1 {
+  @apply text-3xl font-bold text-white;
+}
+
+.prose h2 {
+  @apply text-2xl font-semibold text-white/90;
+}
+
+.prose h3 {
+  @apply text-lg text-white/80;
+}
+
+.prose ul,
+.prose ol {
+  @apply text-sm list-outside;
+}
+
+.prose ul {
+  @apply !list-disc pl-4;
+}
+
+.prose ol {
+  @apply !list-decimal pl-5;
+}
+
+.prose blockquote {
+  @apply border-l-4 bg-slate-400/10 border-cyan-500 pl-3;
+}
+
+.prose p {
+  @apply text-sm text-neutral-300;
+}
