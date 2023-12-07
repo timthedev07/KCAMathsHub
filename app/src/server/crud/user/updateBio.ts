@@ -2,7 +2,7 @@ import { z } from "zod";
 import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
 import { updateIntervalCheck } from "../../../lib/updateIntervalCheck";
-import { DAYS_BETWEEN_BIO_UPDATE } from "../../../data/updateIntervals";
+import { DAYS_BETWEEN_BIO_UPDATE } from "../../../constants/updateIntervals";
 import { TRPCError } from "@trpc/server";
 
 export const updateBio = publicProcedure

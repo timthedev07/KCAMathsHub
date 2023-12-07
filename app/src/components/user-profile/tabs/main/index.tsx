@@ -8,7 +8,7 @@ import { Session } from "next-auth";
 import { viewPanelBase } from "..";
 import { EditableTextArea } from "./EditableTextArea";
 import { BiSolidHelpCircle } from "react-icons/bi";
-import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../data/updateIntervals";
+import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../constants/updateIntervals";
 import { QList } from "./item-display/QList";
 import { MdEmail } from "react-icons/md";
 
@@ -17,7 +17,7 @@ interface MainProfileTabProps {
   sameUser?: boolean;
 }
 
-export const  MainProfileTab: FC<MainProfileTabProps> = ({
+export const MainProfileTab: FC<MainProfileTabProps> = ({
   user: u,
   sameUser = false,
 }) => {

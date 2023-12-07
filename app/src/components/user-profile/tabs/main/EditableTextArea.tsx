@@ -4,10 +4,10 @@ import { Textarea } from "flowbite-react";
 import { Session } from "next-auth";
 import { FC, useState } from "react";
 import { updateIntervalCheck } from "../../../../lib/updateIntervalCheck";
-import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../data/updateIntervals";
+import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../constants/updateIntervals";
 import { trpc } from "../../../../trpc/client";
 import { MessageActionModal } from "../../../MessageActionModal";
-import { BIO_MAX_LENGTH } from "../../../../data/maxLengths";
+import { BIO_MAX_LENGTH } from "../../../../constants/maxLengths";
 
 interface EditableTextAreaProps {
   user: Session["user"];

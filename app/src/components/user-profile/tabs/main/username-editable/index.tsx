@@ -2,7 +2,7 @@
 import { FC } from "react";
 import { Editable } from "./Editable";
 import { updateIntervalCheck } from "../../../../../lib/updateIntervalCheck";
-import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../../../data/updateIntervals";
+import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../../../constants/updateIntervals";
 import { useSession } from "next-auth/react";
 
 interface UsernameEditableProps {
