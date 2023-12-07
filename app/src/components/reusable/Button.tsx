@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { ComponentProps, FC } from "react";
 import { Button as FBButton } from "flowbite-react";
 
-export const Button: FC<Parameters<typeof FBButton>[0]> = (props) => {
+export const Button: FC<ComponentProps<typeof FBButton>> = (props) => {
   return (
     <FBButton
       theme={{
