@@ -15,6 +15,7 @@ export interface FileWithIdAndObjURL {
   file: File;
   id: string;
   url: string;
+  size: number; // in bytes
 }
 
 export const AttachmentUpload: FC<AttachmentUploadProps> = ({
@@ -42,7 +43,15 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
 
           return isDup
             ? prev
-            : [{ file, id: uniqueId, url: URL.createObjectURL(file) }, ...prev];
+            : [
+                {
+                  file,
+                  id: uniqueId,
+                  url: URL.createObjectURL(file),
+                  size: file.size,
+                },
+                ...prev,
+              ];
         });
       }
     }
