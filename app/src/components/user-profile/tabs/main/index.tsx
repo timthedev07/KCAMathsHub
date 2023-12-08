@@ -1,5 +1,5 @@
 "use client";
-import { Avatar, Tooltip } from "flowbite-react";
+import { Tooltip } from "flowbite-react";
 import { FC } from "react";
 import { UsernameEditable } from "./username-editable";
 import { BadgesDisplay } from "../../BadgesDisplay";
@@ -11,6 +11,7 @@ import { BiSolidHelpCircle } from "react-icons/bi";
 import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../constants/updateIntervals";
 import { QList } from "./item-display/QList";
 import { MdEmail } from "react-icons/md";
+import { ProfileImgDisplay } from "../../../ProfileImgDisplay";
 
 interface MainProfileTabProps {
   user: Session["user"];
@@ -30,11 +31,9 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
         <div className="flex flex-col mb-8 gap-6">
           <div className="flex items-center gap-4 md:gap-8 pt-8 flex-col lg:flex-row">
             <div className="w-20 h-20">
-              <Avatar
-                size={"lg"}
-                className=""
-                rounded
-                img={u.image || undefined}
+              <ProfileImgDisplay
+                src={u.image}
+                className="aspect-square w-full"
               />
             </div>
 
