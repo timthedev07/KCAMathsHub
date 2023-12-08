@@ -6,7 +6,7 @@ import { getUrl } from "../../../aws/urlFormatter";
 import { ImgUrlsType } from "../../../types/upload";
 import sharp from "sharp";
 
-const IMG_QUALITY_THRESHOLD = 1500;
+const IMG_QUALITY_THRESHOLD = 1000;
 
 const placeholders = [
   "https://placehold.co/600x400@2x.png?font=montserrat",
@@ -80,11 +80,15 @@ const POST = async (request: Request) => {
         const newBuffer = await img.toBuffer();
         const fname = randomUUID() + "." + extension;
 
+        const fSize =
+          Math.round((newBuffer.byteLength / 8 / 1000000) * 100) / 100;
+
         try {
           await uploadFile(awsS3Client, fname, newBuffer);
           imgUrls.push({
             url: getUrl(fname),
             name: `Attachment_${a}.${extension}`,
+            size: fSize,
           });
           a++;
         } catch (err) {
@@ -95,9 +99,13 @@ const POST = async (request: Request) => {
   } else {
     for (let i = 0; i < fileCount; i++) {
       const d = placeholders[Math.floor(Math.random() * placeholders.length)];
+      const t = d.split("//")[1].split("/")[1].split("@")[0];
+      const [a, b] = [395, 1295];
+
       imgUrls.push({
-        name: d.split("//")[1].split("/")[1].split("@")[0],
+        name: t,
         url: d,
+        size: Math.round(((a * b * 24) / 8 / 1000000) * 100) / 100,
       });
     }
   }
