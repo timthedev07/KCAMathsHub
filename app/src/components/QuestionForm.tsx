@@ -8,7 +8,7 @@ import { uploadToAPI } from "../lib/attachmentClientUpload";
 import { useRouter } from "next/navigation";
 import { pageURLs } from "../lib/pageURLGen";
 import { Button } from "./reusable/Button";
-import { QEditor } from "./richtext/ForwardRefEditor";
+import { QAEditor } from "./richtext/ForwardRefEditor";
 import { CategoryAutoComplete } from "./CategoryAutoComplete";
 import { TRPCClientError } from "@trpc/client";
 import { AppRouter } from "../server";
@@ -83,7 +83,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
       <div className="flex flex-col gap-8">
         <Input name="title" onChange={handleChange} label="Title" />
         <StyledWrapper>
-          <QEditor
+          <QAEditor
             markdown={formData.content}
             onChange={(val) => {
               setFormData((prev) => ({ ...prev, content: val }));

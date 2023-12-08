@@ -10,8 +10,8 @@ const Editor = dynamic(() => import("./Editor"), {
   ssr: false,
 });
 
-export const QEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
+export const QAEditor = forwardRef<MDXEditorMethods, MDXEditorProps>(
   (props, ref) => <Editor {...props} editorRef={ref} />
 );
 
-QEditor.displayName = "ForwardRefEditor";
+QAEditor.displayName = "ForwardRefEditor";
