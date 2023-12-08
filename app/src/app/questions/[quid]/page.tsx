@@ -46,6 +46,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
       anonymous,
       timestamp,
       answered,
+      questionerId,
     },
     u,
   } = await getSSRProps(quid);
@@ -87,8 +88,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
               </div>
             </OptionalLinkWrapper>
             {u &&
-            (u.roles.includes("answerer") ||
-              u.id === (questioner?.id || "")) ? (
+            (u.roles.includes("answerer") || u.id === (questionerId || "")) ? (
               <Link href={pageURLs.answerQuestion(quid)}>
                 <Button color={"green"}>Answer</Button>
               </Link>

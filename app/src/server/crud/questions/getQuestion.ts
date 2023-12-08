@@ -38,7 +38,6 @@ export const getQuestion = publicProcedure
     });
     // do not expose data of anonymous users
     if (q && q.anonymous) {
-      q.questionerId = null;
       q.questioner = null;
     }
     return q;
