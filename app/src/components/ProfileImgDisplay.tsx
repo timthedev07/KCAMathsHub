@@ -15,7 +15,7 @@ export const ProfileImgDisplay: FC<ProfileImgDisplayProps> = ({
     <div
       className={`${
         !className ? "w-10 h-10" : className
-      } relative rounded text-neutral-400 select-none`}
+      } relative text-neutral-400 select-none`}
     >
       {src ? (
         <Image
