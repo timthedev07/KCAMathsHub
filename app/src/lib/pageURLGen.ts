@@ -7,10 +7,13 @@ export const pageURLs = {
   error(msg?: string) {
     return `${HOST}/error?err=${msg}`;
   },
-  question(quid: string) {
-    return `${HOST}/questions/${quid}`;
+  question(qid: string) {
+    return `${HOST}/questions/${qid}`;
   },
   user(uid: string) {
     return `${HOST}/user/profile/${uid}`;
+  },
+  answerQuestion(qid: string) {
+    return `${HOST}/compose-answer/${qid}`;
   },
 };
