@@ -3,7 +3,7 @@ import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
 
 const userSelection = { username: true, image: true, id: true };
-const attachmentSelection = { name: true, imgUrl: true };
+const attachmentSelection = { name: true, imgUrl: true, size: true };
 
 export const getQuestion = publicProcedure
   .input(
