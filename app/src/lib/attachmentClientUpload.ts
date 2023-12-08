@@ -33,7 +33,10 @@ export const uploadToAPI = async (
 
     const data = ((await res.json()) as { imgUrls: ImgUrlsType }).imgUrls;
     const atts = await addAttachments(
-      data.map(({ name, url }) => ({ url: url, attachmentName: name }))
+      data.map(({ name, ...rest }) => ({
+        attachmentName: name,
+        ...rest,
+      }))
     );
     return atts;
   } catch (err) {
