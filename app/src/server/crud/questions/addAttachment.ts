@@ -9,6 +9,7 @@ export const addAttachments = publicProcedure
       z.object({
         attachmentName: z.string(),
         url: z.string(),
+        size: z.number().nonnegative(),
         answerId: z.string().optional(),
         questionId: z.string().optional(),
       })
@@ -16,7 +17,14 @@ export const addAttachments = publicProcedure
   )
   .mutation(async ({ input: attachments }) => {
     const ids = [];
-    for (const { url, attachmentName, answerId, questionId } of attachments) {
+    console.log("Attachments received at the mutation:", attachments);
+    for (const {
+      url,
+      attachmentName,
+      answerId,
+      questionId,
+      size,
+    } of attachments) {
       if (!!answerId && !!questionId) {
         throw new TRPCError({
           code: "BAD_REQUEST",
@@ -25,6 +33,7 @@ export const addAttachments = publicProcedure
       }
       const { id } = await prisma.imageAttachment.create({
         data: {
+          size,
           imgUrl: url,
           name: attachmentName,
           answerId,
