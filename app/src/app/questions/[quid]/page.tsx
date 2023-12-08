@@ -12,6 +12,7 @@ import Link from "next/link";
 import { dateTimeDisplay } from "../../../lib/datetimeDisplay";
 import { Button } from "../../../components/reusable/Button";
 import { FaCheckCircle } from "react-icons/fa";
+import { mdxCustomComponents } from "../../../components/mdx/components";
 
 interface Props {
   params: { quid: string };
@@ -20,7 +21,13 @@ interface Props {
 const OptionalLinkWrapper: FC<
   PropsWithChildren<{ hasLink: boolean; href: string }>
 > = ({ children, hasLink, href }) => {
-  return hasLink ? <Link href={href}>{children}</Link> : children;
+  return hasLink ? (
+    <Link prefetch={false} href={href}>
+      {children}
+    </Link>
+  ) : (
+    children
+  );
 };
 
 const getSSRProps = async (quid: string) => {
@@ -89,14 +96,13 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
             </OptionalLinkWrapper>
             {u &&
             (u.roles.includes("answerer") || u.id === (questionerId || "")) ? (
-              <Link href={pageURLs.answerQuestion(quid)}>
+              <Link prefetch={false} href={pageURLs.answerQuestion(quid)}>
                 <Button color={"green"}>Answer</Button>
               </Link>
             ) : null}
           </div>
         </div>
         <hr className="h-[1px] border-0 bg-slate-300/30 w-full" />
-        {/* <StyledWrapper> */}
         <div className="overflow-x-scroll min-h-[200px]">
           <MDXRemote
             source={content}
@@ -105,9 +111,9 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
                 remarkPlugins: [remarkGfm],
               },
             }}
+            components={mdxCustomComponents}
           />
         </div>
-        {/* </StyledWrapper> */}
 
         <h2 className="font-semibold text-3xl">Attachments</h2>
 

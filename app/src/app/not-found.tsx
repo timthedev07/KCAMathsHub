@@ -20,7 +20,7 @@ const NotFound: NextPage = () => {
         >
           Previous
         </Button>
-        <Link href="/" passHref>
+        <Link href="/" prefetch={false} passHref>
           <Button gradientDuoTone="greenToBlue">Home</Button>
         </Link>
       </div>
