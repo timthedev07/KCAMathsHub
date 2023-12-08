@@ -96,7 +96,7 @@ const POST = async (request: Request) => {
     for (let i = 0; i < fileCount; i++) {
       const d = placeholders[Math.floor(Math.random() * placeholders.length)];
       imgUrls.push({
-        name: d.split("/")[1].split("@")[0],
+        name: d.split("//")[1].split("/")[1].split("@")[0],
         url: d,
       });
     }
