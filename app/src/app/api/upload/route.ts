@@ -6,6 +6,11 @@ import { getUrl } from "../../../aws/urlFormatter";
 import { ImgUrlsType } from "../../../types/upload";
 import sharp from "sharp";
 
+// for dev purposes
+function randNum(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
+
 const IMG_QUALITY_THRESHOLD = 1000;
 
 const placeholders = [
@@ -87,7 +92,7 @@ const POST = async (request: Request) => {
           await uploadFile(awsS3Client, fname, newBuffer);
           imgUrls.push({
             url: getUrl(fname),
-            name: `Attachment_${a}.${extension}`,
+            name: `Attachment ${a}.${extension}`,
             size: fSize,
           });
           a++;
@@ -99,11 +104,10 @@ const POST = async (request: Request) => {
   } else {
     for (let i = 0; i < fileCount; i++) {
       const d = placeholders[Math.floor(Math.random() * placeholders.length)];
-      const t = d.split("//")[1].split("/")[1].split("@")[0];
-      const [a, b] = [395, 1295];
+      const [a, b] = [randNum(500, 1500), randNum(500, 1500)];
 
       imgUrls.push({
-        name: t,
+        name: `Attachment ${i}` + ".png",
         url: d,
         size: Math.round(((a * b * 24) / 8 / 1000000) * 100) / 100,
       });
