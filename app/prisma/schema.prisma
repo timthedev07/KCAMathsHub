@@ -49,6 +49,7 @@ model ImageAttachment {
   // otherwise, answer relation
   answer     Answer?   @relation(fields: [answerId], references: [id], onDelete: Cascade)
   answerId   String?
+  size       Float
 }
 
 model Question {
