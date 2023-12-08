@@ -7,7 +7,7 @@ export const addAttachments = publicProcedure
   .input(
     z.array(
       z.object({
-        attachmentName: z.string().optional(),
+        attachmentName: z.string(),
         url: z.string(),
         answerId: z.string().optional(),
         questionId: z.string().optional(),
