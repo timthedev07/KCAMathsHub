@@ -1,7 +1,5 @@
 "use client";
 
-import "@mdxeditor/editor/style.css";
-import "../../styles/mdEditor.css";
 import type { ForwardedRef } from "react";
 import {
   headingsPlugin,
