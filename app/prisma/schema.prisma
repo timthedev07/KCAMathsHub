@@ -43,13 +43,13 @@ model ImageAttachment {
   id         Int       @id @default(autoincrement())
   name       String    @db.VarChar(48)
   imgUrl     String
+  size       Float
   // question relation
   question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
   questionId String?
   // otherwise, answer relation
   answer     Answer?   @relation(fields: [answerId], references: [id], onDelete: Cascade)
   answerId   String?
-  size       Float
 }
 
 model Question {
