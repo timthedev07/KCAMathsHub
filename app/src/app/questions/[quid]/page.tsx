@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { redirect } from "next/navigation";
 import { pageURLs } from "../../../lib/pageURLGen";
@@ -13,6 +12,7 @@ import { dateTimeDisplay } from "../../../lib/datetimeDisplay";
 import { Button } from "../../../components/reusable/Button";
 import { FaCheckCircle } from "react-icons/fa";
 import { mdxCustomComponents } from "../../../components/mdx/components";
+import { AttachmentList } from "../../../components/attachments";
 
 interface Props {
   params: { quid: string };
@@ -117,21 +117,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
 
         <h2 className="font-semibold text-3xl">Attachments</h2>
 
-        <ul className="flex dev-border-green gap-8 p-4 h-96">
-          {attachments.map((each) => (
-            <li
-              key={each.name + each.imgUrl}
-              className="h-full w-96 dev-border-red relative"
-            >
-              <Image
-                alt={each.name || "Attachment"}
-                src={each.imgUrl}
-                fill={true}
-                className="object-contain"
-              />
-            </li>
-          ))}
-        </ul>
+        <AttachmentList attachments={attachments} />
       </div>
     </div>
   );
