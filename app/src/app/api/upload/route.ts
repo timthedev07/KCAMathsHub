@@ -82,7 +82,10 @@ const POST = async (request: Request) => {
 
         try {
           await uploadFile(awsS3Client, fname, newBuffer);
-          imgUrls.push({ url: getUrl(fname), name: `Attachment_${a}` });
+          imgUrls.push({
+            url: getUrl(fname),
+            name: `Attachment_${a}.${extension}`,
+          });
           a++;
         } catch (err) {
           console.log(err);
