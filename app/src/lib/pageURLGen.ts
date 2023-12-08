@@ -16,4 +16,7 @@ export const pageURLs = {
   answerQuestion(qid: string) {
     return `${HOST}/compose-answer/${qid}`;
   },
+  notFound() {
+    return `${HOST}/not-found`;
+  },
 };
