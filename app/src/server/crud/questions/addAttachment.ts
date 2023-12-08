@@ -17,7 +17,6 @@ export const addAttachments = publicProcedure
   )
   .mutation(async ({ input: attachments }) => {
     const ids = [];
-    console.log("Attachments received at the mutation:", attachments);
     for (const {
       url,
       attachmentName,
