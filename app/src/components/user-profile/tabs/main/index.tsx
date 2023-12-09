@@ -67,7 +67,9 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
             Bio{" "}
             {sameUser ? (
               <Tooltip
-                content={`Bios can only be updated once very ${DAYS_BETWEEN_BIO_UPDATE} days`}
+                content={`Bios can only be updated once every ${DAYS_BETWEEN_BIO_UPDATE} day${
+                  DAYS_BETWEEN_BIO_UPDATE > 1 ? "s" : ""
+                }`}
               >
                 <BiSolidHelpCircle className="w-5 h-5 cursor-pointer text-slate-100/90 transition duration-200 hover:text-slate-100" />
               </Tooltip>
