@@ -5,7 +5,9 @@ export const getUrl = (fname: string) => {
     url: `https://${process.env.S3_CLOUDFRONT_DOMAIN}/${encodeURIComponent(
       fname
     )}`,
-    privateKey: process.env.CLOUDFRONT_PRIVATE_KEY,
+    privateKey: process.env.CLOUDFRONT_PRIVATE_KEY.split(String.raw`\n`).join(
+      "\n"
+    ),
     keyPairId: process.env.CLOUDFRONT_KEY_PAIR_ID,
     dateLessThan: new Date(Date.now() + 1000 * 3600 * 24).toDateString(),
   });
