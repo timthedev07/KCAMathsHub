@@ -13,8 +13,9 @@ declare global {
       S3_CLOUDFRONT_DOMAIN: string;
       CLOUDFRONT_PRIVATE_KEY: string;
       CLOUDFRONT_KEY_PAIR_ID: string;
+      CLOUDFRONT_DISTRIBUTION_ID: string;
     }
   }
 }
 
-export {};
+export {}
