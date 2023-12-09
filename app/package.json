@@ -26,6 +26,7 @@
     "prod:migrate": "dotenv -e .env.prod -- prisma migrate deploy"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudfront": "^3.470.0",
     "@aws-sdk/client-s3": "^3.468.0",
     "@aws-sdk/cloudfront-signer": "^3.468.0",
     "@aws-sdk/lib-storage": "^3.468.0",
