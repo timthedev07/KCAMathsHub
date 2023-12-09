@@ -11,6 +11,7 @@ import { getReferralEntity } from "./crud/user/getReferralEntity";
 import { updateBio } from "./crud/user/updateBio";
 import { getUserDisplayQuestions } from "./crud/questions/getUserDisplayQs";
 import { getExistingCategories } from "./crud/categories/getCategories";
+import { deleteQuestion } from "./crud/questions/deleteQuestion";
 
 export const appRouter = router({
   updateUsername,
@@ -25,6 +26,7 @@ export const appRouter = router({
   updateBio,
   getUserDisplayQuestions,
   getExistingCategories,
+  deleteQuestion,
 });
 
 export type AppRouter = typeof appRouter;
