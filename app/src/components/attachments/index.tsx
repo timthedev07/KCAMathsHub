@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Button } from "../reusable/Button";
 
 interface AttachmentListProps {
-  attachments: { name: string; imgUrl: string; size: number }[];
+  attachments: { name: string; url: string; size: number }[];
 }
 
 export const AttachmentList: FC<AttachmentListProps> = ({ attachments }) => {
@@ -12,11 +12,11 @@ export const AttachmentList: FC<AttachmentListProps> = ({ attachments }) => {
       {attachments.map((each) => (
         <li
           className={`flex items-center gap-3 py-5 shadow-2xl px-8 cursor-pointer transition duration-200 hover:bg-slate-400/[0.12] bg-slate-500/10 rounded-lg`}
-          key={each.name + "_" + each.imgUrl}
+          key={each.name + "_" + each.url}
         >
           <div className="w-14 h-14 relative">
             <Image
-              src={each.imgUrl}
+              src={each.url}
               alt={each.name}
               fill
               className="rounded-md object-cover object-center"
