@@ -42,7 +42,7 @@ model Role {
 model ImageAttachment {
   id         Int       @id @default(autoincrement())
   name       String    @db.VarChar(48)
-  imgUrl     String
+  objKey     String
   size       Float
   // question relation
   question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
