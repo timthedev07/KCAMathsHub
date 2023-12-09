@@ -11,7 +11,6 @@ The stack:
   - Tailwind
 - Backend
   - tRPC
-  - PostgreSQL
   - Prisma
 - Storage
   - MySQL
