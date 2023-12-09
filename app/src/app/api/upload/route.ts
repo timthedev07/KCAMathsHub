@@ -2,7 +2,6 @@ import { Upload } from "@aws-sdk/lib-storage";
 import { createAWSS3Client } from "../../../aws/client";
 import { randomUUID } from "crypto";
 import { S3Client } from "@aws-sdk/client-s3";
-import { getUrl } from "../../../aws/urlFormatter";
 import { ImgUrlsType } from "../../../types/upload";
 import sharp from "sharp";
 
@@ -12,12 +11,6 @@ function randNum(min: number, max: number) {
 }
 
 const IMG_QUALITY_THRESHOLD = 1000;
-
-const placeholders = [
-  "https://placehold.co/600x400@2x.png?font=montserrat",
-  "https://placehold.co/800@3x.png?font=montserrat",
-  "https://placehold.co/1000x500@3x.png?font=montserrat",
-];
 
 const uploadFile = async (s3Client: S3Client, Key: string, Body: Buffer) => {
   return new Promise(async function (resolve, reject) {
@@ -91,7 +84,7 @@ const POST = async (request: Request) => {
         try {
           await uploadFile(awsS3Client, fname, newBuffer);
           imgUrls.push({
-            url: getUrl(fname),
+            objKey: fname,
             name: `Attachment ${a}.${extension}`,
             size: fSize,
           });
@@ -103,12 +96,11 @@ const POST = async (request: Request) => {
     }
   } else {
     for (let i = 0; i < fileCount; i++) {
-      const d = placeholders[Math.floor(Math.random() * placeholders.length)];
       const [a, b] = [randNum(500, 1500), randNum(500, 1500)];
 
       imgUrls.push({
         name: `Attachment ${i}` + ".png",
-        url: d,
+        objKey: "example.png",
         size: Math.round(((a * b * 24) / 8 / 1000000) * 100) / 100,
       });
     }
