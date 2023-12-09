@@ -29,7 +29,7 @@ export const AttachmentList: FC<AttachmentListProps> = ({ attachments }) => {
             <span className="text-xs text-white/60">{each.size}MB</span>
           </div>
           <div className="ml-auto">
-            <Button>View File</Button>
+            <Button size="sm">View File</Button>
           </div>
         </li>
       ))}
