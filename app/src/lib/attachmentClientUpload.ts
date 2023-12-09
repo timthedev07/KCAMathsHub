@@ -1,5 +1,3 @@
-"use client";
-
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { FileWithIdAndObjURL } from "../components/AttachmentUpload";
 import { AppRouter } from "../server";
