@@ -43,7 +43,7 @@ model ImageAttachment {
   id         Int       @id @default(autoincrement())
   name       String    @db.VarChar(48)
   objKey     String
-  size       Float
+  size       Float // size in kb
   // question relation
   question   Question? @relation(fields: [questionId], references: [id], onDelete: SetNull)
   questionId String?
