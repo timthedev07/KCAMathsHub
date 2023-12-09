@@ -9,7 +9,7 @@ export const addAttachments = publicProcedure
       z.object({
         attachmentName: z.string(),
         objKey: z.string(),
-        size: z.number().nonnegative(),
+        size: z.number().nonnegative(), // kb
         answerId: z.string().optional(),
         questionId: z.string().optional(),
       })
