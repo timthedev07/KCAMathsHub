@@ -123,6 +123,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
               options={{
                 mdxOptions: {
                   remarkPlugins: [remarkGfm],
+                  format: "md",
                 },
               }}
               components={mdxCustomComponents}
