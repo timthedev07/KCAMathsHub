@@ -23,16 +23,18 @@ export const deleteQuestion = publicProcedure
       return false;
     }
 
-    let count = 0;
+    if (process.env.NODE_ENV !== "production") {
+      let count = 0;
 
-    // deleting any attachments from s3
-    for (const { objKey } of deleted.attachments) {
-      if (await deleteAWSFile(objKey)) count++;
+      // deleting any attachments from s3
+      for (const { objKey } of deleted.attachments) {
+        if (await deleteAWSFile(objKey)) count++;
+      }
+
+      console.log(
+        `AWS Deletion count: ${count}. Total attachments count: ${deleted.attachments.length}`
+      );
     }
-
-    console.log(
-      `Deletion count: ${count}. Total attachments count: ${deleted.attachments.length}`
-    );
 
     return true;
   });

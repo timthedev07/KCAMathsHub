@@ -41,7 +41,7 @@ const POST = async (request: Request) => {
   // fname is the uuid file name; name is Attachment_1, Attachment_2, etc.
   const imgUrls: ImgUrlsType = [];
 
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV !== "production") {
     const awsS3Client = createAWSS3Client();
 
     let a = 1;
@@ -61,28 +61,31 @@ const POST = async (request: Request) => {
         const w = metadata.width;
         const h = metadata.height;
 
+        let ratio = 1;
+
         // downsizing logic
         if (h && w && w * h > IMG_QUALITY_THRESHOLD ** 2) {
           let newW, newH;
           if (w > h) {
             // horizontal
             newW = IMG_QUALITY_THRESHOLD;
-            newH = Math.floor((newW / w) * h);
+            ratio = newW / w;
+            newH = Math.floor(ratio * h);
           } else {
             newH = IMG_QUALITY_THRESHOLD;
-            newW = Math.floor((newH / h) * w);
+            ratio = newH / h;
+            newW = Math.floor(ratio * w);
           }
-          img.resize({ width: newW, height: newH });
+          img.resize({ width: newW, height: newH }).jpeg({ quality: 95 });
         }
 
-        const newBuffer = await img.toBuffer();
+        const { data, info } = await img.toBuffer({ resolveWithObject: true });
         const fname = randomUUID() + "." + extension;
 
-        const fSize =
-          Math.round((newBuffer.byteLength / 8 / 1000000) * 100) / 100;
+        const fSize = Math.round((info.size / 1000) * 100) / 100; // file size in kb
 
         try {
-          await uploadFile(awsS3Client, fname, newBuffer);
+          await uploadFile(awsS3Client, fname, data);
           imgUrls.push({
             objKey: fname,
             name: `Attachment ${a}.${extension}`,
