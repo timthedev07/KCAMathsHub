@@ -1,8 +1,15 @@
 "use client";
 
 import { Modal } from "flowbite-react";
-import { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
+import {
+  Dispatch,
+  FC,
+  PropsWithChildren,
+  SetStateAction,
+  useState,
+} from "react";
 import { Button } from "./reusable/Button";
+import { LoadingSpin } from "./LoadingSpin";
 
 interface MessageActionModalProps {
   open: boolean;
@@ -14,6 +21,7 @@ interface MessageActionModalProps {
 export const MessageActionModal: FC<
   PropsWithChildren<MessageActionModalProps>
 > = ({ open, setOpen, heading, children, action = () => {} }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   return (
     <Modal
       theme={{
@@ -25,13 +33,23 @@ export const MessageActionModal: FC<
       onClose={() => setOpen(false)}
     >
       <Modal.Header>{heading}</Modal.Header>
-      <Modal.Body>{children}</Modal.Body>
+      <Modal.Body>
+        {loading ? (
+          <div className="w-full h-48 flex justify-center items-center">
+            <LoadingSpin size="md" />
+          </div>
+        ) : (
+          children
+        )}
+      </Modal.Body>
       <Modal.Footer>
         <Button
           color={"indigo"}
           onClick={async () => {
+            setLoading(true);
             await action();
             setOpen(false);
+            setLoading(false);
           }}
         >
           Proceed
