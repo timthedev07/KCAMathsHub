@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
+import { getUrl } from "../../../aws/urlFormatter";
 
 const userSelection = { username: true, image: true, id: true };
-const attachmentSelection = { name: true, imgUrl: true, size: true };
+const attachmentSelection = { name: true, objKey: true, size: true };
 
 export const getQuestion = publicProcedure
   .input(
@@ -40,5 +41,21 @@ export const getQuestion = publicProcedure
     if (q && q.anonymous) {
       q.questioner = null;
     }
-    return q;
+
+    if (!q) {
+      return null;
+    }
+
+    // transforming the attachment objKey to urls
+    const { attachments, ...rest } = q;
+
+    return {
+      ...rest,
+      attachments: attachments.map(({ objKey, ...k }) => {
+        return {
+          ...k,
+          url: getUrl(objKey),
+        };
+      }),
+    };
   });

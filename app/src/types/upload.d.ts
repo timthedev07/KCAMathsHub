@@ -1,1 +1,1 @@
-export type ImgUrlsType = Array<{ url: string; name: string; size: number }>;
+export type ImgUrlsType = Array<{ objKey: string; name: string; size: number }>;
