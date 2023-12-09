@@ -45,10 +45,10 @@ model ImageAttachment {
   objKey     String
   size       Float
   // question relation
-  question   Question? @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question   Question? @relation(fields: [questionId], references: [id], onDelete: SetNull)
   questionId String?
   // otherwise, answer relation
-  answer     Answer?   @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  answer     Answer?   @relation(fields: [answerId], references: [id], onDelete: SetNull)
   answerId   String?
 }
 
