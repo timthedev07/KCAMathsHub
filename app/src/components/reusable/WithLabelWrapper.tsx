@@ -13,7 +13,7 @@ export const LabelWrapper: FC<WithLabelWrapperProps> = ({
 }) => {
   return (
     <div {...props} className={`flex flex-col gap-2 ${className}`}>
-      {label ? <label className="text-xl font-bold">{label}</label> : ""}
+      {label ? <label className="font-bold">{label}</label> : ""}
       {children}
     </div>
   );
