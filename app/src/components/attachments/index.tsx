@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FC } from "react";
 import { Button } from "../reusable/Button";
+import { WithExpandedImg } from "./ExpandedImg";
 
 interface AttachmentListProps {
   attachments: { name: string; url: string; size: number }[];
@@ -16,6 +17,7 @@ export const AttachmentList: FC<AttachmentListProps> = ({ attachments }) => {
         >
           <div className="w-14 h-14 relative">
             <Image
+              quality={50}
               src={url}
               alt={name}
               fill
@@ -29,7 +31,9 @@ export const AttachmentList: FC<AttachmentListProps> = ({ attachments }) => {
             </span>
           </div>
           <div className="ml-auto">
-            <Button size="sm">View File</Button>
+            <WithExpandedImg src={url}>
+              <Button size="sm">View File</Button>
+            </WithExpandedImg>
           </div>
         </li>
       ))}
