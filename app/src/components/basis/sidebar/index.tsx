@@ -78,7 +78,7 @@ export const SideBar: FC<SidebarProps> = ({
         </ul>
       </aside>
       <div
-        className={`z-10 bg-black/60 transition-opacity duration-300 w-screen h-screen absolute top-0 left-0 ${
+        className={`z-10 bg-black/60 transition-opacity duration-300 w-full h-screen absolute top-0 left-0 ${
           open
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
