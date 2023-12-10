@@ -6,7 +6,7 @@ export const StyledWrapper: FC<PropsWithChildren<{ className?: string }>> = ({
 }) => {
   return (
     <div
-      className={`border border-slate-400/40 rounded-lg p-4 bg-slate-300/[0.03] ${className}`}
+      className={`max-w-[80vw] border border-slate-300/30 rounded-xl p-4 bg-slate-300/[0.03] ${className}`}
     >
       {children}
     </div>
