@@ -4,11 +4,13 @@ import { FC, PropsWithChildren, useEffect, useState } from "react";
 
 interface ExpandedImgProps {
   src: string;
+  isBlob?: boolean;
 }
 
 export const WithExpandedImg: FC<PropsWithChildren<ExpandedImgProps>> = ({
   children,
   src,
+  isBlob = false,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -36,13 +38,24 @@ export const WithExpandedImg: FC<PropsWithChildren<ExpandedImgProps>> = ({
           }`}
         >
           {open ? (
-            <Image
-              sizes="100%"
-              className="object-contain shadow-xl"
-              src={src}
-              alt={""}
-              fill
-            />
+            <>
+              {isBlob ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={src}
+                  alt=""
+                  className="absolute object-contain shadow-xl"
+                />
+              ) : (
+                <Image
+                  sizes="100%"
+                  className="object-contain shadow-xl"
+                  src={src}
+                  alt={""}
+                  fill
+                />
+              )}
+            </>
           ) : null}
         </div>
       </div>
@@ -50,6 +63,7 @@ export const WithExpandedImg: FC<PropsWithChildren<ExpandedImgProps>> = ({
       <div
         onClick={() => {
           setOpen((p) => !p);
+          console.log("shit");
         }}
       >
         {children}
