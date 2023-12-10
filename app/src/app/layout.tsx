@@ -23,7 +23,10 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   return (
-    <html lang="en" className="bg-primary-bg dark text-text-color">
+    <html
+      lang="en"
+      className="bg-primary-bg dark text-text-color overflow-hidden"
+    >
       <body className={inter.className}>
         <SessionProvider session={session}>
           <TRPCProvider>
