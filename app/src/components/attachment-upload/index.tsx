@@ -4,7 +4,7 @@ import { FC, SetStateAction, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { IoMdCloudUpload } from "react-icons/io";
 import { UploadedItem } from "./UploadedItem";
-import { FL, FileWithIdAndObjURL } from "./types";
+import { FL } from "./types";
 import { MAX_FILE_COUNT, MAX_FILE_SIZE_MB } from "./constants";
 
 interface AttachmentUploadProps {
@@ -76,9 +76,9 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
     maxSize: MAX_FILE_SIZE_MB * 1000 * 1000,
   });
 
-  const deleteAttachment = (file: FileWithIdAndObjURL) => {
+  const deleteAttachment = (fileId: string) => {
     setFiles((prev) => {
-      const removeInd = prev.findIndex((v) => v.id == file.id);
+      const removeInd = prev.findIndex((v) => v.id == fileId);
       return prev.toSpliced(removeInd, 1);
     });
   };
@@ -86,8 +86,11 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
   return (
     <div className="flex flex-col gap-4 py-4">
       <label className="font-bold">Add Attachments</label>
-      <div className="w-full flex flex-col md:flex-row p-4">
-        <div className="flex flex-col gap-10 w-full md:w-1/2 aspect-video md:aspect-[4/3] space-x-8">
+      <p className="text-xs text-white/60">
+        <strong>Pro tip</strong>: Click an uploaded image to preview
+      </p>
+      <div className="w-full flex flex-col lg:flex-row p-4 gap-8 lg:gap-0">
+        <div className="flex flex-col gap-10 w-full lg:w-5/12 aspect-video lg:aspect-[4/3] space-x-8">
           <div
             {...getRootProps()}
             className="flex p-16 bg-cyan-400/[0.02] cursor-pointer group border-4 border-dashed border-slate-100/40 text-center items-center justify-center w-full rounded-3xl h-full"
@@ -108,9 +111,13 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
             </div>
           </div>
         </div>
-        <ul className="w-full md:w-1/2 md:h-full flex flex-col gap-4 md:overflow-y-scroll">
+        <ul className="w-full lg:w-7/12 lg:h-full flex flex-col gap-4 lg:overflow-y-scroll">
           {files.map((each) => (
-            <UploadedItem file={each} key={each.url + each.file.name} />
+            <UploadedItem
+              deleteAttachment={deleteAttachment}
+              file={each}
+              key={each.url + each.file.name}
+            />
           ))}
         </ul>
       </div>
