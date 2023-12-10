@@ -1,8 +1,9 @@
 "use client";
 
-import { FC, SetStateAction, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { UploadAttachmentDisplay } from "./UploadAttachmentDisplay";
+import Image from "next/image";
+import { FC, SetStateAction, useCallback, useState } from "react";
+import { FileRejection, useDropzone } from "react-dropzone";
+import { IoMdCloudUpload } from "react-icons/io";
 
 export type FL = FileWithIdAndObjURL[];
 
@@ -10,6 +11,9 @@ interface AttachmentUploadProps {
   files: FL;
   setFiles: React.Dispatch<SetStateAction<FL>>;
 }
+
+const MAX_FILE_SIZE_MB = 10;
+const MAX_FILE_COUNT = 10;
 
 export interface FileWithIdAndObjURL {
   file: File;
@@ -21,7 +25,8 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
   files,
   setFiles,
 }) => {
-  const onDrop = useCallback((fl: File[]) => {
+  const [error, setError] = useState<string | null>(null);
+  const onDrop = useCallback((fl: File[], rejected: FileRejection[]) => {
     for (const file of fl) {
       if (file.type.startsWith("image")) {
         const uniqueId = `${Date.now()}_${file.name}_${Math.random() * 10}`;
@@ -40,7 +45,7 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
             }
           }
 
-          return isDup
+          return isDup || file.size * 1000 * 1000 > MAX_FILE_SIZE_MB
             ? prev
             : [
                 {
@@ -53,10 +58,32 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
         });
       }
     }
+
+    for (const rejection of rejected) {
+      rejection.errors.forEach((err) => {
+        if (err.code === "file-too-large") {
+          setError(`Error: ${err.message}`);
+        }
+
+        if (err.code === "file-invalid-type") {
+          setError(`Error: ${err.message}`);
+        }
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "image/png": [".png"],
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/heic": [".heif", ".heic"],
+    },
+    maxFiles: MAX_FILE_COUNT,
+    multiple: true,
+    maxSize: MAX_FILE_SIZE_MB * 1000 * 1000,
+  });
 
   const deleteAttachment = (file: FileWithIdAndObjURL) => {
     setFiles((prev) => {
@@ -66,33 +93,43 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
   };
 
   return (
-    <div>
-      <p className="text-xl font-bold mb-4">Images</p>
-      <div className="rounded-xl flex flex-col gap-10">
-        
-        <div
-          {...getRootProps()}
-          className="flex p-8 min-h-[300px]  border border-slate-300/30  text-center items-center justify-center w-full bg-slate-400/[0.05] rounded-xl h-full"
-        >
-          <input {...getInputProps()} type="file" accept="image/*" />
-          {isDragActive ? (
-            <p>Drop the files here ...</p>
-          ) : (
-            <p>Drag and drop some files here, or click to select files</p>
-          )}
-        </div>
-
-        <div className="overflow-hidden h-30 rounded-xl bg-slate-900/60">
-          <div className="h-full flex gap-4 px-4 items-center scroll-x overflow-scroll scrollbar-no-space scrollbar-thin">
-            {files.map((file) => (
-              <UploadAttachmentDisplay
-                deleteFile={deleteAttachment}
-                file={file}
-                key={file.file.name + file.file.lastModified}
+    <div className="flex flex-col gap-4 py-4">
+      <label className="font-bold">Add Attachments</label>
+      <div className="w-full flex flex-col md:flex-row p-4">
+        <div className="flex flex-col gap-10 w-full md:w-1/2 aspect-video md:aspect-[4/3] space-x-8">
+          <div
+            {...getRootProps()}
+            className="flex p-16 bg-cyan-400/[0.02] cursor-pointer group border-4 border-dashed border-slate-100/40 text-center items-center justify-center w-full rounded-3xl h-full"
+          >
+            <input {...getInputProps()} type="file" />
+            <div className="flex flex-col gap-2 items-center">
+              <IoMdCloudUpload
+                className={`transition duration-200 ${
+                  files.length > 0 || isDragActive
+                    ? "text-amber-500"
+                    : "text-slate-500"
+                } w-12 h-12`}
               />
-            ))}
+              <span className="text-sm text-white/70 group-hover:text-white/90 transition duration-200">
+                Drag or click to upload
+              </span>
+            </div>
           </div>
         </div>
+        <ul className="w-full md:w-1/2 md:h-full md:overflow-y-scroll">
+          {files.map((each) => (
+            <li key={each.id + each.url} className="flex items-center">
+              <div className="w-6 h-6">
+                <Image
+                  alt=""
+                  src={each.url}
+                  sizes="100%"
+                  className="object-cover"
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
