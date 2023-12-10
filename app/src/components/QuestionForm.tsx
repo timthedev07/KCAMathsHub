@@ -19,6 +19,7 @@ import { FaUserSecret } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
 import { LoadingOverlay } from "./LoadingOverlay";
 import { FL } from "./attachment-upload/types";
+import { QCategoryBadge } from "./QCategoryBadge";
 
 interface QuestionFormProps {
   userId: string;
@@ -112,6 +113,24 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                   }}
                 />
               </LabelWrapper>
+              <ul className="flex flex-wrap gap-2">
+                {formData.categories.map((c, ind) => (
+                  <QCategoryBadge
+                    onDelete={() => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        categories: prev.categories.filter(({ name }) => {
+                          return name.toLowerCase() !== c.name.toLowerCase();
+                        }),
+                      }));
+                    }}
+                    ind={ind}
+                    name={c.name}
+                    key={c.id}
+                  />
+                ))}
+              </ul>
+
               <LabelWrapper label="Content">
                 <StyledWrapper>
                   <QAEditor
