@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { FC, PropsWithChildren, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 
 interface ExpandedImgProps {
   src: string;
@@ -12,9 +12,16 @@ export const WithExpandedImg: FC<PropsWithChildren<ExpandedImgProps>> = ({
 }) => {
   const [open, setOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    document.addEventListener("keydown", (k) => {
+      if (k.key === "Escape") {
+        setOpen(false);
+      }
+    });
+  }, []);
+
   return (
     <>
-      {/* expanded image */}
       <div
         onClick={() => {
           setOpen(false);
