@@ -26,7 +26,7 @@ export const WithExpandedImg: FC<PropsWithChildren<ExpandedImgProps>> = ({
         onClick={() => {
           setOpen(false);
         }}
-        className={`w-screen h-screen flex justify-center items-center fixed top-0 left-0 transition duration-200 ${
+        className={`w-full h-screen flex justify-center items-center fixed top-0 left-0 transition duration-200 ${
           open ? "opacity-100 z-20" : "opacity-0 -z-20"
         } bg-black/70`}
       >
