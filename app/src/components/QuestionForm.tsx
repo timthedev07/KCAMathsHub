@@ -103,6 +103,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
               />
 
               <LabelWrapper label="Topic(s)">
+                <span className="text-white/70 text-xs">Max. 5</span>
                 <CategoryAutoComplete
                   selectedCategories={formData.categories}
                   addCategory={(c) => {
