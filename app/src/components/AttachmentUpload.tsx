@@ -59,28 +59,33 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
   };
 
   return (
-    <div className="rounded-xl border border-green-500 p-10 flex flex-col gap-10">
-      <div className="overflow-hidden h-64 border-orange-500 border rounded-xl">
-        <div className="h-full flex gap-4 px-4 items-center scroll-x overflow-scroll scrollbar-no-space scrollbar-thin">
-          {files.map((file) => (
-            <UploadAttachmentDisplay
-              deleteFile={deleteAttachment}
-              file={file}
-              key={file.file.name + file.file.lastModified}
-            />
-          ))}
+    <div>
+      <p className="text-xl font-bold mb-4">Images</p>
+      <div className="rounded-xl flex flex-col gap-10">
+        
+        <div
+          {...getRootProps()}
+          className="flex p-8 min-h-[300px]  border border-slate-300/30  text-center items-center justify-center w-full bg-slate-400/[0.05] rounded-xl h-full"
+        >
+          <input {...getInputProps()} type="file" accept="image/*" />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag and drop some files here, or click to select files</p>
+          )}
         </div>
-      </div>
-      <div
-        {...getRootProps()}
-        className="flex p-8 min-h-[300px] text-center items-center justify-center w-full border-orange-800 border rounded-xl h-full"
-      >
-        <input {...getInputProps()} type="file" accept="image/*" />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <p>Drag and drop some files here, or click to select files</p>
-        )}
+
+        <div className="overflow-hidden h-30 rounded-xl bg-slate-900/60">
+          <div className="h-full flex gap-4 px-4 items-center scroll-x overflow-scroll scrollbar-no-space scrollbar-thin">
+            {files.map((file) => (
+              <UploadAttachmentDisplay
+                deleteFile={deleteAttachment}
+                file={file}
+                key={file.file.name + file.file.lastModified}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

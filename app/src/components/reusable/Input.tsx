@@ -18,7 +18,7 @@ export const Input: FC<InputProps> = ({
 }) => {
   return (
     <LabelWrapper label={label} className={containerClassName}>
-      <input className={`${inputBase} ${className || ""}`} {...props} />
+      <input className={`w-1/2 ${inputBase} ${className || ""} border-slate-300/20 border`} {...props} />
     </LabelWrapper>
   );
 };

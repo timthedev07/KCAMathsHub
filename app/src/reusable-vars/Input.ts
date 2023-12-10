@@ -1,1 +1,1 @@
-export const inputBase = "p-2 bg-neutral-900 dev-border-cyan";
+export const inputBase = "p-2 px-3 bg-neutral-100/[0.05] rounded-xl";

@@ -16,7 +16,7 @@ const AskPage: FC = async ({}) => {
 
   return (
     <div>
-      <h1 className="w-full text-2xl font-bold">Ask a question today!</h1>
+      <h1 className="w-full text-4xl font-bold pl-10 pt-10">Ask a question today!</h1>
       <QuestionForm userId={u.id} />
     </div>
   );

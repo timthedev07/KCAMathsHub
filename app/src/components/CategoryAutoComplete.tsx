@@ -55,7 +55,7 @@ const Component: FC<CategoryAutoCompleteProps> = ({
       disabled={selectedCategories.length >= MAX_CATEGORIES_NUM}
     >
       <Combobox.Input
-        className="bg-neutral-900 rounded-md border-slate-200/20 w-full"
+        className="rounded-xl bg-neutral-100/[0.05] rounded-md border-slate-200/20 w-1/2"
         onChange={(event) => setQuery(event.target.value)}
       />
       <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04]">
