@@ -10,7 +10,7 @@ function randNum(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-const IMG_QUALITY_THRESHOLD = 1200;
+const IMG_QUALITY_THRESHOLD = 1300;
 
 const uploadFile = async (s3Client: S3Client, Key: string, Body: Buffer) => {
   return new Promise(async function (resolve, reject) {
