@@ -1,24 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import { FC, SetStateAction, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { IoMdCloudUpload } from "react-icons/io";
-
-export type FL = FileWithIdAndObjURL[];
+import { UploadedItem } from "./UploadedItem";
+import { FL, FileWithIdAndObjURL } from "./types";
+import { MAX_FILE_COUNT, MAX_FILE_SIZE_MB } from "./constants";
 
 interface AttachmentUploadProps {
   files: FL;
   setFiles: React.Dispatch<SetStateAction<FL>>;
-}
-
-const MAX_FILE_SIZE_MB = 10;
-const MAX_FILE_COUNT = 10;
-
-export interface FileWithIdAndObjURL {
-  file: File;
-  id: string;
-  url: string;
 }
 
 export const AttachmentUpload: FC<AttachmentUploadProps> = ({
@@ -45,7 +36,7 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
             }
           }
 
-          return isDup || file.size * 1000 * 1000 > MAX_FILE_SIZE_MB
+          return isDup || file.size > MAX_FILE_SIZE_MB * 1000 * 1000
             ? prev
             : [
                 {
@@ -113,21 +104,13 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
               <span className="text-sm text-white/70 group-hover:text-white/90 transition duration-200">
                 Drag or click to upload
               </span>
+              <span>{error}</span>
             </div>
           </div>
         </div>
-        <ul className="w-full md:w-1/2 md:h-full md:overflow-y-scroll">
+        <ul className="w-full md:w-1/2 md:h-full flex flex-col gap-4 md:overflow-y-scroll">
           {files.map((each) => (
-            <li key={each.id + each.url} className="flex items-center">
-              <div className="w-6 h-6">
-                <Image
-                  alt=""
-                  src={each.url}
-                  sizes="100%"
-                  className="object-cover"
-                />
-              </div>
-            </li>
+            <UploadedItem file={each} key={each.url + each.file.name} />
           ))}
         </ul>
       </div>

@@ -3,7 +3,7 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { Input } from "./reusable/Input";
 import { trpc } from "../trpc/client";
-import { AttachmentUpload, FL } from "./AttachmentUpload";
+import { AttachmentUpload } from "./attachment-upload";
 import { uploadToAPI } from "../lib/attachmentClientUpload";
 import { useRouter } from "next/navigation";
 import { pageURLs } from "../lib/pageURLGen";
@@ -18,6 +18,7 @@ import { LabelWrapper } from "./reusable/WithLabelWrapper";
 import { FaUserSecret } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
 import { LoadingOverlay } from "./LoadingOverlay";
+import { FL } from "./attachment-upload/types";
 
 interface QuestionFormProps {
   userId: string;

@@ -1,7 +1,7 @@
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
-import { FileWithIdAndObjURL } from "../components/AttachmentUpload";
 import { AppRouter } from "../server";
 import { ImgUrlsType } from "../types/upload";
+import { FileWithIdAndObjURL } from "../components/attachment-upload/types";
 
 export const uploadToAPI = async (
   files: FileWithIdAndObjURL[],
