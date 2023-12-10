@@ -76,9 +76,10 @@ const POST = async (request: Request) => {
             ratio = newH / h;
             newW = Math.floor(ratio * w);
           }
-          img.resize({ width: newW, height: newH }).jpeg({ quality: 95 });
+          img.resize({ width: newW, height: newH });
         }
 
+        img.jpeg({ quality: 95, force: true });
         const { data, info } = await img.toBuffer({ resolveWithObject: true });
         const fname = randomUUID() + "." + extension;
 
