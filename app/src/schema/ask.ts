@@ -43,12 +43,14 @@ export const AskSchema = z.object({
         message: "Please provide more details of the question",
       }
     ),
-  categories: z.array(
-    z.object({
-      id: z.number(),
-      name: z.string(),
-    })
-  ),
+  categories: z
+    .array(
+      z.object({
+        id: z.number(),
+        name: z.string(),
+      })
+    )
+    .min(1, { message: "Please provide at least 1 category." }),
   anonymous: z.boolean(),
 });
 

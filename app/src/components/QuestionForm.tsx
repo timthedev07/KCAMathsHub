@@ -24,6 +24,7 @@ import { ErrorStateType, ModifyValueType } from "../types/ErrorStateType";
 import { AskSchema } from "../schema/ask";
 import { validateForm } from "../lib/handleZodErr";
 import { filteredError } from "../lib/filterError";
+import { anyError } from "../lib/anyError";
 
 interface QuestionFormProps {
   userId: string;
@@ -62,6 +63,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (anyError(errors, changed)) {
+      return;
+    }
+
     setLoading(true);
 
     // upload -> submission logic
@@ -69,8 +75,10 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
 
     try {
       const quid = await ask({ ...formData, userId, attachmentIds: atts });
+      setLoading(false);
       push(pageURLs.question(quid));
     } catch (err: unknown) {
+      setLoading(false);
       const msg = (err as TRPCClientError<AppRouter>).data?.zodError
         ?.fieldErrors;
 
@@ -84,7 +92,6 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
         )
       );
     }
-    setLoading(false);
   };
 
   const handleChange = (
@@ -99,13 +106,12 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
   useEffect(() => {
     (async () => {
       const { success, errors } = await validateForm(formData, AskSchema);
-      console.log(success, errors);
 
-      if (success || !errors) return;
+      if (success || !errors) return setErrors({});
 
       setErrors(filteredError(errors, changed));
     })();
-  }, [formData]);
+  }, [formData, changed]);
 
   return (
     <>
@@ -125,12 +131,12 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                 className="text-sm  "
                 onChange={(e) => {
                   handleChange(e);
-                  setChanged((prev) => ({ ...prev, [e.target.name]: true }));
+                  setChanged((prev) => ({ ...prev, title: true }));
                 }}
                 label="Title"
               />
 
-              <LabelErrorWrapper label="Topic(s)">
+              <LabelErrorWrapper error={errors.categories} label="Topic(s)">
                 <span className="text-white/70 text-xs">Max. 5</span>
                 <CategoryAutoComplete
                   selectedCategories={formData.categories}
@@ -191,7 +197,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                 </Tooltip>
               </div>
               <div className="h-min">
-                <Button type="submit" size="md">
+                <Button
+                  type="submit"
+                  disabled={anyError(errors, changed)}
+                  size="md"
+                >
                   Ask Question
                 </Button>
               </div>
