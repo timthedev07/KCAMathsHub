@@ -103,9 +103,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
             </div>
             <div className="flex gap-3 ml-auto">
               {u && (u.roles.includes("answerer") || isOwner) ? (
-                <Link prefetch={false} href={pageURLs.answerQuestion(quid)}>
-                  <Button color={"dark"}>Answer</Button>
-                </Link>
+                <Button color={"dark"}>Answer</Button>
               ) : null}
               {u && isOwner ? (
                 <DeletionButtonWithConfirmation
