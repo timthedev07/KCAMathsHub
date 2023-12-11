@@ -1,4 +1,4 @@
-import { CONTENT_LIMIT } from "../../server/crud/questions/askQuestion";
+import { CONTENT_LIMIT } from "../ask";
 
 export const editorValidation = (s: string): true | "few" | "exceeding" => {
   const l = s.replace(/[^a-zA-Z\d\s:]/, "").length;

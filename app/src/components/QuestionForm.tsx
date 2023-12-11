@@ -1,7 +1,6 @@
 "use client";
 
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 import { Input } from "./reusable/Input";
 import { trpc } from "../trpc/client";
 import { AttachmentUpload } from "./attachment-upload";
@@ -21,55 +20,43 @@ import { FaClipboardUser } from "react-icons/fa6";
 import { LoadingOverlay } from "./LoadingOverlay";
 import { FL } from "./attachment-upload/types";
 import { QCategoryBadge } from "./QCategoryBadge";
-import { AskSchema, AskSchemaType } from "../schema/ask";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 interface QuestionFormProps {
   userId: string;
 }
 
 interface FormData {
+  title: string;
+  content: string;
+  categories: { id: number; name: string }[];
   anonymous: boolean;
 }
 
 export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<AskSchemaType>({ resolver: zodResolver(AskSchema) });
   const { push } = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>(() => ({
+    title: "",
+    content: "",
+    categories: [],
     anonymous: false,
   }));
   // bring in mutations
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
   const ask = trpc.askQuestion.useMutation().mutateAsync;
 
-  const { onChange, ...contentRegister } = register("content");
-
-  const handleEditorChange = () => {
-    onChange();
-  };
-
   // keep track off files
   const [files, setFiles] = useState<FL>([]);
 
-  const onSubmit: SubmitHandler<AskSchemaType> = async (data) => {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     setLoading(true);
 
     // upload -> submission logic
     const atts = await uploadToAPI(files, addAttachments);
 
     try {
-      const quid = await ask({
-        ...data,
-        userId,
-        attachmentIds: atts,
-        anonymous: formData.anonymous,
-      });
+      const quid = await ask({ ...formData, userId, attachmentIds: atts });
       push(pageURLs.question(quid));
     } catch (err: unknown) {
       const msg = (err as TRPCClientError<AppRouter>).data?.zodError
@@ -103,34 +90,29 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
       <div className="flex gap-6 px-2 md:px-8 lg:px-16 my-10">
         <div className="flex-1">
           <form
-            noValidate
             // bg-slate-900/60 hover:bg-slate-800/80
             className="w-full p-8 flex-col flex gap-12"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit}
           >
             <div className="flex flex-col gap-8">
               <Input
                 placeholder="Enter a title"
-                className="text-sm"
-                {...register("title")}
+                name="title"
+                className="text-sm  "
+                onChange={handleChange}
                 label="Title"
               />
 
               <LabelWrapper label="Topic(s)">
                 <span className="text-white/70 text-xs">Max. 5</span>
-                <Controller
-                  name="categories"
-                  render={({ field: { onChange } }) => (
-                    <CategoryAutoComplete
-                      selectedCategories={formData.categories}
-                      addCategory={(c) => {
-                        setFormData((prev) => ({
-                          ...prev,
-                          categories: [...prev.categories, c],
-                        }));
-                      }}
-                    />
-                  )}
+                <CategoryAutoComplete
+                  selectedCategories={formData.categories}
+                  addCategory={(c) => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      categories: [...prev.categories, c],
+                    }));
+                  }}
                 />
               </LabelWrapper>
               <ul className="flex flex-wrap gap-2">
@@ -155,14 +137,9 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                 <StyledWrapper>
                   <QAEditor
                     markdown={formData.content}
-                    // onChange={(val) => {
-                    //   setFormData((prev) => ({ ...prev, content: val }));
-                    // }}
-                    {...register("content", {
-                      onChange: (s: string) => {
-                        console.log();
-                      },
-                    })}
+                    onChange={(val) => {
+                      setFormData((prev) => ({ ...prev, content: val }));
+                    }}
                   />
                 </StyledWrapper>
               </LabelWrapper>

@@ -5,9 +5,6 @@ import { classifyKSCategory } from "../../../lib/classifyKSCategory";
 import { getCurrYear } from "../../../lib/getCurrYear";
 import { AskSubmissionSchema } from "../../../schema/ask";
 
-export const TITLE_LIMIT = [8, 128];
-export const CONTENT_LIMIT = [50, 5000];
-
 export const askQuestion = publicProcedure
   .input(AskSubmissionSchema)
   .mutation(

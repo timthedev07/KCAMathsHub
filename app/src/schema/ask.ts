@@ -1,9 +1,8 @@
 import { z } from "zod";
-import {
-  CONTENT_LIMIT,
-  TITLE_LIMIT,
-} from "../server/crud/questions/askQuestion";
 import { editorValidation } from "./validations/editorValidation";
+
+export const TITLE_LIMIT = [8, 128];
+export const CONTENT_LIMIT = [50, 5000];
 
 export const AskSchema = z.object({
   title: z
