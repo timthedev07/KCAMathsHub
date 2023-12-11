@@ -56,6 +56,7 @@ const Component: FC<CategoryAutoCompleteProps> = ({
     >
       <Combobox.Input
         className="rounded-xl bg-neutral-100/[0.05] rounded-md border-slate-200/20 w-1/2"
+        placeholder="Select a category"
         onChange={(event) => setQuery(event.target.value)}
       />
       <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04]">
