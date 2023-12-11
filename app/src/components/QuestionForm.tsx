@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { Input } from "./reusable/Input";
 import { trpc } from "../trpc/client";
 import { AttachmentUpload } from "./attachment-upload";
@@ -14,12 +14,16 @@ import { TRPCClientError } from "@trpc/client";
 import { AppRouter } from "../server";
 import { StyledWrapper } from "./richtext/StyledWrapper";
 import { ToggleSwitch, Tooltip } from "flowbite-react";
-import { LabelWrapper } from "./reusable/WithLabelWrapper";
+import { LabelErrorWrapper } from "./reusable/WithLabelWrapper";
 import { FaUserSecret } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
 import { LoadingOverlay } from "./LoadingOverlay";
 import { FL } from "./attachment-upload/types";
 import { QCategoryBadge } from "./QCategoryBadge";
+import { ErrorStateType, ModifyValueType } from "../types/ErrorStateType";
+import { AskSchema } from "../schema/ask";
+import { validateForm } from "../lib/handleZodErr";
+import { filteredError } from "../lib/filterError";
 
 interface QuestionFormProps {
   userId: string;
@@ -35,12 +39,20 @@ interface FormData {
 export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
   const { push } = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<ErrorStateType<FormData>>({});
   const [formData, setFormData] = useState<FormData>(() => ({
     title: "",
     content: "",
     categories: [],
     anonymous: false,
   }));
+  const [changed, setChanged] = useState<ModifyValueType<FormData, boolean>>({
+    anonymous: false,
+    categories: false,
+    content: false,
+    title: false,
+  });
+
   // bring in mutations
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
   const ask = trpc.askQuestion.useMutation().mutateAsync;
@@ -84,6 +96,17 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
     });
   };
 
+  useEffect(() => {
+    (async () => {
+      const { success, errors } = await validateForm(formData, AskSchema);
+      console.log(success, errors);
+
+      if (success || !errors) return;
+
+      setErrors(filteredError(errors, changed));
+    })();
+  }, [formData]);
+
   return (
     <>
       <LoadingOverlay isLoading={loading} />
@@ -96,14 +119,18 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
           >
             <div className="flex flex-col gap-8">
               <Input
+                error={errors.title}
                 placeholder="Enter a title"
                 name="title"
                 className="text-sm  "
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  setChanged((prev) => ({ ...prev, [e.target.name]: true }));
+                }}
                 label="Title"
               />
 
-              <LabelWrapper label="Topic(s)">
+              <LabelErrorWrapper label="Topic(s)">
                 <span className="text-white/70 text-xs">Max. 5</span>
                 <CategoryAutoComplete
                   selectedCategories={formData.categories}
@@ -112,9 +139,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                       ...prev,
                       categories: [...prev.categories, c],
                     }));
+                    setChanged((prev) => ({ ...prev, categories: true }));
                   }}
                 />
-              </LabelWrapper>
+              </LabelErrorWrapper>
+
               <ul className="flex flex-wrap gap-2">
                 {formData.categories.map((c, ind) => (
                   <QCategoryBadge
@@ -133,16 +162,17 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                 ))}
               </ul>
 
-              <LabelWrapper label="Content">
+              <LabelErrorWrapper error={errors.content} label="Content">
                 <StyledWrapper>
                   <QAEditor
                     markdown={formData.content}
                     onChange={(val) => {
                       setFormData((prev) => ({ ...prev, content: val }));
+                      setChanged((prev) => ({ ...prev, content: true }));
                     }}
                   />
                 </StyledWrapper>
-              </LabelWrapper>
+              </LabelErrorWrapper>
             </div>
             <AttachmentUpload files={files} setFiles={setFiles} />
             {<hr className="h-[1px] w-full border-0 bg-slate-400/20 my-8" />}
@@ -153,6 +183,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                   checked={formData.anonymous}
                   onChange={(val) => {
                     setFormData((prev) => ({ ...prev, anonymous: val }));
+                    setChanged((prev) => ({ ...prev, anonymous: true }));
                   }}
                 />
                 <Tooltip animation="duration-400" content="Remain anonymous">

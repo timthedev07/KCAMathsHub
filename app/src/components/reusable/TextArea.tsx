@@ -1,5 +1,5 @@
 import { DetailedHTMLProps, FC, TextareaHTMLAttributes } from "react";
-import { LabelWrapper } from "./WithLabelWrapper";
+import { LabelErrorWrapper } from "./WithLabelWrapper";
 import { InputFieldBaseProps } from "../../types/InputFieldBaseProps";
 import { inputBase } from "../../reusable-vars/Input";
 
@@ -17,11 +17,11 @@ export const TextArea: FC<TextAreaProps> = ({
   ...props
 }) => {
   return (
-    <LabelWrapper label={label} className={containerClassName}>
+    <LabelErrorWrapper label={label} className={containerClassName}>
       <textarea
         className={`${inputBase} ${className || ""}`}
         {...props}
       ></textarea>
-    </LabelWrapper>
+    </LabelErrorWrapper>
   );
 };

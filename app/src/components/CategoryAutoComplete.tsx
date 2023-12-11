@@ -1,6 +1,6 @@
 import { FC, Suspense, useState } from "react";
 import { trpc } from "../trpc/client";
-import { Combobox } from "@headlessui/react";
+import { Combobox, Transition } from "@headlessui/react";
 import { MAX_CATEGORIES_NUM } from "../constants/catMax";
 
 interface CategoryAutoCompleteProps {
@@ -59,30 +59,39 @@ const Component: FC<CategoryAutoCompleteProps> = ({
         placeholder="Select a category"
         onChange={(event) => setQuery(event.target.value)}
       />
-      <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04]">
-        {filtered.length === 0 && query !== "" ? (
-          <div className="p-3 cursor-pointer text-white text-sm">
-            No categories found
-          </div>
-        ) : (
-          filtered.map((each) => (
-            <Combobox.Option
-              className="p-3 text-sm hover:bg-blue-200/10 cursor-pointer transition duration-200 text-white/80 hover:text-white text-sm hover:font-semibold"
-              key={each.name}
-              value={each}
-            >
-              {each.name
-                .split(" ")
-                .map((each) =>
-                  each.toLowerCase() !== "and"
-                    ? each[0].toUpperCase() + each.substring(1)
-                    : "and"
-                )
-                .join(" ")}
-            </Combobox.Option>
-          ))
-        )}
-      </Combobox.Options>
+      <Transition
+        enter="transition duration-100 ease-out"
+        enterFrom="transform scale-95 opacity-0"
+        enterTo="transform scale-100 opacity-100"
+        leave="transition duration-75 ease-out"
+        leaveFrom="transform scale-100 opacity-100"
+        leaveTo="transform scale-95 opacity-0"
+      >
+        <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04]">
+          {filtered.length === 0 && query !== "" ? (
+            <div className="p-3 cursor-pointer text-white text-sm">
+              No categories found
+            </div>
+          ) : (
+            filtered.map((each) => (
+              <Combobox.Option
+                className="p-3 text-sm hover:bg-blue-200/10 cursor-pointer transition duration-200 text-white/80 hover:text-white text-sm hover:font-semibold"
+                key={each.name}
+                value={each}
+              >
+                {each.name
+                  .split(" ")
+                  .map((each) =>
+                    each.toLowerCase() !== "and"
+                      ? each[0].toUpperCase() + each.substring(1)
+                      : "and"
+                  )
+                  .join(" ")}
+              </Combobox.Option>
+            ))
+          )}
+        </Combobox.Options>
+      </Transition>
     </Combobox>
   );
 };

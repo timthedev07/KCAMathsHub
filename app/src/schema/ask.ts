@@ -49,13 +49,13 @@ export const AskSchema = z.object({
       name: z.string(),
     })
   ),
+  anonymous: z.boolean(),
 });
 
 export type AskSchemaType = z.infer<typeof AskSchema>;
 
 export const AskSubmissionSchema = z
   .object({
-    anonymous: z.boolean(),
     userId: z.string().min(1),
     attachmentIds: z.number().array(),
   })
