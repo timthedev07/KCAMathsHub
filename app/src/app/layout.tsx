@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { AppLayout } from "../components/AppLayout";
 import { TRPCProvider } from "../trpc/Provider";
 import "./globals.css";
@@ -7,7 +7,10 @@ import { getServerSession } from "../lib/authoptions";
 import SessionProvider from "../components/contexts/SessionProvider";
 import { PageProgressBarProvider } from "../components/contexts/ProgressProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Roboto({
+  subsets: ["latin"],
+  weight: ["100", "300", "400", "500", "700", "900"],
+});
 
 export const metadata: Metadata = {
   title: "KCAMathsHub",
