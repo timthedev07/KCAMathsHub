@@ -55,7 +55,7 @@ const Component: FC<CategoryAutoCompleteProps> = ({
       disabled={selectedCategories.length >= MAX_CATEGORIES_NUM}
     >
       <Combobox.Input
-        className="rounded-xl bg-neutral-100/[0.05] rounded-md border-slate-200/20 w-1/2"
+        className="rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-200/20 w-1/2"
         placeholder="Select a category"
         onChange={(event) => setQuery(event.target.value)}
       />
@@ -67,7 +67,7 @@ const Component: FC<CategoryAutoCompleteProps> = ({
         ) : (
           filtered.map((each) => (
             <Combobox.Option
-              className="p-3 hover:bg-blue-200/10 cursor-pointer transition duration-200 text-white/80 hover:text-white text-sm hover:font-semibold"
+              className="p-3 text-sm hover:bg-blue-200/10 cursor-pointer transition duration-200 text-white/80 hover:text-white text-sm hover:font-semibold"
               key={each.name}
               value={each}
             >

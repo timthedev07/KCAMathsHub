@@ -96,6 +96,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
           >
             <div className="flex flex-col gap-8">
               <Input
+                placeholder="Enter a title"
                 name="title"
                 className="text-sm  "
                 onChange={handleChange}
@@ -176,7 +177,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
               <li>Don&apos;t be lazy</li>
             </ol>
           </div>
-          <p className="font-bold text-lg mt-10">Recomendations</p>
+          <p className="font-bold text-lg mt-10">Recommendations</p>
           <div className="">
             <ol className="list-decimal text-sm pl-10 pt-5">
               <li>Don&apos;t be lazy</li>
