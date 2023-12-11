@@ -102,6 +102,6 @@ export const mdxCustomComponents: ComponentProps<
     return <></>;
   },
   p: ({ ...props }) => {
-    return <p {...props} className="my-2 text-white/70"></p>;
+    return <p {...props} className="my-4 text-white/70"></p>;
   },
 };
