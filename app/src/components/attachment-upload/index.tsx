@@ -89,7 +89,7 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
       <p className="text-xs text-white/60">
         <strong>Pro tip</strong>: Click an uploaded image to preview
       </p>
-      <div className="w-full flex flex-col lg:flex-row p-4 gap-8 lg:gap-0">
+      <div className="w-full flex flex-col lg:h-80 lg:flex-row p-4 gap-8 lg:gap-0">
         <div className="flex flex-col gap-10 w-full lg:w-5/12 aspect-video lg:aspect-[4/3] space-x-8">
           <div
             {...getRootProps()}
