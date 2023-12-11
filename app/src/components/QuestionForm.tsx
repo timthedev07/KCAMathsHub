@@ -37,6 +37,9 @@ interface FormData {
   anonymous: boolean;
 }
 
+const adviceListClassname =
+  "text-white/70 list-[georgian] space-y-4 text-sm pl-5 pt-5";
+
 export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
   const { push } = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
@@ -208,34 +211,48 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
             </div>
           </form>
         </div>
-        <div className="hidden xl:flex flex-col flex-shrink-0 w-[380px] p-6 border-slate-300/30 border bg-slate-400/[0.05] rounded-xl">
-          <p className="font-bold text-lg">Advice</p>
-          <div className="">
-            <ol className="list-decimal text-sm pl-10 pt-5">
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-            </ol>
-          </div>
-          <p className="font-bold text-lg mt-10">Recommendations</p>
-          <div className="">
-            <ol className="list-decimal text-sm pl-10 pt-5">
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-            </ol>
-          </div>
-          <p className="font-bold text-lg mt-10">Tricks</p>
-          <div className="">
-            <ol className="list-decimal text-sm pl-10 pt-5">
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-              <li>Don&apos;t be lazy</li>
-            </ol>
-          </div>
+        <div className="hidden xl:flex flex-col flex-shrink-0 w-[380px] p-6 lg:p-10 border-slate-300/30 border bg-slate-400/[0.05] rounded-xl">
+          <p className="font-bold text-lg">Guidelines</p>
+          <ol className={adviceListClassname}>
+            <li>
+              Any offensive/inappropriate content entered or linked externally
+              will result in an immediate ban.
+            </li>
+            <li>
+              Make your best attempt and be sure to include it before asking for
+              help, so responses are more likely to be made more quickly.
+            </li>
+            <li>
+              Remember to mark as solved once you have figured out the solution.
+              Answer your own question to help others too if you feel like it
+              for a chance of a reputation boost after moderation.
+            </li>
+          </ol>
+          <p className="font-bold text-lg mt-10">Requirements & Assumptions</p>
+          <ol className={adviceListClassname}>
+            <li>Respectful and decent use of language.</li>
+            <li>
+              You have <strong>carefully read the question</strong>.
+            </li>
+            <li>You have already attempted the question.</li>
+            <li>
+              The layout of any working/information (both descriptions entered
+              and hand-written uploaded as attachments, if any) should be
+              clearly visible with acceptable handwriting.
+            </li>
+          </ol>
+          <p className="font-bold text-lg mt-10">Tips</p>
+          <ol className={adviceListClassname}>
+            <li>
+              If stuck on a question, try taking a break before coming back and
+              making further progress.
+            </li>
+            <li>Be correct, detailed, and precise to be answered sooner.</li>
+            <li>
+              Decompose and visualize the problem; then describe how far you
+              got, along with reasoning.
+            </li>
+          </ol>
         </div>
       </div>
     </>
