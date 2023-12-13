@@ -5,6 +5,11 @@ import {
   CreateInvalidationCommand,
 } from "@aws-sdk/client-cloudfront";
 
+/**
+ * Deletes from S3 and invalidates Cloudfront cache
+ * @param objKey
+ * @returns
+ */
 export const deleteAWSFile = async (objKey: string) => {
   const s3 = createAWSS3Client();
   const cf = new CloudFrontClient({
