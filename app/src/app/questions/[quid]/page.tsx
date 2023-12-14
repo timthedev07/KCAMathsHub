@@ -14,6 +14,7 @@ import { pageURLs } from "../../../lib/pageURLGen";
 import { SSRCaller } from "../../../server";
 import { NextPage } from "../../../types/nextpage";
 import { DeletionButtonWithConfirmation } from "./DeletionButtonWithConfirmation";
+import { QCategoryBadge } from "../../../components/QCategoryBadge";
 
 interface Props {
   params: { quid: string };
@@ -57,6 +58,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
       anonymous,
       timestamp,
       answered,
+      categories,
     },
     u,
   } = await getSSRProps(quid);
@@ -79,6 +81,11 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
             <span className={`text-sm text-white/60 ${answered ? ap : ""}`}>
               {dateTimeDisplay(timestamp)}
             </span>
+            <ul className="flex gap-2 items-start grow-[1] flex-wrap">
+              {categories.map((each, ind) => (
+                <QCategoryBadge name={each.name} ind={ind} key={each.name} />
+              ))}
+            </ul>
             <div
               className={`mt-5 flex justify-between items-center ${
                 answered ? ap : ""
@@ -101,7 +108,13 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
                 </div>
               </OptionalLinkWrapper>
             </div>
-            <div className="flex gap-3 ml-auto">
+            <div className="flex gap-3 ml-auto h-8">
+              {isOwner ? (
+                <Button color="dark">
+                  <Link href={pageURLs.editQuestion(quid)}>Edit</Link>
+                </Button>
+              ) : null}
+              {isOwner ? <Button color={"dark"}>Mark as solved</Button> : null}
               {u && (u.roles.includes("answerer") || isOwner) ? (
                 <Button color={"dark"}>Answer</Button>
               ) : null}
@@ -115,7 +128,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
             </div>
           </div>
           <hr className="h-[1px] border-0 bg-slate-300/30 w-full" />
-          <div className="overflow-x-scroll min-h-[200px]">
+          <div className="overflow-x-scroll min-h-[200px] [&>*]:my-4 [&>p]:text-white/80 [&>p]:text-sm">
             <MDXRemote
               source={content}
               options={{
