@@ -23,7 +23,8 @@
     "dev:studio": "dotenv -e .env.local -- prisma studio",
     "dev:db-push": "dotenv -e .env.local -- prisma db push",
     "prod:studio": "dotenv -e .env.prod -- prisma studio",
-    "prod:migrate": "dotenv -e .env.prod -- prisma migrate deploy"
+    "prod:migrate": "dotenv -e .env.prod -- prisma migrate deploy",
+    "populate:categories": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/categories.ts"
   },
   "dependencies": {
     "@aws-sdk/client-cloudfront": "^3.470.0",
