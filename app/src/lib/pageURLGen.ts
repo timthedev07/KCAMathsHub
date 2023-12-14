@@ -13,8 +13,8 @@ export const pageURLs = {
   user(uid: string) {
     return `${HOST}/user/profile/${uid}`;
   },
-  answerQuestion(qid: string) {
-    return `${HOST}/compose-answer/${qid}`;
+  editQuestion(qid: string) {
+    return `${HOST}/questions/${qid}/edit`;
   },
   notFound() {
     return `${HOST}/not-found`;
