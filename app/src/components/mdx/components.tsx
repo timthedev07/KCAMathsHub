@@ -93,7 +93,7 @@ export const mdxCustomComponents: ComponentProps<
     return <ol className="list-decimal list-inside" {...props}></ol>;
   },
   li: ({ className: _, ...props }) => {
-    return <li {...props} className="pl-3 text-white/80"></li>;
+    return <li {...props} className="text-sm pl-3 text-white/80 my-3"></li>;
   },
   u: ({ className: _, ...props }) => {
     return <u {...props}></u>;
@@ -102,6 +102,6 @@ export const mdxCustomComponents: ComponentProps<
     return <></>;
   },
   p: ({ ...props }) => {
-    return <p {...props} className="my-4 text-white/70"></p>;
+    return <p {...props} className="my-4 text-white/70 text-sm"></p>;
   },
 };
