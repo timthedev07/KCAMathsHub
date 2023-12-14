@@ -45,11 +45,14 @@ export const MessageActionModal: FC<
       <Modal.Footer>
         <Button
           color={"indigo"}
+          disabled={loading}
           onClick={async () => {
-            setLoading(true);
-            await action();
-            setOpen(false);
-            setLoading(false);
+            if (!loading) {
+              setLoading(true);
+              await action();
+              setOpen(false);
+              setLoading(false);
+            }
           }}
         >
           Proceed
@@ -59,6 +62,7 @@ export const MessageActionModal: FC<
           onClick={() => {
             setOpen(false);
           }}
+          disabled={loading}
         >
           Back
         </Button>
