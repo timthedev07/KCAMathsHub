@@ -78,7 +78,7 @@
 }
 
 .prose blockquote {
-  @apply border-l-4 bg-slate-400/10 border-cyan-500 pl-3 py-2;
+  @apply border-l-4 bg-slate-400/10 border-cyan-500 pl-3 py-2 text-sm my-3;
 }
 
 .prose p {

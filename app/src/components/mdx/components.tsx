@@ -98,10 +98,12 @@ export const mdxCustomComponents: ComponentProps<
   u: ({ className: _, ...props }) => {
     return <u {...props}></u>;
   },
-  blockquote: () => {
-    return <></>;
-  },
-  p: ({ ...props }) => {
-    return <p {...props} className="my-4 text-white/70 text-sm"></p>;
+  blockquote: ({ className: _, ...props }) => {
+    return (
+      <blockquote
+        className="border-l-4 bg-slate-400/10 border-cyan-500 pl-3 py-2 text-sm"
+        {...props}
+      ></blockquote>
+    );
   },
 };
