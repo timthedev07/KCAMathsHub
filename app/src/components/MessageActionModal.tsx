@@ -29,6 +29,7 @@ export const MessageActionModal: FC<
           inner: "relative bg-white rounded-lg shadow-lg dark:bg-slate-800",
         },
       }}
+      dismissible
       show={open}
       onClose={() => setOpen(false)}
     >
