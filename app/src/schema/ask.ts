@@ -44,12 +44,7 @@ export const AskSchema = z.object({
       }
     ),
   categories: z
-    .array(
-      z.object({
-        id: z.number(),
-        name: z.string(),
-      })
-    )
+    .array(z.string())
     .min(1, { message: "Please provide at least 1 category." }),
   anonymous: z.boolean(),
 });

@@ -50,7 +50,7 @@ export const askQuestion = publicProcedure
             yearGroupAsked: getCurrYear(u.joinedDate, u.joinedYear),
             anonymous,
             timestamp: new Date(),
-            categories: { connect: categories },
+            categories: { connect: categories.map((name) => ({ name })) },
           },
         });
         finalId = askedQuestion.id;

@@ -1,38 +1,29 @@
-import { FC, Suspense, useState } from "react";
-import { trpc } from "../trpc/client";
 import { Combobox, Transition } from "@headlessui/react";
+import { FC, Fragment, useState } from "react";
+import d from "../categories.json";
 import { MAX_CATEGORIES_NUM } from "../constants/catMax";
 
 interface CategoryAutoCompleteProps {
-  addCategory: (_: { id: number; name: string }) => void;
-  selectedCategories: { id: number; name: string }[];
+  addCategory: (_: string) => void;
+  selectedCategories: string[];
 }
 
-const Component: FC<CategoryAutoCompleteProps> = ({
+export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
   addCategory,
   selectedCategories,
 }) => {
-  const [data] = trpc.getExistingCategories.useSuspenseQuery();
+  const data = d.categories;
   const [query, setQuery] = useState<string>("");
 
-  const [selected, setSelected] = useState<{ id: number; name: string }>(
-    data[0]
-  );
+  const [selected, setSelected] = useState<string | null>(null);
 
   const filtered =
     query === ""
-      ? data.filter(
-          (a) =>
-            selectedCategories.findIndex(
-              (k) => k.id === a.id && k.name === a.name
-            ) < 0
-        )
+      ? data.filter((a) => selectedCategories.findIndex((k) => k === a) < 0)
       : data.filter((category) => {
           return (
-            category.name.toLowerCase().includes(query.toLowerCase()) &&
-            selectedCategories.findIndex(
-              (k) => k.id === category.id && k.name === category.name
-            ) < 0
+            category.toLowerCase().includes(query.toLowerCase()) &&
+            selectedCategories.findIndex((k) => k === category) < 0
           );
         });
 
@@ -40,23 +31,33 @@ const Component: FC<CategoryAutoCompleteProps> = ({
     <Combobox
       value={selected}
       onChange={(v) => {
-        setSelected(v);
         // if the value is
         if (
+          v &&
           selectedCategories.every((val) => {
-            return val.name !== v.name;
+            return val !== v;
           }) &&
           selectedCategories.length < MAX_CATEGORIES_NUM
         ) {
+          setSelected(null);
           addCategory(v);
-          setQuery("");
+        } else {
+          setSelected(v);
         }
       }}
       disabled={selectedCategories.length >= MAX_CATEGORIES_NUM}
     >
       <Combobox.Input
-        className="rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-200/20 w-1/2"
-        placeholder="Select a category"
+        className={`rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-200/20 w-1/2 ${
+          selectedCategories.length >= MAX_CATEGORIES_NUM
+            ? "cursor-not-allowed"
+            : ""
+        }`}
+        placeholder={
+          selectedCategories.length >= MAX_CATEGORIES_NUM
+            ? "Maximum number of categories reached..."
+            : "Select a category"
+        }
         onChange={(event) => setQuery(event.target.value)}
       />
       <Transition
@@ -67,39 +68,39 @@ const Component: FC<CategoryAutoCompleteProps> = ({
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04]">
+        <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04] overflow-hidden w-1/2 h-96 overflow-y-scroll min-w-[250px]">
           {filtered.length === 0 && query !== "" ? (
             <div className="p-3 cursor-pointer text-white text-sm">
               No categories found
             </div>
           ) : (
             filtered.map((each) => (
-              <Combobox.Option
-                className="p-3 text-sm hover:bg-blue-200/10 cursor-pointer transition duration-200 text-white/80 hover:text-white text-sm hover:font-semibold"
-                key={each.name}
-                value={each}
-              >
-                {each.name
-                  .split(" ")
-                  .map((each) =>
-                    each.toLowerCase() !== "and"
-                      ? each[0].toUpperCase() + each.substring(1)
-                      : "and"
-                  )
-                  .join(" ")}
+              <Combobox.Option key={each} value={each} as={Fragment}>
+                {({ active }) => {
+                  return (
+                    <li
+                      className={`p-3 text-sm hover:bg-blue-600/30 hover:text-white hover:font-semibold cursor-pointer transition duration-200 ${
+                        active
+                          ? "text-white font-semibold bg-blue-600/30"
+                          : "text-white/80"
+                      } text-sm`}
+                    >
+                      {each
+                        .split(" ")
+                        .map((each) =>
+                          each.toLowerCase() !== "and"
+                            ? each[0].toUpperCase() + each.substring(1)
+                            : "and"
+                        )
+                        .join(" ")}
+                    </li>
+                  );
+                }}
               </Combobox.Option>
             ))
           )}
         </Combobox.Options>
       </Transition>
     </Combobox>
-  );
-};
-
-export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = (props) => {
-  return (
-    <Suspense fallback="...">
-      <Component {...props} />
-    </Suspense>
   );
 };
