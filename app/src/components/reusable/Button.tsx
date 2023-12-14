@@ -13,6 +13,7 @@ export const Button: FC<ComponentProps<typeof FBButton>> = (props) => {
           xl: "text-base px-6 py-2.5",
         },
       }}
+      className="transition duration-200"
       {...props}
     />
   );
