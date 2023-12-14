@@ -12,6 +12,7 @@ import { updateBio } from "./crud/user/updateBio";
 import { getUserDisplayQuestions } from "./crud/questions/getUserDisplayQs";
 import { getExistingCategories } from "./crud/categories/getCategories";
 import { deleteQuestion } from "./crud/questions/deleteQuestion";
+import { deleteAttachment } from "./crud/attachments/deleteAttachment";
 
 export const appRouter = router({
   updateUsername,
@@ -27,6 +28,7 @@ export const appRouter = router({
   getUserDisplayQuestions,
   getExistingCategories,
   deleteQuestion,
+  deleteAttachment,
 });
 
 export type AppRouter = typeof appRouter;
