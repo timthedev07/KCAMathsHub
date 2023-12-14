@@ -10,13 +10,16 @@ import { MAX_FILE_COUNT, MAX_FILE_SIZE_MB } from "./constants";
 interface AttachmentUploadProps {
   files: FL;
   setFiles: React.Dispatch<SetStateAction<FL>>;
+  operationType: "ask" | "update";
 }
 
 export const AttachmentUpload: FC<AttachmentUploadProps> = ({
   files,
   setFiles,
+  operationType,
 }) => {
   const [error, setError] = useState<string | null>(null);
+
   const onDrop = useCallback((fl: File[], rejected: FileRejection[]) => {
     for (const file of fl) {
       if (file.type.startsWith("image")) {
@@ -27,6 +30,7 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
 
           for (const f of prev) {
             if (
+              f.file &&
               f.file.size === file.size &&
               f.file.name === file.name &&
               f.file.lastModified === file.lastModified
@@ -107,7 +111,9 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
               <span className="text-sm text-white/70 group-hover:text-white/90 transition duration-200">
                 Drag or click to upload
               </span>
-              <span>{error}</span>
+              <span className="text-red-500/80 text-xs break-words w-[80%]">
+                {error ? error.replace(",", ", ") : null}
+              </span>
             </div>
           </div>
         </div>
@@ -115,8 +121,9 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
           {files.map((each) => (
             <UploadedItem
               deleteAttachment={deleteAttachment}
+              operationType={operationType}
               file={each}
-              key={each.url + each.file.name}
+              key={each.url}
             />
           ))}
         </ul>

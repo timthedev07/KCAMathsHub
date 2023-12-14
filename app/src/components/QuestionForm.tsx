@@ -13,7 +13,7 @@ import { CategoryAutoComplete } from "./CategoryAutoComplete";
 import { TRPCClientError } from "@trpc/client";
 import { AppRouter } from "../server";
 import { StyledWrapper } from "./richtext/StyledWrapper";
-import { ToggleSwitch, Tooltip } from "flowbite-react";
+import { ToggleSwitch } from "flowbite-react";
 import { LabelErrorWrapper } from "./reusable/WithLabelWrapper";
 import { FaUserSecret } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
@@ -25,31 +25,48 @@ import { AskSchema } from "../schema/ask";
 import { validateForm } from "../lib/handleZodErr";
 import { filteredError } from "../lib/filterError";
 import { anyError } from "../lib/anyError";
-
-interface QuestionFormProps {
-  userId: string;
-}
+import { MessageActionModal } from "./MessageActionModal";
 
 interface FormData {
   title: string;
   content: string;
-  categories: { id: number; name: string }[];
+  categories: string[];
   anonymous: boolean;
 }
 
-const adviceListClassname =
-  "text-white/70 list-[georgian] space-y-4 text-sm pl-5 pt-5";
+interface QuestionFormProps {
+  userId: string;
+  defaultValues?: FormData & { files: FL };
+  operationType?: "ask" | "update";
+  quid?: string;
+}
 
-export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
+const adviceListClassname =
+  "text-white/70 list-disc space-y-8 text-sm pl-5 pt-5";
+
+export const QuestionForm: FC<QuestionFormProps> = ({
+  userId,
+  defaultValues,
+  quid,
+  operationType = "ask",
+}) => {
   const { push } = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [errors, setErrors] = useState<ErrorStateType<FormData>>({});
-  const [formData, setFormData] = useState<FormData>(() => ({
-    title: "",
-    content: "",
-    categories: [],
-    anonymous: false,
-  }));
+  const [formData, setFormData] = useState<FormData>(() => {
+    if (defaultValues && operationType === "update") {
+      const { files: _, ...rest } = defaultValues;
+      return rest;
+    } else {
+      return {
+        title: "",
+        content: "",
+        categories: [],
+        anonymous: false,
+      };
+    }
+  });
   const [changed, setChanged] = useState<ModifyValueType<FormData, boolean>>({
     anonymous: false,
     categories: false,
@@ -60,11 +77,18 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
   // bring in mutations
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
   const ask = trpc.askQuestion.useMutation().mutateAsync;
+  const update = trpc.updateQuestion.useMutation().mutateAsync;
 
   // keep track off files
-  const [files, setFiles] = useState<FL>([]);
+  const [files, setFiles] = useState<FL>(() => {
+    if (defaultValues) {
+      return defaultValues.files;
+    } else {
+      return [];
+    }
+  });
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleAsk = async (e: FormEvent) => {
     e.preventDefault();
 
     if (anyError(errors, changed)) {
@@ -77,13 +101,25 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
     const atts = await uploadToAPI(files, addAttachments);
 
     try {
-      const quid = await ask({ ...formData, userId, attachmentIds: atts });
-      setLoading(false);
-      push(pageURLs.question(quid));
+      if (operationType === "ask") {
+        const quid = await ask({ ...formData, userId, attachmentIds: atts });
+        push(pageURLs.question(quid));
+      } else {
+        if (!quid) return;
+        try {
+          await update({
+            quid,
+            updateData: { ...formData, attachmentIds: atts },
+          });
+        } catch (e) {
+          console.log(e);
+        }
+        push(pageURLs.question(quid));
+      }
     } catch (err: unknown) {
-      setLoading(false);
       const msg = (err as TRPCClientError<AppRouter>).data?.zodError
         ?.fieldErrors;
+      console.log("failure", err);
 
       if (!msg) return;
 
@@ -119,12 +155,28 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
   return (
     <>
       <LoadingOverlay isLoading={loading} />
+      <MessageActionModal
+        heading="Back"
+        open={modalOpen}
+        setOpen={setModalOpen}
+        action={async () => {
+          if (!quid) return;
+          push(pageURLs.question(quid));
+        }}
+      >
+        <div className="space-y-4">
+          <p>
+            Leaving now will <strong>discard</strong> all changes, are you sure
+            to continue?
+          </p>
+        </div>
+      </MessageActionModal>
       <div className="flex gap-6 px-2 md:px-8 lg:px-16 my-10">
         <div className="flex-1">
           <form
             // bg-slate-900/60 hover:bg-slate-800/80
             className="w-full p-8 flex-col flex gap-12"
-            onSubmit={handleSubmit}
+            onSubmit={handleAsk}
           >
             <div className="flex flex-col gap-8">
               <Input
@@ -137,6 +189,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                   setChanged((prev) => ({ ...prev, title: true }));
                 }}
                 label="Title"
+                value={formData.title}
               />
 
               <LabelErrorWrapper error={errors.categories} label="Topic(s)">
@@ -159,14 +212,14 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                     onDelete={() => {
                       setFormData((prev) => ({
                         ...prev,
-                        categories: prev.categories.filter(({ name }) => {
-                          return name.toLowerCase() !== c.name.toLowerCase();
+                        categories: prev.categories.filter((name) => {
+                          return name.toLowerCase() !== c.toLowerCase();
                         }),
                       }));
                     }}
                     ind={ind}
-                    name={c.name}
-                    key={c.id}
+                    name={c}
+                    key={c}
                   />
                 ))}
               </ul>
@@ -183,7 +236,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                 </StyledWrapper>
               </LabelErrorWrapper>
             </div>
-            <AttachmentUpload files={files} setFiles={setFiles} />
+            <AttachmentUpload
+              operationType={operationType}
+              files={files}
+              setFiles={setFiles}
+            />
             {<hr className="h-[1px] w-full border-0 bg-slate-400/20 my-8" />}
             <div className="flex justify-between">
               <div className="flex px-5 py-3 rounded-xl items-center gap-4 border-slate-300/30 border bg-slate-400/[0.05]">
@@ -195,17 +252,27 @@ export const QuestionForm: FC<QuestionFormProps> = ({ userId }) => {
                     setChanged((prev) => ({ ...prev, anonymous: true }));
                   }}
                 />
-                <Tooltip animation="duration-400" content="Remain anonymous">
-                  <FaUserSecret className="w-5 h-5" />
-                </Tooltip>
+                <FaUserSecret className="w-5 h-5" />
+                Anonymous
               </div>
-              <div className="h-min">
+              <div className="h-min flex gap-3">
+                {operationType === "update" && quid ? (
+                  <Button
+                    onClick={() => {
+                      setModalOpen(true);
+                    }}
+                    color="blue"
+                  >
+                    View question
+                  </Button>
+                ) : null}
                 <Button
                   type="submit"
                   disabled={anyError(errors, changed)}
                   size="md"
+                  color="success"
                 >
-                  Ask Question
+                  {operationType === "ask" ? "Ask question" : "Save changes"}
                 </Button>
               </div>
             </div>

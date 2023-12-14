@@ -14,8 +14,10 @@ export const uploadToAPI = async (
   const formData = new FormData();
   let i = 0;
   for (const file of files) {
-    formData.append(`file_${i}`, file.file);
-    i++;
+    if (file.file) {
+      formData.append(`file_${i}`, file.file);
+      i++;
+    }
   }
   formData.append("file_count", `${i}`);
 
