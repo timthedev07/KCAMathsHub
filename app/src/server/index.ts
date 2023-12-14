@@ -13,6 +13,7 @@ import { getUserDisplayQuestions } from "./crud/questions/getUserDisplayQs";
 import { getExistingCategories } from "./crud/categories/getCategories";
 import { deleteQuestion } from "./crud/questions/deleteQuestion";
 import { deleteAttachment } from "./crud/attachments/deleteAttachment";
+import { updateQuestion } from "./crud/questions/updateQuestion";
 
 export const appRouter = router({
   updateUsername,
@@ -29,6 +30,7 @@ export const appRouter = router({
   getExistingCategories,
   deleteQuestion,
   deleteAttachment,
+  updateQuestion,
 });
 
 export type AppRouter = typeof appRouter;
