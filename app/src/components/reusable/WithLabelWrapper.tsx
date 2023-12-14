@@ -15,7 +15,7 @@ export const LabelErrorWrapper: FC<WithLabelWrapperProps> = ({
 }) => {
   return (
     <div {...props} className={`flex flex-col gap-2 ${className}`}>
-      {label ? <label className="font-bold">{label}</label> : null}
+      {label ? <label className="text-lg  font-bold">{label}</label> : null}
       {children}
       {error ? <span className="text-sm text-red-500/90">{error}</span> : null}
     </div>
