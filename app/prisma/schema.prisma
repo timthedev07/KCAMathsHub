@@ -75,8 +75,7 @@ model Question {
 }
 
 model QuestionCategory {
-  id        Int        @id @default(autoincrement())
-  name      String     @unique @db.VarChar(48)
+  name      String     @id @unique @db.VarChar(48)
   questions Question[] @relation("QuestionCategory")
 }
 
