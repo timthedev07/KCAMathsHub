@@ -34,7 +34,7 @@ export const MessageActionModal: FC<
       onClose={() => setOpen(false)}
     >
       <Modal.Header>{heading}</Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="text-sm">
         {loading ? (
           <div className="w-full h-48 flex justify-center items-center">
             <LoadingSpin size="md" />
