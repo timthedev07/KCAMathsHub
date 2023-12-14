@@ -9,6 +9,7 @@ export const getQ = async (quid: string) => {
     where: { id: quid },
     include: {
       questioner: { select: userSelection },
+      categories: true,
       answer: {
         select: {
           answerer: { select: userSelection },
