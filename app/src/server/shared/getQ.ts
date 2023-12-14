@@ -48,6 +48,7 @@ export const getQ = async (quid: string) => {
       return {
         ...k,
         url: getUrl(objKey),
+        objKey,
       };
     }),
   };
