@@ -19,4 +19,7 @@ export const pageURLs = {
   notFound() {
     return `${HOST}/not-found`;
   },
+  moderation(quid: string) {
+    return `${HOST}/moderation/question/${quid}`;
+  },
 };

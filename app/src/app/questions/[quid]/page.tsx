@@ -109,6 +109,9 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
               </OptionalLinkWrapper>
             </div>
             <div className="flex gap-3 ml-auto h-8">
+              <Button color="dark">
+                <Link href={pageURLs.moderation(quid)}>Moderation</Link>
+              </Button>
               {isOwner ? (
                 <Button color="dark">
                   <Link href={pageURLs.editQuestion(quid)}>Edit</Link>
