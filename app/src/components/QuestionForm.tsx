@@ -172,10 +172,10 @@ export const QuestionForm: FC<QuestionFormProps> = ({
         </div>
       </MessageActionModal>
       <div className="flex gap-6 px-2 md:px-8 lg:px-16 my-10">
-        <div className="flex-1">
+        <div className="flex-1 rounded-xl border border-slate-300/20 p-6 lg:p-10 ">
           <form
             // bg-slate-900/60 hover:bg-slate-800/80
-            className="w-full p-8 flex-col flex gap-12"
+            className="w-full px-4 flex-col flex gap-12"
             onSubmit={handleAsk}
           >
             <div className="flex flex-col gap-8">
@@ -278,7 +278,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
             </div>
           </form>
         </div>
-        <div className="hidden xl:flex flex-col flex-shrink-0 w-[380px] p-6 lg:p-10 border-slate-300/30 border bg-slate-400/[0.05] rounded-xl">
+        <div className="hidden xl:flex flex-col flex-shrink-0 w-[380px] p-6 lg:p-10 border-slate-300/20 border bg-slate-900/40 rounded-xl">
           <p className="font-bold text-lg">Guidelines</p>
           <ol className={adviceListClassname}>
             <li>

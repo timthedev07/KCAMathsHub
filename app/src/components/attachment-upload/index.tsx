@@ -105,7 +105,7 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
                 className={`transition duration-200 ${
                   files.length > 0 || isDragActive
                     ? "text-amber-500"
-                    : "text-slate-500"
+                    : "text-tertiary-accent-bg"
                 } w-12 h-12`}
               />
               <span className="text-sm text-white/70 group-hover:text-white/90 transition duration-200">
