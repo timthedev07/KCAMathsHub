@@ -1,21 +1,5 @@
-import { QuestionForm } from "../components/QuestionForm";
-import { getServerSession } from "../lib/authoptions";
-
 const Home = async () => {
-  const session = await getServerSession();
-  const uid = session?.user.id;
-
-  return (
-    <div className="p-8  flex flex-col gap-12">
-      {!!uid ? (
-        <>
-          <QuestionForm userId={uid} />
-        </>
-      ) : (
-        ""
-      )}
-    </div>
-  );
+  return <div className="p-8  flex flex-col gap-12"></div>;
 };
 
 export default Home;
