@@ -51,7 +51,7 @@ export const Nav: FC<NavProps> = ({
           sidebarOpen
             ? "w-[calc(41.6667%+1px)] xmd:w-[calc(75%+1px)] lg:w-[calc(75%+1px)] xl:w-[calc(83.333333%+1px)]"
             : "w-full"
-        } absolute bottom-0 right-0 border-b border-b-slate-600/50`}
+        } absolute bottom-0 right-0 border-b border-b-slate-600/20`}
       ></div>
     </nav>
   );

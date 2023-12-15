@@ -36,7 +36,7 @@ export const SideBar: FC<SidebarProps> = ({
           open
             ? "translate-x-0 ease-out opacity-100"
             : "-translate-x-full ease-in opacity-0"
-        } px-5 py-8 overflow-hidden row-start-2 row-end-3 col-start-1 xl:col-end-3 lg:col-end-4 xmd:col-end-4 col-end-8 overflow-y-auto z-20 border-r border-r-slate-600/50`}
+        } px-5 py-8 overflow-hidden row-start-2 row-end-3 col-start-1 xl:col-end-3 lg:col-end-4 xmd:col-end-4 col-end-8 overflow-y-auto z-20 border-r border-r-slate-600/20`}
       >
         <ul
           className={`transition ${transDuration} ${
@@ -78,7 +78,7 @@ export const SideBar: FC<SidebarProps> = ({
         </ul>
       </aside>
       <div
-        className={`z-10 bg-black/60 transition-opacity duration-300 w-full h-screen absolute top-0 left-0 ${
+        className={`z-10 bg-black/80 transition-opacity duration-300 w-full h-screen absolute top-0 left-0 ${
           open
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
