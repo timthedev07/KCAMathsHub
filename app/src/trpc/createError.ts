@@ -1,4 +1,7 @@
-export const createError = (message: string, code: number = 400) => {
+export const createError = (
+  message: string = "Bad request",
+  code: number = 400
+) => {
   return { message, code, data: null, success: false };
 };
 
