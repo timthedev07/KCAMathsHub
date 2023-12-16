@@ -278,7 +278,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
             </div>
           </form>
         </div>
-        <div className="hidden xl:flex flex-col flex-shrink-0 w-[380px] p-6 lg:p-10 border-slate-300/20 border bg-slate-900/40 rounded-xl">
+        <div className="hidden xl:flex flex-col flex-shrink-0 w-[380px] p-6 lg:p-10 border-slate-300/20 border bg-blue-500/[0.05] rounded-xl">
           <p className="font-bold text-lg">Guidelines</p>
           <ol className={adviceListClassname}>
             <li>
