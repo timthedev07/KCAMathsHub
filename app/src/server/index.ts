@@ -15,6 +15,7 @@ import { deleteQuestion } from "./crud/questions/deleteQuestion";
 import { deleteAttachment } from "./crud/attachments/deleteAttachment";
 import { updateQuestion } from "./crud/questions/updateQuestion";
 import { markAsAnswered } from "./crud/questions/markAsAnswered";
+import { answerQuestion } from "./crud/answers/answerQuestion";
 
 export const appRouter = router({
   updateUsername,
@@ -33,6 +34,7 @@ export const appRouter = router({
   deleteAttachment,
   updateQuestion,
   markAsAnswered,
+  answerQuestion,
 });
 
 export type AppRouter = typeof appRouter;
