@@ -1,12 +1,12 @@
 import prisma from "../../../db";
 import { roleChecker } from "../../../lib/accessGuard";
-import { AnswerSchema } from "../../../schema/answer";
+import { AnswerSubmissionSchema } from "../../../schema/answer";
 import { createError, createSuccessResponse } from "../../../trpc/createError";
 import { Role } from "../../../types/role";
 import { publicProcedure } from "../../trpc";
 
 export const answerQuestion = publicProcedure
-  .input(AnswerSchema)
+  .input(AnswerSubmissionSchema)
   .mutation(
     async ({ input: { attachmentIds, content, questionId, userId } }) => {
       let q;
