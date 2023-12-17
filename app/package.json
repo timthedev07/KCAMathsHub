@@ -27,12 +27,12 @@
     "populate:categories": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/categories.ts"
   },
   "dependencies": {
-    "@aws-sdk/client-cloudfront": "^3.470.0",
-    "@aws-sdk/client-s3": "^3.468.0",
+    "@aws-sdk/client-cloudfront": "^3.474.0",
+    "@aws-sdk/client-s3": "^3.474.0",
     "@aws-sdk/cloudfront-signer": "^3.468.0",
-    "@aws-sdk/lib-storage": "^3.468.0",
+    "@aws-sdk/lib-storage": "^3.474.0",
     "@headlessui/react": "^1.7.17",
-    "@mdxeditor/editor": "1.13.3",
+    "@mdxeditor/editor": "1.13.5",
     "@prisma/client": "^5.7.0",
     "@tanstack/react-query": "^4.35.3",
     "@trpc/client": "^10.44.1",
@@ -40,8 +40,8 @@
     "@trpc/server": "^10.44.1",
     "autoprefixer": "10.4.16",
     "eslint-config-next": "14.0.4",
-    "flowbite": "^2.2.0",
-    "flowbite-react": "^0.7.0",
+    "flowbite": "^2.2.1",
+    "flowbite-react": "^0.7.2",
     "next": "^14.0.4",
     "next-auth": "^4.24.5",
     "next-connect": "^1.0.0",
@@ -59,17 +59,18 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.0.4",
     "@types/node": "^20.10.4",
-    "@types/react": "18.2.42",
-    "@types/react-dom": "18.2.17",
+    "@types/react": "18.2.45",
+    "@types/react-dom": "18.2.18",
     "depcheck": "^1.4.7",
     "dotenv-cli": "^7.3.0",
-    "eslint": "^8.55.0",
+    "eslint": "^8.56.0",
     "eslint-plugin-unused-imports": "^3.0.0",
     "gen-env-types": "^1.3.4",
     "prisma": "^5.7.0",
     "tailwindcss": "3.3.6",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
 }
