@@ -15,6 +15,10 @@ import { SSRCaller } from "../../../server";
 import { NextPage } from "../../../types/nextpage";
 import { DeletionButtonWithConfirmation } from "./DeletionButtonWithConfirmation";
 import { QCategoryBadge } from "../../../components/QCategoryBadge";
+import { MarkAsAnswered } from "./MarkAsAnswered";
+import { AnswerForm } from "../../../components/answer-form";
+// button icons
+import { MdEdit } from "react-icons/md";
 
 interface Props {
   params: { quid: string };
@@ -59,9 +63,12 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
       timestamp,
       answered,
       categories,
+      id,
     },
     u,
   } = await getSSRProps(quid);
+
+  const isAnswerer = u && u.roles.includes("answerer");
 
   return (
     <>
@@ -109,17 +116,12 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
               </OptionalLinkWrapper>
             </div>
             <div className="flex gap-3 ml-auto h-8">
-              <Button color="dark">
-                <Link href={pageURLs.moderation(quid)}>Moderation</Link>
+              <Button color="dark" className="">
+                <Link href={pageURLs.editQuestion(quid)}>Edit</Link>
+                <MdEdit className="ml-2" />
               </Button>
-              {isOwner ? (
-                <Button color="dark">
-                  <Link href={pageURLs.editQuestion(quid)}>Edit</Link>
-                </Button>
-              ) : null}
-              {isOwner ? <Button color={"dark"}>Mark as solved</Button> : null}
-              {u && (u.roles.includes("answerer") || isOwner) ? (
-                <Button color={"dark"}>Answer</Button>
+              {u && isOwner && !answered ? (
+                <MarkAsAnswered quid={quid} isOwner={isOwner} uid={u.id} />
               ) : null}
               {u && isOwner ? (
                 <DeletionButtonWithConfirmation
@@ -147,6 +149,12 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
           <h2 className="font-semibold text-3xl">Attachments</h2>
 
           <AttachmentList attachments={attachments} />
+        </div>
+        <hr className="h-[1px] border-0 bg-slate-400/10 mx-auto w-11/12 my-20" />
+        <div className="min-w-[300px] max-w-[700px] w-full">
+          {u && (isAnswerer || isOwner) ? (
+            <AnswerForm operationType="answer" quid={id} uid={u.id} />
+          ) : null}
         </div>
       </div>
     </>
