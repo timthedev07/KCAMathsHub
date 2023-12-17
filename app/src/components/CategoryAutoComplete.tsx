@@ -68,7 +68,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04] overflow-hidden w-1/2 h-96 overflow-y-scroll min-w-[250px]">
+        <Combobox.Options className="rounded-lg border border-slate-300/20 bg-slate-300/[0.04] overflow-hidden w-1/2 max-h-96 overflow-y-scroll min-w-[250px]">
           {filtered.length === 0 && query !== "" ? (
             <div className="p-3 cursor-pointer text-white text-sm">
               No categories found
