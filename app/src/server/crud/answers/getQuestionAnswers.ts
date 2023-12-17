@@ -6,7 +6,7 @@ import { publicProcedure } from "../../trpc";
 
 export const getQuestionAnswers = publicProcedure
   .input(z.object({ quid: z.string(), pageNum: z.number().positive() }))
-  .mutation(async ({ input: { quid, pageNum } }) => {
+  .query(async ({ input: { quid, pageNum } }) => {
     const res = await prisma.answer.findMany({
       where: { questionId: quid },
       take: ANSWER_PAGE_SIZE,
