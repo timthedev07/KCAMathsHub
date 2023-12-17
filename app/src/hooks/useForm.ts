@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
 import { filteredError } from "../lib/filterError";
 import { validateForm } from "../lib/handleZodErr";
@@ -29,27 +29,34 @@ export const useForm = <T extends {}>({
 
   const [errors, setErrors] = useState<ErrorStateType<T>>(() => ({}));
 
-  const update = useCallback(
-    async (name: keyof T, value: any) => {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-      if (!changed[name]) setChanged((prev) => ({ ...prev, [name]: true }));
+  const update = async (name: keyof T, value: any) => {
+    let newFormData;
 
-      const { success, errors } = await validateForm(
-        { [name]: formData[name] },
-        validationSchema
-      );
+    setFormData((prev) => {
+      newFormData = { ...prev, [name]: value };
+      return newFormData;
+    });
 
-      console.log("data passed in", { [name]: formData[name] });
-      console.log("schema", validationSchema.description);
-      console.log("errors", errors);
+    if (!newFormData) return console.log("new state failed to be captured");
 
-      if (success || !errors) return setErrors({});
+    let newChanged;
 
-      setErrors(filteredError(errors, changed));
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [changed, formData]
-  );
+    if (!changed[name])
+      setChanged((prev) => {
+        newChanged = { ...prev, [name]: true };
+        return newChanged;
+      });
+
+    const { success, errors } = await validateForm(
+      { [name]: newFormData[name] },
+      validationSchema
+    );
+
+    if (success || !errors) return setErrors({});
+    if (!newChanged) return console.log("new state failed to be captured");
+
+    setErrors(filteredError(errors, newChanged));
+  };
 
   return {
     errors,
