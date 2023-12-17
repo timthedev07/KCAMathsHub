@@ -5,6 +5,7 @@ import { Button } from "../../../components/reusable/Button";
 import { MessageActionModal } from "../../../components/MessageActionModal";
 import { trpc } from "../../../trpc/client";
 import { useRouter } from "next/navigation";
+import { MdDelete } from "react-icons/md";
 
 interface DeletionButtonWithConfirmationProps {
   isOwner: boolean;
@@ -54,6 +55,7 @@ export const DeletionButtonWithConfirmation: FC<
         color="dark"
       >
         Delete
+        <MdDelete className="ml-2" />
       </Button>
     </>
   );
