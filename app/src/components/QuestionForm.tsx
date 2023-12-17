@@ -148,9 +148,10 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
       if (success || !errors) return setErrors({});
 
-      setErrors(filteredError(errors, changed));
+      setErrors((prev) => ({ ...filteredError(errors, changed), ...prev }));
     })();
-  }, [formData, changed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData]);
 
   return (
     <>
