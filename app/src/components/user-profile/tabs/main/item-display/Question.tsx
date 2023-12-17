@@ -1,11 +1,10 @@
-import { FC } from "react";
-import { UserQuestionListDisplay } from "../../../../../types/prisma/payloads/userQs";
 import Link from "next/link";
-import { pageURLs } from "../../../../../lib/pageURLGen";
-import { QCategoryBadge } from "../../../../QCategoryBadge";
-import { FaCheckCircle } from "react-icons/fa";
-import { FaUserSecret } from "react-icons/fa";
+import { FC } from "react";
+import { FaCheckCircle, FaUserSecret } from "react-icons/fa";
 import { dateTimeDisplay } from "../../../../../lib/datetimeDisplay";
+import { pageURLs } from "../../../../../lib/pageURLGen";
+import { UserQuestionListDisplay } from "../../../../../types/prisma/payloads/userQs";
+import { QCategoryBadge } from "../../../../QCategoryBadge";
 
 interface QuestionProps {
   question: UserQuestionListDisplay;

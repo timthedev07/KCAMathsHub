@@ -5,6 +5,8 @@ import { FC, PropsWithChildren } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import remarkGfm from "remark-gfm";
 import { ProfileImgDisplay } from "../../../components/ProfileImgDisplay";
+import { QCategoryBadge } from "../../../components/QCategoryBadge";
+import { AnswerForm } from "../../../components/answer-form";
 import { AttachmentList } from "../../../components/attachments";
 import { mdxCustomComponents } from "../../../components/mdx/components";
 import { Button } from "../../../components/reusable/Button";
@@ -14,9 +16,7 @@ import { pageURLs } from "../../../lib/pageURLGen";
 import { SSRCaller } from "../../../server";
 import { NextPage } from "../../../types/nextpage";
 import { DeletionButtonWithConfirmation } from "./DeletionButtonWithConfirmation";
-import { QCategoryBadge } from "../../../components/QCategoryBadge";
 import { MarkAsAnswered } from "./MarkAsAnswered";
-import { AnswerForm } from "../../../components/answer-form";
 // button icons
 import { MdEdit } from "react-icons/md";
 

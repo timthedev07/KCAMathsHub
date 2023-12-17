@@ -8,8 +8,8 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { Button } from "./reusable/Button";
 import { LoadingSpin } from "./LoadingSpin";
+import { Button } from "./reusable/Button";
 
 interface MessageActionModalProps {
   open: boolean;

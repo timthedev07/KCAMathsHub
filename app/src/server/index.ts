@@ -1,21 +1,21 @@
-import { router } from "./trpc";
-import { updateUsername } from "./crud/user/updateUsername";
+import { answerQuestion } from "./crud/answers/answerQuestion";
+import { deleteAttachment } from "./crud/attachments/deleteAttachment";
+import { getExistingCategories } from "./crud/categories/getCategories";
 import { addAttachments } from "./crud/questions/addAttachment";
-import { initReferral } from "./crud/user/initReferral";
-import { getReferral } from "./crud/user/getReferralId";
 import { askQuestion } from "./crud/questions/askQuestion";
+import { deleteQuestion } from "./crud/questions/deleteQuestion";
 import { getQuestion } from "./crud/questions/getQuestion";
 import { getQuestions } from "./crud/questions/getQuestions";
-import { getUser } from "./crud/user/getUser";
-import { getReferralEntity } from "./crud/user/getReferralEntity";
-import { updateBio } from "./crud/user/updateBio";
 import { getUserDisplayQuestions } from "./crud/questions/getUserDisplayQs";
-import { getExistingCategories } from "./crud/categories/getCategories";
-import { deleteQuestion } from "./crud/questions/deleteQuestion";
-import { deleteAttachment } from "./crud/attachments/deleteAttachment";
-import { updateQuestion } from "./crud/questions/updateQuestion";
 import { markAsAnswered } from "./crud/questions/markAsAnswered";
-import { answerQuestion } from "./crud/answers/answerQuestion";
+import { updateQuestion } from "./crud/questions/updateQuestion";
+import { getReferralEntity } from "./crud/user/getReferralEntity";
+import { getReferral } from "./crud/user/getReferralId";
+import { getUser } from "./crud/user/getUser";
+import { initReferral } from "./crud/user/initReferral";
+import { updateBio } from "./crud/user/updateBio";
+import { updateUsername } from "./crud/user/updateUsername";
+import { router } from "./trpc";
 
 export const appRouter = router({
   updateUsername,

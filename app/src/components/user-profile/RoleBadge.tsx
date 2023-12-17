@@ -1,9 +1,8 @@
 import { FC } from "react";
-import { MdAdminPanelSettings } from "react-icons/md";
+import { IconType } from "react-icons";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { FaPersonCircleQuestion } from "react-icons/fa6";
-import { MdAddModerator } from "react-icons/md";
-import { IconType } from "react-icons";
+import { MdAddModerator, MdAdminPanelSettings } from "react-icons/md";
 import { Role } from "../../types/role";
 
 const iconMap: Record<Role, IconType> = {

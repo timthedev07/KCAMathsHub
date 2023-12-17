@@ -1,12 +1,12 @@
 "use client";
 
-import { FC, useState } from "react";
-import { Button } from "../../../components/reusable/Button";
-import { MessageActionModal } from "../../../components/MessageActionModal";
-import { trpc } from "../../../trpc/client";
 import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { MessageActionModal } from "../../../components/MessageActionModal";
+import { Button } from "../../../components/reusable/Button";
 import { Input } from "../../../components/reusable/Input";
+import { trpc } from "../../../trpc/client";
 
 interface DeletionButtonWithConfirmationProps {
   isOwner: boolean;

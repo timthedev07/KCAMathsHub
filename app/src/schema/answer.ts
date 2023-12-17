@@ -1,5 +1,5 @@
-import { contentSchema } from "./shared/content";
 import { z } from "zod";
+import { contentSchema } from "./shared/content";
 
 export const AnswerSchema = z.object({
   content: contentSchema,

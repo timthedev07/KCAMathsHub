@@ -1,10 +1,10 @@
 "use client";
 
+import { Session } from "next-auth";
 import { FC, ReactNode, useState } from "react";
+import { Footer } from "./basis/footer";
 import { Nav } from "./basis/nav";
 import { SideBar } from "./basis/sidebar";
-import { Session } from "next-auth";
-import { Footer } from "./basis/footer";
 
 interface AppLayoutProps {
   children: ReactNode;

@@ -1,9 +1,9 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { publicProcedure } from "../../trpc";
+import { DAYS_BETWEEN_BIO_UPDATE } from "../../../constants/updateIntervals";
 import prisma from "../../../db";
 import { updateIntervalCheck } from "../../../lib/updateIntervalCheck";
-import { DAYS_BETWEEN_BIO_UPDATE } from "../../../constants/updateIntervals";
-import { TRPCError } from "@trpc/server";
+import { publicProcedure } from "../../trpc";
 
 export const updateBio = publicProcedure
   .input(

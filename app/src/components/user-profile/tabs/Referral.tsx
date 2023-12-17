@@ -1,17 +1,16 @@
 "use client";
-import { useSession } from "next-auth/react";
-import { FC, PropsWithChildren } from "react";
-import { trpc } from "../../../trpc/client";
-import { Button } from "../../reusable/Button";
-import { viewPanelBase } from ".";
-import { LoadingSpin } from "../../LoadingSpin";
-import { useState } from "react";
-import Link from "next/link";
-import { pageURLs } from "../../../lib/pageURLGen";
 import { Toast, Tooltip } from "flowbite-react";
-import { FaCheckCircle, FaCopy } from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { FC, PropsWithChildren, useState } from "react";
 import { BsAwardFill } from "react-icons/bs";
+import { FaCheckCircle, FaCopy } from "react-icons/fa";
+import { viewPanelBase } from ".";
+import { pageURLs } from "../../../lib/pageURLGen";
+import { trpc } from "../../../trpc/client";
+import { LoadingSpin } from "../../LoadingSpin";
 import { ProfileImgDisplay } from "../../ProfileImgDisplay";
+import { Button } from "../../reusable/Button";
 
 export const ReferralTab: FC = ({}) => {
   const { data, status } = useSession();

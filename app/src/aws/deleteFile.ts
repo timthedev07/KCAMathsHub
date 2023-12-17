@@ -1,9 +1,9 @@
-import { DeleteObjectCommand } from "@aws-sdk/client-s3";
-import { createAWSS3Client } from "./client";
 import {
   CloudFrontClient,
   CreateInvalidationCommand,
 } from "@aws-sdk/client-cloudfront";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { createAWSS3Client } from "./client";
 
 /**
  * Deletes from S3 and invalidates Cloudfront cache

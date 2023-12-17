@@ -1,7 +1,7 @@
-import { withAccessGuard } from "../../../lib/accessGuard";
-import { WithSessionProps } from "../../../types/withSessionPage";
 import { ProfileTabs } from "../../../components/user-profile/tabs";
+import { withAccessGuard } from "../../../lib/accessGuard";
 import { NextPage } from "../../../types/nextpage";
+import { WithSessionProps } from "../../../types/withSessionPage";
 
 const Profile: NextPage<WithSessionProps> = async ({ session }) => {
   return (

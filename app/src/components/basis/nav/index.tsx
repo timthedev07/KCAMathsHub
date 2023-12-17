@@ -1,8 +1,8 @@
+import { Session } from "next-auth";
 import { FC } from "react";
 import { Hamburger } from "../../../svgs/sidebar/Hamburger";
 import { SignInButton } from "../../SignInButton";
 import { ConditionalProfilePic } from "./ConditionalProfilePic";
-import { Session } from "next-auth";
 
 interface NavProps {
   className?: string;

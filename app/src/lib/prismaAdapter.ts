@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import type { Adapter, AdapterAccount } from "next-auth/adapters";
 
 const baseString = "01234abcd".split("");

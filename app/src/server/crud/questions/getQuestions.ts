@@ -1,8 +1,8 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
 import { StudentStages } from "../../../types/StudentStage.d";
-import { TRPCError } from "@trpc/server";
+import { publicProcedure } from "../../trpc";
 
 export const getQuestions = publicProcedure
   .input(

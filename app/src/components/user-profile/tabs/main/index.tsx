@@ -1,17 +1,17 @@
 "use client";
 import { Tooltip } from "flowbite-react";
-import { FC } from "react";
-import { UsernameEditable } from "./username-editable";
-import { BadgesDisplay } from "../../BadgesDisplay";
-import { getCurrYear } from "../../../../lib/getCurrYear";
 import { Session } from "next-auth";
-import { viewPanelBase } from "..";
-import { EditableTextArea } from "./EditableTextArea";
+import { FC } from "react";
 import { BiSolidHelpCircle } from "react-icons/bi";
-import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../constants/updateIntervals";
-import { QList } from "./item-display/QList";
 import { MdEmail } from "react-icons/md";
+import { viewPanelBase } from "..";
+import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../constants/updateIntervals";
+import { getCurrYear } from "../../../../lib/getCurrYear";
 import { ProfileImgDisplay } from "../../../ProfileImgDisplay";
+import { BadgesDisplay } from "../../BadgesDisplay";
+import { EditableTextArea } from "./EditableTextArea";
+import { QList } from "./item-display/QList";
+import { UsernameEditable } from "./username-editable";
 
 interface MainProfileTabProps {
   user: Session["user"];

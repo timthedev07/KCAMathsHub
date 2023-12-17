@@ -1,8 +1,8 @@
 import { TRPCError } from "@trpc/server";
+import { getServerSession } from "../../../lib/authoptions";
 import { acceptReferral } from "../../../lib/db/account/referral";
 import { HOST } from "../../../lib/hostAddr";
 import { pageURLs } from "../../../lib/pageURLGen";
-import { getServerSession } from "../../../lib/authoptions";
 
 const GET = async (request: Request) => {
   const session = await getServerSession();

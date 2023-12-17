@@ -1,12 +1,12 @@
 "use client";
+import { Progress, Spinner } from "flowbite-react";
 import { FC, useEffect, useMemo, useState } from "react";
-import { Spinner, Progress } from "flowbite-react";
-import { ImageSVG } from "../../svgs/Image";
-import { FileWithIdAndObjURL } from "./types";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
-import { WithExpandedImg } from "../attachments/ExpandedImg";
+import { ImageSVG } from "../../svgs/Image";
 import { trpc } from "../../trpc/client";
+import { WithExpandedImg } from "../attachments/ExpandedImg";
+import { FileWithIdAndObjURL } from "./types";
 
 interface UploadedItemProps {
   file: FileWithIdAndObjURL;

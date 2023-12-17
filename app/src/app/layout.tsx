@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { AppLayout } from "../components/AppLayout";
+import { PageProgressBarProvider } from "../components/contexts/ProgressProvider";
+import SessionProvider from "../components/contexts/SessionProvider";
+import { getServerSession } from "../lib/authoptions";
 import { TRPCProvider } from "../trpc/Provider";
 import "./globals.css";
-import { getServerSession } from "../lib/authoptions";
-import SessionProvider from "../components/contexts/SessionProvider";
-import { PageProgressBarProvider } from "../components/contexts/ProgressProvider";
 
 const inter = Roboto({
   subsets: ["latin"],

@@ -4,8 +4,8 @@ import { FC, SetStateAction, useCallback, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
 import { IoMdCloudUpload } from "react-icons/io";
 import { UploadedItem } from "./UploadedItem";
-import { FL } from "./types";
 import { MAX_FILE_COUNT, MAX_FILE_SIZE_MB } from "./constants";
+import { FL } from "./types";
 
 interface AttachmentUploadProps {
   files: FL;

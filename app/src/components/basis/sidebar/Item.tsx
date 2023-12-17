@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { Dispatch, FC, SetStateAction } from "react";
 import { SVGType } from "../../../svgs/type";
-import Link from "next/link";
 
 interface ItemProps {
   Icon: SVGType;

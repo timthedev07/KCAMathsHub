@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
 import { pageURLs } from "../../../lib/pageURLGen";
+import { publicProcedure } from "../../trpc";
 
 export const getReferral = publicProcedure
   .input(z.object({ userId: z.string() }))

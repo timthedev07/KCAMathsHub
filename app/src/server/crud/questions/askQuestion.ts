@@ -1,9 +1,9 @@
-import { publicProcedure } from "../../trpc";
-import prisma from "../../../db";
 import { TRPCError } from "@trpc/server";
+import prisma from "../../../db";
 import { classifyKSCategory } from "../../../lib/classifyKSCategory";
 import { getCurrYear } from "../../../lib/getCurrYear";
 import { AskSubmissionSchema } from "../../../schema/ask";
+import { publicProcedure } from "../../trpc";
 
 export const askQuestion = publicProcedure
   .input(AskSubmissionSchema)

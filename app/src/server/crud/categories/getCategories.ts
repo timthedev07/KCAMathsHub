@@ -1,6 +1,6 @@
-import { publicProcedure } from "../../trpc";
-import prisma from "../../../db";
 import { TRPCError } from "@trpc/server";
+import prisma from "../../../db";
+import { publicProcedure } from "../../trpc";
 
 export const getExistingCategories = publicProcedure.query(async ({}) => {
   try {

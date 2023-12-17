@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { SSRCaller } from "../server";
-import { pageURLs } from "../lib/pageURLGen";
 import Link from "next/link";
+import { FC } from "react";
+import { pageURLs } from "../lib/pageURLGen";
+import { SSRCaller } from "../server";
 
 export const getSSRProps = async () => {
   const qs = await SSRCaller.getQuestions({});

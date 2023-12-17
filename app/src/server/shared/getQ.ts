@@ -1,5 +1,5 @@
-import prisma from "../../db";
 import { getUrl } from "../../aws/urlFormatter";
+import prisma from "../../db";
 
 const userSelection = { username: true, image: true, id: true };
 const attachmentSelection = { name: true, objKey: true, size: true };

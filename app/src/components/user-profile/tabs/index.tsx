@@ -2,10 +2,10 @@
 import { TabItem, Tabs } from "flowbite-react";
 import { Session } from "next-auth";
 import { FC } from "react";
-import { MainProfileTab } from "./main";
-import { QuestionsTab } from "./questions/index";
 import { roleChecker } from "../../../lib/accessGuard";
 import { ReferralTab } from "./Referral";
+import { MainProfileTab } from "./main";
+import { QuestionsTab } from "./questions/index";
 
 interface ProfileTabsProps {
   user: Session["user"];

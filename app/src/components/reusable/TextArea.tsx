@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, FC, TextareaHTMLAttributes } from "react";
-import { LabelErrorWrapper } from "./WithLabelWrapper";
-import { InputFieldBaseProps } from "../../types/InputFieldBaseProps";
 import { inputBase } from "../../reusable-vars/Input";
+import { InputFieldBaseProps } from "../../types/InputFieldBaseProps";
+import { LabelErrorWrapper } from "./WithLabelWrapper";
 
 interface TextAreaProps
   extends DetailedHTMLProps<

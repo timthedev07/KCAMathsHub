@@ -1,17 +1,17 @@
 "use client";
 
 import { FC, FormEvent, useState } from "react";
-import { FL } from "../attachment-upload/types";
-import { QAEditor } from "../richtext/ForwardRefEditor";
 import { useForm } from "../../hooks/useForm";
-import { StyledWrapper } from "../richtext/StyledWrapper";
-import { AttachmentUpload } from "../attachment-upload";
 import { anyError } from "../../lib/anyError";
 import { uploadToAPI } from "../../lib/attachmentClientUpload";
-import { trpc } from "../../trpc/client";
-import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
-import { Button } from "../reusable/Button";
 import { AnswerSchema } from "../../schema/answer";
+import { trpc } from "../../trpc/client";
+import { AttachmentUpload } from "../attachment-upload";
+import { FL } from "../attachment-upload/types";
+import { Button } from "../reusable/Button";
+import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
+import { QAEditor } from "../richtext/ForwardRefEditor";
+import { StyledWrapper } from "../richtext/StyledWrapper";
 
 interface AnswerFormProps {
   operationType: "answer" | "update";
@@ -69,7 +69,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   };
 
   return (
-    <form className="border-slate-300/30 rounded-lg flex flex-col w-full">
+    <form className="border-slate-300/30 rounded-lg flex flex-col w-full mb-10">
       <LabelErrorWrapper
         className="w-full"
         label="Answer"
@@ -90,7 +90,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
         files={files}
         setFiles={setFiles}
       />
-      <Button className="mx-auto">HEY</Button>
+      <Button className="ml-auto my-10">HEY</Button>
     </form>
   );
 };

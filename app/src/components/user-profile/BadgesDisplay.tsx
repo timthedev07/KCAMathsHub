@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { RoleBadge } from "./RoleBadge";
 import { Role } from "../../types/role";
+import { RoleBadge } from "./RoleBadge";
 
 interface BadgesDisplayProps {
   roles: Role[];

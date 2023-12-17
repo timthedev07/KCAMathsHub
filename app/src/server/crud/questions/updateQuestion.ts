@@ -1,9 +1,9 @@
-import { z } from "zod";
-import { publicProcedure } from "../../trpc";
-import prisma from "../../../db";
-import { TRPCError } from "@trpc/server";
-import { AskSubmissionSchema } from "../../../schema/ask";
 import { Prisma } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
+import { z } from "zod";
+import prisma from "../../../db";
+import { AskSubmissionSchema } from "../../../schema/ask";
+import { publicProcedure } from "../../trpc";
 
 export const updateQuestion = publicProcedure
   .input(

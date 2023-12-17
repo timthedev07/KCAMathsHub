@@ -1,11 +1,11 @@
 "use client";
 
-import { FC, useState } from "react";
-import { Button } from "../../../components/reusable/Button";
-import { MessageActionModal } from "../../../components/MessageActionModal";
-import { trpc } from "../../../trpc/client";
 import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
 import { FaCheck } from "react-icons/fa";
+import { MessageActionModal } from "../../../components/MessageActionModal";
+import { Button } from "../../../components/reusable/Button";
+import { trpc } from "../../../trpc/client";
 
 interface MarkAsAnsweredProps {
   isOwner: boolean;

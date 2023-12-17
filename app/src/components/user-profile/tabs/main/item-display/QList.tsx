@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { ProfileSubDisplay } from "../ProfileSubDisplay";
-import { Question } from "./Question";
 import { trpc } from "../../../../../trpc/client";
 import { LoadingSpin } from "../../../../LoadingSpin";
+import { ProfileSubDisplay } from "../ProfileSubDisplay";
+import { Question } from "./Question";
 
 interface QListProps {
   uid: string;

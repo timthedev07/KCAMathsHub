@@ -1,28 +1,28 @@
 "use client";
 
-import type { ForwardedRef } from "react";
 import {
-  headingsPlugin,
-  listsPlugin,
-  quotePlugin,
-  thematicBreakPlugin,
-  markdownShortcutPlugin,
+  BlockTypeSelect,
+  BoldItalicUnderlineToggles,
+  CreateLink,
+  InsertTable,
+  InsertThematicBreak,
+  ListsToggle,
   MDXEditor,
+  Separator,
+  UndoRedo,
+  headingsPlugin,
+  linkDialogPlugin,
+  linkPlugin,
+  listsPlugin,
+  markdownShortcutPlugin,
+  quotePlugin,
+  tablePlugin,
+  thematicBreakPlugin,
+  toolbarPlugin,
   type MDXEditorMethods,
   type MDXEditorProps,
-  toolbarPlugin,
-  UndoRedo,
-  BoldItalicUnderlineToggles,
-  tablePlugin,
-  InsertTable,
-  BlockTypeSelect,
-  Separator,
-  ListsToggle,
-  InsertThematicBreak,
-  linkPlugin,
-  linkDialogPlugin,
-  CreateLink,
 } from "@mdxeditor/editor";
+import type { ForwardedRef } from "react";
 
 export interface EditorExtraProps {}
 

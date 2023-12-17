@@ -1,9 +1,9 @@
-import { Upload } from "@aws-sdk/lib-storage";
-import { createAWSS3Client } from "../../../aws/client";
-import { randomUUID } from "crypto";
 import { S3Client } from "@aws-sdk/client-s3";
-import { ImgUrlsType } from "../../../types/upload";
+import { Upload } from "@aws-sdk/lib-storage";
+import { randomUUID } from "crypto";
 import sharp from "sharp";
+import { createAWSS3Client } from "../../../aws/client";
+import { ImgUrlsType } from "../../../types/upload";
 
 // for dev purposes
 function randNum(min: number, max: number) {

@@ -1,8 +1,8 @@
-import { Role } from "../types/role";
-import { getServerSession } from "./authoptions";
 import { redirect } from "next/navigation";
-import { WithSessionProps } from "../types/withSessionPage";
 import { NextPage } from "../types/nextpage";
+import { Role } from "../types/role";
+import { WithSessionProps } from "../types/withSessionPage";
+import { getServerSession } from "./authoptions";
 
 export const roleChecker = (userRoles: Role[], targetRoles: Role[]) => {
   for (const targetRole of targetRoles) {

@@ -1,5 +1,5 @@
-import { getServerSession } from "../../../../lib/authoptions";
 import { notFound, redirect } from "next/navigation";
+import { getServerSession } from "../../../../lib/authoptions";
 import { getServerUser } from "../../../../server/crud/user/getUser";
 import { NextPage } from "../../../../types/nextpage";
 

@@ -1,5 +1,5 @@
-import { ComponentProps, FC } from "react";
 import { Button as FBButton } from "flowbite-react";
+import { ComponentProps, FC } from "react";
 
 export const Button: FC<ComponentProps<typeof FBButton>> = (props) => {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
-import { FC } from "react";
 import Image from "next/image";
+import { FC } from "react";
 
 interface FullScreenableImgProps extends React.ComponentProps<typeof Image> {}
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { publicProcedure } from "../../trpc";
 import prisma from "../../../db";
+import { publicProcedure } from "../../trpc";
 
 export const getUser = publicProcedure
   .input(z.object({ userId: z.string() }))

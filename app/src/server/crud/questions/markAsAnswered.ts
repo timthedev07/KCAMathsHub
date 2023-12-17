@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { publicProcedure } from "../../trpc";
-import prisma from "../../../db";
 import { Prisma } from "@prisma/client";
+import { z } from "zod";
+import prisma from "../../../db";
+import { publicProcedure } from "../../trpc";
 
 export const markAsAnswered = publicProcedure
   .input(z.string())

@@ -1,9 +1,9 @@
 "use client";
-import { FC } from "react";
-import { Editable } from "./Editable";
-import { updateIntervalCheck } from "../../../../../lib/updateIntervalCheck";
-import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../../../constants/updateIntervals";
 import { useSession } from "next-auth/react";
+import { FC } from "react";
+import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../../../constants/updateIntervals";
+import { updateIntervalCheck } from "../../../../../lib/updateIntervalCheck";
+import { Editable } from "./Editable";
 
 interface UsernameEditableProps {
   editable?: boolean;

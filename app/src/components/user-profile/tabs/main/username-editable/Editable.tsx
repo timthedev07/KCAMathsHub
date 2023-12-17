@@ -1,15 +1,15 @@
 "use client";
 
-import { Toast, Tooltip, TextInput } from "flowbite-react";
-import { FC, useRef, useState } from "react";
-import { spanBase } from ".";
+import { TextInput, Toast, Tooltip } from "flowbite-react";
 import { Session } from "next-auth";
-import { useClickOutside } from "../../../../../hooks/useClickOutside";
-import { MessageActionModal } from "../../../../MessageActionModal";
-import { trpc } from "../../../../../trpc/client";
+import { useSession } from "next-auth/react";
+import { FC, useRef, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { GoXCircleFill } from "react-icons/go";
-import { useSession } from "next-auth/react";
+import { spanBase } from ".";
+import { useClickOutside } from "../../../../../hooks/useClickOutside";
+import { trpc } from "../../../../../trpc/client";
+import { MessageActionModal } from "../../../../MessageActionModal";
 
 interface EditableProps {
   user: Session["user"];

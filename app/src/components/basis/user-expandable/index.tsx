@@ -1,10 +1,10 @@
 "use client";
 import { Session } from "next-auth";
-import { Dispatch, FC, SetStateAction } from "react";
-import { BadgesDisplay } from "../../user-profile/BadgesDisplay";
 import { signOut } from "next-auth/react";
-import { Button } from "../../reusable/Button";
+import { Dispatch, FC, SetStateAction } from "react";
 import { ProfileImgDisplay } from "../../ProfileImgDisplay";
+import { Button } from "../../reusable/Button";
+import { BadgesDisplay } from "../../user-profile/BadgesDisplay";
 
 interface UserExpandableProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;

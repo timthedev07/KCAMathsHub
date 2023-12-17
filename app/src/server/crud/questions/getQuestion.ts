@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { publicProcedure } from "../../trpc";
 import { getQ } from "../../shared/getQ";
+import { publicProcedure } from "../../trpc";
 
 export const getQuestion = publicProcedure
   .input(

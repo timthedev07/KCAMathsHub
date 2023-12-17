@@ -1,9 +1,9 @@
-import { FC, ReactNode } from "react";
-import { LogoSVG } from "../../Logo";
 import Link from "next/link";
+import { FC, ReactNode } from "react";
+import { EmailSVG } from "../../../svgs/social/Email";
 import { InstagramSVG } from "../../../svgs/social/Instagram";
 import { XSVG } from "../../../svgs/social/X";
-import { EmailSVG } from "../../../svgs/social/Email";
+import { LogoSVG } from "../../Logo";
 
 interface FooterProps {}
 

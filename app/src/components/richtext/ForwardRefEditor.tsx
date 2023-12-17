@@ -1,10 +1,10 @@
 "use client";
 
-import "@mdxeditor/editor/style.css";
-import "../../styles/mdEditor.css";
 import { MDXEditorMethods, MDXEditorProps } from "@mdxeditor/editor";
+import "@mdxeditor/editor/style.css";
 import dynamic from "next/dynamic";
 import { forwardRef } from "react";
+import "../../styles/mdEditor.css";
 
 const Editor = dynamic(() => import("./Editor"), {
   ssr: false,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, MutableRefObject, MouseEvent } from "react";
+import { MouseEvent, MutableRefObject, useEffect } from "react";
 
 export const useClickOutside = <T extends HTMLElement>(
   ref: MutableRefObject<T | null>,
