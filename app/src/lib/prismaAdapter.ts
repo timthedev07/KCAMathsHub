@@ -1,5 +1,6 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import type { Adapter, AdapterAccount } from "next-auth/adapters";
+import { isTeacher } from "./isTeacher";
 
 const baseString = "01234abcd".split("");
 
@@ -23,15 +24,28 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
     createUser: async (data) => {
       const a = data.name!.split("Year");
       const year = parseInt(a[a.length - 1].trim());
-      const count = await p.user.count();
-      const newUname = `u#${countToBaseN(count)}`;
+      const teacher = isTeacher(data.email);
+
+      const count = await p.user.count({
+        where: teacher ? { email: { contains: "@kings.education" } } : {},
+      });
+
+      const newUname = `${teacher ? "t" : "u"}#${countToBaseN(count)}`;
       return (await p.user.create({
         data: {
           username: newUname,
           email: data.email,
           joinedYear: year,
           image: data.image,
-          roles: { connect: { name: "inquirer" } }, // defaults to inquirer
+          roles: {
+            connect: teacher
+              ? [
+                  { name: "inquirer" },
+                  { name: "answerer" },
+                  { name: "moderator" },
+                ]
+              : { name: "inquirer" },
+          }, // defaults to inquirer
         },
       })) as any;
     },
