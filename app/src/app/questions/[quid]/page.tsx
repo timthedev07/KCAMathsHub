@@ -3,10 +3,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FC, PropsWithChildren } from "react";
 import { FaCheckCircle } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 import remarkGfm from "remark-gfm";
 import { ProfileImgDisplay } from "../../../components/ProfileImgDisplay";
 import { QCategoryBadge } from "../../../components/QCategoryBadge";
-import { AnswerForm } from "../../../components/answer-form";
+import { AnswerForm } from "../../../components/answer-form/index";
 import { AttachmentList } from "../../../components/attachments";
 import { mdxCustomComponents } from "../../../components/mdx/components";
 import { Button } from "../../../components/reusable/Button";
@@ -17,8 +18,6 @@ import { SSRCaller } from "../../../server";
 import { NextPage } from "../../../types/nextpage";
 import { DeletionButtonWithConfirmation } from "./DeletionButtonWithConfirmation";
 import { MarkAsAnswered } from "./MarkAsAnswered";
-// button icons
-import { MdEdit } from "react-icons/md";
 
 interface Props {
   params: { quid: string };
