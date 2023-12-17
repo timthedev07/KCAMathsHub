@@ -60,7 +60,7 @@ export const DeletionButtonWithConfirmation: FC<
         onClick={() => {
           setModalOpen(true);
         }}
-        color="dark"
+        color="blue"
       >
         Delete
         <MdDelete className="ml-2" />

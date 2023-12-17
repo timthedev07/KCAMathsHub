@@ -66,7 +66,7 @@ export const MarkAsAnswered: FC<MarkAsAnsweredProps> = ({
         onClick={() => {
           setModalOpen(true);
         }}
-        color="dark"
+        color="blue"
       >
         Mark as answered
         <FaCheck className="ml-2 " />
