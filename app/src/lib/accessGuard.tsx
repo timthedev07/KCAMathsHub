@@ -21,7 +21,7 @@ export const withAccessGuard = async <T,>(
     noAccess: string;
   } = {
     unauthed: "/user/signin",
-    noAccess: "/questions/ask",
+    noAccess: "/",
   }
 ) => {
   // eslint-disable-next-line react/display-name
