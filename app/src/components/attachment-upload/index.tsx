@@ -10,7 +10,7 @@ import { MAX_FILE_COUNT, MAX_FILE_SIZE_MB } from "./constants";
 interface AttachmentUploadProps {
   files: FL;
   setFiles: React.Dispatch<SetStateAction<FL>>;
-  operationType: "ask" | "update";
+  operationType: "ask" | "update" | "answer";
 }
 
 export const AttachmentUpload: FC<AttachmentUploadProps> = ({
