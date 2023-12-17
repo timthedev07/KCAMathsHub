@@ -42,9 +42,10 @@ export const answerQuestion = publicProcedure
 
       if (
         !answerer ||
-        !roleChecker(answerer.roles.map(({ name }) => name) as Role[], [
+        (!roleChecker(answerer.roles.map(({ name }) => name) as Role[], [
           "answerer",
-        ])
+        ]) &&
+          answerer.id !== q.questionerId)
       ) {
         await deleteMultipleFromAWS(attachmentIds, attachments);
         return createError("Unauthorized", 401);
