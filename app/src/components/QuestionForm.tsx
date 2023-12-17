@@ -4,8 +4,9 @@ import { TRPCClientError } from "@trpc/client";
 import { ToggleSwitch } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import { FaUserSecret } from "react-icons/fa";
+import { FaEye, FaUserSecret } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
+import { IoIosSend } from "react-icons/io";
 import { anyError } from "../lib/anyError";
 import { uploadToAPI } from "../lib/attachmentClientUpload";
 import { filteredError } from "../lib/filterError";
@@ -252,6 +253,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
                     setFormData((prev) => ({ ...prev, anonymous: val }));
                     setChanged((prev) => ({ ...prev, anonymous: true }));
                   }}
+                  color="success"
                 />
                 <FaUserSecret className="w-5 h-5" />
                 Anonymous
@@ -264,7 +266,8 @@ export const QuestionForm: FC<QuestionFormProps> = ({
                     }}
                     color="blue"
                   >
-                    View question
+                    <span>View question</span>
+                    <FaEye className="ml-2" />
                   </Button>
                 ) : null}
                 <Button
@@ -273,6 +276,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
                   size="md"
                   color="success"
                 >
+                  <IoIosSend className="mr-2.5 w-5 h-5" />
                   {operationType === "ask" ? "Ask question" : "Save changes"}
                 </Button>
               </div>
