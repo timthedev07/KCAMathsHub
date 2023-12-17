@@ -17,9 +17,9 @@ export const AttachmentList: FC<AttachmentListProps> = ({ attachments }) => {
         >
           <div className="w-14 h-14 relative">
             <Image
-              quality={5}
               src={url}
               alt={name}
+              sizes="9rem"
               fill
               className="rounded-md object-cover object-center"
             />
