@@ -16,11 +16,19 @@ interface MessageActionModalProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   heading: string;
   action?: Function;
+  proceedDisabled?: boolean;
 }
 
 export const MessageActionModal: FC<
   PropsWithChildren<MessageActionModalProps>
-> = ({ open, setOpen, heading, children, action = () => {} }) => {
+> = ({
+  open,
+  setOpen,
+  heading,
+  children,
+  action = () => {},
+  proceedDisabled = false,
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   return (
     <Modal
@@ -46,7 +54,7 @@ export const MessageActionModal: FC<
       <Modal.Footer>
         <Button
           color={"indigo"}
-          disabled={loading}
+          disabled={loading || proceedDisabled}
           onClick={async () => {
             if (!loading) {
               setLoading(true);
