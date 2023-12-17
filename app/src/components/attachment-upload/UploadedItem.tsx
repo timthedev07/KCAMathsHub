@@ -11,7 +11,7 @@ import { trpc } from "../../trpc/client";
 interface UploadedItemProps {
   file: FileWithIdAndObjURL;
   deleteAttachment: (_: string) => void;
-  operationType: "ask" | "update";
+  operationType: "ask" | "update" | "answer";
 }
 
 const BytesPS = 400000; // 1MB
