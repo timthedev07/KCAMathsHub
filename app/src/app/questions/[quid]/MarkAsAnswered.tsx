@@ -5,6 +5,7 @@ import { Button } from "../../../components/reusable/Button";
 import { MessageActionModal } from "../../../components/MessageActionModal";
 import { trpc } from "../../../trpc/client";
 import { useRouter } from "next/navigation";
+import { FaCheck } from "react-icons/fa";
 
 interface MarkAsAnsweredProps {
   isOwner: boolean;
@@ -68,6 +69,7 @@ export const MarkAsAnswered: FC<MarkAsAnsweredProps> = ({
         color="dark"
       >
         Mark as answered
+        <FaCheck className="ml-2 " />
       </Button>
     </>
   );
