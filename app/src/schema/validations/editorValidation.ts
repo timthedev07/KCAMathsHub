@@ -1,4 +1,4 @@
-import { CONTENT_LIMIT } from "../ask";
+import { CONTENT_LIMIT } from "../vars";
 
 export const editorValidation = (s: string): true | "few" | "exceeding" => {
   const l = s.replace(/[^a-zA-Z\d\s:]/, "").length;
