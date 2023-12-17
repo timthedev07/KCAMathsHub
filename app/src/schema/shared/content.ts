@@ -27,6 +27,6 @@ export const contentSchema = z
       return true;
     },
     {
-      message: "Please provide more detailed expalantions",
+      message: "Please provide more detailed explanations",
     }
   );
