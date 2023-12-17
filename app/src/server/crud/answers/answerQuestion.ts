@@ -1,7 +1,7 @@
 import prisma from "../../../db";
 import { roleChecker } from "../../../lib/accessGuard";
 import { AnswerSchema } from "../../../schema/answer";
-import { createError } from "../../../trpc/createError";
+import { createError, createSuccessResponse } from "../../../trpc/createError";
 import { Role } from "../../../types/role";
 import { publicProcedure } from "../../trpc";
 
@@ -51,7 +51,7 @@ export const answerQuestion = publicProcedure
             attachments: { connect: attachments },
           },
         });
-        return answer;
+        return createSuccessResponse("", answer);
       } catch (e) {
         console.log("Error creating answer:", e);
         return createError("Failed to create answer");
