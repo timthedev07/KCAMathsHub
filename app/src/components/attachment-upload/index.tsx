@@ -89,7 +89,7 @@ export const AttachmentUpload: FC<AttachmentUploadProps> = ({
 
   return (
     <div className="flex flex-col gap-4 py-4">
-      <label className="font-bold">Add Attachments</label>
+      <label className="font-bold text-lg">Add Attachments</label>
       <p className="text-xs text-white/60">
         <strong>Pro tip</strong>: Click an uploaded image to preview
       </p>
