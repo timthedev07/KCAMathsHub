@@ -1,4 +1,5 @@
 import { ZodError, z } from "zod";
+import { valToBool } from "../hooks/useForm";
 
 declare type allKeys<T> = T extends any ? keyof T : never;
 
@@ -11,15 +12,17 @@ export const validateForm = async <
   schema: z.ZodObject<T, P, U>
 ): Promise<{
   success: boolean;
-  parsed?: z.objectOutputType<T, U, P>;
   errors?: {
     [_ in allKeys<z.objectOutputType<T, U, P>>]?: string | undefined;
   };
 }> => {
   try {
-    const parsed = await schema.parseAsync(data);
+    await schema
+      .partial()
+      .required(valToBool(data, true) as any)
+      .parseAsync(data);
+
     return {
-      parsed,
       success: true,
     };
   } catch (err) {
