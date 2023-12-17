@@ -63,7 +63,6 @@ export const WithExpandedImg: FC<PropsWithChildren<ExpandedImgProps>> = ({
       <div
         onClick={() => {
           setOpen((p) => !p);
-          console.log("shit");
         }}
       >
         {children}
