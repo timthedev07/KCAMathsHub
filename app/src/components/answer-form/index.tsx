@@ -1,7 +1,7 @@
 "use client";
 
 import { ToggleSwitch } from "flowbite-react";
-import { FC, FormEvent, useState } from "react";
+import { ComponentProps, FC, FormEvent, useState } from "react";
 import { FaCheck, FaClipboardUser, FaUserSecret } from "react-icons/fa6";
 import { useForm } from "../../hooks/useForm";
 import { anyError } from "../../lib/anyError";
@@ -28,10 +28,10 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   quid,
   uid,
 }) => {
+  const [level, setLevel] =
+    useState<ComponentProps<typeof TimedMessageToast>["level"]>("error");
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
-  const answerQuestion = trpc.answerQuestion.useMutation({
-    onMutate: async (data) => {},
-  }).mutateAsync;
+  const answerQuestion = trpc.answerQuestion.useMutation({}).mutateAsync;
 
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -41,7 +41,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
     return [];
   });
 
-  const { formData, update, changed, errors } = useForm({
+  const { formData, update, changed, errors, reset } = useForm({
     defaultValues: {
       content: "",
       anonymous: false,
@@ -70,11 +70,16 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           userId: uid,
         });
 
-        setLoading(false);
-
         if (!res.success) {
+          setLoading(false);
           setShowToast(true);
           setMessage(res.message);
+        } else {
+          reset();
+          setLevel("success");
+          setMessage("Answer posted!");
+          setShowToast(true);
+          setLoading(false);
         }
       } else {
         // updating logic
@@ -88,7 +93,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
         show={showToast}
         setShow={setShowToast}
         timeMilliseconds={10000}
-        level="error"
+        level={level}
       >
         {message}
       </TimedMessageToast>
