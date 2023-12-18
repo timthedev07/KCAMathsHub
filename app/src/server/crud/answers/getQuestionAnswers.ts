@@ -1,3 +1,5 @@
+import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
 import { z } from "zod";
 import { getUrl } from "../../../aws/urlFormatter";
 import { ANSWER_PAGE_SIZE } from "../../../constants/pagination";
@@ -29,17 +31,29 @@ export const getQuestionAnswers = publicProcedure
       },
     });
 
-    return res.map((answer) => {
-      const { attachments, ...rest } = answer;
-      return {
-        ...rest,
-        attachments: attachments.map(({ objKey, ...k }) => {
-          return {
-            ...k,
-            url: getUrl(objKey),
-            objKey,
-          };
-        }),
-      };
-    });
+    return Promise.all(
+      res.map(async (answer) => {
+        const { attachments, content, ...rest } = answer;
+        return {
+          ...rest,
+          content: await serialize(
+            content,
+            {
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+                format: "md",
+              },
+            },
+            false
+          ),
+          attachments: attachments.map(({ objKey, ...k }) => {
+            return {
+              ...k,
+              url: getUrl(objKey),
+              objKey,
+            };
+          }),
+        };
+      })
+    );
   });
