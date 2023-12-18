@@ -1,6 +1,5 @@
 import { answerQuestion } from "./crud/answers/answerQuestion";
 import { getQuestionAnswers } from "./crud/answers/getQuestionAnswers";
-import { getQuestionByAnswer } from "./crud/answers/getQuestionByAnswer";
 import { deleteAttachment } from "./crud/attachments/deleteAttachment";
 import { getExistingCategories } from "./crud/categories/getCategories";
 import { addAttachments } from "./crud/questions/addAttachment";
@@ -38,7 +37,6 @@ export const appRouter = router({
   markAsAnswered,
   answerQuestion,
   getQuestionAnswers,
-  getQuestionByAnswer,
 });
 
 export type AppRouter = typeof appRouter;
