@@ -10,5 +10,6 @@ export const AnswerSubmissionSchema = z
     userId: z.string().min(1),
     attachmentIds: z.number().array(),
     questionId: z.string().min(1),
+    anonymous: z.boolean(),
   })
   .merge(AnswerSchema);

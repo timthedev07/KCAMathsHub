@@ -9,7 +9,9 @@ import { publicProcedure } from "../../trpc";
 export const answerQuestion = publicProcedure
   .input(AnswerSubmissionSchema)
   .mutation(
-    async ({ input: { attachmentIds, content, questionId, userId } }) => {
+    async ({
+      input: { attachmentIds, content, questionId, userId, anonymous },
+    }) => {
       let q;
 
       const attachments = await prisma.imageAttachment.findMany({
@@ -58,6 +60,7 @@ export const answerQuestion = publicProcedure
             questionId,
             answererId: answerer.id,
             attachments: { connect: attachments },
+            anonymous,
           },
         });
         return createSuccessResponse("", answer);
