@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { z } from "zod";
 import { filteredError } from "../lib/filterError";
 import { validateForm } from "../lib/handleZodErr";
@@ -58,10 +58,15 @@ export const useForm = <T extends {}>({
     setErrors(filteredError(errors, newChanged));
   };
 
+  const reset = useCallback(() => {
+    setFormData(defaultValues);
+  }, [defaultValues]);
+
   return {
     errors,
     changed,
     formData,
     update,
+    reset,
   };
 };
