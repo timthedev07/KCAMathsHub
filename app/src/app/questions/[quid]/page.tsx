@@ -2,11 +2,11 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { FC, PropsWithChildren } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import remarkGfm from "remark-gfm";
 import { LoadingSpin } from "../../../components/LoadingSpin";
+import { OptionalLinkWrapper } from "../../../components/OptionalLinkWrapper";
 import { ProfileImgDisplay } from "../../../components/ProfileImgDisplay";
 import { QCategoryBadge } from "../../../components/QCategoryBadge";
 import { AnswerForm } from "../../../components/answer-form/index";
@@ -29,18 +29,6 @@ const AnswersDisplay = dynamic(
   () => import("../../../components/answer-display/index"),
   { ssr: false, loading: () => <LoadingSpin /> }
 );
-
-const OptionalLinkWrapper: FC<
-  PropsWithChildren<{ hasLink: boolean; href: string }>
-> = ({ children, hasLink, href }) => {
-  return hasLink ? (
-    <Link prefetch={false} href={href}>
-      {children}
-    </Link>
-  ) : (
-    children
-  );
-};
 
 const getSSRProps = async (quid: string) => {
   const question = await SSRCaller.getQuestion({ quid });
@@ -110,7 +98,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
             >
               <OptionalLinkWrapper
                 hasLink={!anonymous}
-                href={pageURLs.user(questioner?.id || "")}
+                href={pageURLs.user(questioner?.username || "")}
               >
                 <div className="flex gap-3 items-center w-fit">
                   <ProfileImgDisplay
@@ -160,10 +148,11 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
 
           <AttachmentList attachments={attachments} />
         </div>
-        <hr className="h-[1px] border-0 bg-slate-400/10 mx-auto w-11/12 my-20" />
         <div className="min-w-[300px] max-w-[700px] w-full">
+          <h2 className="font-semibold text-3xl">Answers</h2>
           <AnswersDisplay quid={quid} />
         </div>
+        <hr className="h-[1px] border-0 bg-slate-400/10 mx-auto w-11/12 my-20" />
         <div className="min-w-[300px] max-w-[700px] w-full">
           {u && (isAnswerer || isOwner) ? (
             <AnswerForm operationType="answer" quid={id} uid={u.id} />
