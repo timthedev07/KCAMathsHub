@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
 import { filteredError } from "../lib/filterError";
 import { validateForm } from "../lib/handleZodErr";
@@ -37,7 +37,8 @@ export const useForm = <T extends {}>({
       return newFormData;
     });
 
-    if (!newFormData) return console.log("new state failed to be captured");
+    if (!newFormData)
+      return console.log("new state failed to be captured (formdata)");
 
     let newChanged;
 
@@ -52,14 +53,15 @@ export const useForm = <T extends {}>({
     );
 
     if (success || !errors) return setErrors({});
-    if (!newChanged) return console.log("new state failed to be captured");
+    if (!newChanged)
+      return console.log("new state failed to be captured (changed)");
 
     setErrors(filteredError(errors, newChanged));
   };
 
-  const reset = useCallback(() => {
+  const reset = () => {
     setFormData(defaultValues);
-  }, [defaultValues]);
+  };
 
   return {
     errors,
