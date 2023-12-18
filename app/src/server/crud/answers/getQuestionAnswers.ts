@@ -34,29 +34,41 @@ export const getQuestionAnswers = publicProcedure
       },
     });
 
-    return await Promise.all(
-      res.map(async (answer) => {
-        const { attachments, content, ...rest } = answer;
-        return {
-          ...rest,
-          content: await serialize(
-            content,
-            {
-              mdxOptions: {
-                remarkPlugins: [remarkGfm],
-                format: "md",
+    return (
+      await Promise.all(
+        res.map(async (answer) => {
+          const { attachments, content, ...rest } = answer;
+          return {
+            ...rest,
+            content: await serialize(
+              content,
+              {
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                  format: "md",
+                },
               },
-            },
-            false
-          ),
-          attachments: attachments.map(({ objKey, ...k }) => {
-            return {
-              ...k,
-              url: getUrl(objKey),
-              objKey,
-            };
-          }),
-        };
+              false
+            ),
+            attachments: attachments.map(({ objKey, ...k }) => {
+              return {
+                ...k,
+                url: getUrl(objKey),
+                objKey,
+              };
+            }),
+          };
+        })
+      )
+    )
+      .sort((a, b) => {
+        const x = a.accepted;
+        const y = b.accepted;
+        return x === y ? 0 : x ? -1 : 1;
       })
-    );
+      .sort((a, b) => {
+        const x = a.moderated;
+        const y = b.moderated;
+        return x === y ? 0 : x ? -1 : 1;
+      });
   });
