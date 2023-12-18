@@ -1,12 +1,13 @@
+import { Prisma } from "@prisma/client";
 import { getUrl } from "../../aws/urlFormatter";
 import prisma from "../../db";
 
 const userSelection = { username: true, image: true, id: true };
 const attachmentSelection = { name: true, objKey: true, size: true };
 
-export const getQ = async (quid: string) => {
+const helperFind = async (where: Prisma.QuestionWhereUniqueInput) => {
   const q = await prisma.question.findUnique({
-    where: { id: quid },
+    where,
     include: {
       questioner: { select: userSelection },
       categories: true,
@@ -52,4 +53,12 @@ export const getQ = async (quid: string) => {
       };
     }),
   };
+};
+
+export const getQ = async (quid: string) => {
+  return await helperFind({ id: quid });
+};
+
+export const getQByAnswer = async (aid: string) => {
+  return await helperFind({ answer: { some: { id: aid } }, id: undefined });
 };
