@@ -58,7 +58,3 @@ const helperFind = async (where: Prisma.QuestionWhereUniqueInput) => {
 export const getQ = async (quid: string) => {
   return await helperFind({ id: quid });
 };
-
-export const getQByAnswer = async (aid: string) => {
-  return await helperFind({ answer: { some: { id: aid } }, id: undefined });
-};
