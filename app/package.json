@@ -24,7 +24,9 @@
     "dev:db-push": "dotenv -e .env.local -- prisma db push",
     "prod:studio": "dotenv -e .env.prod -- prisma studio",
     "prod:migrate": "dotenv -e .env.prod -- prisma migrate deploy",
-    "populate:categories": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/categories.ts"
+    "populate:categories": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/categories.ts",
+    "populate:roles": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/prePopulateRoles.ts",
+    "populate": "yarn populate:roles && yarn populate:categories"
   },
   "dependencies": {
     "@aws-sdk/client-cloudfront": "^3.474.0",
