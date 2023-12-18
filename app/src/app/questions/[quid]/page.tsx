@@ -148,12 +148,12 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
 
           <AttachmentList attachments={attachments} />
         </div>
-        <div className="min-w-[300px] max-w-[700px] w-full">
+        <div className="min-w-[300px] max-w-[700px] w-full py-24 md:px-0 px-12">
           <h2 className="font-semibold text-3xl">Answers</h2>
           <AnswersDisplay quid={quid} />
         </div>
         <hr className="h-[1px] border-0 bg-slate-400/10 mx-auto w-11/12 my-20" />
-        <div className="min-w-[300px] max-w-[700px] w-full">
+        <div className="min-w-[300px] max-w-[700px] w-full py-24 md:px-0 px-12">
           {u && (isAnswerer || isOwner) ? (
             <AnswerForm operationType="answer" quid={id} uid={u.id} />
           ) : null}
