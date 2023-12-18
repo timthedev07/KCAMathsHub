@@ -1,11 +1,15 @@
 "use client";
 
+import { ToggleSwitch } from "flowbite-react";
 import { FC, FormEvent, useState } from "react";
+import { FaCheck, FaClipboardUser, FaUserSecret } from "react-icons/fa6";
 import { useForm } from "../../hooks/useForm";
 import { anyError } from "../../lib/anyError";
 import { uploadToAPI } from "../../lib/attachmentClientUpload";
 import { AnswerSchema } from "../../schema/answer";
 import { trpc } from "../../trpc/client";
+import { LoadingOverlay } from "../LoadingOverlay";
+import { TimedMessageToast } from "../TimedMessageToast";
 import { AttachmentUpload } from "../attachment-upload";
 import { FL } from "../attachment-upload/types";
 import { Button } from "../reusable/Button";
@@ -30,6 +34,8 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   }).mutateAsync;
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   const [files, setFiles] = useState<FL>(() => {
     return [];
@@ -38,6 +44,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   const { formData, update, changed, errors } = useForm({
     defaultValues: {
       content: "",
+      anonymous: false,
     },
     validationSchema: AnswerSchema,
   });
@@ -62,6 +69,13 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           questionId: quid,
           userId: uid,
         });
+
+        setLoading(false);
+
+        if (!res.success) {
+          setShowToast(true);
+          setMessage(res.message);
+        }
       } else {
         // updating logic
       }
@@ -69,28 +83,64 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   };
 
   return (
-    <form className="border-slate-300/30 rounded-lg flex flex-col w-full mb-10">
-      <LabelErrorWrapper
-        className="w-full"
-        label="Answer"
-        error={errors.content}
+    <>
+      <TimedMessageToast
+        show={showToast}
+        setShow={setShowToast}
+        timeMilliseconds={10000}
+        level="error"
       >
-        <StyledWrapper className="w-full">
-          <QAEditor
-            markdown={formData.content}
-            onChange={(val) => {
-              update("content", val);
-            }}
-            autoFocus
-          />
-        </StyledWrapper>
-      </LabelErrorWrapper>
-      <AttachmentUpload
-        operationType={"answer"}
-        files={files}
-        setFiles={setFiles}
-      />
-      <Button className="ml-auto my-10">HEY</Button>
-    </form>
+        {message}
+      </TimedMessageToast>
+      <LoadingOverlay isLoading={loading} />
+      <form
+        className="border-slate-300/30 rounded-lg flex flex-col w-full mb-10"
+        onSubmit={handleSubmit}
+      >
+        <LabelErrorWrapper
+          className="w-full"
+          label="Answer"
+          error={errors.content}
+        >
+          <StyledWrapper className="w-full">
+            <QAEditor
+              markdown={formData.content}
+              onChange={(val) => {
+                update("content", val);
+              }}
+            />
+          </StyledWrapper>
+        </LabelErrorWrapper>
+        <AttachmentUpload
+          operationType={"answer"}
+          files={files}
+          setFiles={setFiles}
+        />
+        <div className="flex justify-between items-center">
+          <div className="h-fit flex px-5 py-3 rounded-xl items-center gap-4 border-slate-300/30 border bg-slate-400/[0.05]">
+            <FaClipboardUser className="w-5 h-5" />
+            <ToggleSwitch
+              checked={formData.anonymous}
+              onChange={(val) => {
+                update("anonymous", val);
+              }}
+              color="success"
+            />
+            <FaUserSecret className="w-5 h-5" />
+            Anonymous
+          </div>
+
+          <Button
+            className="h-fit"
+            color="success"
+            type="submit"
+            disabled={anyError(errors, changed) || !changed.content}
+          >
+            <FaCheck className="mr-2" />
+            Submit Answer
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
