@@ -41,11 +41,10 @@ export const useForm = <T extends {}>({
 
     let newChanged;
 
-    if (!changed[name])
-      setChanged((prev) => {
-        newChanged = { ...prev, [name]: true };
-        return newChanged;
-      });
+    setChanged((prev) => {
+      newChanged = { ...prev, [name]: true };
+      return newChanged;
+    });
 
     const { success, errors } = await validateForm(
       { [name]: newFormData[name] },
