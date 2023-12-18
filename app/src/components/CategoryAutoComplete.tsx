@@ -48,7 +48,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
       disabled={selectedCategories.length >= MAX_CATEGORIES_NUM}
     >
       <Combobox.Input
-        className={`rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-200/20 w-1/2 ${
+        className={`rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-400/10 w-1/2 ${
           selectedCategories.length >= MAX_CATEGORIES_NUM
             ? "cursor-not-allowed"
             : ""
