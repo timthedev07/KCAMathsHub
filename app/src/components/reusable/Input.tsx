@@ -28,7 +28,7 @@ export const Input: FC<InputProps> = ({
       <input
         className={`focus:ring-2 ${error} focus:outline-none w-1/2 ${inputBase} ${
           className || ""
-        } border-slate-300/20 border`}
+        } border-slate-400/10 border`}
         {...props}
       />
     </LabelErrorWrapper>
