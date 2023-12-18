@@ -1,10 +1,12 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { FC, PropsWithChildren } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import remarkGfm from "remark-gfm";
+import { LoadingSpin } from "../../../components/LoadingSpin";
 import { ProfileImgDisplay } from "../../../components/ProfileImgDisplay";
 import { QCategoryBadge } from "../../../components/QCategoryBadge";
 import { AnswerForm } from "../../../components/answer-form/index";
@@ -22,6 +24,11 @@ import { MarkAsAnswered } from "./MarkAsAnswered";
 interface Props {
   params: { quid: string };
 }
+
+const AnswersDisplay = dynamic(
+  () => import("../../../components/answer-display/index"),
+  { ssr: false, loading: () => <LoadingSpin /> }
+);
 
 const OptionalLinkWrapper: FC<
   PropsWithChildren<{ hasLink: boolean; href: string }>
@@ -87,7 +94,11 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
             <span className={`text-sm text-white/60 ${answered ? ap : ""}`}>
               {dateTimeDisplay(timestamp)}
             </span>
-            <ul className="flex gap-2 items-start grow-[1] flex-wrap">
+            <ul
+              className={`flex gap-2 items-start grow-[1] flex-wrap ${
+                answered ? ap : ""
+              }`}
+            >
               {categories.map((each, ind) => (
                 <QCategoryBadge name={each.name} ind={ind} key={each.name} />
               ))}
@@ -150,6 +161,9 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
           <AttachmentList attachments={attachments} />
         </div>
         <hr className="h-[1px] border-0 bg-slate-400/10 mx-auto w-11/12 my-20" />
+        <div className="min-w-[300px] max-w-[700px] w-full">
+          <AnswersDisplay quid={quid} />
+        </div>
         <div className="min-w-[300px] max-w-[700px] w-full">
           {u && (isAnswerer || isOwner) ? (
             <AnswerForm operationType="answer" quid={id} uid={u.id} />
