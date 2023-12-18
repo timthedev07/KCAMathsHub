@@ -3,6 +3,7 @@
 import { FC, useState } from "react";
 import { trpc } from "../../trpc/client";
 import { LoadingSpin } from "../LoadingSpin";
+import { AnswerListItem } from "./Item";
 
 interface AnswersDisplay {
   quid: string;
@@ -18,7 +19,15 @@ const AnswersDisplay: FC<AnswersDisplay> = ({ quid }) => {
 
   return (
     <div className={`w-full flex-col ${isLoading ? "h-72" : ""}`}>
-      {isLoading ? <LoadingSpin /> : null}
+      {isLoading || !data ? (
+        <LoadingSpin />
+      ) : (
+        <ul>
+          {data?.map((each) => (
+            <AnswerListItem data={each} key={each.id} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
