@@ -64,7 +64,7 @@ model Question {
   questioner     User?              @relation(fields: [questionerId], references: [id], onDelete: SetNull)
   questionerId   String?
   // answer relation
-  answer         Answer[]
+  answer         Answer[]           @relation("QuestionAnswers")
   // categories relation
   categories     QuestionCategory[] @relation("QuestionCategory")
   // yearGroup
@@ -91,7 +91,7 @@ model Answer {
   answerer    User?             @relation("WrittenAnswers", fields: [answererId], references: [id], onDelete: SetNull)
   answererId  String?
   // question relation
-  question    Question          @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  question    Question          @relation("QuestionAnswers", fields: [questionId], references: [id], onDelete: Cascade)
   questionId  String
   // moderations relation
   moderations Moderation[]      @relation("AnswerModerations")
