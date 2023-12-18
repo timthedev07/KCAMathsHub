@@ -29,9 +29,12 @@ export const getQuestionAnswers = publicProcedure
           },
         },
       },
+      orderBy: {
+        timestamp: "desc",
+      },
     });
 
-    return Promise.all(
+    return await Promise.all(
       res.map(async (answer) => {
         const { attachments, content, ...rest } = answer;
         return {
