@@ -60,7 +60,6 @@ export const useForm = <T extends {}>({
 
   return {
     errors,
-    setChanged,
     changed,
     formData,
     update,
