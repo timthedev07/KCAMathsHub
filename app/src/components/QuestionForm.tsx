@@ -76,9 +76,15 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   });
 
   // bring in mutations
+  const { getQuestion } = trpc.useUtils();
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
   const ask = trpc.askQuestion.useMutation().mutateAsync;
-  const update = trpc.updateQuestion.useMutation().mutateAsync;
+  const update = trpc.updateQuestion.useMutation({
+    onSuccess: async () => {
+      await getQuestion.invalidate({ quid });
+      if (quid) push(pageURLs.question(quid));
+    },
+  }).mutateAsync;
 
   // keep track off files
   const [files, setFiles] = useState<FL>(() => {
@@ -115,7 +121,6 @@ export const QuestionForm: FC<QuestionFormProps> = ({
         } catch (e) {
           console.log(e);
         }
-        push(pageURLs.question(quid));
       }
     } catch (err: unknown) {
       const msg = (err as TRPCClientError<AppRouter>).data?.zodError
