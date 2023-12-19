@@ -9,7 +9,6 @@ import { LoadingSpin } from "../../../components/LoadingSpin";
 import { OptionalLinkWrapper } from "../../../components/OptionalLinkWrapper";
 import { ProfileImgDisplay } from "../../../components/ProfileImgDisplay";
 import { QCategoryBadge } from "../../../components/QCategoryBadge";
-import { AnswerForm } from "../../../components/answer-form/index";
 import { AttachmentList } from "../../../components/attachments";
 import { mdxCustomComponents } from "../../../components/mdx/components";
 import { Button } from "../../../components/reusable/Button";
@@ -57,12 +56,11 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
       timestamp,
       answered,
       categories,
-      id,
     },
     u,
   } = await getSSRProps(quid);
 
-  const isAnswerer = u && u.roles.includes("answerer");
+  const isAnswerer = Boolean(u && u.roles.includes("answerer"));
 
   return (
     <>
@@ -150,13 +148,12 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
 
           <AttachmentList attachments={attachments} />
         </div>
-        <AnswersDisplay quid={quid} />
-        <hr className="h-[1px] border-0 bg-slate-400/10 mx-auto w-11/12" />
-        <div className="min-w-[300px] max-w-[700px] w-full py-24 md:px-0 px-12">
-          {u && (isAnswerer || isOwner) ? (
-            <AnswerForm operationType="answer" quid={id} uid={u.id} />
-          ) : null}
-        </div>
+        <AnswersDisplay
+          uid={u?.id}
+          isAnswerer={isAnswerer}
+          isOwner={isOwner}
+          quid={quid}
+        />
       </div>
     </>
   );

@@ -38,9 +38,12 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({ data, isLast }) => {
           href={pageURLs.user(answerer?.username || "")}
         >
           <div className="flex gap-3 items-center w-fit">
-            <ProfileImgDisplay className="w-8 h-8" src={answerer?.image} />
+            <ProfileImgDisplay
+              className="w-8 h-8"
+              src={!anonymous ? answerer?.image : null}
+            />
             <span
-              className={`text-white/90 text-lg ${anonymous ? "italic" : ""}`}
+              className={`text-white/90 ${anonymous ? "italic" : "font-mono"}`}
             >
               {anonymous
                 ? "Anonymous"
@@ -54,7 +57,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({ data, isLast }) => {
       </div>
       <LabelErrorWrapper label="Proposed answer">
         <StyledWrapper className="overflow-x-scroll">
-          <div className="overflow-x-scroll min-h-[100px] [&>*]:mb-4 [&>p]:text-white/80 [&>p]:text-sm">
+          <div className="overflow-x-scroll max-h-[600px] overflow-y-auto min-h-[100px] [&>*]:mb-4 [&>p]:text-white/80 [&>p]:text-sm">
             <MDXRemote {...data.content} components={mdxCustomComponents} />
           </div>
         </StyledWrapper>

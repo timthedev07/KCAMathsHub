@@ -21,17 +21,23 @@ interface AnswerFormProps {
   operationType: "answer" | "update";
   quid: string;
   uid: string;
+  scrollToTop: Function;
 }
 
 export const AnswerForm: FC<AnswerFormProps> = ({
   operationType,
   quid,
   uid,
+  scrollToTop,
 }) => {
   const [level, setLevel] =
     useState<ComponentProps<typeof TimedMessageToast>["level"]>("error");
+  const { refetch } = trpc.getQuestionAnswers.useQuery(
+    { quid, pageNum: 1 },
+    { enabled: false }
+  );
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
-  const answerQuestion = trpc.answerQuestion.useMutation({}).mutateAsync;
+  const answerQuestion = trpc.answerQuestion.useMutation().mutateAsync;
 
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -71,15 +77,17 @@ export const AnswerForm: FC<AnswerFormProps> = ({
         });
 
         if (!res.success) {
-          setLoading(false);
           setShowToast(true);
           setMessage(res.message);
+          setLoading(false);
         } else {
           reset();
+          await refetch();
           setLevel("success");
+          setLoading(false);
           setMessage("Answer posted!");
           setShowToast(true);
-          setLoading(false);
+          scrollToTop();
         }
       } else {
         // updating logic
@@ -99,7 +107,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
       </TimedMessageToast>
       <LoadingOverlay isLoading={loading} />
       <form
-        className="border-slate-300/30 rounded-lg flex flex-col w-full mb-10"
+        className="border-slate-300/30 rounded-lg gap-4 flex flex-col w-full mb-10"
         onSubmit={handleSubmit}
       >
         <LabelErrorWrapper
