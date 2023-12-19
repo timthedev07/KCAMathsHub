@@ -9,6 +9,10 @@ import { publicProcedure } from "../../trpc";
 export const getQuestionAnswers = publicProcedure
   .input(z.object({ quid: z.string(), pageNum: z.number().positive() }))
   .query(async ({ input: { quid, pageNum } }) => {
+    const S = await prisma.answer.count({ where: { questionId: quid } });
+    const totalPages = Math.ceil(S / ANSWER_PAGE_SIZE);
+    const lastPageSize = S % ANSWER_PAGE_SIZE;
+
     const res = await prisma.answer.findMany({
       where: { questionId: quid },
       take: ANSWER_PAGE_SIZE,
@@ -34,7 +38,7 @@ export const getQuestionAnswers = publicProcedure
       },
     });
 
-    return (
+    const answers = (
       await Promise.all(
         res.map(async (answer) => {
           const { attachments, content, ...rest } = answer;
@@ -71,4 +75,10 @@ export const getQuestionAnswers = publicProcedure
         const y = b.moderated;
         return x === y ? 0 : x ? -1 : 1;
       });
+
+    return {
+      answers,
+      totalPages,
+      lastPageSize,
+    };
   });
