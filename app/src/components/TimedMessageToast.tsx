@@ -35,8 +35,8 @@ export const TimedMessageToast: FC<Props> = ({
 
   return (
     <Toast
-      className={`fixed z-20 bottom-10 right-10 transition duration-200 shadow-xl ${
-        show ? "opacity-100" : "opacity-0"
+      className={`fixed bottom-10 right-10 transition duration-200 shadow-xl ${
+        show ? "opacity-100 z-20" : "opacity-0 -z-20"
       }`}
     >
       <div className="flex items-center gap-3 text-sm">
