@@ -15,7 +15,7 @@ import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { StyledWrapper } from "../richtext/StyledWrapper";
 
 interface AnswerListItemProps {
-  data: inferProcedureOutput<typeof getQuestionAnswers>[number];
+  data: inferProcedureOutput<typeof getQuestionAnswers>["answers"][number];
   isLast: boolean;
 }
 
