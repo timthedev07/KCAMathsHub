@@ -266,8 +266,8 @@ export const QuestionForm: FC<QuestionFormProps> = ({
                     }}
                     color="blue"
                   >
+                    <FaEye className="mr-2" />
                     <span>View question</span>
-                    <FaEye className="ml-2" />
                   </Button>
                 ) : null}
                 <Button
@@ -276,7 +276,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
                   size="md"
                   color="success"
                 >
-                  <IoIosSend className="mr-2.5 w-5 h-5" />
+                  <IoIosSend className="mr-2" />
                   {operationType === "ask" ? "Ask question" : "Save changes"}
                 </Button>
               </div>
