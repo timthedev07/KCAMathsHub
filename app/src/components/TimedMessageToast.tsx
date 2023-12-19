@@ -7,12 +7,14 @@ import { IoMdInformationCircle } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { RiErrorWarningFill } from "react-icons/ri";
 
+export type ToastLevel = "success" | "info" | "warning" | "error";
+
 interface Props {
   timeMilliseconds?: number;
   children?: ReactNode;
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
-  level: "success" | "info" | "warning" | "error";
+  level: ToastLevel;
 }
 
 export const TimedMessageToast: FC<Props> = ({

@@ -2,32 +2,43 @@
 import { inferProcedureOutput } from "@trpc/server";
 import { useSession } from "next-auth/react";
 import { MDXRemote } from "next-mdx-remote";
+import Link from "next/link";
 import { FC } from "react";
+import { DeletionButtonWithConfirmation } from "../../app/questions/[quid]/DeletionButtonWithConfirmation";
 import { roleChecker } from "../../lib/accessGuard";
 import { dateTimeDisplay } from "../../lib/datetimeDisplay";
 import { pageURLs } from "../../lib/pageURLGen";
 import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers";
 import { OptionalLinkWrapper } from "../OptionalLinkWrapper";
 import { ProfileImgDisplay } from "../ProfileImgDisplay";
+import { ToastLevel } from "../TimedMessageToast";
 import { AttachmentList } from "../attachments";
 import { mdxCustomComponents } from "../mdx/components";
+import { Button } from "../reusable/Button";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { StyledWrapper } from "../richtext/StyledWrapper";
 
 interface AnswerListItemProps {
   data: inferProcedureOutput<typeof getQuestionAnswers>["answers"][number];
   isLast: boolean;
+  currPage: number;
+  displayToast: (_: string, __: ToastLevel) => void;
 }
 
-export const AnswerListItem: FC<AnswerListItemProps> = ({ data, isLast }) => {
+export const AnswerListItem: FC<AnswerListItemProps> = ({
+  data,
+  isLast,
+  currPage,
+  displayToast,
+}) => {
   const anonymous = data.anonymous;
   const { answerer } = data;
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const canMod = Boolean(
     session && roleChecker(session.user.roles, ["moderator"])
   );
   const canEdit = Boolean(
-    session && data.answerer?.username === session.user.username
+    session?.user && data.answerer?.username === session.user.username
   );
 
   return (
@@ -67,6 +78,30 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({ data, isLast }) => {
           <AttachmentList attachments={data.attachments} />
         </LabelErrorWrapper>
       ) : null}
+      <div className="h-8 w-full flex gap-4 justify-end">
+        {canMod && (
+          <Link passHref href={pageURLs.moderation(data.id)}>
+            <Button color="purple">Moderate</Button>
+          </Link>
+        )}
+        {canEdit && (
+          <>
+            <Button color="purple">Edit</Button>
+            <DeletionButtonWithConfirmation
+              currPage={currPage}
+              quid={data.questionId}
+              aid={data.id}
+              color="purple"
+              entity="answer"
+              isOwner
+              uid={session!.user.id}
+              onSuccess={() => {
+                displayToast("Answer deleted!", "success");
+              }}
+            />
+          </>
+        )}
+      </div>
       {!isLast ? (
         <hr className="bg-slate-400/20 my-8 h-[1px] w-full border-0" />
       ) : null}
