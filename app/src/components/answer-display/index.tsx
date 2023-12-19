@@ -4,6 +4,7 @@ import { FC, useRef, useState } from "react";
 import { trpc } from "../../trpc/client";
 import { LoadingSpin } from "../LoadingSpin";
 import { AnswerForm } from "../answer-form";
+import { Pagination } from "../pagination";
 import { AnswerListItem } from "./Item";
 
 interface AnswersDisplay {
@@ -28,34 +29,45 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   });
 
   const scrollToTop = () => {
-    if (!topRef.current) return;
-    topRef.current.scrollIntoView();
+    if (!topRef.current) console.log("shit");
+    topRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
   };
 
-  if (!isLoading && (!data || !data.length)) {
-    return <></>;
+  if (!isLoading && (!data || !data.answers.length)) {
+    return null;
   }
 
   return (
     <>
-      <div className="min-w-[300px] max-w-[700px] w-full py-24 md:px-0 px-12">
+      <div
+        className="min-w-[300px] max-w-[700px] w-full py-24 md:px-0 px-12"
+        ref={topRef}
+      >
         <h2 className="font-semibold text-3xl">Answers</h2>
-        <div
-          className={`w-full flex-col ${isLoading ? "h-72" : ""}`}
-          ref={topRef}
-        >
+        <div className={`w-full flex-col ${isLoading ? "h-72" : ""}`}>
           {isLoading || data === undefined ? (
             <LoadingSpin />
           ) : (
-            <ul className="w-full flex flex-col py-8">
-              {data.map((each, ind) => (
-                <AnswerListItem
-                  data={each}
-                  isLast={ind === data.length - 1}
-                  key={each.id}
-                />
-              ))}
-            </ul>
+            <Pagination
+              currPage={pageNum}
+              setCurrPage={(v) => {
+                setPageNum(v);
+                setTimeout(() => {
+                  scrollToTop();
+                }, 100);
+              }}
+              totalPages={data.totalPages}
+            >
+              <ul className="w-full flex flex-col py-8">
+                {data.answers.map((each, ind) => (
+                  <AnswerListItem
+                    data={each}
+                    isLast={ind === data.answers.length - 1}
+                    key={each.id}
+                  />
+                ))}
+              </ul>
+            </Pagination>
           )}
         </div>
       </div>
@@ -63,7 +75,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
       <div className="min-w-[300px] max-w-[700px] w-full py-24 md:px-0 px-12">
         {uid && (isAnswerer || isOwner) ? (
           <AnswerForm
-            key={data ? data[0].id : 0}
+            key={data ? data.answers[0].id : 0}
             scrollToTop={scrollToTop}
             operationType="answer"
             quid={quid}
