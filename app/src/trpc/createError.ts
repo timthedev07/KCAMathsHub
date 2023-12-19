@@ -7,7 +7,7 @@ export const createError = (
 
 export const createSuccessResponse = <T>(
   message: string,
-  data: T,
+  data?: T,
   code: number = 200
 ) => {
   return { message, code, data, success: true };
