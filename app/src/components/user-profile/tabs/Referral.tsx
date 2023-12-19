@@ -26,7 +26,7 @@ export const ReferralTab: FC = ({}) => {
 
   const [showToast, setShowToast] = useState<boolean>(false);
 
-  if (status === "loading") {
+  if (status === "loading" || isLoading) {
     return (
       <div className={`${viewPanelBase} w-full h-[70vh]`}>
         <LoadingSpin size="md" />
