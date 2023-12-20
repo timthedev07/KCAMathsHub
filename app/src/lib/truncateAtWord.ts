@@ -1,4 +1,4 @@
-export const splitAtWord = (str: string, maxCharacters: number) => {
+export const truncateAtWord = (str: string, maxCharacters: number) => {
   const words = str.split(" ");
 
   let i = 0;
