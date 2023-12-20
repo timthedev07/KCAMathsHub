@@ -30,7 +30,7 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
         where: teacher ? { email: { contains: "@kings.education" } } : {},
       });
 
-      const newUname = `${teacher ? "t" : "u"}#${countToBaseN(count)}`;
+      const newUname = `${teacher ? "t" : "u"}_${countToBaseN(count)}`;
       return (await p.user.create({
         data: {
           username: newUname,
