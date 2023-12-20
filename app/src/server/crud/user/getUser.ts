@@ -9,9 +9,9 @@ export const getUser = publicProcedure
     return await getServerUser(userId);
   });
 
-export const getServerUser = async (userId: string) => {
+export const getServerUser = async (username: string) => {
   const res = await prisma.user.findFirst({
-    where: { id: userId },
+    where: { username },
     include: {
       answers: true,
       questions: true,

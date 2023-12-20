@@ -15,7 +15,7 @@ import { UsernameEditable } from "./username-editable";
 
 interface MainProfileTabProps {
   user: Session["user"];
-  sameUser?: boolean;
+  sameUser: boolean;
 }
 
 export const MainProfileTab: FC<MainProfileTabProps> = ({
@@ -38,7 +38,7 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
             </div>
 
             <div className="flex flex-col gap-3">
-              <UsernameEditable />
+              <UsernameEditable userData={u} editable={sameUser} />
               <Tooltip content={u.email} placement="top">
                 <span className="text-sm text-neutral-300/70 px-2 flex gap-1 items-center cursor-pointer hover:text-neutral-200/80 transition duration-20">
                   <MdEmail className="w-5 h-5" />

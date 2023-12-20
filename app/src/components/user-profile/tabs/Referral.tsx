@@ -64,10 +64,10 @@ export const ReferralTab: FC = ({}) => {
   );
 
   const FriendInvited: FC<
-    PropsWithChildren<{ id: string; userProfilePic: string }>
-  > = ({ children, id, userProfilePic }) => {
+    PropsWithChildren<{ username: string; userProfilePic: string }>
+  > = ({ children, username, userProfilePic }) => {
     return (
-      <Link href={pageURLs.user(id)}>
+      <Link href={pageURLs.user(username)}>
         <li className="w-full py-3 px-4 flex justify-between items-center text-base text-slate-100/70 hover:text-slate-50/90 hover:bg-slate-500/30 transition duration-200 cursor-pointer bg-slate-500/20 rounded-lg border border-slate-500/30">
           <div className="flex gap-3 items-center">
             <ProfileImgDisplay className="w-9 h-9" src={userProfilePic} />
@@ -163,7 +163,7 @@ export const ReferralTab: FC = ({}) => {
               {users.map((each) => (
                 <FriendInvited
                   userProfilePic={each.image || ""}
-                  id={each.id}
+                  username={each.username}
                   key={each.id}
                 >
                   {each.username}
