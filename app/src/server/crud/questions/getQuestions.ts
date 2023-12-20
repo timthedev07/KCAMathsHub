@@ -1,4 +1,3 @@
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import prisma from "../../../db";
 import { StudentStages } from "../../../types/StudentStage.d";
@@ -9,27 +8,42 @@ export const getQuestions = publicProcedure
     z.object({
       category: z.enum(StudentStages).optional(), // undefined => all
       limit: z.number().max(50).min(10).optional().default(20),
-      pageNum: z.number().min(1).optional().default(1),
       sortBy: z.enum(["timestamp"]).optional().default("timestamp"),
       order: z.enum(["asc", "desc"]).optional().default("desc"),
+      cursor: z.string().nullish(),
     })
   )
-  .query(async ({ input: { category, limit, pageNum, sortBy, order } }) => {
+  .query(async ({ input: { category, limit, sortBy, order, cursor } }) => {
     try {
-      return await prisma.question.findMany({
-        skip: limit * (pageNum - 1),
-        take: limit,
+      const questions = await prisma.question.findMany({
+        take: limit + 1,
         where: {
           category,
         },
         orderBy: {
           [sortBy]: order,
         },
+        cursor: cursor
+          ? {
+              id: cursor,
+            }
+          : undefined,
       });
-    } catch (err: any) {
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: err?.message || "Unknown error.",
-      });
+
+      let nextCursor: typeof cursor = undefined;
+      if (questions.length > limit) {
+        const nextItem = questions.pop();
+        nextCursor = nextItem!.id;
+      }
+
+      return {
+        questions,
+        nextCursor,
+      };
+    } catch (e) {
+      return {
+        questions: [],
+        nextCursor: undefined,
+      };
     }
   });
