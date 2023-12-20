@@ -5,5 +5,4 @@ export type QueryOutput = inferProcedureOutput<typeof getQuestions>;
 
 export interface InfiniteScrollingDisplayProps {
   initialData: QueryOutput["questions"];
-  nextCursor: QueryOutput["nextCursor"];
 }
