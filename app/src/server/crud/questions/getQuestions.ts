@@ -39,7 +39,7 @@ export const getQuestions = publicProcedure
         })
       ).map((each) => ({
         ...each,
-        content: truncateAtWord(each.content, 200),
+        content: truncateAtWord(each.content.replaceAll(/[`*_]/gi, ""), 200),
       }));
 
       let nextCursor: typeof cursor = undefined;
@@ -53,6 +53,7 @@ export const getQuestions = publicProcedure
         nextCursor,
       };
     } catch (e) {
+      console.log(e);
       return {
         questions: [],
         nextCursor: undefined,
