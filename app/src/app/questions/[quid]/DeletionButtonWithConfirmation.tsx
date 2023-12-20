@@ -126,7 +126,7 @@ export const DeletionButtonWithConfirmation: FC<
         color={color}
       >
         Delete
-        <MdDelete className="ml-2" />
+        <MdDelete className="ml-1" />
       </Button>
     </>
   );
