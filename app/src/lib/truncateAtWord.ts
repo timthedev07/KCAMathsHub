@@ -1,7 +1,12 @@
-export const truncateAtWord = (str: string, maxCharacters: number) => {
+export const truncateAtWord = (
+  str: string,
+  maxCharacters: number,
+  addEllipsis: boolean = true
+) => {
   const words = str.split(" ");
 
   let i = 0;
+  let limitReached = false;
   const acceptedWords = [];
 
   for (const word of words) {
@@ -10,6 +15,7 @@ export const truncateAtWord = (str: string, maxCharacters: number) => {
       i++;
       if (i > maxCharacters) {
         wordShouldAccepted = false;
+        limitReached = true;
         break;
       }
     }
@@ -17,5 +23,6 @@ export const truncateAtWord = (str: string, maxCharacters: number) => {
     acceptedWords.push(word);
   }
 
-  return acceptedWords.join(" ");
+  let joined = acceptedWords.join(" ");
+  return addEllipsis && limitReached ? joined + "..." : joined;
 };
