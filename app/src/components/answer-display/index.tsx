@@ -40,7 +40,6 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   });
 
   const scrollToTop = () => {
-    if (!topRef.current) console.log("shit");
     topRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
   };
 
