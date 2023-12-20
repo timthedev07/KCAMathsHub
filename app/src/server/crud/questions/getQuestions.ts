@@ -27,6 +27,10 @@ export const getQuestions = publicProcedure
           orderBy: {
             [sortBy]: order,
           },
+          include: {
+            questioner: { select: { username: true, image: true } },
+            categories: { select: { name: true } },
+          },
           cursor: cursor
             ? {
                 id: cursor,
