@@ -6,7 +6,7 @@ import { WithSessionProps } from "../../../types/withSessionPage";
 const Profile: NextPage<WithSessionProps> = async ({ session }) => {
   return (
     <div className="my-6 mx-8 md:mx-24 rounded-lg">
-      <ProfileTabs user={session!.user} />
+      <ProfileTabs isCurrUser user={session!.user} />
     </div>
   );
 };
