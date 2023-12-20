@@ -1,4 +1,5 @@
 import { notFound, redirect } from "next/navigation";
+import { ProfileTabs } from "../../../../components/user-profile/tabs";
 import { getServerSession } from "../../../../lib/authoptions";
 import { getServerUser } from "../../../../server/crud/user/getUser";
 import { NextPage } from "../../../../types/nextpage";
@@ -19,7 +20,11 @@ const UserProfile: NextPage<Params> = async ({ params: { uid } }) => {
     notFound();
   }
 
-  return <>{JSON.stringify(u, null, 2)}</>;
+  return (
+    <>
+      <ProfileTabs isCurrUser={false} user={u} />
+    </>
+  );
 };
 
 export default UserProfile;

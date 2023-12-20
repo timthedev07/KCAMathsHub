@@ -9,11 +9,12 @@ import { QuestionsTab } from "./questions/index";
 
 interface ProfileTabsProps {
   user: Session["user"];
+  isCurrUser: boolean;
 }
 
 export const viewPanelBase = "bg-slate-900/40 rounded-xl shadow-2xl";
 
-export const ProfileTabs: FC<ProfileTabsProps> = ({ user }) => {
+export const ProfileTabs: FC<ProfileTabsProps> = ({ user, isCurrUser }) => {
   const u = user;
 
   if (!u) return null;
@@ -22,7 +23,7 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user }) => {
     <Tabs style="underline">
       {/* main profile tab */}
       <TabItem active title="Profile">
-        <MainProfileTab user={u} sameUser />
+        <MainProfileTab user={u} sameUser={isCurrUser} />
       </TabItem>
 
       {roleChecker(u.roles, ["moderator", "answerer"]) ? (
@@ -38,9 +39,11 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user }) => {
       {roleChecker(u.roles, ["moderator"]) ? (
         <TabItem title="Moderations"></TabItem>
       ) : null}
-      <TabItem title="Referral">
-        <ReferralTab />
-      </TabItem>
+      {isCurrUser && (
+        <TabItem title="Referral">
+          <ReferralTab />
+        </TabItem>
+      )}
     </Tabs>
   );
 };
