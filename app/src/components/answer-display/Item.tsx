@@ -3,6 +3,7 @@ import { inferProcedureOutput } from "@trpc/server";
 import { useSession } from "next-auth/react";
 import { MDXRemote } from "next-mdx-remote";
 import { FC } from "react";
+import { MdEdit, MdRateReview } from "react-icons/md";
 import { DeletionButtonWithConfirmation } from "../../app/questions/[quid]/DeletionButtonWithConfirmation";
 import { roleChecker } from "../../lib/accessGuard";
 import { dateTimeDisplay } from "../../lib/datetimeDisplay";
@@ -16,12 +17,14 @@ import { mdxCustomComponents } from "../mdx/components";
 import { Button } from "../reusable/Button";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { StyledWrapper } from "../richtext/StyledWrapper";
+import { FaCheck } from "react-icons/fa6";
 
 interface AnswerListItemProps {
   data: inferProcedureOutput<typeof getQuestionAnswers>["answers"][number];
   isLast: boolean;
   currPage: number;
   displayToast: (_: string, __: ToastLevel) => void;
+  isAnswered: boolean;
 }
 
 export const AnswerListItem: FC<AnswerListItemProps> = ({
@@ -29,6 +32,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   isLast,
   currPage,
   displayToast,
+  isAnswered,
 }) => {
   const anonymous = data.anonymous;
   const { answerer } = data;
@@ -39,6 +43,8 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   const canEdit = Boolean(
     session?.user && data.answerer?.username === session.user.username
   );
+  const canAccept = Boolean(!data.accepted && !isAnswered && canEdit);
+  console.log({ accepted: data.accepted, isAnswered, canEdit });
 
   return (
     <li className="flex flex-col gap-8 px-8 lg:px-12 py-8">
@@ -78,10 +84,23 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
         </LabelErrorWrapper>
       ) : null}
       <div className="h-8 w-full flex gap-4 justify-end">
-        {canMod && <Button color="purple">Moderate</Button>}
+        {canMod && (
+          <Button color="purple">
+            Moderate
+            <MdRateReview className="ml-2" />
+          </Button>
+        )}
+        {canAccept && (
+          <Button color="purple">
+            Accept
+            <FaCheck className="ml-2" />
+          </Button>
+        )}
         {canEdit && (
           <>
-            <Button color="purple">Edit</Button>
+            <Button color="purple">
+              Edit <MdEdit className="ml-1" />
+            </Button>
             <DeletionButtonWithConfirmation
               currPage={currPage}
               quid={data.questionId}

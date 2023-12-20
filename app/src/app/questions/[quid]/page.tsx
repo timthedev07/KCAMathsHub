@@ -151,6 +151,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
           <AttachmentList attachments={attachments} />
         </div>
         <AnswersDisplay
+          isAnswered={answered}
           uid={u?.id}
           isAnswerer={isAnswerer}
           isOwner={isOwner}

@@ -13,6 +13,7 @@ interface AnswersDisplay {
   uid?: string;
   isAnswerer: boolean;
   isOwner: boolean;
+  isAnswered: boolean;
 }
 
 const AnswersDisplay: FC<AnswersDisplay> = ({
@@ -20,6 +21,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   isAnswerer,
   isOwner,
   uid,
+  isAnswered,
 }) => {
   const [pageNum, setPageNum] = useState<number>(1);
   const topRef = useRef<HTMLDivElement | null>(null);
@@ -75,6 +77,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
                 <ul className="w-full flex flex-col py-8">
                   {data.answers.map((each, ind) => (
                     <AnswerListItem
+                      isAnswered={isAnswered}
                       displayToast={displayToast}
                       currPage={pageNum}
                       data={each}
