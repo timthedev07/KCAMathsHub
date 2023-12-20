@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { HOMEPAGE_QUESTION_PAGE_SIZE } from "../../../constants/pagination";
 import prisma from "../../../db";
+import { truncateAtWord } from "../../../lib/truncateAtWord";
 import { StudentStages } from "../../../types/StudentStage.d";
 import { publicProcedure } from "../../trpc";
 
@@ -17,20 +18,25 @@ export const getQuestions = publicProcedure
     const limit = HOMEPAGE_QUESTION_PAGE_SIZE;
 
     try {
-      const questions = await prisma.question.findMany({
-        take: limit + 1,
-        where: {
-          category,
-        },
-        orderBy: {
-          [sortBy]: order,
-        },
-        cursor: cursor
-          ? {
-              id: cursor,
-            }
-          : undefined,
-      });
+      const questions = (
+        await prisma.question.findMany({
+          take: limit + 1,
+          where: {
+            category,
+          },
+          orderBy: {
+            [sortBy]: order,
+          },
+          cursor: cursor
+            ? {
+                id: cursor,
+              }
+            : undefined,
+        })
+      ).map((each) => ({
+        ...each,
+        content: truncateAtWord(each.content, 200),
+      }));
 
       let nextCursor: typeof cursor = undefined;
       if (questions.length > limit) {
