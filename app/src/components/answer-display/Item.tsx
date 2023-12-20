@@ -2,7 +2,6 @@
 import { inferProcedureOutput } from "@trpc/server";
 import { useSession } from "next-auth/react";
 import { MDXRemote } from "next-mdx-remote";
-import Link from "next/link";
 import { FC } from "react";
 import { DeletionButtonWithConfirmation } from "../../app/questions/[quid]/DeletionButtonWithConfirmation";
 import { roleChecker } from "../../lib/accessGuard";
@@ -79,11 +78,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
         </LabelErrorWrapper>
       ) : null}
       <div className="h-8 w-full flex gap-4 justify-end">
-        {canMod && (
-          <Link passHref href={pageURLs.moderation(data.id)}>
-            <Button color="purple">Moderate</Button>
-          </Link>
-        )}
+        {canMod && <Button color="purple">Moderate</Button>}
         {canEdit && (
           <>
             <Button color="purple">Edit</Button>
