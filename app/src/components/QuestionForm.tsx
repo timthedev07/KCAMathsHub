@@ -76,12 +76,17 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   });
 
   // bring in mutations
-  const { getQuestion } = trpc.useUtils();
+  const { getQuestion, getQuestions } = trpc.useUtils();
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
-  const ask = trpc.askQuestion.useMutation().mutateAsync;
+  const ask = trpc.askQuestion.useMutation({
+    onSuccess: async () => {
+      await getQuestions.invalidate({}, { refetchType: "all" });
+    },
+  }).mutateAsync;
   const update = trpc.updateQuestion.useMutation({
     onSuccess: async () => {
       await getQuestion.invalidate({ quid });
+      await getQuestions.invalidate({}, { refetchType: "all" });
       if (quid) push(pageURLs.question(quid));
     },
   }).mutateAsync;
