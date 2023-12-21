@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
-import { getUrl } from "../../aws/urlFormatter";
 import prisma from "../../db";
+import { preprocessAttachmentsForEdit } from "../helpers/preprocessAttachmentForEdit";
 
 const userSelection = { username: true, image: true, id: true };
 const attachmentSelection = { name: true, objKey: true, size: true };
@@ -45,13 +45,7 @@ const helperFind = async (where: Prisma.QuestionWhereUniqueInput) => {
 
   return {
     ...rest,
-    attachments: attachments.map(({ objKey, ...k }) => {
-      return {
-        ...k,
-        url: getUrl(objKey),
-        objKey,
-      };
-    }),
+    attachments: preprocessAttachmentsForEdit(attachments),
   };
 };
 
