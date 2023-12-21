@@ -25,13 +25,6 @@ export const updateQuestion = publicProcedure
         where: { id: { in: attachmentIds } },
       });
 
-      if (attachmentIds.length !== attachments.length) {
-        new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Invalid attachments",
-        });
-      }
-
       try {
         await prisma.question.update({
           where: { id: quid },
