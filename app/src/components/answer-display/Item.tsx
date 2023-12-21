@@ -54,7 +54,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
         accepted ? "rounded-xl bg-green-500/20" : ""
       }`}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col items-start gap-4 md:gap-0 md:flex-row md:justify-between md:items-center">
         <OptionalLinkWrapper
           hasLink={Boolean(!anonymous && answerer)}
           href={pageURLs.user(answerer?.username || "")}
@@ -73,9 +73,16 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
             </span>
           </div>
         </OptionalLinkWrapper>
-        <i className="text-sm text-white/40">
-          {dateTimeDisplay(data.timestamp)}
-        </i>
+        <div className="text-sm text-white/40 flex flex-col gap-1 text-left md:text-right">
+          <span>
+            Posted on <i>{dateTimeDisplay(data.timestamp)}</i>
+          </span>
+          {data.editedAt && (
+            <span>
+              Edited on <i>{dateTimeDisplay(data.timestamp)}</i>
+            </span>
+          )}
+        </div>
       </div>
       <LabelErrorWrapper
         label={
@@ -98,7 +105,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           <AttachmentList attachments={data.attachments} />
         </LabelErrorWrapper>
       ) : null}
-      <div className="h-8 w-full flex gap-4 justify-end">
+      <div className="h-8 w-full flex gap-4 justify-center md:justify-end">
         {canMod && (
           <Button color="purple">
             Moderate
