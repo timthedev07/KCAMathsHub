@@ -35,6 +35,7 @@ export const updateQuestion = publicProcedure
               connect: attachments,
             },
             anonymous,
+            edited: true,
             timestamp: new Date(),
             categories: { connect: categories.map((name) => ({ name })) },
           },
