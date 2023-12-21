@@ -3,6 +3,7 @@ import { inferProcedureOutput } from "@trpc/server";
 import { useSession } from "next-auth/react";
 import { MDXRemote } from "next-mdx-remote";
 import { FC } from "react";
+import { FaCheckCircle } from "react-icons/fa";
 import { MdEdit, MdRateReview } from "react-icons/md";
 import { DeletionButtonWithConfirmation } from "../../app/questions/[quid]/DeletionButtonWithConfirmation";
 import { roleChecker } from "../../lib/accessGuard";
@@ -17,7 +18,7 @@ import { mdxCustomComponents } from "../mdx/components";
 import { Button } from "../reusable/Button";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { StyledWrapper } from "../richtext/StyledWrapper";
-import { FaCheck } from "react-icons/fa6";
+import { AcceptButtonWithConfirmation } from "./AcceptButtonWithConfirmation";
 
 interface AnswerListItemProps {
   data: inferProcedureOutput<typeof getQuestionAnswers>["answers"][number];
@@ -35,7 +36,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   isAnswered,
 }) => {
   const anonymous = data.anonymous;
-  const { answerer } = data;
+  const { answerer, accepted } = data;
   const { data: session } = useSession();
   const canMod = Boolean(
     session && roleChecker(session.user.roles, ["moderator"])
@@ -47,7 +48,11 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   console.log({ accepted: data.accepted, isAnswered, canEdit });
 
   return (
-    <li className="flex flex-col gap-8 px-8 lg:px-12 py-8">
+    <li
+      className={`flex flex-col gap-8 px-8 lg:px-12 py-8 ${
+        accepted ? "rounded-xl bg-green-500/20" : ""
+      }`}
+    >
       <div className="flex justify-between items-center">
         <OptionalLinkWrapper
           hasLink={Boolean(!anonymous && answerer)}
@@ -71,7 +76,14 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           {dateTimeDisplay(data.timestamp)}
         </i>
       </div>
-      <LabelErrorWrapper label="Proposed answer">
+      <LabelErrorWrapper
+        label={
+          <span className="flex gap-3 items-center">
+            Proposed answer{" "}
+            <FaCheckCircle className="w-4.5 h-4.5 text-green-400" />
+          </span>
+        }
+      >
         <StyledWrapper className="overflow-x-scroll">
           <div className="overflow-x-scroll max-h-[600px] overflow-y-auto min-h-[100px] [&>*]:mb-4 [&>p]:text-white/80 [&>p]:text-sm">
             <MDXRemote {...data.content} components={mdxCustomComponents} />
@@ -91,10 +103,12 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           </Button>
         )}
         {canAccept && (
-          <Button color="purple">
-            Accept
-            <FaCheck className="ml-2" />
-          </Button>
+          <AcceptButtonWithConfirmation
+            currPage={currPage}
+            aid={data.id}
+            quid={data.questionId}
+            color="purple"
+          />
         )}
         {canEdit && (
           <>
