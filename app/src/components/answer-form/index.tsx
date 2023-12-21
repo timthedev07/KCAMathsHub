@@ -52,6 +52,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [showToast, setShowToast] = useState<boolean>(false);
+  const [complete, setComplete] = useState<boolean>(false);
 
   const [files, setFiles] = useState<FL>(() =>
     defaultValues ? defaultValues.files : []
@@ -94,6 +95,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           setLoading(false);
         } else {
           await refetch();
+          setComplete(true);
           setLevel("success");
           setLoading(false);
           setMessage("Answer posted!");
@@ -112,6 +114,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
         });
 
         if (response.success) {
+          setComplete(true);
           setLevel("success");
           setLoading(false);
           setMessage("Answer updated!");
@@ -183,7 +186,9 @@ export const AnswerForm: FC<AnswerFormProps> = ({
               (!changed.content && !changed.anonymous) ||
               (operationType === "update" &&
                 defaultValues?.formData.content === formData.content &&
-                defaultValues?.formData.anonymous === formData.anonymous)
+                defaultValues?.formData.anonymous === formData.anonymous &&
+                defaultValues.files === files) ||
+              complete
             }
           >
             <FaCheck className="mr-2" />
