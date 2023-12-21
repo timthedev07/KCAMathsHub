@@ -58,7 +58,7 @@ model Question {
   title          String             @db.VarChar(128)
   content        String             @db.VarChar(5000)
   timestamp      DateTime           @default(now())
-  edited         Boolean            @default(false)
+  editedAt       DateTime?
   // attachment relation
   attachments    ImageAttachment[]
   category       String // key stage
@@ -86,7 +86,7 @@ model Answer {
   content     String            @db.VarChar(5000)
   accepted    Boolean?
   timestamp   DateTime          @default(now())
-  edited      Boolean           @default(false)
+  editedAt    DateTime?
   // attachments relation
   attachments ImageAttachment[]
   moderated   Boolean           @default(false)
