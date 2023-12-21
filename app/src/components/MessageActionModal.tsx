@@ -34,7 +34,7 @@ export const MessageActionModal: FC<
     <Modal
       theme={{
         content: {
-          inner: "relative bg-white rounded-lg shadow-lg dark:bg-slate-800",
+          inner: "relative rounded-lg shadow-lg bg-[#19191d]",
         },
       }}
       dismissible
