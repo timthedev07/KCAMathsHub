@@ -1,3 +1,4 @@
+import { acceptAnswer } from "./crud/answers/acceptAnswer";
 import { answerQuestion } from "./crud/answers/answerQuestion";
 import { deleteAnswer } from "./crud/answers/deleteAnswer";
 import { getQuestionAnswers } from "./crud/answers/getQuestionAnswers";
@@ -39,6 +40,7 @@ export const appRouter = router({
   answerQuestion,
   getQuestionAnswers,
   deleteAnswer,
+  acceptAnswer,
 });
 
 export type AppRouter = typeof appRouter;
