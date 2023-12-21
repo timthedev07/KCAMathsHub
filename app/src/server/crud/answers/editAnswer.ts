@@ -32,6 +32,7 @@ export const editAnswer = publicProcedure
         if (e instanceof Prisma.PrismaClientKnownRequestError) {
           return createError(e.message);
         }
+        console.log(e);
         return createError("Unknown error", 500);
       }
     }
