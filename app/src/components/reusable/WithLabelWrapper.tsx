@@ -1,8 +1,8 @@
-import { DetailedHTMLProps, FC, HTMLAttributes } from "react";
+import { DetailedHTMLProps, FC, HTMLAttributes, ReactNode } from "react";
 
 interface WithLabelWrapperProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  label?: string;
+  label?: ReactNode;
   error?: string;
 }
 
