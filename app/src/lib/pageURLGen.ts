@@ -19,4 +19,7 @@ export const pageURLs = {
   notFound() {
     return `${HOST}/not-found`;
   },
+  editAnswer(aid: string) {
+    return `${HOST}/answer/${aid}/edit`;
+  },
 };
