@@ -80,7 +80,9 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
         label={
           <span className="flex gap-3 items-center">
             Proposed answer{" "}
-            <FaCheckCircle className="w-4.5 h-4.5 text-green-400" />
+            {accepted && (
+              <FaCheckCircle className="w-4.5 h-4.5 text-green-400" />
+            )}
           </span>
         }
       >
