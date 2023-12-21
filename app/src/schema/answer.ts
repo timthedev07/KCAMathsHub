@@ -3,6 +3,7 @@ import { contentSchema } from "./shared/content";
 
 export const AnswerSchema = z.object({
   content: contentSchema,
+  anonymous: z.boolean(),
 });
 
 export const AnswerSubmissionSchema = z
@@ -10,6 +11,5 @@ export const AnswerSubmissionSchema = z
     userId: z.string().min(1),
     attachmentIds: z.number().array(),
     questionId: z.string().min(1),
-    anonymous: z.boolean(),
   })
   .merge(AnswerSchema);
