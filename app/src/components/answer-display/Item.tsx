@@ -2,6 +2,7 @@
 import { inferProcedureOutput } from "@trpc/server";
 import { useSession } from "next-auth/react";
 import { MDXRemote } from "next-mdx-remote";
+import Link from "next/link";
 import { FC } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdEdit, MdRateReview } from "react-icons/md";
@@ -114,9 +115,12 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
         )}
         {canEdit && (
           <>
-            <Button color="purple">
-              Edit <MdEdit className="ml-1" />
-            </Button>
+            <Link className="h-full" href={pageURLs.editAnswer(data.id)}>
+              <Button color="purple" className="h-8">
+                Edit
+                <MdEdit className="ml-1" />
+              </Button>
+            </Link>
             <DeletionButtonWithConfirmation
               currPage={currPage}
               quid={data.questionId}
