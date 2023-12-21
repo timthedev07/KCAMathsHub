@@ -1,11 +1,13 @@
 "use client";
 
 import { ToggleSwitch } from "flowbite-react";
+import { useRouter } from "next/navigation";
 import { ComponentProps, FC, FormEvent, useState } from "react";
 import { FaCheck, FaClipboardUser, FaUserSecret } from "react-icons/fa6";
 import { useForm } from "../../hooks/useForm";
 import { anyError } from "../../lib/anyError";
 import { uploadToAPI } from "../../lib/attachmentClientUpload";
+import { pageURLs } from "../../lib/pageURLGen";
 import { AnswerSchema } from "../../schema/answer";
 import { trpc } from "../../trpc/client";
 import { LoadingOverlay } from "../LoadingOverlay";
@@ -21,7 +23,12 @@ interface AnswerFormProps {
   operationType: "answer" | "update";
   quid: string;
   uid: string;
-  scrollToTop: Function;
+  scrollToTop?: Function;
+  defaultValues?: {
+    aid: string;
+    formData: { content: string; anonymous: boolean };
+    files: FL;
+  };
 }
 
 export const AnswerForm: FC<AnswerFormProps> = ({
@@ -29,7 +36,9 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   quid,
   uid,
   scrollToTop,
+  defaultValues,
 }) => {
+  const { push } = useRouter();
   const [level, setLevel] =
     useState<ComponentProps<typeof TimedMessageToast>["level"]>("error");
   const { refetch } = trpc.getQuestionAnswers.useQuery(
@@ -38,20 +47,23 @@ export const AnswerForm: FC<AnswerFormProps> = ({
   );
   const addAttachments = trpc.addAttachments.useMutation().mutateAsync;
   const answerQuestion = trpc.answerQuestion.useMutation().mutateAsync;
+  const editAnswer = trpc.editAnswer.useMutation({}).mutateAsync;
 
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [showToast, setShowToast] = useState<boolean>(false);
 
-  const [files, setFiles] = useState<FL>(() => {
-    return [];
-  });
+  const [files, setFiles] = useState<FL>(() =>
+    defaultValues ? defaultValues.files : []
+  );
 
-  const { formData, update, changed, errors, reset } = useForm({
-    defaultValues: {
-      content: "",
-      anonymous: false,
-    },
+  const { formData, update, changed, errors } = useForm({
+    defaultValues: defaultValues
+      ? defaultValues.formData
+      : {
+          content: "",
+          anonymous: false,
+        },
     validationSchema: AnswerSchema,
   });
 
@@ -81,16 +93,35 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           setMessage(res.message);
           setLoading(false);
         } else {
-          reset();
           await refetch();
           setLevel("success");
           setLoading(false);
           setMessage("Answer posted!");
           setShowToast(true);
-          scrollToTop();
+          if (scrollToTop) scrollToTop();
         }
       } else {
-        // updating logic
+        if (!defaultValues?.aid) return;
+
+        const response = await editAnswer({
+          aid: defaultValues?.aid,
+          ...formData,
+          attachmentIds: atts,
+          questionId: quid,
+          userId: uid,
+        });
+
+        if (response.success) {
+          setLevel("success");
+          setLoading(false);
+          setMessage("Answer updated!");
+          setShowToast(true);
+          push(pageURLs.question(quid));
+        } else {
+          setShowToast(true);
+          setMessage(response.message);
+          setLoading(false);
+        }
       }
     } catch (err: unknown) {}
   };
@@ -147,10 +178,18 @@ export const AnswerForm: FC<AnswerFormProps> = ({
             className="h-fit"
             color="success"
             type="submit"
-            disabled={anyError(errors, changed) || !changed.content}
+            disabled={
+              anyError(errors, changed) ||
+              (!changed.content && !changed.anonymous) ||
+              (operationType === "update" &&
+                defaultValues?.formData.content === formData.content &&
+                defaultValues?.formData.anonymous === formData.anonymous)
+            }
           >
             <FaCheck className="mr-2" />
-            Submit Answer
+            {operationType.charAt(0).toUpperCase() +
+              operationType.slice(1)}{" "}
+            answer
           </Button>
         </div>
       </form>
