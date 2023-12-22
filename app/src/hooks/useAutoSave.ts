@@ -21,7 +21,7 @@ type SaveStateType = "saving" | "saved" | "waiting";
 export const useAutoSave = <T extends string | Object>({
   data,
   key,
-  delay = 500,
+  delay = 1000,
 }: AutoSaveOptions<T>) => {
   const prevData = useRef(data);
   const [saveState, setSaveState] = useState<SaveStateType>("saved");
@@ -39,7 +39,8 @@ export const useAutoSave = <T extends string | Object>({
     if (dataHasChanged) {
       const t = setTimeout(() => {
         if (typeof window === "undefined") return;
-        localStorage.setItem(key, JSON.stringify(data));
+        localStorage.setItem(key, JSON.stringify(prevData.current));
+        console.log("updating");
         setSaveState("saved");
       }, delay);
 
