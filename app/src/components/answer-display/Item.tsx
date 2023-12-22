@@ -12,7 +12,7 @@ import { dateTimeDisplay } from "../../lib/datetimeDisplay";
 import { pageURLs } from "../../lib/pageURLGen";
 import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers";
 import { OptionalLinkWrapper } from "../OptionalLinkWrapper";
-import { ProfileImgDisplay } from "../ProfileImgDisplay";
+import { ProfileImgDisplay } from "../image/ProfileImgDisplay";
 import { ToastLevel } from "../TimedMessageToast";
 import { AttachmentList } from "../attachments";
 import { mdxCustomComponents } from "../mdx/components";

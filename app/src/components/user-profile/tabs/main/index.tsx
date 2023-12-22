@@ -7,7 +7,7 @@ import { MdEmail } from "react-icons/md";
 import { viewPanelBase } from "..";
 import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../constants/updateIntervals";
 import { getCurrYear } from "../../../../lib/getCurrYear";
-import { ProfileImgDisplay } from "../../../ProfileImgDisplay";
+import { ProfileImgDisplay } from "../../../image/ProfileImgDisplay";
 import { BadgesDisplay } from "../../BadgesDisplay";
 import { EditableTextArea } from "./EditableTextArea";
 import { QList } from "./item-display/QList";

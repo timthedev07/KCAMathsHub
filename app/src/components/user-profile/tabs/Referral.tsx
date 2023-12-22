@@ -8,7 +8,7 @@ import { FaCheckCircle, FaCopy } from "react-icons/fa";
 import { viewPanelBase } from ".";
 import { pageURLs } from "../../../lib/pageURLGen";
 import { trpc } from "../../../trpc/client";
-import { ProfileImgDisplay } from "../../ProfileImgDisplay";
+import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
 import { LoadingSpin } from "../../loading/LoadingSpin";
 import { Button } from "../../reusable/Button";
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { FC } from "react";
-import { ProfileImgPlaceholderSVG } from "../svgs/ProfileImgPlaceholder";
+import { ProfileImgPlaceholderSVG } from "../../svgs/ProfileImgPlaceholder";
 
 interface ProfileImgDisplayProps {
   src: string | null | undefined;

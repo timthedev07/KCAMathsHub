@@ -6,7 +6,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import remarkGfm from "remark-gfm";
 import { OptionalLinkWrapper } from "../../../components/OptionalLinkWrapper";
-import { ProfileImgDisplay } from "../../../components/ProfileImgDisplay";
+import { ProfileImgDisplay } from "../../../components/image/ProfileImgDisplay";
 import { AttachmentList } from "../../../components/attachments";
 import { QCategoryBadge } from "../../../components/categories/QCategoryBadge";
 import { LoadingSpin } from "../../../components/loading/LoadingSpin";

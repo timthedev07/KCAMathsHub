@@ -1,6 +1,6 @@
 import { Session } from "next-auth";
 import { FC, useState } from "react";
-import { ProfileImgDisplay } from "../../ProfileImgDisplay";
+import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
 import { UserExpandable } from "../user-expandable";
 
 interface ConditionalProfilePicProps {

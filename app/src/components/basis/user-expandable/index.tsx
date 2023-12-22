@@ -2,7 +2,7 @@
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { Dispatch, FC, SetStateAction } from "react";
-import { ProfileImgDisplay } from "../../ProfileImgDisplay";
+import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
 import { Button } from "../../reusable/Button";
 import { BadgesDisplay } from "../../user-profile/BadgesDisplay";
 
