@@ -40,7 +40,7 @@ const Page: FC<NextPageParams<{ aid: string }>> = async ({
         <h1 className="font-bold text-4xl">Edit your answer</h1>
         <Link
           className="text-white/60 transition duration-200 hover:text-cyan-500/80 flex gap-2 items-center"
-          href={pageURLs.question(answer.questionId)}
+          href={pageURLs.question(answer.questionId!)}
         >
           Question
           <MdLink className="w-6 h-6" />
@@ -49,7 +49,7 @@ const Page: FC<NextPageParams<{ aid: string }>> = async ({
       </div>
       <AnswerForm
         operationType="update"
-        quid={answer.questionId}
+        quid={answer.questionId!}
         uid={user.id}
         defaultValues={{
           files: answer.attachments.map((each) => {
