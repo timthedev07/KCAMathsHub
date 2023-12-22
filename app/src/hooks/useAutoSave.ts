@@ -40,7 +40,6 @@ export const useAutoSave = <T extends string | Object>({
       const t = setTimeout(() => {
         if (typeof window === "undefined") return;
         localStorage.setItem(key, JSON.stringify(prevData.current));
-        console.log("updating");
         setSaveState("saved");
       }, delay);
 
