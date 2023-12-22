@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { MODERATION_LIMIT } from "./constants";
-import { contentSchema } from "./shared/content";
 import { editorValidation } from "./validations/editorValidation";
 
 export const commentSchema = z
@@ -26,7 +25,7 @@ export const commentSchema = z
 
 export const ModerationFormSchema = z.object({
   anonymous: z.boolean(),
-  moderationComment: contentSchema,
+  moderationComment: commentSchema,
   approval: z.boolean(),
 });
 
