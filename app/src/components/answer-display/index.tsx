@@ -8,6 +8,7 @@ import { TimedMessageToast, ToastLevel } from "../helpers/TimedMessageToast";
 import { LoadingSpin } from "../loading/LoadingSpin";
 import { Pagination } from "../pagination";
 import { AnswerListItem } from "./Item";
+import { ModerationsListType } from "./type";
 
 interface AnswersDisplay {
   quid: string;
@@ -24,6 +25,9 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   uid,
   isAnswered,
 }) => {
+  const [selectedModerations, setSelectedModerations] =
+    useState<ModerationsListType | null>();
+
   const [moderatedAnswerId, setModeratedAnswerId] = useState<string | null>(
     null
   );
@@ -41,6 +45,11 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
     setModeratedPageNum(pageNum);
     setModeratedAnswerId(aid);
     setModerating(true);
+  }, []);
+  const resetModerationModal = useCallback(() => {
+    setModeratedPageNum(null);
+    setModeratedAnswerId(null);
+    setModerating(false);
   }, []);
 
   const displayToast = (msg: string, level: ToastLevel) => {
@@ -60,13 +69,16 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
 
   return (
     <>
-      <ModerationModal
-        quid={quid}
-        answerCurrPage={moderatedPageNum}
-        aid={moderatedAnswerId}
-        open={moderating}
-        setOpen={setModerating}
-      />
+      {moderatedAnswerId && (
+        <ModerationModal
+          resetModerationModal={resetModerationModal}
+          quid={quid}
+          answerCurrPage={moderatedPageNum}
+          aid={moderatedAnswerId}
+          open={moderating}
+          setOpen={setModerating}
+        />
+      )}
       <TimedMessageToast
         show={showToast}
         setShow={setShowToast}
