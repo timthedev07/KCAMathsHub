@@ -37,6 +37,12 @@ export const MessageActionModal: FC<
     <Modal
       size={modalSize}
       theme={{
+        root: {
+          show: {
+            on: "flex bg-neutral-950/80",
+            off: "hidden",
+          },
+        },
         content: {
           inner: "relative rounded-lg shadow-lg bg-[#18181c]",
         },
