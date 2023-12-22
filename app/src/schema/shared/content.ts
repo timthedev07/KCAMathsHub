@@ -7,11 +7,7 @@ export const contentSchema = z
   .refine(
     async (val) => {
       const res = editorValidation(val);
-
-      if (res === "exceeding") {
-        return false;
-      }
-      return true;
+      return !(res === "exceeding");
     },
     {
       message: `Please don't write more than ${CONTENT_LIMIT[1]} characters`,
@@ -20,11 +16,7 @@ export const contentSchema = z
   .refine(
     (val) => {
       const res = editorValidation(val);
-
-      if (res === "few") {
-        return false;
-      }
-      return true;
+      return !(res === "few");
     },
     {
       message: "Please provide more detailed explanations",
