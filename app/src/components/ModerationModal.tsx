@@ -14,21 +14,73 @@ interface ModerationModalProps {
   aid?: string | null;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  answerCurrPage: number | null;
+  quid: string;
 }
 
-export const ModerationModal: FC<ModerationModalProps> = ({ aid, ...rest }) => {
+export const ModerationModal: FC<ModerationModalProps> = ({
+  aid,
+  answerCurrPage,
+  quid,
+  ...rest
+}) => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const { formData, update, errors, changed } = useForm({
     defaultValues: { anonymous: false, moderationComment: "", approval: false },
     validationSchema: ModerationFormSchema,
   });
-  const mutate = trpc.moderate.useMutation().mutateAsync;
+  const { getQuestionAnswers } = trpc.useUtils();
+  const mutate = trpc.moderate.useMutation({
+    onMutate: async () => {
+      if (!answerCurrPage) return null;
+
+      const search = { quid, pageNum: answerCurrPage };
+
+      await getQuestionAnswers.cancel(search);
+      const prev = getQuestionAnswers.getData(search);
+      getQuestionAnswers.setData(search, (p) => {
+        if (!p) return { answers: [], lastPageSize: 0, totalPages: 0 };
+
+        return {
+          lastPageSize: p?.lastPageSize || 0,
+          totalPages: p?.totalPages || 0,
+          answers: p?.answers
+            ? p.answers.map((v) =>
+                v.id === aid
+                  ? {
+                      ...v,
+                      moderated: true,
+                      moderations: [
+                        {
+                          ...formData,
+                          moderator: { username: session?.user.username || "" },
+                        },
+                        ...v.moderations,
+                      ],
+                    }
+                  : v
+              )
+            : [],
+        };
+      });
+
+      return prev;
+    },
+    onError: async (_, __, ctx) => {
+      if (!answerCurrPage || !ctx) return;
+      getQuestionAnswers.setData({ quid, pageNum: answerCurrPage }, ctx);
+    },
+    onSuccess: async () => {
+      if (!answerCurrPage) return;
+      getQuestionAnswers.invalidate({ quid, pageNum: answerCurrPage });
+    },
+  }).mutateAsync;
 
   const handleSubmit = async () => {
     const u = session?.user;
     if (!u) return;
-    if (!aid) return;
+    if (!aid || !answerCurrPage) return;
     if (anyError(errors, changed)) {
       return;
     }
