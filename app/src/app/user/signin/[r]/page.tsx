@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { SignInPanel } from "../../../../components/SignInPanel";
+import { SignInPanel } from "../../../../components/auth/SignInPanel";
 import { getServerSession } from "../../../../lib/authoptions";
 import { NextPage } from "../../../../types/nextpage";
 

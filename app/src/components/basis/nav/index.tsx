@@ -1,7 +1,7 @@
 import { Session } from "next-auth";
 import { FC } from "react";
 import { Hamburger } from "../../../svgs/sidebar/Hamburger";
-import { SignInButton } from "../../SignInButton";
+import { SignInButton } from "../../auth/SignInButton";
 import { ConditionalProfilePic } from "./ConditionalProfilePic";
 
 interface NavProps {

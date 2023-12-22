@@ -4,8 +4,8 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { FC } from "react";
 import { OAuthButton } from "react-auth-provider-buttons";
-import { HOST } from "../lib/hostAddr";
-import { LogoSVG } from "./Logo";
+import { HOST } from "../../lib/hostAddr";
+import { LogoSVG } from "../Logo";
 
 interface SignInPanelProps {
   r?: string | null; // from /user/signin/[r]
