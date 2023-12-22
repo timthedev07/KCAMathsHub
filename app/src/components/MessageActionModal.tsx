@@ -8,6 +8,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
+import { AiOutlineLoading } from "react-icons/ai";
 import { LoadingSpin } from "./LoadingSpin";
 import { Button } from "./reusable/Button";
 
@@ -17,6 +18,7 @@ interface MessageActionModalProps {
   heading: string;
   action?: Function;
   proceedDisabled?: boolean;
+  modalSize?: string;
 }
 
 export const MessageActionModal: FC<
@@ -28,13 +30,15 @@ export const MessageActionModal: FC<
   children,
   action = () => {},
   proceedDisabled = false,
+  modalSize = "md",
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   return (
     <Modal
+      size={modalSize}
       theme={{
         content: {
-          inner: "relative rounded-lg shadow-lg bg-[#19191d]",
+          inner: "relative rounded-lg shadow-lg bg-[#18181c]",
         },
       }}
       dismissible
@@ -54,6 +58,7 @@ export const MessageActionModal: FC<
       <Modal.Footer>
         <Button
           color={"indigo"}
+          processingSpinner={<AiOutlineLoading className="h-4 h-4" />}
           disabled={loading || proceedDisabled}
           onClick={async () => {
             if (!loading) {
