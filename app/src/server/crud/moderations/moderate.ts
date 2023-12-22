@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import prisma from "../../../db";
 import { handlePrismaError } from "../../../lib/handlePrismaError";
 import { ModerationSubmissionSchema } from "../../../schema/moderation";
@@ -18,10 +17,7 @@ export const moderate = publicProcedure
           include: { moderations: { select: { answerId: true } } },
         });
       } catch (e) {
-        if (e instanceof Prisma.PrismaClientKnownRequestError) {
-          return createError(e.message);
-        }
-        return createError("Unknown error");
+        return handlePrismaError(e);
       }
 
       if (u.moderations.some((val) => val.answerId === answerId)) {
@@ -33,7 +29,9 @@ export const moderate = publicProcedure
           where: { id: answerId },
           data: { moderated: true },
         });
-      } catch (e) {}
+      } catch (e) {
+        return handlePrismaError(e);
+      }
 
       try {
         await prisma.moderation.create({
