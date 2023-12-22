@@ -36,7 +36,7 @@ export const useAutoSave = <T extends string | Object>({
       data: T;
       timestamp: number;
     };
-    if (timestamp + expireMinutes * 60 * 1000 >= Date.now()) {
+    if (timestamp + expireMinutes * 60 * 1000 <= Date.now()) {
       localStorage.removeItem(key);
       return null;
     }
