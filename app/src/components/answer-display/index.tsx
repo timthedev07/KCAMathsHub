@@ -1,8 +1,9 @@
 "use client";
 
-import { FC, useRef, useState } from "react";
+import { FC, useCallback, useRef, useState } from "react";
 import { trpc } from "../../trpc/client";
 import { LoadingSpin } from "../LoadingSpin";
+import { ModerationModal } from "../ModerationModal";
 import { TimedMessageToast, ToastLevel } from "../TimedMessageToast";
 import { AnswerForm } from "../answer-form";
 import { Pagination } from "../pagination";
@@ -23,12 +24,22 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   uid,
   isAnswered,
 }) => {
+  const [moderatedAnswerId, setModeratedAnswerId] = useState<string | null>(
+    null
+  );
+  const [moderating, setModerating] = useState<boolean>(false);
+
   const [pageNum, setPageNum] = useState<number>(1);
   const topRef = useRef<HTMLDivElement | null>(null);
 
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastMsg, setToastMsg] = useState<string>("");
   const [toastLevel, setToastLevel] = useState<ToastLevel>("success");
+
+  const moderate = useCallback((aid: string) => {
+    setModerating(true);
+    setModeratedAnswerId(aid);
+  }, []);
 
   const displayToast = (msg: string, level: ToastLevel) => {
     setShowToast(true);
@@ -47,6 +58,11 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
 
   return (
     <>
+      <ModerationModal
+        aid={moderatedAnswerId}
+        open={moderating}
+        setOpen={setModerating}
+      />
       <TimedMessageToast
         show={showToast}
         setShow={setShowToast}
@@ -77,6 +93,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
                 <ul className="w-full flex flex-col py-8">
                   {data.answers.map((each, ind) => (
                     <AnswerListItem
+                      moderate={moderate}
                       isAnswered={isAnswered}
                       displayToast={displayToast}
                       currPage={pageNum}
