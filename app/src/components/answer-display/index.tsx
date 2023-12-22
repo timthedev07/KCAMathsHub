@@ -2,10 +2,10 @@
 
 import { FC, useCallback, useRef, useState } from "react";
 import { trpc } from "../../trpc/client";
-import { LoadingSpin } from "../LoadingSpin";
 import { ModerationModal } from "../ModerationModal";
 import { TimedMessageToast, ToastLevel } from "../TimedMessageToast";
 import { AnswerForm } from "../answer-form";
+import { LoadingSpin } from "../loading/LoadingSpin";
 import { Pagination } from "../pagination";
 import { AnswerListItem } from "./Item";
 
