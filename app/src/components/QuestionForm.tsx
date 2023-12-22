@@ -105,6 +105,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     if (operationType === "ask" && data && !defaultValues) {
       setFormData(data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValues, operationType]);
 
   // keep track off files
