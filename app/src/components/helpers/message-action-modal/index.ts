@@ -1,3 +1,6 @@
 import dynamic from "next/dynamic";
 
-export const MessageActionModal = dynamic(() => import("./MessageActionModal"));
+export const MessageActionModal = dynamic(
+  () => import("./MessageActionModal"),
+  { ssr: false }
+);
