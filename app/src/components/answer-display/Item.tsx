@@ -5,7 +5,7 @@ import { MDXRemote } from "next-mdx-remote";
 import Link from "next/link";
 import { FC } from "react";
 import { FaCheckCircle, FaUserCheck } from "react-icons/fa";
-import { MdEdit, MdRateReview } from "react-icons/md";
+import { MdChecklist, MdEdit, MdRateReview } from "react-icons/md";
 import { DeletionButtonWithConfirmation } from "../../app/questions/[quid]/DeletionButtonWithConfirmation";
 import { roleChecker } from "../../lib/accessGuard";
 import { dateTimeDisplay } from "../../lib/datetimeDisplay";
@@ -109,7 +109,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           </span>
         }
       >
-        <StyledWrapper className="overflow-x-scroll">
+        <StyledWrapper className="overflow-x-scroll mt-2">
           <div className="overflow-x-scroll max-h-[600px] overflow-y-auto min-h-[100px] [&>*]:mb-4 [&>p]:text-white/80 [&>p]:text-sm">
             <MDXRemote {...data.content} components={mdxCustomComponents} />
           </div>
@@ -120,6 +120,12 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           <AttachmentList attachments={data.attachments} />
         </LabelErrorWrapper>
       ) : null}
+      {data.moderations.length && (
+        <Button pill color={!data.accepted ? "info" : "success"}>
+          <MdChecklist className="mr-2 w-5 h-5" />
+          See Moderations
+        </Button>
+      )}
       <div className="h-8 w-full flex gap-4 justify-center md:justify-end">
         {canMod && (
           <Button color="purple" onClick={() => moderate(data.id, currPage)}>
