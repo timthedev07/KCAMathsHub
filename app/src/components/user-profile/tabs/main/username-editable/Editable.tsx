@@ -9,7 +9,7 @@ import { GoXCircleFill } from "react-icons/go";
 import { spanBase } from ".";
 import { useClickOutside } from "../../../../../hooks/useClickOutside";
 import { trpc } from "../../../../../trpc/client";
-import { MessageActionModal } from "../../../../MessageActionModal";
+import { MessageActionModal } from "../../../../helpers/MessageActionModal";
 
 interface EditableProps {
   user: Session["user"];

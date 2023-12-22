@@ -3,7 +3,7 @@ import { FC, ReactNode } from "react";
 import { EmailSVG } from "../../../svgs/social/Email";
 import { InstagramSVG } from "../../../svgs/social/Instagram";
 import { XSVG } from "../../../svgs/social/X";
-import { LogoSVG } from "../../Logo";
+import { LogoSVG } from "../../helpers/Logo";
 
 interface FooterProps {}
 

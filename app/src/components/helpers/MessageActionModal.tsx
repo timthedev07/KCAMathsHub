@@ -9,8 +9,8 @@ import {
   useState,
 } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
-import { LoadingSpin } from "./loading/LoadingSpin";
-import { Button } from "./reusable/Button";
+import { LoadingSpin } from "../loading/LoadingSpin";
+import { Button } from "../reusable/Button";
 
 interface MessageActionModalProps {
   open: boolean;

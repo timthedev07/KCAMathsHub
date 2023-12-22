@@ -5,7 +5,7 @@ import { useForm } from "../hooks/useForm";
 import { anyError } from "../lib/anyError";
 import { ModerationFormSchema } from "../schema/moderation";
 import { trpc } from "../trpc/client";
-import { MessageActionModal } from "./MessageActionModal";
+import { MessageActionModal } from "./helpers/MessageActionModal";
 import { LabelErrorWrapper } from "./reusable/WithLabelWrapper";
 import { QAEditor } from "./richtext/ForwardRefEditor";
 import { StyledWrapper } from "./richtext/StyledWrapper";
