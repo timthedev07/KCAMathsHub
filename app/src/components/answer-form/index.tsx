@@ -22,7 +22,7 @@ import { QAEditor } from "../richtext/ForwardRefEditor";
 import { StyledWrapper } from "../richtext/StyledWrapper";
 
 interface AnswerFormProps {
-  operationType: "answer" | "update";
+  operationType: "submit" | "update";
   quid: string;
   uid: string;
   scrollToTop?: Function;
@@ -77,7 +77,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
 
   useEffect(() => {
     const data = initFromAutoSaveStorage();
-    if (operationType === "answer" && data && !defaultValues) {
+    if (operationType === "submit" && data && !defaultValues) {
       const { anonymous, content } = data;
       update("anonymous", anonymous);
       update("content", content);
@@ -98,7 +98,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
     const atts = await uploadToAPI(files, addAttachments);
 
     try {
-      if (operationType === "answer") {
+      if (operationType === "submit") {
         const res = await answerQuestion({
           ...formData,
           attachmentIds: atts,
