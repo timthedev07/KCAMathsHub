@@ -67,7 +67,11 @@ export const answerQuestion = publicProcedure
         return createSuccessResponse("", answer);
       } catch (e) {
         await deleteMultipleFromAWS(attachmentIds, attachments);
-        return handlePrismaError(e, undefined, "Failed to post answer");
+        return handlePrismaError(
+          e,
+          "Failed to post answer",
+          "Failed to post answer"
+        );
       }
     }
   );
