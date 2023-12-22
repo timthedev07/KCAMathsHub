@@ -7,6 +7,7 @@ interface AutoSaveOptions<T> {
   key: string;
   data: T;
   delay?: number;
+  expireMinutes?: number;
 }
 
 type SaveStateType = "saving" | "saved" | "waiting";
@@ -15,6 +16,7 @@ export const useAutoSave = <T extends string | Object>({
   data,
   key,
   delay = 200,
+  expireMinutes = 10,
 }: AutoSaveOptions<T>) => {
   const prevData = useRef(data);
   const [saveState, setSaveState] = useState<SaveStateType>("saved");
@@ -30,7 +32,15 @@ export const useAutoSave = <T extends string | Object>({
     if (typeof window === "undefined") return;
     const stored = localStorage.getItem(key);
     if (!stored) return null;
-    return JSON.parse(stored) as T;
+    const { data, timestamp } = JSON.parse(stored) as {
+      data: T;
+      timestamp: number;
+    };
+    if (timestamp + expireMinutes * 60 * 1000 >= Date.now()) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return data;
   };
 
   const dataHasChanged = saveState === "waiting";
@@ -39,7 +49,10 @@ export const useAutoSave = <T extends string | Object>({
     if (dataHasChanged) {
       const t = setTimeout(() => {
         if (typeof window === "undefined") return;
-        localStorage.setItem(key, JSON.stringify(prevData.current));
+        localStorage.setItem(
+          key,
+          JSON.stringify({ data: prevData.current, timestamp: Date.now() })
+        );
         setSaveState("saved");
       }, delay);
 
