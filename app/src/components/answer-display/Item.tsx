@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { MDXRemote } from "next-mdx-remote";
 import Link from "next/link";
 import { FC } from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaUserCheck } from "react-icons/fa";
 import { MdEdit, MdRateReview } from "react-icons/md";
 import { DeletionButtonWithConfirmation } from "../../app/questions/[quid]/DeletionButtonWithConfirmation";
 import { roleChecker } from "../../lib/accessGuard";
@@ -27,7 +27,7 @@ interface AnswerListItemProps {
   currPage: number;
   displayToast: (_: string, __: ToastLevel) => void;
   isAnswered: boolean;
-  moderate: (_: string) => void;
+  moderate: (_: string, __: number) => void;
 }
 
 export const AnswerListItem: FC<AnswerListItemProps> = ({
@@ -42,17 +42,28 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   const { answerer, accepted } = data;
   const { data: session } = useSession();
   const canMod = Boolean(
-    session && roleChecker(session.user.roles, ["moderator"])
+    session &&
+      roleChecker(session.user.roles, ["moderator"]) &&
+      data.moderations.every(
+        (val) => val.moderator?.username !== session.user.username
+      )
   );
   const canEdit = Boolean(
     session?.user && data.answerer?.username === session.user.username
   );
   const canAccept = Boolean(!data.accepted && !isAnswered && canEdit);
+  const moderated = data.moderated && data.moderations.some((v) => v.approval);
 
   return (
     <li
       className={`flex flex-col gap-8 px-8 lg:px-12 py-8 ${
-        accepted ? "rounded-xl bg-green-500/20" : ""
+        accepted && moderated
+          ? "rounded-xl bg-emerald-500/20"
+          : accepted
+          ? "rounded-xl bg-green-500/20"
+          : moderated
+          ? "rounded-xl bg-cyan-500/20"
+          : ""
       }`}
     >
       <div className="flex flex-col items-start gap-4 md:gap-0 md:flex-row md:justify-between md:items-center">
@@ -92,6 +103,9 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
             {accepted && (
               <FaCheckCircle className="w-4.5 h-4.5 text-green-400" />
             )}
+            {moderated && (
+              <FaUserCheck className="w-4.5 h-4.5 text-green-400" />
+            )}
           </span>
         }
       >
@@ -108,7 +122,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
       ) : null}
       <div className="h-8 w-full flex gap-4 justify-center md:justify-end">
         {canMod && (
-          <Button color="purple" onClick={() => moderate(data.id)}>
+          <Button color="purple" onClick={() => moderate(data.id, currPage)}>
             Moderate
             <MdRateReview className="ml-2" />
           </Button>

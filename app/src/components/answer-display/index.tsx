@@ -28,6 +28,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
     null
   );
   const [moderating, setModerating] = useState<boolean>(false);
+  const [moderatedPageNum, setModeratedPageNum] = useState<number | null>(null);
 
   const [pageNum, setPageNum] = useState<number>(1);
   const topRef = useRef<HTMLDivElement | null>(null);
@@ -36,9 +37,10 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   const [toastMsg, setToastMsg] = useState<string>("");
   const [toastLevel, setToastLevel] = useState<ToastLevel>("success");
 
-  const moderate = useCallback((aid: string) => {
-    setModerating(true);
+  const moderate = useCallback((aid: string, pageNum: number) => {
+    setModeratedPageNum(pageNum);
     setModeratedAnswerId(aid);
+    setModerating(true);
   }, []);
 
   const displayToast = (msg: string, level: ToastLevel) => {
@@ -59,6 +61,8 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   return (
     <>
       <ModerationModal
+        quid={quid}
+        answerCurrPage={moderatedPageNum}
         aid={moderatedAnswerId}
         open={moderating}
         setOpen={setModerating}
@@ -114,7 +118,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
           <AnswerForm
             key={data && data.answers.length ? data.answers[0].id : 0}
             scrollToTop={scrollToTop}
-            operationType="answer"
+            operationType="submit"
             quid={quid}
             uid={uid}
           />
