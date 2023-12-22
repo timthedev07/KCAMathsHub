@@ -7,6 +7,7 @@ export const handlePrismaError = (
   unknownErrMessage: string = "Unknown error",
   log = true
 ) => {
+  if (log && message) console.log(e);
   if (e instanceof Prisma.PrismaClientKnownRequestError)
     return createError(message ? message : e.message);
   if (log) console.log(e);
