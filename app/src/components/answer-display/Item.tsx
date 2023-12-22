@@ -27,6 +27,7 @@ interface AnswerListItemProps {
   currPage: number;
   displayToast: (_: string, __: ToastLevel) => void;
   isAnswered: boolean;
+  moderate: (_: string) => void;
 }
 
 export const AnswerListItem: FC<AnswerListItemProps> = ({
@@ -35,6 +36,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   currPage,
   displayToast,
   isAnswered,
+  moderate,
 }) => {
   const anonymous = data.anonymous;
   const { answerer, accepted } = data;
@@ -106,7 +108,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
       ) : null}
       <div className="h-8 w-full flex gap-4 justify-center md:justify-end">
         {canMod && (
-          <Button color="purple">
+          <Button color="purple" onClick={() => moderate(data.id)}>
             Moderate
             <MdRateReview className="ml-2" />
           </Button>
