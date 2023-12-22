@@ -1,5 +1,6 @@
 import prisma from "../../../db";
 import { roleChecker } from "../../../lib/accessGuard";
+import { handlePrismaError } from "../../../lib/handlePrismaError";
 import { AnswerSubmissionSchema } from "../../../schema/answer";
 import { createError, createSuccessResponse } from "../../../trpc/createError";
 import { Role } from "../../../types/role";
@@ -65,9 +66,8 @@ export const answerQuestion = publicProcedure
         });
         return createSuccessResponse("", answer);
       } catch (e) {
-        console.log("Error creating answer:", e);
         await deleteMultipleFromAWS(attachmentIds, attachments);
-        return createError("Failed to create answer");
+        return handlePrismaError(e, undefined, "Failed to post answer");
       }
     }
   );
