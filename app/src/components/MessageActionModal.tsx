@@ -30,7 +30,7 @@ export const MessageActionModal: FC<
   children,
   action = () => {},
   proceedDisabled = false,
-  modalSize = "md",
+  modalSize = "2xl",
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   return (
