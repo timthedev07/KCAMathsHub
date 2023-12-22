@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
-import { trpc } from "../trpc/client";
+import { trpc } from "../../trpc/client";
 
 interface EnterUsernameProps {
   id: string;

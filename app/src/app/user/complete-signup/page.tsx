@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { EnterUsername } from "../../../components/EnterUsername";
+import { EnterUsername } from "../../../components/forms/EnterUsername";
 import { getServerSession } from "../../../lib/authoptions";
 import { NextPage } from "../../../types/nextpage";
 

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { FC } from "react";
-import { QuestionForm } from "../../../../components/QuestionForm";
+import { QuestionForm } from "../../../../components/forms/QuestionForm";
 import { roleChecker } from "../../../../lib/accessGuard";
 import { getServerSession } from "../../../../lib/authoptions";
 import { pageURLs } from "../../../../lib/pageURLGen";

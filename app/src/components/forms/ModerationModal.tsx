@@ -1,14 +1,14 @@
 import { ToggleSwitch } from "flowbite-react";
 import { useSession } from "next-auth/react";
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { useForm } from "../hooks/useForm";
-import { anyError } from "../lib/anyError";
-import { ModerationFormSchema } from "../schema/moderation";
-import { trpc } from "../trpc/client";
-import { MessageActionModal } from "./helpers/MessageActionModal";
-import { LabelErrorWrapper } from "./reusable/WithLabelWrapper";
-import { QAEditor } from "./richtext/ForwardRefEditor";
-import { StyledWrapper } from "./richtext/StyledWrapper";
+import { useForm } from "../../hooks/useForm";
+import { anyError } from "../../lib/anyError";
+import { ModerationFormSchema } from "../../schema/moderation";
+import { trpc } from "../../trpc/client";
+import { MessageActionModal } from "../helpers/MessageActionModal";
+import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
+import { QAEditor } from "../richtext/ForwardRefEditor";
+import { StyledWrapper } from "../richtext/StyledWrapper";
 
 interface ModerationModalProps {
   aid?: string | null;

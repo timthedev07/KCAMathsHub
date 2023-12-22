@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { QuestionForm } from "../../../components/QuestionForm";
+import { QuestionForm } from "../../../components/forms/QuestionForm";
 import { withAccessGuard } from "../../../lib/accessGuard";
 import { WithSessionProps } from "../../../types/withSessionPage";
 
