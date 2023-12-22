@@ -46,7 +46,6 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
     session?.user && data.answerer?.username === session.user.username
   );
   const canAccept = Boolean(!data.accepted && !isAnswered && canEdit);
-  console.log({ accepted: data.accepted, isAnswered, canEdit });
 
   return (
     <li
