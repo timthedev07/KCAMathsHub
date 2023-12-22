@@ -1,0 +1,53 @@
+import { Prisma } from "@prisma/client";
+import prisma from "../../../db";
+import { handlePrismaError } from "../../../lib/handlePrismaError";
+import { ModerationSubmissionSchema } from "../../../schema/moderation";
+import { createError, createSuccessResponse } from "../../../trpc/createError";
+import { publicProcedure } from "../../trpc";
+
+export const moderate = publicProcedure
+  .input(ModerationSubmissionSchema)
+  .mutation(
+    async ({
+      input: { anonymous, answerId, approval, moderationComment, moderatorId },
+    }) => {
+      let u;
+      try {
+        u = await prisma.user.findUniqueOrThrow({
+          where: { id: moderatorId, roles: { some: { name: "moderator" } } },
+          include: { moderations: { select: { answerId: true } } },
+        });
+      } catch (e) {
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          return createError(e.message);
+        }
+        return createError("Unknown error");
+      }
+
+      if (u.moderations.some((val) => val.answerId === answerId)) {
+        return createError("You have already moderated the answer");
+      }
+
+      try {
+        await prisma.answer.update({
+          where: { id: answerId },
+          data: { moderated: true },
+        });
+      } catch (e) {}
+
+      try {
+        await prisma.moderation.create({
+          data: {
+            anonymous,
+            answer: { connect: { id: answerId } },
+            approval,
+            moderationComment,
+            moderator: { connect: { id: moderatorId } },
+          },
+        });
+        return createSuccessResponse("Answer moderated");
+      } catch (e) {
+        return handlePrismaError(e);
+      }
+    }
+  );

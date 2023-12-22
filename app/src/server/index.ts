@@ -6,6 +6,7 @@ import { getAnswerForEdit } from "./crud/answers/getAnswerForEdit";
 import { getQuestionAnswers } from "./crud/answers/getQuestionAnswers";
 import { deleteAttachment } from "./crud/attachments/deleteAttachment";
 import { getExistingCategories } from "./crud/categories/getCategories";
+import { moderate } from "./crud/moderations/moderate";
 import { addAttachments } from "./crud/questions/addAttachment";
 import { askQuestion } from "./crud/questions/askQuestion";
 import { deleteQuestion } from "./crud/questions/deleteQuestion";
@@ -45,6 +46,7 @@ export const appRouter = router({
   acceptAnswer,
   editAnswer,
   getAnswerForEdit,
+  moderate,
 });
 
 export type AppRouter = typeof appRouter;
