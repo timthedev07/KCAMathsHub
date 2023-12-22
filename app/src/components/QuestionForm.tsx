@@ -7,6 +7,7 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { FaEye, FaUserSecret } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
 import { IoIosSend } from "react-icons/io";
+import { initFromAutoSaveStorage, useAutoSave } from "../hooks/useAutoSave";
 import { anyError } from "../lib/anyError";
 import { uploadToAPI } from "../lib/attachmentClientUpload";
 import { filteredError } from "../lib/filterError";
@@ -45,6 +46,8 @@ interface QuestionFormProps {
 const adviceListClassname =
   "text-white/70 list-disc space-y-8 text-sm pl-5 pt-5";
 
+const storageKey = "question_form";
+
 export const QuestionForm: FC<QuestionFormProps> = ({
   userId,
   defaultValues,
@@ -60,12 +63,15 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       const { files: _, ...rest } = defaultValues;
       return rest;
     } else {
-      return {
-        title: "",
-        content: "",
-        categories: [],
-        anonymous: false,
-      };
+      const stored = initFromAutoSaveStorage<FormData>(storageKey);
+      return stored
+        ? stored
+        : {
+            title: "",
+            content: "",
+            categories: [],
+            anonymous: false,
+          };
     }
   });
   const [changed, setChanged] = useState<ModifyValueType<FormData, boolean>>({
@@ -91,6 +97,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     },
   }).mutateAsync;
 
+  const { clearStorage } = useAutoSave({
+    data: formData,
+    key: storageKey,
+  });
+
   // keep track off files
   const [files, setFiles] = useState<FL>(() => {
     if (defaultValues) {
@@ -115,6 +126,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     try {
       if (operationType === "ask") {
         const quid = await ask({ ...formData, userId, attachmentIds: atts });
+        clearStorage();
         push(pageURLs.question(quid));
       } else {
         if (!quid) return;
@@ -123,6 +135,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
             quid,
             updateData: { ...formData, attachmentIds: atts },
           });
+          clearStorage();
         } catch (e) {
           console.log(e);
         }
