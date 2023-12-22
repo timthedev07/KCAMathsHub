@@ -137,7 +137,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           <AcceptButtonWithConfirmation
             currPage={currPage}
             aid={data.id}
-            quid={data.questionId}
+            quid={data.questionId!}
             color="purple"
           />
         )}
@@ -151,7 +151,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
             </Link>
             <DeletionButtonWithConfirmation
               currPage={currPage}
-              quid={data.questionId}
+              quid={data.questionId!}
               aid={data.id}
               color="purple"
               entity="answer"
