@@ -1,6 +1,6 @@
 import { z } from "zod";
+import { TITLE_LIMIT } from "./constants";
 import { contentSchema } from "./shared/content";
-import { TITLE_LIMIT } from "./vars";
 
 export const AskSchema = z.object({
   title: z

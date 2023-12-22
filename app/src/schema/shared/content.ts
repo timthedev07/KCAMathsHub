@@ -1,6 +1,6 @@
 import { z } from "zod";
+import { CONTENT_LIMIT } from "../constants";
 import { editorValidation } from "../validations/editorValidation";
-import { CONTENT_LIMIT } from "../vars";
 
 export const contentSchema = z
   .string()
