@@ -94,8 +94,8 @@ model Answer {
   answerer    User?             @relation("WrittenAnswers", fields: [answererId], references: [id], onDelete: SetNull)
   answererId  String?
   // question relation
-  question    Question          @relation("QuestionAnswers", fields: [questionId], references: [id], onDelete: Cascade)
-  questionId  String
+  question    Question?         @relation("QuestionAnswers", fields: [questionId], references: [id], onDelete: Cascade)
+  questionId  String?
   // moderations relation
   moderations Moderation[]      @relation("AnswerModerations")
   anonymous   Boolean           @default(false)
