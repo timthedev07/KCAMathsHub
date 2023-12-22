@@ -2,14 +2,16 @@
 
 import { ToggleSwitch } from "flowbite-react";
 import { useRouter } from "next/navigation";
-import { ComponentProps, FC, FormEvent, useState } from "react";
+import { ComponentProps, FC, FormEvent, useEffect, useState } from "react";
 import { FaCheck, FaClipboardUser, FaUserSecret } from "react-icons/fa6";
+import { useAutoSave } from "../../hooks/useAutoSave";
 import { useForm } from "../../hooks/useForm";
 import { anyError } from "../../lib/anyError";
 import { uploadToAPI } from "../../lib/attachmentClientUpload";
 import { pageURLs } from "../../lib/pageURLGen";
 import { AnswerSchema } from "../../schema/answer";
 import { trpc } from "../../trpc/client";
+import { AutoSaveSpinner } from "../AutoSaveSpinner";
 import { LoadingOverlay } from "../LoadingOverlay";
 import { TimedMessageToast } from "../TimedMessageToast";
 import { AttachmentUpload } from "../attachment-upload";
@@ -68,6 +70,21 @@ export const AnswerForm: FC<AnswerFormProps> = ({
     validationSchema: AnswerSchema,
   });
 
+  const { clearStorage, saveState, initFromAutoSaveStorage } = useAutoSave({
+    data: formData,
+    key: "answer_form",
+  });
+
+  useEffect(() => {
+    const data = initFromAutoSaveStorage();
+    if (operationType === "answer" && data && !defaultValues) {
+      const { anonymous, content } = data;
+      update("anonymous", anonymous);
+      update("content", content);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValues, operationType]);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -94,6 +111,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({
           setMessage(res.message);
           setLoading(false);
         } else {
+          clearStorage();
           await refetch();
           setComplete(true);
           setLevel("success");
@@ -141,9 +159,12 @@ export const AnswerForm: FC<AnswerFormProps> = ({
       </TimedMessageToast>
       <LoadingOverlay isLoading={loading} />
       <form
-        className="border-slate-300/30 rounded-lg gap-4 flex flex-col w-full mb-10"
+        className="border-slate-300/30 rounded-lg relative gap-4 flex flex-col w-full mb-10"
         onSubmit={handleSubmit}
       >
+        <div className="absolute top-0 right-0">
+          {saveState !== "saved" && <AutoSaveSpinner />}
+        </div>
         <LabelErrorWrapper
           className="w-full"
           label="Answer"
