@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { MdDelete } from "react-icons/md";
-import { MessageActionModal } from "../../../components/helpers/MessageActionModal";
+import { MessageActionModal } from "../../../components/helpers/message-action-modal";
 import { Button } from "../../../components/reusable/Button";
 import { Input } from "../../../components/reusable/Input";
 import { trpc } from "../../../trpc/client";

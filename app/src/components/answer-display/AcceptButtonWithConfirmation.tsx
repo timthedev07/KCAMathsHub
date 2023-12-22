@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { trpc } from "../../trpc/client";
-import { MessageActionModal } from "../helpers/MessageActionModal";
+import { MessageActionModal } from "../helpers/message-action-modal";
 import { Button } from "../reusable/Button";
 
 interface AcceptButtonWithConfirmationProps {

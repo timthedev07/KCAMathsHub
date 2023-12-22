@@ -2,6 +2,7 @@
 
 import { TRPCClientError } from "@trpc/client";
 import { ToggleSwitch } from "flowbite-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { FaEye, FaUserSecret } from "react-icons/fa";
@@ -21,7 +22,7 @@ import { AttachmentUpload } from "../attachment-upload";
 import { FL } from "../attachment-upload/types";
 import { CategoryAutoComplete } from "../categories/CategoryAutoComplete";
 import { QCategoryBadge } from "../categories/QCategoryBadge";
-import { MessageActionModal } from "../helpers/MessageActionModal";
+import { MessageActionModal } from "../helpers/message-action-modal";
 import { AutoSaveSpinner } from "../loading/AutoSaveSpinner";
 import { LoadingOverlay } from "../loading/LoadingOverlay";
 import { Button } from "../reusable/Button";
@@ -38,7 +39,7 @@ interface FormData {
 }
 
 interface QuestionFormProps {
-  userId: string;
+  userId?: string;
   defaultValues?: FormData & { files: FL };
   operationType?: "ask" | "update";
   quid?: string;
@@ -55,6 +56,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   quid,
   operationType = "ask",
 }) => {
+  const { data: session } = useSession();
   const { push } = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -117,10 +119,12 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     }
   });
 
+  const noSubmit = anyError(errors, changed) || (!session?.user && !userId);
+
   const handleAsk = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (anyError(errors, changed)) {
+    if (noSubmit) {
       return;
     }
 
@@ -131,7 +135,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
     try {
       if (operationType === "ask") {
-        const quid = await ask({ ...formData, userId, attachmentIds: atts });
+        const quid = await ask({
+          ...formData,
+          userId: (userId || session?.user.id)!,
+          attachmentIds: atts,
+        });
         clearStorage();
         push(pageURLs.question(quid));
       } else {
@@ -304,7 +312,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
                 ) : null}
                 <Button
                   type="submit"
-                  disabled={anyError(errors, changed)}
+                  disabled={noSubmit}
                   size="md"
                   color="success"
                 >

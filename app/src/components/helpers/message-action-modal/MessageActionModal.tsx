@@ -9,8 +9,8 @@ import {
   useState,
 } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
-import { LoadingSpin } from "../loading/LoadingSpin";
-import { Button } from "../reusable/Button";
+import { LoadingSpin } from "../../loading/LoadingSpin";
+import { Button } from "../../reusable/Button";
 
 interface MessageActionModalProps {
   open: boolean;
@@ -21,9 +21,7 @@ interface MessageActionModalProps {
   modalSize?: string;
 }
 
-export const MessageActionModal: FC<
-  PropsWithChildren<MessageActionModalProps>
-> = ({
+const Component: FC<PropsWithChildren<MessageActionModalProps>> = ({
   open,
   setOpen,
   heading,
@@ -90,3 +88,5 @@ export const MessageActionModal: FC<
     </Modal>
   );
 };
+
+export default Component;

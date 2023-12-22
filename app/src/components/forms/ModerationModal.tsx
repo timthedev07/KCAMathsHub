@@ -5,7 +5,7 @@ import { useForm } from "../../hooks/useForm";
 import { anyError } from "../../lib/anyError";
 import { ModerationFormSchema } from "../../schema/moderation";
 import { trpc } from "../../trpc/client";
-import { MessageActionModal } from "../helpers/MessageActionModal";
+import { MessageActionModal } from "../helpers/message-action-modal";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { QAEditor } from "../richtext/ForwardRefEditor";
 import { StyledWrapper } from "../richtext/StyledWrapper";
@@ -16,12 +16,14 @@ interface ModerationModalProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
   answerCurrPage: number | null;
   quid: string;
+  resetModerationModal: () => void;
 }
 
 export const ModerationModal: FC<ModerationModalProps> = ({
   aid,
   answerCurrPage,
   quid,
+  resetModerationModal,
   ...rest
 }) => {
   const { data: session } = useSession();
@@ -87,6 +89,7 @@ export const ModerationModal: FC<ModerationModalProps> = ({
     setLoading(true);
     await mutate({ ...formData, answerId: aid, moderatorId: u.id });
     setLoading(false);
+    resetModerationModal();
   };
 
   if (!aid) return null;

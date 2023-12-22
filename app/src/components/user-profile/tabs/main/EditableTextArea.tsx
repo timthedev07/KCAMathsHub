@@ -7,7 +7,7 @@ import { BIO_MAX_LENGTH } from "../../../../constants/maxLengths";
 import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../constants/updateIntervals";
 import { updateIntervalCheck } from "../../../../lib/updateIntervalCheck";
 import { trpc } from "../../../../trpc/client";
-import { MessageActionModal } from "../../../helpers/MessageActionModal";
+import { MessageActionModal } from "../../../helpers/message-action-modal";
 
 interface EditableTextAreaProps {
   user: Session["user"];
