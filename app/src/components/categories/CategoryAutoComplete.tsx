@@ -1,7 +1,7 @@
 import { Combobox, Transition } from "@headlessui/react";
 import { FC, Fragment, useState } from "react";
-import d from "../categories.json";
-import { MAX_CATEGORIES_NUM } from "../constants/catMax";
+import d from "../../categories.json";
+import { MAX_CATEGORIES_NUM } from "../../constants/catMax";
 
 interface CategoryAutoCompleteProps {
   addCategory: (_: string) => void;

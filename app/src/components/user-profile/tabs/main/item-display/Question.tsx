@@ -4,7 +4,7 @@ import { FaCheckCircle, FaUserSecret } from "react-icons/fa";
 import { dateTimeDisplay } from "../../../../../lib/datetimeDisplay";
 import { pageURLs } from "../../../../../lib/pageURLGen";
 import { UserQuestionListDisplay } from "../../../../../types/prisma/payloads/userQs";
-import { QCategoryBadge } from "../../../../QCategoryBadge";
+import { QCategoryBadge } from "../../../../categories/QCategoryBadge";
 
 interface QuestionProps {
   question: UserQuestionListDisplay;
