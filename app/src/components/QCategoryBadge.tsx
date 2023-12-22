@@ -42,7 +42,7 @@ export const QCategoryBadge: FC<QCategoryBadgeProps> = ({
         onDelete();
       }}
       className={`transition duration-200 cursor-pointer ${
-        hoverColors[ind & colors.length]
+        hoverColors[ind % colors.length]
       } rounded-lg text-xs text-white/80 px-3 gap-2 font-semibold flex justify-center items-center h-7 ${
         colors[ind % colors.length]
       }`}
