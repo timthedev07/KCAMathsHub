@@ -9,19 +9,12 @@ interface AutoSaveOptions<T> {
   delay?: number;
 }
 
-export const initFromAutoSaveStorage = <T>(key: string) => {
-  if (typeof window === "undefined") return;
-  const stored = localStorage.getItem(key);
-  if (!stored) return null;
-  return JSON.parse(stored) as T;
-};
-
 type SaveStateType = "saving" | "saved" | "waiting";
 
 export const useAutoSave = <T extends string | Object>({
   data,
   key,
-  delay = 1000,
+  delay = 200,
 }: AutoSaveOptions<T>) => {
   const prevData = useRef(data);
   const [saveState, setSaveState] = useState<SaveStateType>("saved");
@@ -32,6 +25,13 @@ export const useAutoSave = <T extends string | Object>({
     }
     prevData.current = data;
   }, [data, saveState]);
+
+  const initFromAutoSaveStorage = () => {
+    if (typeof window === "undefined") return;
+    const stored = localStorage.getItem(key);
+    if (!stored) return null;
+    return JSON.parse(stored) as T;
+  };
 
   const dataHasChanged = saveState === "waiting";
 
@@ -55,5 +55,5 @@ export const useAutoSave = <T extends string | Object>({
     localStorage.removeItem(key);
   };
 
-  return { saveState, clearStorage };
+  return { saveState, clearStorage, initFromAutoSaveStorage };
 };

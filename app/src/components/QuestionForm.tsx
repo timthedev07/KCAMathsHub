@@ -7,7 +7,7 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { FaEye, FaUserSecret } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
 import { IoIosSend } from "react-icons/io";
-import { initFromAutoSaveStorage, useAutoSave } from "../hooks/useAutoSave";
+import { useAutoSave } from "../hooks/useAutoSave";
 import { anyError } from "../lib/anyError";
 import { uploadToAPI } from "../lib/attachmentClientUpload";
 import { filteredError } from "../lib/filterError";
@@ -17,6 +17,7 @@ import { AskSchema } from "../schema/ask";
 import { AppRouter } from "../server";
 import { trpc } from "../trpc/client";
 import { ErrorStateType, ModifyValueType } from "../types/ErrorStateType";
+import { AutoSaveSpinner } from "./AutoSaveSpinner";
 import { CategoryAutoComplete } from "./CategoryAutoComplete";
 import { LoadingOverlay } from "./LoadingOverlay";
 import { MessageActionModal } from "./MessageActionModal";
@@ -63,15 +64,12 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       const { files: _, ...rest } = defaultValues;
       return rest;
     } else {
-      const stored = initFromAutoSaveStorage<FormData>(storageKey);
-      return stored
-        ? stored
-        : {
-            title: "",
-            content: "",
-            categories: [],
-            anonymous: false,
-          };
+      return {
+        title: "",
+        content: "",
+        categories: [],
+        anonymous: false,
+      };
     }
   });
   const [changed, setChanged] = useState<ModifyValueType<FormData, boolean>>({
@@ -97,10 +95,17 @@ export const QuestionForm: FC<QuestionFormProps> = ({
     },
   }).mutateAsync;
 
-  const { clearStorage } = useAutoSave({
+  const { clearStorage, saveState, initFromAutoSaveStorage } = useAutoSave({
     data: formData,
     key: storageKey,
   });
+
+  useEffect(() => {
+    const data = initFromAutoSaveStorage();
+    if (operationType === "ask" && data && !defaultValues) {
+      setFormData(data);
+    }
+  }, [defaultValues, operationType]);
 
   // keep track off files
   const [files, setFiles] = useState<FL>(() => {
@@ -197,7 +202,10 @@ export const QuestionForm: FC<QuestionFormProps> = ({
         </div>
       </MessageActionModal>
       <div className="flex gap-6 px-2 md:px-8 lg:px-16 my-10">
-        <div className="flex-1 rounded-xl border border-slate-300/20 p-6 lg:p-10 ">
+        <div className="flex-1 relative rounded-xl border border-slate-300/20 p-6 lg:p-10">
+          <div className="absolute top-0 right-0 p-6 lg:p-10">
+            {saveState !== "saved" && <AutoSaveSpinner />}
+          </div>
           <form
             // bg-slate-900/60 hover:bg-slate-800/80
             className="w-full px-4 flex-col flex gap-12"
