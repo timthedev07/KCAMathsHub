@@ -39,6 +39,7 @@ export const getQuestions = publicProcedure
         })
       ).map((each) => ({
         ...each,
+        title: truncateAtWord(each.title, 60),
         content: truncateAtWord(each.content.replaceAll(/[`*_]/gi, ""), 200),
       }));
 
