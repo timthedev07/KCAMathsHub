@@ -42,7 +42,7 @@ const getSSRProps = async (quid: string) => {
   return { u: session?.user, question, isOwner };
 };
 
-const ap = "px-5";
+const ap = "px-6";
 
 const Question: NextPage<Props> = async ({ params: { quid } }) => {
   const {
@@ -69,14 +69,16 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
         <div className="min-w-[300px] max-w-[700px] w-full flex flex-col gap-12 py-24 md:px-0 px-12">
           <div className="flex flex-col gap-4">
             <h1
-              className={`font-bold text-4xl break-words w-full flex justify-between items-center ${
-                answered ? "bg-green-300/20 py-4 rounded-xl " + ap : ""
+              className={`font-bold text-2xl lg:text-4xl break-words w-full flex justify-between items-center ${
+                answered ? "bg-green-300/20 py-6 rounded-xl " + ap : ""
               }`}
             >
-              <span>{title}</span>
-              {answered ? (
-                <FaCheckCircle className="text-green-400 w-6 h-6" />
-              ) : null}
+              <span className="mr-8">{title}</span>
+              <div className="w-6 h-6">
+                {answered ? (
+                  <FaCheckCircle className="text-green-400 w-6 h-6" />
+                ) : null}
+              </div>
             </h1>
             <span className={`text-sm text-white/60 ${answered ? ap : ""}`}>
               {dateTimeDisplay(timestamp)}
@@ -151,7 +153,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
           </div>
 
           {attachments.length ? (
-            <h2 className="font-semibold text-3xl">Attachments</h2>
+            <h2 className="font-semibold text-2xl lg:text-3xl">Attachments</h2>
           ) : null}
 
           <AttachmentList attachments={attachments} />
