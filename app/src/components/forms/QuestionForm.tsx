@@ -23,6 +23,7 @@ import { FL } from "../attachment-upload/types";
 import { CategoryAutoComplete } from "../categories/CategoryAutoComplete";
 import { QCategoryBadge } from "../categories/QCategoryBadge";
 import { MessageActionModal } from "../helpers/message-action-modal";
+import { TimedMessageToast } from "../helpers/time-message-toast";
 import { AutoSaveSpinner } from "../loading/AutoSaveSpinner";
 import { LoadingOverlay } from "../loading/LoadingOverlay";
 import { Button } from "../reusable/Button";
@@ -58,6 +59,8 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 }) => {
   const { data: session } = useSession();
   const { push } = useRouter();
+  const [toastMsg, setToastMsg] = useState<string>("");
+  const [showToast, setShowToast] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [errors, setErrors] = useState<ErrorStateType<FormData>>({});
@@ -135,13 +138,23 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
     try {
       if (operationType === "ask") {
-        const quid = await ask({
+        const response = await ask({
           ...formData,
           userId: (userId || session?.user.id)!,
           attachmentIds: atts,
         });
+
+        const _quid = response.data;
+        const success = response.success;
+
+        if (!_quid || !success) {
+          setToastMsg(response.message);
+          setShowToast(true);
+          return;
+        }
+
         clearStorage();
-        push(pageURLs.question(quid));
+        push(pageURLs.question(_quid));
       } else {
         if (!quid) return;
         try {
@@ -193,6 +206,9 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
   return (
     <>
+      <TimedMessageToast show={showToast} setShow={setShowToast} level="error">
+        {toastMsg}
+      </TimedMessageToast>
       <LoadingOverlay isLoading={loading} />
       <MessageActionModal
         heading="Back"
