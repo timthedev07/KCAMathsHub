@@ -11,6 +11,7 @@ import { roleChecker } from "../../lib/accessGuard";
 import { dateTimeDisplay } from "../../lib/datetimeDisplay";
 import { pageURLs } from "../../lib/pageURLGen";
 import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers";
+import { trpc } from "../../trpc/client";
 import { AttachmentList } from "../attachments";
 import { OptionalLinkWrapper } from "../helpers/OptionalLinkWrapper";
 import { ToastLevel } from "../helpers/time-message-toast/";
@@ -20,7 +21,7 @@ import { Button } from "../reusable/Button";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { StyledWrapper } from "../richtext/StyledWrapper";
 import { AcceptButtonWithConfirmation } from "./AcceptButtonWithConfirmation";
-import { ModerationsListType } from "./type";
+import { Arg } from "./type";
 
 interface AnswerListItemProps {
   data: inferProcedureOutput<typeof getQuestionAnswers>["answers"][number];
@@ -29,7 +30,7 @@ interface AnswerListItemProps {
   displayToast: (_: string, __: ToastLevel) => void;
   isAnswered: boolean;
   moderate: (_: string, __: number) => void;
-  showModerations: (_: ModerationsListType) => void;
+  showModerations: (_: Arg) => void;
 }
 
 export const AnswerListItem: FC<AnswerListItemProps> = ({
@@ -44,10 +45,14 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   const anonymous = data.anonymous;
   const { answerer, accepted } = data;
   const { data: session } = useSession();
+
+  const { data: moderations } = trpc.getModerations.useQuery({ aid: data.id });
+
   const canMod = Boolean(
     session &&
+      !!moderations &&
       roleChecker(session.user.roles, ["moderator"]) &&
-      data.moderations.every(
+      moderations.every(
         (val) => val.moderator?.username !== session.user.username
       )
   );
@@ -55,7 +60,8 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
     session?.user && data.answerer?.username === session.user.username
   );
   const canAccept = Boolean(!data.accepted && !isAnswered && canEdit);
-  const moderated = data.moderated && data.moderations.some((v) => v.approval);
+  const moderated =
+    data.moderated && !!moderations && moderations.some((v) => v.approval);
 
   return (
     <li
@@ -123,10 +129,10 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           <AttachmentList attachments={data.attachments} />
         </LabelErrorWrapper>
       ) : null}
-      {data.moderations.length !== 0 && (
+      {(moderations?.length || 0) !== 0 && moderations && (
         <Button
           onClick={() => {
-            showModerations(data.moderations);
+            showModerations({ aid: data.id, mods: moderations });
           }}
           pill
           color={!data.accepted ? "info" : "success"}

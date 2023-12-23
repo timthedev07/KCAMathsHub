@@ -9,7 +9,7 @@ import { TimedMessageToast, ToastLevel } from "../helpers/time-message-toast/";
 import { LoadingSpin } from "../loading/loading-spin";
 import { Pagination } from "../pagination";
 import { AnswerListItem } from "./Item";
-import { ModerationsListType } from "./type";
+import { Arg } from "./type";
 
 const ModerationList = dynamic(() => import("./ModerationList"), {
   ssr: false,
@@ -30,8 +30,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   uid,
   isAnswered,
 }) => {
-  const [selectedModerations, setSelectedModerations] =
-    useState<ModerationsListType | null>();
+  const [selectedModerations, setSelectedModerations] = useState<Arg | null>();
   const [listOpen, setListOpen] = useState<boolean>(false);
 
   const [moderatedAnswerId, setModeratedAnswerId] = useState<string | null>(
@@ -57,7 +56,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
     setModeratedAnswerId(null);
     setModerating(false);
   }, []);
-  const showModerations = useCallback((moderations: ModerationsListType) => {
+  const showModerations = useCallback((moderations: Arg) => {
     setSelectedModerations(moderations);
     setListOpen(true);
   }, []);
@@ -93,12 +92,12 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
           setOpen={setModerating}
         />
       )}
-      {selectedModerations && listOpen && (
-        <ModerationList
-          closeModerations={closeModerations}
-          moderations={selectedModerations}
-        />
-      )}
+      <ModerationList
+        setModerations={setSelectedModerations}
+        isOpen={Boolean(selectedModerations && listOpen)}
+        closeModerations={closeModerations}
+        moderations={selectedModerations || null}
+      />
       <TimedMessageToast
         show={showToast}
         setShow={setShowToast}

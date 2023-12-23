@@ -32,15 +32,19 @@ export const ModerationModal: FC<ModerationModalProps> = ({
     defaultValues: { anonymous: false, moderationComment: "", approval: false },
     validationSchema: ModerationFormSchema,
   });
-  const { getQuestionAnswers } = trpc.useUtils();
+  const { getQuestionAnswers, getModerations } = trpc.useUtils();
   const mutate = trpc.moderate.useMutation({
     onMutate: async () => {
-      if (!answerCurrPage) return null;
+      if (!answerCurrPage || !aid) return null;
 
       const search = { quid, pageNum: answerCurrPage };
 
       await getQuestionAnswers.cancel(search);
-      const prev = getQuestionAnswers.getData(search);
+      await getModerations.cancel({ aid });
+
+      const prevX = getQuestionAnswers.getData(search);
+      const prevY = getModerations.getData({ aid });
+
       getQuestionAnswers.setData(search, (p) => {
         if (!p) return { answers: [], lastPageSize: 0, totalPages: 0 };
 
@@ -53,13 +57,6 @@ export const ModerationModal: FC<ModerationModalProps> = ({
                   ? {
                       ...v,
                       moderated: true,
-                      moderations: [
-                        {
-                          ...formData,
-                          moderator: { username: session?.user.username || "" },
-                        },
-                        ...v.moderations,
-                      ],
                     }
                   : v
               )
@@ -67,15 +64,35 @@ export const ModerationModal: FC<ModerationModalProps> = ({
         };
       });
 
-      return prev;
+      getModerations.setData({ aid }, (p) => {
+        if (!p) return p;
+        return [
+          {
+            ...formData,
+            id: "",
+            moderator: session?.user as any,
+            timestamp: new Date(),
+            moderationComment: {
+              compiledSource: formData.moderationComment,
+              frontmatter: {},
+              scope: {},
+            },
+          },
+          ...p,
+        ];
+      });
+
+      return { prevX, prevY };
     },
     onError: async (_, __, ctx) => {
-      if (!answerCurrPage || !ctx) return;
-      getQuestionAnswers.setData({ quid, pageNum: answerCurrPage }, ctx);
+      if (!answerCurrPage || !ctx || !aid) return;
+      getQuestionAnswers.setData({ quid, pageNum: answerCurrPage }, ctx.prevX);
+      getModerations.setData({ aid }, ctx.prevY);
     },
     onSuccess: async () => {
-      if (!answerCurrPage) return;
+      if (!answerCurrPage || !aid) return;
       getQuestionAnswers.invalidate({ quid, pageNum: answerCurrPage });
+      getModerations.invalidate({ aid });
     },
   }).mutateAsync;
 
