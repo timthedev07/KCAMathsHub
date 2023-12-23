@@ -59,6 +59,11 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
   }, []);
   const showModerations = useCallback((moderations: ModerationsListType) => {
     setSelectedModerations(moderations);
+    setListOpen(true);
+  }, []);
+  const closeModerations = useCallback(() => {
+    setListOpen(false);
+    setSelectedModerations(null);
   }, []);
 
   const displayToast = (msg: string, level: ToastLevel) => {
@@ -88,8 +93,11 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
           setOpen={setModerating}
         />
       )}
-      {selectedModerations && (
-        <ModerationList moderations={selectedModerations} />
+      {selectedModerations && listOpen && (
+        <ModerationList
+          closeModerations={closeModerations}
+          moderations={selectedModerations}
+        />
       )}
       <TimedMessageToast
         show={showToast}
@@ -121,7 +129,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
                 <ul className="w-full flex flex-col py-8">
                   {data.answers.map((each, ind) => (
                     <AnswerListItem
-                      showModerations={(v) => {}}
+                      showModerations={showModerations}
                       moderate={moderate}
                       isAnswered={isAnswered}
                       displayToast={displayToast}
