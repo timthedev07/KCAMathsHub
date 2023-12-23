@@ -20,22 +20,6 @@ export const getQuestionAnswers = publicProcedure
       include: {
         answerer: { select: { username: true, image: true } },
         attachments: { select: { name: true, objKey: true, size: true } },
-        moderations: {
-          orderBy: { timestamp: "desc" },
-          select: {
-            id: true,
-            timestamp: true,
-            approval: true,
-            moderationComment: true,
-            moderator: {
-              select: {
-                username: true,
-                image: true,
-              },
-            },
-            anonymous: true,
-          },
-        },
       },
       orderBy: {
         timestamp: "desc",
@@ -57,14 +41,6 @@ export const getQuestionAnswers = publicProcedure
                 },
               },
               false
-            ),
-            moderations: await Promise.all(
-              answer.moderations.map(async (each) => ({
-                ...each,
-                moderationComment: each.moderationComment
-                  ? await serialize(each.moderationComment)
-                  : null,
-              }))
             ),
             attachments: attachments.map(({ objKey, ...k }) => {
               return {
