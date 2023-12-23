@@ -56,6 +56,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
       timestamp,
       answered,
       categories,
+      yearGroupAsked,
     },
     u,
   } = await getSSRProps(quid);
@@ -106,7 +107,8 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
                   <span
                     className={`text-white/80 ${anonymous ? "italic" : ""}`}
                   >
-                    {questioner?.username || "Anonymous"}
+                    {questioner?.username || "Anonymous"}{" "}
+                    {yearGroupAsked ? `asked in Y${yearGroupAsked}` : ""}
                   </span>
                 </div>
               </OptionalLinkWrapper>
