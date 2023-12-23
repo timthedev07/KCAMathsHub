@@ -17,7 +17,7 @@ const helperFind = async (where: Prisma.QuestionWhereUniqueInput) => {
     include: {
       questioner: { select: userSelection },
       categories: true,
-      answer: {
+      answers: {
         select: {
           answerer: { select: userSelection },
           content: true,
