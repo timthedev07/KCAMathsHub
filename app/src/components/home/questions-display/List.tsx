@@ -4,9 +4,9 @@ import { FaCheckCircle } from "react-icons/fa";
 import { FaAnglesRight } from "react-icons/fa6";
 import { dateTimeDisplay } from "../../../lib/datetimeDisplay";
 import { pageURLs } from "../../../lib/pageURLGen";
-import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
 import { QCategoryBadge } from "../../categories/QCategoryBadge";
-import { LoadingSpin } from "../../loading/LoadingSpin";
+import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
+import { LoadingSpin } from "../../loading/loading-spin";
 import { Button } from "../../reusable/Button";
 import { QueryOutput } from "./props.types";
 

@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
-import { LoadingSpin } from "../../loading/LoadingSpin";
+import { LoadingSpin } from "../../loading/loading-spin";
 import { Button } from "../../reusable/Button";
 
 interface MessageActionModalProps {

@@ -6,7 +6,7 @@ import { trpc } from "../../trpc/client";
 import { AnswerForm } from "../answer-form";
 import { ModerationModal } from "../forms/ModerationModal";
 import { TimedMessageToast, ToastLevel } from "../helpers/time-message-toast/";
-import { LoadingSpin } from "../loading/LoadingSpin";
+import { LoadingSpin } from "../loading/loading-spin";
 import { Pagination } from "../pagination";
 import { AnswerListItem } from "./Item";
 import { ModerationsListType } from "./type";

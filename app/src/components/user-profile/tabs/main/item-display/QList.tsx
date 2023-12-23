@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { trpc } from "../../../../../trpc/client";
-import { LoadingSpin } from "../../../../loading/LoadingSpin";
+import { LoadingSpin } from "../../../../loading/loading-spin";
 import { ProfileSubDisplay } from "../ProfileSubDisplay";
 import { Question } from "./Question";
 

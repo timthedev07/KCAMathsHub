@@ -9,7 +9,7 @@ import { viewPanelBase } from ".";
 import { pageURLs } from "../../../lib/pageURLGen";
 import { trpc } from "../../../trpc/client";
 import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
-import { LoadingSpin } from "../../loading/LoadingSpin";
+import { LoadingSpin } from "../../loading/loading-spin";
 import { Button } from "../../reusable/Button";
 
 export const ReferralTab: FC = ({}) => {

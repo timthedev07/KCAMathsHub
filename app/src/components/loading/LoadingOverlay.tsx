@@ -1,6 +1,6 @@
 "use client";
 import { FC } from "react";
-import { LoadingSpin } from "./LoadingSpin";
+import { LoadingSpin } from "./loading-spin";
 
 interface LoadingOverlayProps {
   isLoading: boolean;

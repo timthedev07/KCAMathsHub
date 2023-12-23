@@ -9,7 +9,7 @@ import { AttachmentList } from "../../../components/attachments";
 import { QCategoryBadge } from "../../../components/categories/QCategoryBadge";
 import { OptionalLinkWrapper } from "../../../components/helpers/OptionalLinkWrapper";
 import { ProfileImgDisplay } from "../../../components/image/ProfileImgDisplay";
-import { LoadingSpin } from "../../../components/loading/LoadingSpin";
+import { LoadingSpin } from "../../../components/loading/loading-spin";
 import { mdxCustomComponents } from "../../../components/mdx/components";
 import { Button } from "../../../components/reusable/Button";
 import { getServerSession } from "../../../lib/authoptions";
