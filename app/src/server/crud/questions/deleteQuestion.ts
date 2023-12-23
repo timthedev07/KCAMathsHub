@@ -15,7 +15,16 @@ export const deleteQuestion = publicProcedure
 
     try {
       deleted = await prisma.question.delete({
-        where: { id: quid, questionerId: uid },
+        where: {
+          id: quid,
+          questionerId: uid,
+          answered: true,
+          answers: {
+            some: {
+              AND: [{ accepted: false }, { moderated: false }],
+            },
+          },
+        },
         include: { attachments: { select: { objKey: true } } },
       });
     } catch (err) {
