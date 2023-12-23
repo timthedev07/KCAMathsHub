@@ -1,21 +1,14 @@
 "use client";
 import { inferProcedureOutput } from "@trpc/server";
 import { useSession } from "next-auth/react";
-import dynamic from "next/dynamic";
 import { FC } from "react";
 import { DAYS_BETWEEN_USERNAME_UPDATE } from "../../../../../constants/updateIntervals";
 import { updateIntervalCheck } from "../../../../../lib/updateIntervalCheck";
 import { getUser } from "../../../../../server/crud/user/getUser";
 import { WithRole } from "../../../../../types/next-auth";
+import { Editable } from "./Editable";
 
 export const spanBase = "py-1 px-2 font-bold text-xl font-mono";
-
-const Editable = dynamic(async () => (await import("./Editable")).Editable, {
-  ssr: false,
-  loading: () => (
-    <span className={spanBase.replace("font-mono", "text-center")}>...</span>
-  ),
-});
 
 interface UsernameEditableProps {
   editable?: boolean;
