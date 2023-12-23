@@ -57,6 +57,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
       answered,
       categories,
       yearGroupAsked,
+      answers,
     },
     u,
   } = await getSSRProps(quid);
@@ -129,7 +130,11 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
               {u && isOwner && !answered ? (
                 <MarkAsAnswered quid={quid} isOwner={isOwner} uid={u.id} />
               ) : null}
-              {u && isOwner ? (
+              {u &&
+              isOwner &&
+              answers.every((each) =>
+                Boolean(!each.moderated && !each.accepted)
+              ) ? (
                 <DeletionButtonWithConfirmation
                   isOwner={isOwner}
                   quid={quid}
