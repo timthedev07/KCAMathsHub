@@ -22,6 +22,7 @@ export const getQuestionAnswers = publicProcedure
         attachments: { select: { name: true, objKey: true, size: true } },
         moderations: {
           select: {
+            id: true,
             approval: true,
             moderationComment: true,
             moderator: {
