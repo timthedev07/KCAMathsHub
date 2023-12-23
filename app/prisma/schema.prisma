@@ -66,7 +66,7 @@ model Question {
   questioner     User?              @relation(fields: [questionerId], references: [id], onDelete: SetNull)
   questionerId   String?
   // answer relation
-  answer         Answer[]           @relation("QuestionAnswers")
+  answers        Answer[]           @relation("QuestionAnswers")
   // categories relation
   categories     QuestionCategory[] @relation("QuestionCategory")
   // yearGroup
