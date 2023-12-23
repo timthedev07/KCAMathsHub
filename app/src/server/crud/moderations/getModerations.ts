@@ -1,7 +1,7 @@
+import { serialize } from "next-mdx-remote/serialize";
+import remarkGfm from "remark-gfm";
 import { z } from "zod";
 import prisma from "../../../db";
-import { handlePrismaError } from "../../../lib/handlePrismaError";
-import { createSuccessResponse } from "../../../trpc/createError";
 import { publicProcedure } from "../../trpc";
 
 export const getModerations = publicProcedure
@@ -27,8 +27,25 @@ export const getModerations = publicProcedure
           anonymous: true,
         },
       });
-      return createSuccessResponse("", res);
+
+      return Promise.all(
+        res.map(async (each) => ({
+          ...each,
+          moderationComment: each.moderationComment
+            ? await serialize(
+                each.moderationComment,
+                {
+                  mdxOptions: {
+                    remarkPlugins: [remarkGfm],
+                    format: "md",
+                  },
+                },
+                false
+              )
+            : null,
+        }))
+      );
     } catch (e) {
-      return handlePrismaError(e);
+      return [];
     }
   });
