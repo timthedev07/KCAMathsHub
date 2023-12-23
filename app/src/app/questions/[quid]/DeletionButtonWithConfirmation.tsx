@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { MessageActionModal } from "../../../components/helpers/message-action-modal";
+import { TimedMessageToast } from "../../../components/helpers/time-message-toast";
 import { Button } from "../../../components/reusable/Button";
 import { Input } from "../../../components/reusable/Input";
 import { trpc } from "../../../trpc/client";
@@ -32,6 +33,8 @@ export const DeletionButtonWithConfirmation: FC<
   onSuccess,
 }) => {
   const { push } = useRouter();
+  const [msg, setMsg] = useState<string>("");
+  const [show, setShow] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [x, setX] = useState<string>("");
   const { getQuestion, getQuestionAnswers } = trpc.useUtils();
@@ -67,6 +70,14 @@ export const DeletionButtonWithConfirmation: FC<
 
   return (
     <>
+      <TimedMessageToast
+        show={show}
+        setShow={setShow}
+        timeMilliseconds={3000}
+        level="error"
+      >
+        {msg}
+      </TimedMessageToast>
       <MessageActionModal
         proceedDisabled={x !== "permanently delete"}
         open={modalOpen}
@@ -81,9 +92,16 @@ export const DeletionButtonWithConfirmation: FC<
                   uid,
                 });
 
+                setModalOpen(false);
+
                 if (success) {
                   if (onSuccess) onSuccess();
                   push("/");
+                } else {
+                  setMsg(
+                    "Question couldn't be deleted; others invested time in it."
+                  );
+                  setShow(true);
                 }
 
                 break;
@@ -94,8 +112,14 @@ export const DeletionButtonWithConfirmation: FC<
                 const response = await mutateA({
                   aid,
                 });
+
+                setModalOpen(false);
+
                 if (response.success) {
                   if (onSuccess) onSuccess();
+                } else {
+                  setMsg(response.message);
+                  setShow(true);
                 }
                 break;
               }
