@@ -110,7 +110,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
           className="min-w-[300px] max-w-[700px] w-full py-24 md:px-0 px-12"
           ref={topRef}
         >
-          <h2 className="font-semibold text-3xl">Answers</h2>
+          <h2 className="font-semibold text-2xl lg:text-3xl">Answers</h2>
           <div className={`w-full flex-col ${isLoading ? "h-72" : ""}`}>
             {isLoading || data === undefined ? (
               <LoadingSpin />

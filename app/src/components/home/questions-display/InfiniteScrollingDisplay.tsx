@@ -8,6 +8,7 @@ import { InfiniteScrollingDisplayProps } from "./props.types";
 
 export const InfiniteScrollingDisplay: FC<InfiniteScrollingDisplayProps> = ({
   initialData,
+  query,
 }) => {
   const [lastQRef, inView] = useInView({ triggerOnce: true });
 

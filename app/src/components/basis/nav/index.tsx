@@ -1,8 +1,10 @@
 import { Session } from "next-auth";
 import { FC } from "react";
 import { Hamburger } from "../../../svgs/sidebar/Hamburger";
+import { StudentStages } from "../../../types/StudentStage";
 import { SignInButton } from "../../auth/SignInButton";
 import { ConditionalProfilePic } from "./ConditionalProfilePic";
+import { NavItem } from "./NavItem";
 
 interface NavProps {
   className?: string;
@@ -24,7 +26,7 @@ export const Nav: FC<NavProps> = ({
   const u = session?.user;
   return (
     <nav className={`${bg} ${className || ""} relative z-20`}>
-      <div className="flex items-center justify-start gap-8 px-8 h-full">
+      <div className="flex items-center justify-start gap-6 px-8 h-full">
         <button
           onClick={() => {
             if (onHomeClick) onHomeClick();
@@ -37,6 +39,16 @@ export const Nav: FC<NavProps> = ({
             } transition duration-300 fill-neutral-200 group-hover:fill-white w-5 h-5 cursor-pointer`}
           />
         </button>
+        <div className="flex xl:w-4/12 lg:5/12 w-9/12 md:justify-between justify-evenly">
+          <h2 className="md:block hidden text-lg font-semibold">KCAMathsHub</h2>
+          {StudentStages.map((each) => (
+            <NavItem
+              key={each}
+              text={each}
+              url={{ pathname: "/", query: { k: each } }}
+            />
+          ))}
+        </div>
         <div className="ml-auto">
           {!!u ? (
             <ConditionalProfilePic user={u} />
