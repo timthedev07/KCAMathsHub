@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { FC } from "react";
-import { FaCheckCircle } from "react-icons/fa";
 import { FaAnglesRight } from "react-icons/fa6";
 import { dateTimeDisplay } from "../../../lib/datetimeDisplay";
 import { pageURLs } from "../../../lib/pageURLGen";
@@ -16,27 +15,12 @@ interface ListProps {
   isFetching?: boolean;
 }
 
-const Check = () => (
-  <div className="bg-green-300/20 rounded-md w-8 h-8 flex justify-center items-center">
-    <FaCheckCircle className="w-5 h-5 text-green-400" />
-  </div>
-);
-
 export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
   return (
     <ol className="w-full flex flex-col py-8 gap-8 items-center">
       {questions.map(
         (
-          {
-            id,
-            title,
-            timestamp,
-            answered,
-            anonymous,
-            categories,
-            questioner,
-            content,
-          },
+          { id, title, timestamp, anonymous, categories, questioner, content },
           ind
         ) => (
           <li
@@ -44,38 +28,34 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
             key={id}
             ref={ind === questions.length - 1 ? lastQRef : null}
           >
-            <div className="flex justify-between items-center ">
-              <div className="flex flex-col gap-6 w-full">
-                <span className="truncate text-2xl font-semibold text-white/90 group-hover:text-white transition duration-300">
-                  {title}
-                </span>
-                <div className="flex gap-3 items-center">
-                  <div className="flex gap-2 items-center w-fit">
-                    <ProfileImgDisplay
-                      className="w-6 h-6"
-                      src={!anonymous ? questioner?.image : null}
-                    />
-                    <span
-                      className={`text-white/70 text-sm ${
-                        anonymous ? "italic" : "font-mono"
-                      }`}
-                    >
-                      {!anonymous ? questioner?.username : "Anonymous"}
-                    </span>
-                  </div>
-                  <span className="text-sm text-white/50">
-                    on {dateTimeDisplay(timestamp)}
+            <div className="flex flex-col gap-6 w-full">
+              <span className="text-2xl font-semibold text-white/90 group-hover:text-white transition duration-300">
+                {title}
+              </span>
+              <div className="flex gap-3 flex-col xl:flex-row xl:items-center">
+                <div className="flex gap-2 items-center w-fit">
+                  <ProfileImgDisplay
+                    className="w-6 h-6"
+                    src={!anonymous ? questioner?.image : null}
+                  />
+                  <span
+                    className={`text-white/70 text-sm ${
+                      anonymous ? "italic" : "font-mono"
+                    }`}
+                  >
+                    {!anonymous ? questioner?.username : "Anonymous"}
                   </span>
                 </div>
-              </div>
-              <div
-                className={`flex gap-2 ${
-                  answered || anonymous ? "block" : "hidden"
-                }`}
-              >
-                {answered ? <Check /> : null}
+                <span className="text-sm text-white/50">
+                  on {dateTimeDisplay(timestamp)}
+                </span>
               </div>
             </div>
+            {/* <div
+                className={`flex gap-2 w-8 ${answered ? "block" : "hidden"}`}
+              >
+                {answered ? <Check /> : null}
+              </div> */}
             <ul className="flex gap-2 items-start flex-wrap">
               {categories.map((each, ind) => (
                 <QCategoryBadge name={each.name} ind={ind} key={each.name} />
