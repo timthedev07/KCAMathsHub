@@ -123,7 +123,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           <AttachmentList attachments={data.attachments} />
         </LabelErrorWrapper>
       ) : null}
-      {data.moderations.length && (
+      {data.moderations.length !== 0 && (
         <Button
           onClick={() => {
             showModerations(data.moderations);
