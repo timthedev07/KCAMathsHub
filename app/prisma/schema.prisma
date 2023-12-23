@@ -70,7 +70,7 @@ model Question {
   // categories relation
   categories     QuestionCategory[] @relation("QuestionCategory")
   // yearGroup
-  yearGroupAsked Int
+  yearGroupAsked Int?
   // answered
   answered       Boolean            @default(false)
   anonymous      Boolean            @default(false)
