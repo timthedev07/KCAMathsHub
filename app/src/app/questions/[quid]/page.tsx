@@ -26,7 +26,7 @@ interface Props {
 
 const AnswersDisplay = dynamic(
   () => import("../../../components/answer-display/index"),
-  { ssr: false, loading: () => <LoadingSpin className="mb-32 h-64" /> }
+  { ssr: false, loading: () => <LoadingSpin className="mb-32 min-h-64" /> }
 );
 
 const getSSRProps = async (quid: string) => {
