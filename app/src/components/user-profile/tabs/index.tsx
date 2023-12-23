@@ -47,3 +47,5 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user, isCurrUser }) => {
     </Tabs>
   );
 };
+
+export default ProfileTabs;

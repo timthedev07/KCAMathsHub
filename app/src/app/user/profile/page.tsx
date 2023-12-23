@@ -1,19 +1,28 @@
-import { ProfileTabs } from "../../../components/user-profile/tabs";
-import { withAccessGuard } from "../../../lib/accessGuard";
-import { NextPage } from "../../../types/nextpage";
-import { WithSessionProps } from "../../../types/withSessionPage";
+"use client";
 
-const Profile: NextPage<WithSessionProps> = async ({ session }) => {
+import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import { NextPage } from "../../../types/nextpage";
+
+const ProfileTabs = dynamic(
+  () => import("../../../components/user-profile/tabs"),
+  {
+    ssr: false,
+  }
+);
+
+const Profile: NextPage = () => {
+  const { data: session } = useSession({ required: true });
+
+  if (!session?.user) {
+    return;
+  }
+
   return (
     <div className="my-6 mx-8 md:mx-24">
-      <ProfileTabs isCurrUser user={session!.user} />
+      <ProfileTabs isCurrUser user={session.user} />
     </div>
   );
 };
 
-export default await withAccessGuard(Profile, [
-  "inquirer",
-  "admin",
-  "answerer",
-  "moderator",
-]);
+export default Profile;
