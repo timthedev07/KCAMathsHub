@@ -1,6 +1,6 @@
 import { inferProcedureOutput } from "@trpc/server";
-import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers";
+import { getModerations } from "../../server/crud/moderations/getModerations";
 
-export type ModerationsListType = inferProcedureOutput<
-  typeof getQuestionAnswers
->["answers"][number]["moderations"];
+export type ModerationsListType = inferProcedureOutput<typeof getModerations>;
+
+export type Arg = { mods: ModerationsListType; aid: string };
