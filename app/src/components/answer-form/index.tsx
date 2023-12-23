@@ -13,7 +13,7 @@ import { AnswerSchema } from "../../schema/answer";
 import { trpc } from "../../trpc/client";
 import { AttachmentUpload } from "../attachment-upload";
 import { FL } from "../attachment-upload/types";
-import { TimedMessageToast } from "../helpers/TimedMessageToast";
+import { TimedMessageToast } from "../helpers/time-message-toast/TimedMessageToast";
 import { AutoSaveSpinner } from "../loading/AutoSaveSpinner";
 import { LoadingOverlay } from "../loading/LoadingOverlay";
 import { Button } from "../reusable/Button";

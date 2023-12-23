@@ -13,13 +13,14 @@ import { pageURLs } from "../../lib/pageURLGen";
 import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers";
 import { AttachmentList } from "../attachments";
 import { OptionalLinkWrapper } from "../helpers/OptionalLinkWrapper";
-import { ToastLevel } from "../helpers/TimedMessageToast";
+import { ToastLevel } from "../helpers/time-message-toast/TimedMessageToast";
 import { ProfileImgDisplay } from "../image/ProfileImgDisplay";
 import { mdxCustomComponents } from "../mdx/components";
 import { Button } from "../reusable/Button";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { StyledWrapper } from "../richtext/StyledWrapper";
 import { AcceptButtonWithConfirmation } from "./AcceptButtonWithConfirmation";
+import { ModerationsListType } from "./type";
 
 interface AnswerListItemProps {
   data: inferProcedureOutput<typeof getQuestionAnswers>["answers"][number];
@@ -28,6 +29,7 @@ interface AnswerListItemProps {
   displayToast: (_: string, __: ToastLevel) => void;
   isAnswered: boolean;
   moderate: (_: string, __: number) => void;
+  showModerations: (_: ModerationsListType) => void;
 }
 
 export const AnswerListItem: FC<AnswerListItemProps> = ({
@@ -37,6 +39,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   displayToast,
   isAnswered,
   moderate,
+  showModerations,
 }) => {
   const anonymous = data.anonymous;
   const { answerer, accepted } = data;
@@ -121,7 +124,13 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
         </LabelErrorWrapper>
       ) : null}
       {data.moderations.length && (
-        <Button pill color={!data.accepted ? "info" : "success"}>
+        <Button
+          onClick={() => {
+            showModerations(data.moderations);
+          }}
+          pill
+          color={!data.accepted ? "info" : "success"}
+        >
           <MdChecklist className="mr-2 w-5 h-5" />
           See Moderations
         </Button>

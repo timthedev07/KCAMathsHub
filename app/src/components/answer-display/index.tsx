@@ -1,14 +1,22 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { FC, useCallback, useRef, useState } from "react";
 import { trpc } from "../../trpc/client";
 import { AnswerForm } from "../answer-form";
 import { ModerationModal } from "../forms/ModerationModal";
-import { TimedMessageToast, ToastLevel } from "../helpers/TimedMessageToast";
+import {
+  TimedMessageToast,
+  ToastLevel,
+} from "../helpers/time-message-toast/TimedMessageToast";
 import { LoadingSpin } from "../loading/LoadingSpin";
 import { Pagination } from "../pagination";
 import { AnswerListItem } from "./Item";
 import { ModerationsListType } from "./type";
+
+const ModerationList = dynamic(() => import("./ModerationList"), {
+  ssr: false,
+});
 
 interface AnswersDisplay {
   quid: string;
@@ -27,6 +35,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
 }) => {
   const [selectedModerations, setSelectedModerations] =
     useState<ModerationsListType | null>();
+  const [listOpen, setListOpen] = useState<boolean>(false);
 
   const [moderatedAnswerId, setModeratedAnswerId] = useState<string | null>(
     null
@@ -50,6 +59,9 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
     setModeratedPageNum(null);
     setModeratedAnswerId(null);
     setModerating(false);
+  }, []);
+  const showModerations = useCallback((moderations: ModerationsListType) => {
+    setSelectedModerations(moderations);
   }, []);
 
   const displayToast = (msg: string, level: ToastLevel) => {
@@ -78,6 +90,9 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
           open={moderating}
           setOpen={setModerating}
         />
+      )}
+      {selectedModerations && (
+        <ModerationList moderations={selectedModerations} />
       )}
       <TimedMessageToast
         show={showToast}
@@ -109,6 +124,7 @@ const AnswersDisplay: FC<AnswersDisplay> = ({
                 <ul className="w-full flex flex-col py-8">
                   {data.answers.map((each, ind) => (
                     <AnswerListItem
+                      showModerations={(v) => {}}
                       moderate={moderate}
                       isAnswered={isAnswered}
                       displayToast={displayToast}

@@ -5,6 +5,8 @@ interface ModerationListProps {
   moderations: ModerationsListType;
 }
 
-export const ModerationList: FC<ModerationListProps> = ({ moderations }) => {
+const ModerationList: FC<ModerationListProps> = ({ moderations }) => {
   return <ul></ul>;
 };
+
+export default ModerationList;
