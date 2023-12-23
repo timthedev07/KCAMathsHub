@@ -1,11 +1,10 @@
-import { TRPCError } from "@trpc/server";
 import prisma from "../../../db";
 import { roleChecker } from "../../../lib/accessGuard";
 import { classifyKSCategory } from "../../../lib/classifyKSCategory";
 import { getCurrYear } from "../../../lib/getCurrYear";
 import { handlePrismaError } from "../../../lib/handlePrismaError";
 import { AskSubmissionSchema } from "../../../schema/ask";
-import { createError } from "../../../trpc/createError";
+import { createError, createSuccessResponse } from "../../../trpc/createError";
 import { publicProcedure } from "../../trpc";
 
 export const askQuestion = publicProcedure
@@ -28,13 +27,6 @@ export const askQuestion = publicProcedure
       const attachments = await prisma.imageAttachment.findMany({
         where: { id: { in: attachmentIds } },
       });
-
-      if (attachmentIds.length !== attachments.length) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Invalid attachments",
-        });
-      }
 
       let finalId;
 
@@ -60,7 +52,7 @@ export const askQuestion = publicProcedure
           },
         });
         finalId = askedQuestion.id;
-        return finalId;
+        return createSuccessResponse("", finalId);
       } catch (err: any) {
         return handlePrismaError(err);
       }
