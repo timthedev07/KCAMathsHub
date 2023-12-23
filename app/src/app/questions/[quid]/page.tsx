@@ -111,7 +111,11 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
                 </div>
               </OptionalLinkWrapper>
             </div>
-            <div className="flex gap-3 ml-auto h-8">
+            <div
+              className={`flex gap-3 ml-auto h-8 ${
+                u && isOwner ? "block" : "hidden"
+              }`}
+            >
               {u && isOwner && (
                 <Button color="blue">
                   <Link href={pageURLs.editQuestion(quid)}>Edit</Link>
