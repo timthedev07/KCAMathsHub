@@ -1,11 +1,20 @@
 "use client";
-import { TabItem, Tabs } from "flowbite-react";
+import { TabItem, Tabs } from "flowbite-react/lib/esm/components/Tabs";
 import { Session } from "next-auth";
+import dynamic from "next/dynamic";
 import { FC } from "react";
 import { roleChecker } from "../../../lib/accessGuard";
-import { ReferralTab } from "./Referral";
 import { MainProfileTab } from "./main";
-import { QuestionsTab } from "./questions/index";
+
+const QuestionsTab = dynamic(
+  async () => (await import("./questions/index")).QuestionsTab,
+  { ssr: false }
+);
+
+const ReferralTab = dynamic(
+  async () => (await import("./Referral")).ReferralTab,
+  { ssr: false }
+);
 
 interface ProfileTabsProps {
   user: Session["user"];
