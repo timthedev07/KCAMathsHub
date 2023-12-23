@@ -19,19 +19,8 @@ const helperFind = async (where: Prisma.QuestionWhereUniqueInput) => {
       categories: true,
       answers: {
         select: {
-          answerer: { select: userSelection },
-          content: true,
           accepted: true,
-          attachments: { select: attachmentSelection },
           moderated: true,
-          moderations: {
-            select: {
-              moderator: { select: userSelection },
-              approval: true,
-              timestamp: true,
-              moderationComment: true,
-            },
-          },
         },
       },
       attachments: { select: attachmentSelection },
