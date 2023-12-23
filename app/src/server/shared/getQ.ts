@@ -2,7 +2,13 @@ import { Prisma } from "@prisma/client";
 import prisma from "../../db";
 import { preprocessAttachmentsForEdit } from "../helpers/preprocessAttachmentForEdit";
 
-const userSelection = { username: true, image: true, id: true };
+const userSelection = {
+  username: true,
+  image: true,
+  id: true,
+  joinedDate: true,
+  joinedYear: true,
+};
 const attachmentSelection = { name: true, objKey: true, size: true };
 
 const helperFind = async (where: Prisma.QuestionWhereUniqueInput) => {
