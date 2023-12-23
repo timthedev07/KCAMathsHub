@@ -16,12 +16,18 @@ const NotFound: NextPage = () => {
           onClick={() => {
             router.back();
           }}
+          className="cursor-pointer transition duration-200"
           color="info"
         >
           Previous
         </Button>
         <Link href="/" prefetch={false} passHref>
-          <Button color="success">Home</Button>
+          <Button
+            className="cursor-pointer transition duration-200"
+            color="success"
+          >
+            Home
+          </Button>
         </Link>
       </div>
     </div>
