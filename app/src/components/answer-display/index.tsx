@@ -5,10 +5,7 @@ import { FC, useCallback, useRef, useState } from "react";
 import { trpc } from "../../trpc/client";
 import { AnswerForm } from "../answer-form";
 import { ModerationModal } from "../forms/ModerationModal";
-import {
-  TimedMessageToast,
-  ToastLevel,
-} from "../helpers/time-message-toast/TimedMessageToast";
+import { TimedMessageToast, ToastLevel } from "../helpers/time-message-toast/";
 import { LoadingSpin } from "../loading/LoadingSpin";
 import { Pagination } from "../pagination";
 import { AnswerListItem } from "./Item";

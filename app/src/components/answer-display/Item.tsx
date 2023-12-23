@@ -13,7 +13,7 @@ import { pageURLs } from "../../lib/pageURLGen";
 import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers";
 import { AttachmentList } from "../attachments";
 import { OptionalLinkWrapper } from "../helpers/OptionalLinkWrapper";
-import { ToastLevel } from "../helpers/time-message-toast/TimedMessageToast";
+import { ToastLevel } from "../helpers/time-message-toast/";
 import { ProfileImgDisplay } from "../image/ProfileImgDisplay";
 import { mdxCustomComponents } from "../mdx/components";
 import { Button } from "../reusable/Button";

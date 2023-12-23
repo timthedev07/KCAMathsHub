@@ -6,8 +6,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IoMdInformationCircle } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { RiErrorWarningFill } from "react-icons/ri";
-
-export type ToastLevel = "success" | "info" | "warning" | "error";
+import { ToastLevel } from ".";
 
 interface Props {
   timeMilliseconds?: number;
@@ -17,7 +16,7 @@ interface Props {
   level: ToastLevel;
 }
 
-export const TimedMessageToast: FC<Props> = ({
+const Component: FC<Props> = ({
   children,
   level,
   show,
@@ -79,3 +78,5 @@ export const TimedMessageToast: FC<Props> = ({
     </Toast>
   );
 };
+
+export default Component;
