@@ -23,6 +23,7 @@ export const getQuestionAnswers = publicProcedure
         moderations: {
           select: {
             id: true,
+            timestamp: true,
             approval: true,
             moderationComment: true,
             moderator: {
