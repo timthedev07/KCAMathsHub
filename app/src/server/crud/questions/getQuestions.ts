@@ -2,7 +2,7 @@ import { z } from "zod";
 import { HOMEPAGE_QUESTION_PAGE_SIZE } from "../../../constants/pagination";
 import prisma from "../../../db";
 import { truncateAtWord } from "../../../lib/truncateAtWord";
-import { StudentStages } from "../../../types/StudentStage.d";
+import { StudentStages } from "../../../types/StudentStage";
 import { publicProcedure } from "../../trpc";
 
 export const getQuestions = publicProcedure
