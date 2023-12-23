@@ -21,6 +21,7 @@ export const getQuestionAnswers = publicProcedure
         answerer: { select: { username: true, image: true } },
         attachments: { select: { name: true, objKey: true, size: true } },
         moderations: {
+          orderBy: { timestamp: "desc" },
           select: {
             id: true,
             timestamp: true,
