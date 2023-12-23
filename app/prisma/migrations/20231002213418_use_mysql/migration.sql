@@ -46,7 +46,7 @@ CREATE TABLE `Answer` (
     `questionId` VARCHAR(191) NOT NULL,
     `moderatorId` VARCHAR(191) NULL,
 
-    UNIQUE INDEX `Answer_questionId_key`(`questionId`),
+    INDEX `Answer_questionId_key`(`questionId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
