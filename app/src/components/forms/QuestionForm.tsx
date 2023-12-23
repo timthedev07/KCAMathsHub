@@ -1,7 +1,7 @@
 "use client";
 
 import { TRPCClientError } from "@trpc/client";
-import { ToggleSwitch } from "flowbite-react";
+import { ToggleSwitch } from "flowbite-react/lib/esm/components/ToggleSwitch";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
