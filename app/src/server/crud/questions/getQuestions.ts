@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { categories } from "../../../categories.json";
 import { HOMEPAGE_QUESTION_PAGE_SIZE } from "../../../constants/pagination";
 import prisma from "../../../db";
 import { truncateAtWord } from "../../../lib/truncateAtWord";
@@ -17,7 +18,10 @@ export const GetQSSchema = z.object({
 export const getQuestions = publicProcedure
   .input(GetQSSchema)
   .query(async ({ input: { k, sortBy, order, cursor, q, category } }) => {
-    if (!!k && StudentStages.indexOf(k as any) < 0) {
+    if (
+      (!!k && StudentStages.indexOf(k as any) < 0) ||
+      (!!category && categories.indexOf(category) < 0)
+    ) {
       return {
         questions: [],
         nextCursor: undefined,
@@ -31,7 +35,7 @@ export const getQuestions = publicProcedure
       : {};
 
     const cSearch = !!category
-      ? { categories: { some: { name: { contains: category } } } }
+      ? { categories: { some: { name: { equals: category } } } }
       : {};
 
     try {
