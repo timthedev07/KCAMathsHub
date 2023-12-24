@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { FC } from "react";
 import { FaAnglesRight } from "react-icons/fa6";
@@ -6,8 +7,12 @@ import { pageURLs } from "../../../lib/pageURLGen";
 import { QCategoryBadge } from "../../categories/QCategoryBadge";
 import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
 import { LoadingSpin } from "../../loading/loading-spin";
-import { Button } from "../../reusable/Button";
 import { QueryOutput } from "./props.types";
+
+const Button = dynamic(
+  async () => (await import("../../reusable/Button")).Button,
+  { ssr: false }
+);
 
 interface ListProps {
   questions: QueryOutput["questions"];
