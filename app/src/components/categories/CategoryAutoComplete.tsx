@@ -43,7 +43,8 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
           }) &&
           selectedCategories.length < MAX_CATEGORIES_NUM
         ) {
-          if (resetOnChange) setSelected(null);
+          if (resetOnChange) setSelected(v);
+          else setSelected(null);
           addCategory(v);
         } else {
           setSelected(v);
