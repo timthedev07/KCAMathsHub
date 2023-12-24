@@ -48,7 +48,9 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
                       anonymous ? "italic" : "font-mono"
                     }`}
                   >
-                    {!anonymous ? questioner?.username : "Anonymous"}
+                    {!anonymous
+                      ? questioner?.username || "deleted user"
+                      : "Anonymous"}
                   </span>
                 </div>
                 <span className="text-sm text-white/50">
