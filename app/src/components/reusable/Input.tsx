@@ -10,6 +10,7 @@ interface InputProps
     >,
     InputFieldBaseProps {
   error?: string;
+  widthClassName?: string;
 }
 
 export const Input: FC<InputProps> = ({
@@ -17,6 +18,7 @@ export const Input: FC<InputProps> = ({
   containerClassName = "",
   label,
   error,
+  widthClassName = "w-1/2",
   ...props
 }) => {
   return (
@@ -26,7 +28,7 @@ export const Input: FC<InputProps> = ({
       className={containerClassName}
     >
       <input
-        className={`focus:ring-2 ${error} focus:outline-none w-1/2 ${inputBase} ${
+        className={`focus:ring-2 ${error} focus:outline-none ${widthClassName} ${inputBase} ${
           className || ""
         } border-slate-400/10 border`}
         {...props}
