@@ -13,14 +13,11 @@ export const InfiniteScrollingDisplay: FC<InfiniteScrollingDisplayProps> = ({
   const [lastQRef, inView] = useInView({ triggerOnce: true });
 
   const { fetchNextPage, isFetching, data } =
-    trpc.getQuestions.useInfiniteQuery(
-      {},
-      {
-        getNextPageParam: (last) => last.nextCursor,
-        enabled: false,
-        keepPreviousData: true,
-      }
-    );
+    trpc.getQuestions.useInfiniteQuery(query, {
+      getNextPageParam: (last) => last.nextCursor,
+      enabled: !!query,
+      keepPreviousData: true,
+    });
 
   useEffect(() => {
     (async () => {
@@ -32,7 +29,7 @@ export const InfiniteScrollingDisplay: FC<InfiniteScrollingDisplayProps> = ({
   }, [inView, isFetching]);
 
   const questions = data
-    ? data.pages.flatMap(({ questions }) => questions)
+    ? data?.pages.flatMap(({ questions }) => questions)
     : initialData;
 
   return (
