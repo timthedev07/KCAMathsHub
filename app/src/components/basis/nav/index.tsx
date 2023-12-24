@@ -1,4 +1,5 @@
 import { Session } from "next-auth";
+import Link from "next/link";
 import { FC } from "react";
 import { Hamburger } from "../../../svgs/sidebar/Hamburger";
 import { StudentStages } from "../../../types/StudentStage";
@@ -40,8 +41,12 @@ export const Nav: FC<NavProps> = ({
           />
         </button>
         <div className="flex xl:w-4/12 lg:5/12 w-9/12 md:justify-between justify-evenly">
-          <h2 className="md:block hidden text-lg font-semibold">KCAMathsHub</h2>
-          {StudentStages.map((each) => (
+          <Link href={{ pathname: "/" }}>
+            <h2 className="md:block hidden text-lg font-semibold">
+              KCAMathsHub
+            </h2>
+          </Link>
+          {StudentStages.toReversed().map((each) => (
             <NavItem
               key={each}
               text={each}
