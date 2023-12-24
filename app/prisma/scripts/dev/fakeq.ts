@@ -33,14 +33,14 @@ Maecenas quis sagittis enim. Vivamus nunc nunc, porta quis erat eget, mattis rut
 Praesent porta, nibh a ullamcorper posuere, purus mauris pharetra massa, aliquam pretium nisi erat id massa. Duis sollicitudin ipsum in est molestie malesuada. Proin suscipit nisi a egestas porta. Donec dignissim nisi et erat lacinia, et condimentum libero sodales. Nam mauris urna, eleifend vel enim ut, blandit tempus enim. Fusce eu enim feugiat, ultrices enim vel, iaculis risus. Mauris eget fermentum ex, eget bibendum turpis. Curabitur et urna nunc. Maecenas convallis tincidunt luctus. Aenean eros nulla, imperdiet a accumsan in, finibus eu diam. Integer a lorem semper, efficitur nulla non, lacinia mauris. Sed finibus accumsan nibh, sed rhoncus felis commodo vel. Duis et vestibulum enim, ac egestas nibh. Vivamus sed quam a orci imperdiet ullamcorper posuere et nulla. Nam dictum viverra enim consectetur porttitor.`;
 
 (async () => {
-  for (let i = 1; i <= 20; i++) {
+  for (let i = 1; i <= 100; i++) {
     await prisma.question.create({
       data: {
         content: lorem,
         title: `Question ${i}`,
         studentStage: choose(StudentStages),
         yearGroupAsked: Math.floor(Math.random() * 13),
-        anonymous: Math.random() > 0.5 ? false : true,
+        answered: Math.random() > 0.5 ? false : true,
         categories: {
           connect: randomChoices(categories).map((c) => ({ name: c })),
         },
