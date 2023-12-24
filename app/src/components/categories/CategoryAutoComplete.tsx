@@ -6,11 +6,15 @@ import { MAX_CATEGORIES_NUM } from "../../constants/catMax";
 interface CategoryAutoCompleteProps {
   addCategory: (_: string) => void;
   selectedCategories: string[];
+  resetOnChange?: boolean;
+  widthClassName?: string;
 }
 
 export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
   addCategory,
   selectedCategories,
+  resetOnChange = true,
+  widthClassName = "w-1/2",
 }) => {
   const data = d.categories;
   const [query, setQuery] = useState<string>("");
@@ -39,7 +43,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
           }) &&
           selectedCategories.length < MAX_CATEGORIES_NUM
         ) {
-          setSelected(null);
+          if (resetOnChange) setSelected(null);
           addCategory(v);
         } else {
           setSelected(v);
@@ -48,7 +52,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
       disabled={selectedCategories.length >= MAX_CATEGORIES_NUM}
     >
       <Combobox.Input
-        className={`rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-400/10 w-1/2 ${
+        className={`rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-400/10 ${widthClassName} ${
           selectedCategories.length >= MAX_CATEGORIES_NUM
             ? "cursor-not-allowed"
             : ""
@@ -68,7 +72,9 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <Combobox.Options className="rounded-lg border border-slate-400/10 bg-slate-300/[0.04] overflow-hidden w-1/2 max-h-96 overflow-y-auto min-w-[250px]">
+        <Combobox.Options
+          className={`rounded-lg border border-slate-400/10 bg-slate-300/[0.04] overflow-hidden ${widthClassName} max-h-96 overflow-y-auto min-w-[250px]`}
+        >
           {filtered.length === 0 && query !== "" ? (
             <div className="p-3 cursor-pointer text-white text-sm">
               No categories found
