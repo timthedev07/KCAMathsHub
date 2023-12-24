@@ -38,7 +38,7 @@ Praesent porta, nibh a ullamcorper posuere, purus mauris pharetra massa, aliquam
       data: {
         content: lorem,
         title: `Question ${i}`,
-        category: choose(StudentStages),
+        studentStage: choose(StudentStages),
         yearGroupAsked: Math.floor(Math.random() * 13),
         anonymous: Math.random() > 0.5 ? false : true,
         categories: {

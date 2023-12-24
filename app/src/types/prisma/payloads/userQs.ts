@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 
 export const userQuestionListDisplaySelect = {
   answered: true,
-  category: true,
+  studentStage: true,
   title: true,
   timestamp: true,
   id: true,

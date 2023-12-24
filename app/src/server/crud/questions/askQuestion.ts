@@ -40,7 +40,7 @@ export const askQuestion = publicProcedure
               connect: attachments,
             },
             questioner: { connect: { id: userId } },
-            category: u.joinedYear
+            studentStage: u.joinedYear
               ? classifyKSCategory(u.joinedDate, u.joinedYear)
               : null,
             yearGroupAsked: u.joinedYear
