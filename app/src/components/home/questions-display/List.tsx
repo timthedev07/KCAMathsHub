@@ -56,21 +56,18 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
                 </span>
               </div>
             </div>
-            {/* <div
-                className={`flex gap-2 w-8 ${answered ? "block" : "hidden"}`}
-              >
-                {answered ? <Check /> : null}
-              </div> */}
             <ul className="flex gap-2 items-start flex-wrap">
               {categories.map((each, ind) => (
                 <QCategoryBadge name={each.name} ind={ind} key={each.name} />
               ))}
             </ul>
             <p className="w-full text-sm text-white/70">{content}</p>
-            <Button className="w-fit ml-auto" color={"blue"} size="sm">
-              <Link href={pageURLs.question(id)}>Read more</Link>
-              <FaAnglesRight className="ml-2" />
-            </Button>
+            <div className="h-8">
+              <Button className="w-fit ml-auto" color={"blue"} size="sm">
+                <Link href={pageURLs.question(id)}>Read more</Link>
+                <FaAnglesRight className="ml-2" />
+              </Button>
+            </div>
           </li>
         )
       )}
