@@ -1,14 +1,7 @@
 "use client";
 import { inferProcedureOutput } from "@trpc/server";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import {
-  ChangeEventHandler,
-  FC,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEventHandler, FC, useCallback, useRef, useState } from "react";
 import { GrLinkTop } from "react-icons/gr";
 import { useDebouncedCallback } from "use-debounce";
 import { z } from "zod";
@@ -86,8 +79,6 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
     setInputLoading((prev) => ({ ...prev, title: false }));
   }, 800);
 
-  useEffect(() => {});
-
   return (
     <>
       <div className="flex lg:flex-row flex-col">
@@ -129,6 +120,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
             className="w-9/12 min-w-[180px] mx-auto lg:mx-[unset] lg:w-full"
           >
             <CategoryAutoComplete
+              nullable={true}
               defaultValue={searchParams.get("c")?.toString() || undefined}
               resetOnChange={false}
               widthClassName="w-full"
@@ -141,14 +133,22 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           </LabelErrorWrapper>
         </aside>
         <div className=" w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-16 gap-4 items-center">
-          <InfiniteScrollingDisplay
-            query={{
-              category: searchParams.get("c")?.toString() || undefined,
-              k: (searchParams.get("k")?.toString() as any) || undefined,
-              q: searchParams.get("q")?.toString() || undefined,
-            }}
-            initialData={questions}
-          />
+          {questions.length > 0 ? (
+            <InfiniteScrollingDisplay
+              query={{
+                category: searchParams.get("c")?.toString() || undefined,
+                k: (searchParams.get("k")?.toString() as any) || undefined,
+                q: searchParams.get("q")?.toString() || undefined,
+              }}
+              initialData={questions}
+            />
+          ) : (
+            <>
+              <h1 className="text-4xl font-bold mt-48">
+                No questions currently...
+              </h1>
+            </>
+          )}
         </div>
         <aside className="w-3/12 border-l border-slate-600/20 min-h-[90vh] hidden lg:block"></aside>
       </div>
