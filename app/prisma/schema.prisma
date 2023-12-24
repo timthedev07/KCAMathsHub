@@ -61,7 +61,7 @@ model Question {
   editedAt       DateTime?
   // attachment relation
   attachments    ImageAttachment[]
-  category       String? // key stage
+  studentStage   String? // key stage @map("category")
   // question relation
   questioner     User?              @relation(fields: [questionerId], references: [id], onDelete: SetNull)
   questionerId   String?
