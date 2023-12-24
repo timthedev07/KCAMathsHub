@@ -8,6 +8,8 @@ interface CategoryAutoCompleteProps {
   selectedCategories: string[];
   resetOnChange?: boolean;
   widthClassName?: string;
+  defaultValue?: string;
+  nullable?: boolean;
 }
 
 export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
@@ -15,11 +17,13 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
   selectedCategories,
   resetOnChange = true,
   widthClassName = "w-1/2",
+  defaultValue,
+  nullable = false,
 }) => {
   const data = d.categories;
-  const [query, setQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>(defaultValue || "");
 
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(defaultValue || null);
 
   const filtered =
     query === ""
@@ -33,8 +37,17 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
 
   return (
     <Combobox
+      nullable={nullable as any}
       value={selected}
       onChange={(v) => {
+        if (!v) {
+          if (nullable) {
+            setQuery("");
+            setSelected(v);
+            addCategory("");
+          }
+          return;
+        }
         // if the value is
         if (
           v &&
