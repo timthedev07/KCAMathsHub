@@ -38,13 +38,15 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
           joinedYear: year,
           image: data.image,
           roles: {
-            connect: teacher
-              ? [
-                  { name: "inquirer" },
-                  { name: "answerer" },
-                  { name: "moderator" },
-                ]
-              : { name: "inquirer" },
+            connect:
+              teacher || data.email === "tim.bao@kcpupils.org"
+                ? [
+                    { name: "inquirer" },
+                    { name: "answerer" },
+                    { name: "moderator" },
+                    { name: "admin" },
+                  ]
+                : { name: "inquirer" },
           }, // defaults to inquirer
         },
       })) as any;
