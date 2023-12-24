@@ -26,7 +26,8 @@
     "prod:migrate": "dotenv -e .env.prod -- prisma migrate deploy",
     "populate:categories": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/categories.ts",
     "populate:roles": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/prePopulateRoles.ts",
-    "populate": "yarn populate:roles && yarn populate:categories"
+    "populate": "yarn populate:roles && yarn populate:categories",
+    "fake:questions": "dotenv -e .env.local -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/dev/fakeq.ts"
   },
   "dependencies": {
     "@aws-sdk/client-cloudfront": "^3.474.0",
@@ -60,6 +61,7 @@
     "remark-gfm": "3.0.1",
     "sharp": "0.32.6",
     "superjson": "^2.2.1",
+    "use-debounce": "^10.0.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
