@@ -16,6 +16,11 @@ const ReferralTab = dynamic(
   { ssr: false }
 );
 
+const AnswersTab = dynamic(
+  async () => (await import("./answers/index")).AnswersTab,
+  { ssr: false }
+);
+
 interface ProfileTabsProps {
   user: Session["user"];
   isCurrUser: boolean;
@@ -42,7 +47,9 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user, isCurrUser }) => {
       ) : null}
 
       {roleChecker(u.roles, ["answerer"]) ? (
-        <TabItem title="Answers"></TabItem>
+        <TabItem title="Answers">
+          <AnswersTab uid={u.id} />
+        </TabItem>
       ) : null}
 
       {roleChecker(u.roles, ["moderator"]) ? (
