@@ -226,8 +226,8 @@ export const QuestionForm: FC<QuestionFormProps> = ({
           </p>
         </div>
       </MessageActionModal>
-      <div className="flex gap-6 px-2 md:px-8 lg:px-16 my-10">
-        <div className="flex-1 relative rounded-xl border border-slate-300/20 p-6 lg:p-10">
+      <div className="flex gap-6 md:px-8 lg:px-16 my-10">
+        <div className="flex-1 relative rounded-xl md:border border-slate-300/20 p-6 lg:p-10">
           <div className="absolute top-0 right-0 p-6 lg:p-10">
             {saveState !== "saved" && <AutoSaveSpinner />}
           </div>
