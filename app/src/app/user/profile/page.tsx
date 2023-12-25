@@ -2,12 +2,21 @@
 
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
+import { notFound } from "next/navigation";
+import { LoadingSpin } from "../../../components/loading/loading-spin";
 import { NextPage } from "../../../types/nextpage";
 
 const ProfileTabs = dynamic(
   () => import("../../../components/user-profile/tabs"),
   {
     ssr: false,
+    loading: () => {
+      return (
+        <div className="h-[80vh]">
+          <LoadingSpin size="md" />
+        </div>
+      );
+    },
   }
 );
 
@@ -15,7 +24,7 @@ const Profile: NextPage = () => {
   const { data: session } = useSession({ required: true });
 
   if (!session?.user) {
-    return;
+    notFound();
   }
 
   return (
