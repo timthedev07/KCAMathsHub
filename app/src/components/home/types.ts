@@ -4,4 +4,7 @@ import { NextPageParams } from "../../types/nextPageParam";
 
 export type Query = z.infer<typeof GetQSSchema>;
 
-export type HomePageParams = NextPageParams<{}, "q" | "k" | "c" | "u" | "y">;
+export type HomePageParams = NextPageParams<
+  {},
+  "q" | "k" | "c" | "u" | "y" | "s"
+>;
