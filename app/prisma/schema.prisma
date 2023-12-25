@@ -90,6 +90,7 @@ model Answer {
   // attachments relation
   attachments ImageAttachment[]
   moderated   Boolean           @default(false)
+  approved    Boolean           @default(false)
   // answerer relation
   answerer    User?             @relation("WrittenAnswers", fields: [answererId], references: [id], onDelete: SetNull)
   answererId  String?
