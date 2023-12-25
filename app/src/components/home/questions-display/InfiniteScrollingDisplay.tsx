@@ -2,6 +2,7 @@
 
 import { FC, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { queryParamCompare } from "../../../lib/queryParamCompare";
 import { trpc } from "../../../trpc/client";
 import { List } from "./List";
 import { InfiniteScrollingDisplayProps } from "./props.types";
@@ -9,13 +10,16 @@ import { InfiniteScrollingDisplayProps } from "./props.types";
 export const InfiniteScrollingDisplay: FC<InfiniteScrollingDisplayProps> = ({
   initialData,
   query,
+  initialParams,
 }) => {
   const [lastQRef, inView] = useInView({ triggerOnce: true });
 
   const { fetchNextPage, isFetching, data } =
     trpc.getQuestions.useInfiniteQuery(query, {
       getNextPageParam: (last) => last.nextCursor,
-      enabled: !!query,
+      enabled:
+        !!query &&
+        !queryParamCompare(initialParams, query, ["c", "k", "q", "u", "y"]),
       keepPreviousData: true,
     });
 
