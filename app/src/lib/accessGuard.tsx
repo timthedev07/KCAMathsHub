@@ -4,13 +4,19 @@ import { Role } from "../types/role";
 import { WithSessionProps } from "../types/withSessionPage";
 import { getServerSession } from "./authoptions";
 
-export const roleChecker = (userRoles: Role[], targetRoles: Role[]) => {
+export const roleChecker = (
+  userRoles: Role[],
+  targetRoles: Role[],
+  hasAll: boolean = false
+) => {
+  let count = 0;
   for (const targetRole of targetRoles) {
     if (userRoles.includes(targetRole)) {
-      return true;
+      if (!hasAll) return true;
+      count++;
     }
   }
-  return false;
+  return hasAll ? count === targetRoles.length : false;
 };
 
 export const withAccessGuard = async <T,>(
