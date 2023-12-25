@@ -13,7 +13,7 @@ export const updateUsername = publicProcedure
     })
   )
   .mutation(async ({ input: { id, username } }) => {
-    if (username.length > 16) {
+    if (username.length > 32) {
       throw new TRPCError({
         code: "BAD_REQUEST",
         message: "Username cannot be longer than 16 characters.",
