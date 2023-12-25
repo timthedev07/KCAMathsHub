@@ -16,8 +16,10 @@ export const SharedTransition: FC<PropsWithChildren> = ({ children }) => (
 
 export const getEntryClassName = (
   disabled: boolean = false,
-  extraClassName?: string
+  extraClassName = ""
 ) =>
   `rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-400/10 ${extraClassName} ${
     disabled ? "cursor-not-allowed" : ""
   }`;
+export const getOptionsUIClassName = (extraClassName = "") =>
+  `rounded-lg border border-slate-400/10 bg-slate-300/[0.04] overflow-hidden max-h-96 overflow-y-auto min-w-[250px] ${extraClassName}`;

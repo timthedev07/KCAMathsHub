@@ -5,6 +5,7 @@ import { MAX_CATEGORIES_NUM } from "../../constants/catMax";
 import {
   SharedTransition,
   getEntryClassName,
+  getOptionsUIClassName,
 } from "../shared-styling/inputMenu";
 
 interface CategoryAutoCompleteProps {
@@ -83,9 +84,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
       />
 
       <SharedTransition>
-        <Combobox.Options
-          className={`rounded-lg border border-slate-400/10 bg-slate-300/[0.04] overflow-hidden ${widthClassName} max-h-96 overflow-y-auto min-w-[250px]`}
-        >
+        <Combobox.Options className={getOptionsUIClassName(widthClassName)}>
           {filtered.length === 0 && query !== "" ? (
             <div className="p-3 cursor-pointer text-white text-sm">
               No categories found
