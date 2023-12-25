@@ -1,7 +1,8 @@
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox } from "@headlessui/react";
 import { FC, Fragment, useState } from "react";
 import { categories } from "../../categories";
 import { MAX_CATEGORIES_NUM } from "../../constants/catMax";
+import { SharedTransition } from "../shared-styling/inputMenu";
 
 interface CategoryAutoCompleteProps {
   addCategory: (_: string) => void;
@@ -78,14 +79,8 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
         }
         onChange={(event) => setQuery(event.target.value)}
       />
-      <Transition
-        enter="transition duration-100 ease-out"
-        enterFrom="transform scale-95 opacity-0"
-        enterTo="transform scale-100 opacity-100"
-        leave="transition duration-75 ease-out"
-        leaveFrom="transform scale-100 opacity-100"
-        leaveTo="transform scale-95 opacity-0"
-      >
+
+      <SharedTransition>
         <Combobox.Options
           className={`rounded-lg border border-slate-400/10 bg-slate-300/[0.04] overflow-hidden ${widthClassName} max-h-96 overflow-y-auto min-w-[250px]`}
         >
@@ -120,7 +115,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
             ))
           )}
         </Combobox.Options>
-      </Transition>
+      </SharedTransition>
     </Combobox>
   );
 };
