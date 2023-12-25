@@ -27,7 +27,7 @@ export const moderate = publicProcedure
       try {
         await prisma.answer.update({
           where: { id: answerId },
-          data: { moderated: true },
+          data: { moderated: true, approved: approval ? true : undefined },
         });
       } catch (e) {
         return handlePrismaError(e);
