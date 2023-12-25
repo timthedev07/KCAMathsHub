@@ -34,7 +34,11 @@ export const HomePageInfoDisplay = () => {
         </p>
         <p>
           Offensive/disruptive behavior will be recorded and reported. Read more
-          about legislations <Link href="/guide#legislation">here</Link>.
+          about legislations{" "}
+          <u>
+            <Link href="/guide#legislation">here</Link>
+          </u>
+          .
         </p>
       </Section>
     </div>
