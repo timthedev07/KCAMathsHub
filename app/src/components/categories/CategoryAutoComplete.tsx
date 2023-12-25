@@ -22,7 +22,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
   addCategory,
   selectedCategories,
   resetOnChange = true,
-  widthClassName = "w-1/2",
+  widthClassName = "w-full md:w-1/2",
   defaultValue,
   nullable = false,
 }) => {

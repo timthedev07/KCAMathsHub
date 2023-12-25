@@ -21,7 +21,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       containerClassName = "",
       label,
       error,
-      widthClassName = "w-1/2",
+      widthClassName = "w-full md:w-1/2",
       ...props
     },
     ref
