@@ -5,17 +5,26 @@ import { getYearGroupsByK } from "./getDataSet";
 interface YGSelectProps {
   k?: string;
   setParam: (_: string, __: string) => void;
+  defaultValue?: string;
 }
 
-export const YGSelect: FC<YGSelectProps> = ({ k, setParam }) => {
-  const dataset = getYearGroupsByK(k).map((each) => ({
-    value: String(each),
-    displayName: `Year ${each}`,
-  }));
+const convert = (year: number | string) => ({
+  value: String(year),
+  displayName: `Year ${year}`,
+});
+
+export const YGSelect: FC<YGSelectProps> = ({
+  k,
+  setParam,
+  defaultValue: defaultValue_,
+}) => {
+  const dataset = getYearGroupsByK(k).map(convert);
+  const defaultValue = defaultValue_ ? convert(defaultValue_) : undefined;
 
   return (
     <BaseSelect
       dataset={dataset}
+      defaultValue={defaultValue}
       onChange={(v) => {
         setParam("y", v);
       }}
