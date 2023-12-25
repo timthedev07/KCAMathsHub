@@ -14,6 +14,13 @@ interface NavItemProps {
 export const NavItem: FC<NavItemProps> = ({ text, url }) => {
   const { entries } = useSearchParams();
 
+  const _ = searchParamsEntriesToObj(entries());
+  let v = _;
+  if ("y" in _) {
+    const { y: __, ...rest } = _;
+    v = rest;
+  }
+
   return (
     <li className="flex justify-center items-center text-center uppercase transition duration-200 text-white/60 hover:text-white/90">
       <Link
@@ -23,7 +30,7 @@ export const NavItem: FC<NavItemProps> = ({ text, url }) => {
             : {
                 ...url,
                 query: {
-                  ...searchParamsEntriesToObj(entries()),
+                  ...v,
                   ...(typeof url.query === "string" ? {} : url.query),
                 },
               }
