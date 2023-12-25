@@ -13,3 +13,11 @@ export const SharedTransition: FC<PropsWithChildren> = ({ children }) => (
     {children}
   </Transition>
 );
+
+export const getEntryClassName = (
+  disabled: boolean = false,
+  extraClassName?: string
+) =>
+  `rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-400/10 ${extraClassName} ${
+    disabled ? "cursor-not-allowed" : ""
+  }`;

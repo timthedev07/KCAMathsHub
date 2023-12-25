@@ -2,7 +2,10 @@ import { Combobox } from "@headlessui/react";
 import { FC, Fragment, useState } from "react";
 import { categories } from "../../categories";
 import { MAX_CATEGORIES_NUM } from "../../constants/catMax";
-import { SharedTransition } from "../shared-styling/inputMenu";
+import {
+  SharedTransition,
+  getEntryClassName,
+} from "../shared-styling/inputMenu";
 
 interface CategoryAutoCompleteProps {
   addCategory: (_: string) => void;
@@ -67,11 +70,10 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
       disabled={selectedCategories.length >= MAX_CATEGORIES_NUM}
     >
       <Combobox.Input
-        className={`rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-400/10 ${widthClassName} ${
-          selectedCategories.length >= MAX_CATEGORIES_NUM
-            ? "cursor-not-allowed"
-            : ""
-        }`}
+        className={getEntryClassName(
+          selectedCategories.length >= MAX_CATEGORIES_NUM,
+          widthClassName
+        )}
         placeholder={
           selectedCategories.length >= MAX_CATEGORIES_NUM
             ? "Maximum number of categories reached..."
