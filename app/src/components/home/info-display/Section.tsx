@@ -25,13 +25,13 @@ export const Section: FC<PropsWithChildren<SectionProps>> = ({
     <section className="flex flex-col gap-4">
       <h2 className="flex gap-4 items-center">
         <div
-          className={`rounded-xl w-12 h-12 p-3 flex justify-center items-center ${styles[colorScheme]}`}
+          className={`rounded-xl w-10 h-10 p-2.5 flex justify-center items-center ${styles[colorScheme]}`}
         >
           <Icon className="w-full h-full" />
         </div>
-        <span className="font-semibold text-xl">{heading}</span>
+        <span className="font-semibold text-lg">{heading}</span>
       </h2>
-      <div className="px-4 text-white/70">{children}</div>
+      <div className="px-4 text-white/70 text-[0.8rem]">{children}</div>
     </section>
   );
 };
