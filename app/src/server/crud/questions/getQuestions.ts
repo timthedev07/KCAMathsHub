@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { categories } from "../../../categories";
+import { getYearGroupsByK } from "../../../components/select/year-group-select/getDataSet";
 import { HOMEPAGE_QUESTION_PAGE_SIZE } from "../../../constants/pagination";
 import prisma from "../../../db";
 import { truncateAtWord } from "../../../lib/truncateAtWord";
@@ -14,11 +15,18 @@ export const GetQSSchema = z.object({
   q: z.string().optional(),
   c: z.string().optional(),
   u: z.string().optional(),
+  y: z.string().optional(),
 });
 
 export const getQuestions = publicProcedure
   .input(GetQSSchema)
-  .query(async ({ input: { k, sortBy, order, cursor, q, c, u } }) => {
+  .query(async ({ input: { k, sortBy, order, cursor, q, c, u, y: y_ } }) => {
+    let y = y_ ? parseInt(y_) : undefined;
+
+    if (!!y_ && y && (isNaN(y) || !getYearGroupsByK(k).includes(y))) {
+      return { questions: [] };
+    }
+
     if (
       (!!k && StudentStages.indexOf(k as any) < 0) ||
       (!!c && categories.indexOf(c) < 0)
@@ -41,6 +49,9 @@ export const getQuestions = publicProcedure
 
     const uSearch = !!u ? { questioner: { username: { contains: u } } } : {};
     const kSearch = !!k ? { studentStage: k } : {};
+    const ySearch = !!y ? { yearGroupAsked: y } : {};
+
+    console.log(ySearch);
 
     try {
       const questions = (
@@ -51,6 +62,7 @@ export const getQuestions = publicProcedure
             ...qSearch,
             ...cSearch,
             ...uSearch,
+            ...ySearch,
           },
           orderBy: {
             [sortBy]: order,
