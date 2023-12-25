@@ -1,7 +1,7 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import remarkGfm from "remark-gfm";
@@ -34,7 +34,7 @@ const getSSRProps = async (quid: string) => {
   const session = await getServerSession();
 
   if (!question) {
-    redirect(pageURLs.error("Question not found..."));
+    notFound();
   }
 
   const isOwner = session?.user.id === question.questionerId;
