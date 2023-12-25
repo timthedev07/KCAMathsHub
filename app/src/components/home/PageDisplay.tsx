@@ -90,7 +90,11 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
           ref={ref}
           className="w-full lg:w-3/12 lg:border-r border-b border-slate-600/20 lg:min-h-[90vh] py-8 lg:px-4 xl:px-8 gap-8 flex flex-col"
         >
-          {/* lg:w-3/12 h-32 border-b lg:border-r border-slate-600/20 lg:min-h-[90vh] lg:h-full */}
+          <LabelErrorWrapper
+            labelFontSize="text-base"
+            label="Proposed time"
+            className={fieldWrapperCN}
+          ></LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
             label={
@@ -174,11 +178,6 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
               }}
             />
           </LabelErrorWrapper>
-          <LabelErrorWrapper
-            labelFontSize="text-base"
-            label="Sort by"
-            className={fieldWrapperCN}
-          ></LabelErrorWrapper>
         </aside>
         <div className=" w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-16 gap-4 items-center">
           {questions.length > 0 ? (
