@@ -7,12 +7,13 @@ import { SSRCaller } from "../server";
 import { StudentStages } from "../types/StudentStage";
 
 const getProps = async (searchParams: HomePageParams["searchParams"]) => {
-  const { k: k_, q: q_, c: c_, u: u_, y: y_ } = searchParams;
+  const { k: k_, q: q_, c: c_, u: u_, y: y_, s: s_ } = searchParams;
 
   const k = processQP(k_);
   const c = processQP(c_);
   const q = processQP(q_);
   const u = processQP(u_);
+  const s = processQP(s_);
   const y__ = processQP(y_);
 
   let y = y__ ? parseInt(y__) : undefined;
@@ -34,6 +35,7 @@ const getProps = async (searchParams: HomePageParams["searchParams"]) => {
     c,
     u,
     y: y__,
+    s,
   });
   return { questions };
 };

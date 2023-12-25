@@ -192,6 +192,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
                 q: processQP(searchParams.get("q")),
                 u: processQP(searchParams.get("u")),
                 y: processQP(searchParams.get("y")),
+                s: processQP(searchParams.get("s")),
               }}
               initialData={questions}
             />
