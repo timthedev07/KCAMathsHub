@@ -5,6 +5,7 @@ import { ChangeEvent, FC, useCallback, useRef, useState } from "react";
 import { GrLinkTop } from "react-icons/gr";
 import { useDebouncedCallback } from "use-debounce";
 import type { z } from "zod";
+import { processQP } from "../../lib/processQueryParam";
 import { getQuestions } from "../../server/crud/questions/getQuestions";
 import { CategoryAutoComplete } from "../categories/CategoryAutoComplete";
 import { Button } from "../reusable/Button";
@@ -17,9 +18,11 @@ import {
   titleSearchValidation,
   userSearchValidation,
 } from "./searchInputValidation";
+import { HomePageParams } from "./types";
 
 type Props = {
   questions: inferProcedureOutput<typeof getQuestions>["questions"];
+  initialParams: HomePageParams["searchParams"];
 };
 
 const fieldWrapperCN = "w-9/12 mx-auto min-w-[180px] lg:mx-[unset] lg:w-full";
@@ -101,7 +104,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           >
             <Input
               maxLength={48}
-              defaultValue={searchParams.get("q")?.toString()}
+              defaultValue={processQP(searchParams.get("q"))}
               name="q"
               placeholder="Find by title..."
               className="text-sm"
@@ -122,7 +125,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           >
             <CategoryAutoComplete
               nullable={true}
-              defaultValue={searchParams.get("c")?.toString() || undefined}
+              defaultValue={processQP(searchParams.get("c"))}
               resetOnChange={false}
               widthClassName="w-full"
               addCategory={(c) => {
@@ -139,8 +142,9 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
             className={fieldWrapperCN}
           >
             <YGSelect
+              defaultValue={processQP(searchParams.get("y"))}
               setParam={setParam}
-              k={searchParams.get("k")?.toString() || undefined}
+              k={processQP(searchParams.get("k"))}
             />
           </LabelErrorWrapper>
           <LabelErrorWrapper
@@ -156,7 +160,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           >
             <Input
               maxLength={32}
-              defaultValue={searchParams.get("u")?.toString()}
+              defaultValue={processQP(searchParams.get("u"))}
               name="u"
               className="text-sm"
               placeholder="Find by user..."
@@ -180,10 +184,11 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           {questions.length > 0 ? (
             <InfiniteScrollingDisplay
               query={{
-                k: searchParams.get("k")?.toString() || undefined,
-                c: (searchParams.get("c")?.toString() as any) || undefined,
-                q: searchParams.get("q")?.toString() || undefined,
-                u: searchParams.get("u")?.toString() || undefined,
+                k: processQP(searchParams.get("k")),
+                c: processQP(searchParams.get("c")),
+                q: processQP(searchParams.get("q")),
+                u: processQP(searchParams.get("u")),
+                y: processQP(searchParams.get("y")),
               }}
               initialData={questions}
             />

@@ -1,19 +1,27 @@
 import { categories } from "../categories";
 import { PageDisplay } from "../components/home/PageDisplay";
+import { HomePageParams } from "../components/home/types";
+import { getYearGroupsByK } from "../components/select/year-group-select/getDataSet";
+import { processQP } from "../lib/processQueryParam";
 import { SSRCaller } from "../server";
 import { StudentStages } from "../types/StudentStage";
-import { NextPageParams } from "../types/nextPageParam";
 
-type T = NextPageParams<{}, "q" | "k" | "c" | "u">;
+const getProps = async (searchParams: HomePageParams["searchParams"]) => {
+  const { k: k_, q: q_, c: c_, u: u_, y: y_ } = searchParams;
 
-const getProps = async (searchParams: T["searchParams"]) => {
-  const { k: k_, q: q_, c: c_, u: u_ } = searchParams;
+  const k = processQP(k_);
+  const c = processQP(c_);
+  const q = processQP(q_);
+  const u = processQP(u_);
+  const y__ = processQP(y_);
 
-  const k = k_?.toString() || undefined;
-  const c = c_?.toString() || undefined;
-  const q = q_?.toString() || undefined;
-  const u = u_?.toString() || undefined;
+  let y = y__ ? parseInt(y__) : undefined;
 
+  console.log({ y, y__, y_ });
+
+  if (!!y__ && y && (isNaN(y) || !getYearGroupsByK(k).includes(y))) {
+    return { questions: [] };
+  }
   if (!!k && !StudentStages.includes(k as any)) {
     return { questions: [] };
   }
@@ -25,16 +33,17 @@ const getProps = async (searchParams: T["searchParams"]) => {
   const { questions } = await SSRCaller.getQuestions({
     q,
     k,
-    c: c?.toString() || undefined,
+    c,
     u,
+    y: y__,
   });
   return { questions };
 };
 
-const Home = async ({ searchParams }: T) => {
-  const props = await getProps(searchParams);
+const Home = async ({ searchParams }: HomePageParams) => {
+  const { ...props } = await getProps(searchParams);
 
-  return <PageDisplay {...props} />;
+  return <PageDisplay initialParams={searchParams} {...props} />;
 };
 
 export default Home;
