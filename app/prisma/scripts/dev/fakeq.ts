@@ -15,7 +15,7 @@ function randInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function choose(choices: readonly string[]) {
+function choose<T>(choices: T[]) {
   return choices[Math.floor(Math.random() * choices.length)];
 }
 
@@ -36,10 +36,12 @@ function randomChoices(possibilities: string[]) {
 }
 
 (async () => {
+  const users = (await prisma.user.findMany()).map((each) => each.id);
   await prisma.question.deleteMany();
 
   for (let i = 1; i <= 100; i++) {
     const yeargroup = randInt(1, 13);
+    const anonymous = Math.random() > 0.25 ? false : true;
 
     await prisma.question.create({
       data: {
@@ -48,12 +50,22 @@ function randomChoices(possibilities: string[]) {
         studentStage: classifyKSCategoryByYear(yeargroup),
         yearGroupAsked: yeargroup,
         answered: Math.random() > 0.5 ? false : true,
-        anonymous: Math.random() > 0.5 ? false : true,
+        anonymous,
         categories: {
           connect: randomChoices(categories).map((c) => ({ name: c })),
         },
+        ...(anonymous
+          ? {}
+          : {
+              questioner: {
+                connect: {
+                  id: choose(users),
+                },
+              },
+            }),
       },
     });
+    await new Promise((resolve) => setTimeout(resolve, 3));
   }
   console.log("\x1b[32m%s\x1b[0m", "Fake questions successfully populated.");
 })();
