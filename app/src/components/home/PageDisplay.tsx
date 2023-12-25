@@ -14,6 +14,7 @@ import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { SortSelect } from "../select/sort-select";
 import { YGSelect } from "../select/year-group-select";
 import { InputWait } from "./InputWait";
+import { HomePageInfoDisplay } from "./info-display";
 import { InfiniteScrollingDisplay } from "./questions-display/InfiniteScrollingDisplay";
 import {
   titleSearchValidation,
@@ -182,7 +183,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
             />
           </LabelErrorWrapper>
         </aside>
-        <div className=" w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-16 gap-4 items-center">
+        <div className="overflow-y-auto h-[90vh] w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-16 gap-4 items-center">
           {questions.length > 0 ? (
             <InfiniteScrollingDisplay
               initialParams={initialParams}
@@ -204,7 +205,9 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
             </>
           )}
         </div>
-        <aside className="w-3/12 border-l border-slate-600/20 min-h-[90vh] hidden lg:block"></aside>
+        <aside className="w-3/12 border-l border-slate-600/20 min-h-[90vh] hidden lg:block">
+          <HomePageInfoDisplay />
+        </aside>
       </div>
       <div className="fixed right-4 bottom-4 w-60 h-16 bg-[#121212] border border-slate-400/20 rounded-xl">
         <div className="w-full h-full bg-blue-700/10 flex justify-evenly py-3 rounded-xl">
