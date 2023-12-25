@@ -10,9 +10,10 @@ import {
 
 export interface BaseSelectProps {
   dataset: { value: string; displayName: string }[];
+  onChange?: (_: string) => void;
 }
 
-export const BaseSelect: FC<BaseSelectProps> = ({ dataset }) => {
+export const BaseSelect: FC<BaseSelectProps> = ({ dataset, onChange }) => {
   const completeDataset: typeof dataset = [
     { value: "", displayName: "All" },
     ...dataset,
@@ -20,7 +21,13 @@ export const BaseSelect: FC<BaseSelectProps> = ({ dataset }) => {
   const [selected, setSelected] = useState(completeDataset[0]);
 
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selected}
+      onChange={(v) => {
+        if (onChange) onChange(v.value);
+        setSelected(v);
+      }}
+    >
       <Listbox.Button className={getEntryClassName()}>
         {selected.displayName}
       </Listbox.Button>
