@@ -100,6 +100,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
               maxLength={48}
               defaultValue={searchParams.get("q")?.toString()}
               name="q"
+              placeholder="Find by title..."
               className="text-sm"
               widthClassName="w-full"
               onChange={(e) => {
@@ -144,6 +145,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
               defaultValue={searchParams.get("u")?.toString()}
               name="u"
               className="text-sm"
+              placeholder="Find by user..."
               widthClassName="w-full"
               onChange={(e) => {
                 if (e.target.value.length < 1) {
@@ -156,6 +158,11 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
+            label="By year group"
+            className="w-9/12 min-w-[180px] mx-auto lg:mx-[unset] lg:w-full"
+          ></LabelErrorWrapper>
+          <LabelErrorWrapper
+            labelFontSize="text-base"
             label="Sort by"
             className="w-9/12 min-w-[180px] mx-auto lg:mx-[unset] lg:w-full"
           ></LabelErrorWrapper>
@@ -164,9 +171,10 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           {questions.length > 0 ? (
             <InfiniteScrollingDisplay
               query={{
-                k: searchParams.get("c")?.toString() || undefined,
-                c: (searchParams.get("k")?.toString() as any) || undefined,
+                k: searchParams.get("k")?.toString() || undefined,
+                c: (searchParams.get("c")?.toString() as any) || undefined,
                 q: searchParams.get("q")?.toString() || undefined,
+                u: searchParams.get("u")?.toString() || undefined,
               }}
               initialData={questions}
             />
