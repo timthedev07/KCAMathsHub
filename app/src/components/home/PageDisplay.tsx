@@ -1,14 +1,24 @@
 "use client";
 import { inferProcedureOutput } from "@trpc/server";
+import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, FC, useCallback, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { AiFillTool } from "react-icons/ai";
 import { GrLinkTop } from "react-icons/gr";
+import resolveConfig from "tailwindcss/resolveConfig";
 import { useDebouncedCallback } from "use-debounce";
 import type { z } from "zod";
+import tailwindConfig from "../../../tailwind.config";
 import { processQP } from "../../lib/processQueryParam";
 import { getQuestions } from "../../server/crud/questions/getQuestions";
 import { CategoryAutoComplete } from "../categories/CategoryAutoComplete";
-import { Button } from "../reusable/Button";
 import { Input } from "../reusable/Input";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { SortSelect } from "../select/sort-select";
@@ -22,10 +32,19 @@ import {
 } from "./searchInputValidation";
 import { HomePageParams } from "./types";
 
+const Button = dynamic(
+  async () => (await import("../../components/reusable/Button")).Button,
+  {
+    ssr: false,
+  }
+);
+
 type Props = {
   questions: inferProcedureOutput<typeof getQuestions>["questions"];
   initialParams: HomePageParams["searchParams"];
 };
+
+const twConfig = resolveConfig(tailwindConfig);
 
 const fieldWrapperCN = "w-9/12 mx-auto min-w-[180px] lg:mx-[unset] lg:w-full";
 
@@ -36,7 +55,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [category, setCategory] = useState<string | null>(null);
   const [errors, setErrors] = useState<{ q?: string; u?: string }>({});
-  // const [showToolbar, setShowToolbar] = useState<boolean>(false);
+  const [showToolbar, setShowToolbar] = useState<boolean>(true);
   const [inputLoading, setInputLoading] = useState<{
     q?: boolean;
     category?: boolean;
@@ -86,12 +105,31 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
     800
   );
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const breakpoint = parseFloat(twConfig.theme.screens.lg.replace("px", ""));
+
+    function listener() {
+      setShowToolbar(window.innerWidth > breakpoint);
+    }
+
+    window.addEventListener("resize", listener);
+
+    listener();
+
+    return () => {
+      window.removeEventListener("resize", listener);
+    };
+  }, []);
+
   return (
     <>
       <div className="flex lg:flex-row flex-col">
         <aside
           ref={ref}
-          className="w-full lg:w-3/12 lg:border-r border-b border-slate-600/20 lg:min-h-[90vh] py-8 lg:px-4 xl:px-8 gap-8 flex flex-col"
+          className={`w-full lg:w-3/12 lg:border-r border-b border-slate-600/20 lg:min-h-[90vh] py-8 lg:px-4 xl:px-8 gap-8 ${
+            showToolbar ? "flex flex-col" : "hidden"
+          }`}
         >
           <LabelErrorWrapper
             labelFontSize="text-base"
@@ -210,8 +248,17 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
           <HomePageInfoDisplay />
         </aside>
       </div>
-      <div className="fixed right-4 bottom-4 w-60 h-16 bg-[#121212] border border-slate-400/20 rounded-xl">
+      <div className="fixed right-4 bottom-4 w-96 lg:w-60 h-16 bg-[#121212] border border-slate-400/20 rounded-xl">
         <div className="w-full h-full bg-blue-700/10 flex justify-evenly py-3 rounded-xl">
+          <Button
+            className="lg:hidden block"
+            onClick={() => {
+              setShowToolbar((prev) => !prev);
+            }}
+          >
+            <AiFillTool className="mr-2" />
+            Show toolbar
+          </Button>
           <Button
             color="indigo"
             onClick={() => {
