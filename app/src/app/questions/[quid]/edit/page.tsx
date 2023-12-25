@@ -24,7 +24,7 @@ const getSSRProps = async (quid: string) => {
   return { user: session.user, question: a };
 };
 
-const QuestionEditPage: FC<NextPageParams<{ quid: string }>> = async ({
+const QuestionEditPage: FC<NextPageParams<{ quid: string }, "">> = async ({
   params: { quid },
 }) => {
   const { question, user } = await getSSRProps(quid);
