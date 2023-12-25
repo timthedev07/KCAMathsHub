@@ -11,6 +11,7 @@ import { CategoryAutoComplete } from "../categories/CategoryAutoComplete";
 import { Button } from "../reusable/Button";
 import { Input } from "../reusable/Input";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
+import { SortSelect } from "../select/sort-select";
 import { YGSelect } from "../select/year-group-select";
 import { InputWait } from "./InputWait";
 import { InfiniteScrollingDisplay } from "./questions-display/InfiniteScrollingDisplay";
@@ -94,7 +95,9 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
             labelFontSize="text-base"
             label="Proposed time"
             className={fieldWrapperCN}
-          ></LabelErrorWrapper>
+          >
+            <SortSelect setParam={setParam} />
+          </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
             label={
