@@ -2,7 +2,6 @@
 
 import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
-import { notFound } from "next/navigation";
 import { LoadingSpin } from "../../../components/loading/loading-spin";
 import { NextPage } from "../../../types/nextpage";
 
@@ -21,7 +20,7 @@ const ProfileTabs = dynamic(
 );
 
 const Profile: NextPage = () => {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession({ required: true });
 
   if (status === "loading") {
     return (
@@ -29,10 +28,6 @@ const Profile: NextPage = () => {
         <LoadingSpin size="md" />
       </div>
     );
-  }
-
-  if (!session) {
-    notFound();
   }
 
   return (
