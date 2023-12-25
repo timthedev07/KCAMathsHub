@@ -8,6 +8,11 @@ export const getUserAnswers = publicProcedure
   .query(async ({ input: { uid } }) => {
     const answers = await prisma.answer.findMany({
       where: { answererId: uid },
+      include: {
+        question: {
+          select: { title: true, categories: { select: { name: true } } },
+        },
+      },
     });
 
     return Promise.all(
