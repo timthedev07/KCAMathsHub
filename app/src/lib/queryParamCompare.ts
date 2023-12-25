@@ -1,9 +1,10 @@
 export const queryParamCompare = <T extends Object, P extends T>(
   a: T,
-  b: P,
+  b: Partial<P>,
   keys: (keyof T)[]
 ) => {
   for (const key of keys) {
+    if (!(key in b) || !b[key]) return;
     if (a[key] !== b[key]) {
       return false;
     }
