@@ -23,6 +23,7 @@ export const YGSelect: FC<YGSelectProps> = ({
 
   return (
     <BaseSelect
+      resetStateOnRouteChange={() => ({ value: "", displayName: "All" })}
       dataset={dataset}
       defaultValue={defaultValue}
       onChange={(v) => {
