@@ -10,6 +10,7 @@ import { CategoryAutoComplete } from "../categories/CategoryAutoComplete";
 import { Button } from "../reusable/Button";
 import { Input } from "../reusable/Input";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
+import { YGSelect } from "../select/year-group-select";
 import { InputWait } from "./InputWait";
 import { InfiniteScrollingDisplay } from "./questions-display/InfiniteScrollingDisplay";
 import {
@@ -20,6 +21,8 @@ import {
 type Props = {
   questions: inferProcedureOutput<typeof getQuestions>["questions"];
 };
+
+const fieldWrapperCN = "w-9/12 mx-auto min-w-[180px] lg:mx-[unset] lg:w-full";
 
 export const PageDisplay: FC<Props> = ({ questions }) => {
   const searchParams = useSearchParams();
@@ -93,7 +96,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
                 {inputLoading.q ? <InputWait className="w-4 h-4 ml-3" /> : null}
               </>
             }
-            className="w-9/12 mx-auto min-w-[180px] lg:mx-[unset] lg:w-full"
+            className={fieldWrapperCN}
             error={errors.q}
           >
             <Input
@@ -115,7 +118,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           <LabelErrorWrapper
             labelFontSize="text-base"
             label="By category"
-            className="w-9/12 min-w-[180px] mx-auto lg:mx-[unset] lg:w-full"
+            className={fieldWrapperCN}
           >
             <CategoryAutoComplete
               nullable={true}
@@ -129,6 +132,14 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
               selectedCategories={category ? [category] : []}
             />
           </LabelErrorWrapper>
+
+          <LabelErrorWrapper
+            labelFontSize="text-base"
+            label="By year group"
+            className={fieldWrapperCN}
+          >
+            <YGSelect k={searchParams.get("k")?.toString() || undefined} />
+          </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
             label={
@@ -137,7 +148,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
                 {inputLoading.u ? <InputWait className="w-4 h-4 ml-3" /> : null}
               </>
             }
-            className="w-9/12 mx-auto min-w-[180px] lg:mx-[unset] lg:w-full"
+            className={fieldWrapperCN}
             error={errors.u}
           >
             <Input
@@ -158,13 +169,8 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
-            label="By year group"
-            className="w-9/12 min-w-[180px] mx-auto lg:mx-[unset] lg:w-full"
-          ></LabelErrorWrapper>
-          <LabelErrorWrapper
-            labelFontSize="text-base"
             label="Sort by"
-            className="w-9/12 min-w-[180px] mx-auto lg:mx-[unset] lg:w-full"
+            className={fieldWrapperCN}
           ></LabelErrorWrapper>
         </aside>
         <div className=" w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-16 gap-4 items-center">

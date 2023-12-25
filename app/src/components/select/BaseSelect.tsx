@@ -1,7 +1,12 @@
 import { Listbox } from "@headlessui/react";
 import type { FC } from "react";
-import { useState } from "react";
-import { SharedTransition } from "../shared-styling/inputMenu";
+import { Fragment, useState } from "react";
+import {
+  SharedTransition,
+  getEntryClassName,
+  getOptionClassName,
+  getOptionsUIClassName,
+} from "../shared-styling/inputMenu";
 
 export interface BaseSelectProps {
   dataset: { value: string; displayName: string }[];
@@ -16,16 +21,18 @@ export const BaseSelect: FC<BaseSelectProps> = ({ dataset }) => {
 
   return (
     <Listbox value={selected} onChange={setSelected}>
-      <Listbox.Button
-        className={`rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-400/10 w-full`}
-      >
+      <Listbox.Button className={getEntryClassName()}>
         {selected.displayName}
       </Listbox.Button>
       <SharedTransition>
-        <Listbox.Options>
+        <Listbox.Options className={getOptionsUIClassName()}>
           {completeDataset.map((each) => (
-            <Listbox.Option key={each.value} value={each}>
-              {each.displayName}
+            <Listbox.Option as={Fragment} key={each.value} value={each}>
+              {({ active, selected }) => (
+                <li className={getOptionClassName(active || selected)}>
+                  {each.displayName}
+                </li>
+              )}
             </Listbox.Option>
           ))}
         </Listbox.Options>

@@ -1,5 +1,6 @@
 import { Transition } from "@headlessui/react";
 import type { FC, PropsWithChildren } from "react";
+import { inputBase } from "../../reusable-vars/Input";
 
 export const SharedTransition: FC<PropsWithChildren> = ({ children }) => (
   <Transition
@@ -18,7 +19,7 @@ export const getEntryClassName = (
   disabled: boolean = false,
   extraClassName = ""
 ) =>
-  `rounded-xl text-sm bg-neutral-100/[0.05] rounded-md border-slate-400/10 ${extraClassName} ${
+  `rounded-xl text-left text-sm ${inputBase} border border-slate-400/10 ${extraClassName} ${
     disabled ? "cursor-not-allowed" : ""
   }`;
 export const getOptionsUIClassName = (extraClassName = "") =>
