@@ -6,9 +6,10 @@ import { Question } from "./Question";
 
 interface QListProps {
   uid: string;
+  className?: string;
 }
 
-export const QList: FC<QListProps> = ({ uid }) => {
+export const QList: FC<QListProps> = ({ uid, className = "" }) => {
   const { data, status } = trpc.getUserDisplayQuestions.useQuery({ uid });
 
   return (
@@ -16,7 +17,7 @@ export const QList: FC<QListProps> = ({ uid }) => {
       {status === "loading" || !data ? (
         <LoadingSpin size="lg" />
       ) : (
-        <div className="flex flex-col gap-3 pt-4">
+        <div className={"flex flex-col gap-3 pt-4 " + className}>
           <h2 className="w-full text-center font-bold text-3xl my-8">
             Questions
           </h2>
