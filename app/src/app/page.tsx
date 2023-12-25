@@ -4,25 +4,29 @@ import { SSRCaller } from "../server";
 import { StudentStages } from "../types/StudentStage";
 import { NextPageParams } from "../types/nextPageParam";
 
-type T = NextPageParams<{}, "q" | "k" | "c">;
+type T = NextPageParams<{}, "q" | "k" | "c" | "u">;
 
 const getProps = async (searchParams: T["searchParams"]) => {
-  const { k, q, c: c_ } = searchParams;
+  const { k: k_, q: q_, c: c_, u: u_ } = searchParams;
+
+  const k = k_?.toString() || undefined;
+  const c = c_?.toString() || undefined;
+  const q = q_?.toString() || undefined;
+  const u = u_?.toString() || undefined;
 
   if (!!k && !StudentStages.includes(k as any)) {
     return { questions: [] };
   }
-
-  const c = c_?.toString() || undefined;
 
   if (!!c && !Array.from(categories).includes(c)) {
     return { questions: [] };
   }
 
   const { questions } = await SSRCaller.getQuestions({
-    q: q ? q.toString() : undefined,
-    k: (k?.toString() as any) || undefined,
-    category: c?.toString() || undefined,
+    q,
+    k,
+    c: c?.toString() || undefined,
+    u,
   });
   return { questions };
 };
