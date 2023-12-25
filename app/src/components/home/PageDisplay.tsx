@@ -27,7 +27,7 @@ type Props = {
 
 const fieldWrapperCN = "w-9/12 mx-auto min-w-[180px] lg:mx-[unset] lg:w-full";
 
-export const PageDisplay: FC<Props> = ({ questions }) => {
+export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -183,6 +183,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
         <div className=" w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-16 gap-4 items-center">
           {questions.length > 0 ? (
             <InfiniteScrollingDisplay
+              initialParams={initialParams}
               query={{
                 k: processQP(searchParams.get("k")),
                 c: processQP(searchParams.get("c")),

@@ -17,8 +17,6 @@ const getProps = async (searchParams: HomePageParams["searchParams"]) => {
 
   let y = y__ ? parseInt(y__) : undefined;
 
-  console.log({ y, y__, y_ });
-
   if (!!y__ && y && (isNaN(y) || !getYearGroupsByK(k).includes(y))) {
     return { questions: [] };
   }
