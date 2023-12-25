@@ -51,8 +51,6 @@ export const getQuestions = publicProcedure
     const kSearch = !!k ? { studentStage: k } : {};
     const ySearch = !!y ? { yearGroupAsked: y } : {};
 
-    console.log(ySearch);
-
     try {
       const questions = (
         await prisma.question.findMany({
