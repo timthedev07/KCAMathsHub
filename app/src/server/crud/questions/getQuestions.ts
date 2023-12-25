@@ -12,15 +12,16 @@ export const GetQSSchema = z.object({
   order: z.enum(["asc", "desc"]).optional().default("desc"),
   cursor: z.string().nullish(),
   q: z.string().optional(),
-  category: z.string().optional(),
+  c: z.string().optional(),
+  u: z.string().optional(),
 });
 
 export const getQuestions = publicProcedure
   .input(GetQSSchema)
-  .query(async ({ input: { k, sortBy, order, cursor, q, category } }) => {
+  .query(async ({ input: { k, sortBy, order, cursor, q, c, u } }) => {
     if (
       (!!k && StudentStages.indexOf(k as any) < 0) ||
-      (!!category && categories.indexOf(category) < 0)
+      (!!c && categories.indexOf(c) < 0)
     ) {
       return {
         questions: [],
@@ -34,18 +35,22 @@ export const getQuestions = publicProcedure
       ? { OR: [{ title: { contains: q } }, { content: { contains: q } }] }
       : {};
 
-    const cSearch = !!category
-      ? { categories: { some: { name: { equals: category } } } }
+    const cSearch = !!c
+      ? { categories: { some: { name: { equals: c } } } }
       : {};
+
+    const uSearch = !!u ? { questioner: { username: { contains: u } } } : {};
+    const kSearch = !!k ? { studentStage: k } : {};
 
     try {
       const questions = (
         await prisma.question.findMany({
           take: limit + 1,
           where: {
-            studentStage: k,
+            ...kSearch,
             ...qSearch,
             ...cSearch,
+            ...uSearch,
           },
           orderBy: {
             [sortBy]: order,
