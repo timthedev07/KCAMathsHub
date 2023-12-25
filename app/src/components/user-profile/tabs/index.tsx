@@ -37,7 +37,7 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user, isCurrUser }) => {
 
       {roleChecker(u.roles, ["moderator", "answerer"]) ? (
         <TabItem title="Questions">
-          <QuestionsTab />
+          <QuestionsTab uid={u.id} />
         </TabItem>
       ) : null}
 
