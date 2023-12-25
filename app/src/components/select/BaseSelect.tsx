@@ -25,11 +25,7 @@ export const BaseSelect: FC<BaseSelectProps> = ({
   defaultValue,
   resetStateOnRouteChange,
 }) => {
-  const completeDataset: typeof dataset = [
-    { value: "", displayName: "All" },
-    ...dataset,
-  ];
-  const [selected, setSelected] = useState(defaultValue || completeDataset[0]);
+  const [selected, setSelected] = useState(defaultValue || dataset[0]);
   const searchParams = useSearchParams();
   const k = searchParams.get("k");
 
@@ -53,7 +49,7 @@ export const BaseSelect: FC<BaseSelectProps> = ({
       </Listbox.Button>
       <SharedTransition>
         <Listbox.Options className={getOptionsUIClassName()}>
-          {completeDataset.map((each) => (
+          {dataset.map((each) => (
             <Listbox.Option as={Fragment} key={each.value} value={each}>
               {({ active, selected }) => (
                 <li className={getOptionClassName(active || selected)}>

@@ -19,12 +19,13 @@ export const YGSelect: FC<YGSelectProps> = ({
   defaultValue: defaultValue_,
 }) => {
   const dataset = getYearGroupsByK(k).map(convert);
+  const completeDataset = [{ value: "", displayName: "All" }, ...dataset];
   const defaultValue = defaultValue_ ? convert(defaultValue_) : undefined;
 
   return (
     <BaseSelect
       resetStateOnRouteChange={() => ({ value: "", displayName: "All" })}
-      dataset={dataset}
+      dataset={completeDataset}
       defaultValue={defaultValue}
       onChange={(v) => {
         setParam("y", v);
