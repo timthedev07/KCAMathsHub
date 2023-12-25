@@ -22,8 +22,8 @@ export const getEntryClassName = (
   `rounded-xl text-left text-sm ${inputBase} border border-slate-400/10 ${extraClassName} ${
     disabled ? "cursor-not-allowed" : ""
   }`;
-export const getOptionsUIClassName = (extraClassName = "") =>
-  `rounded-lg border border-slate-400/10 bg-slate-300/[0.04] overflow-hidden max-h-96 overflow-y-auto min-w-[250px] ${extraClassName}`;
+export const getOptionsUIClassName = (extraClassName = "w-full") =>
+  `absolute rounded-lg border border-slate-400/10 bg-[#1a1e26] overflow-hidden max-h-96 overflow-y-auto min-w-[250px] ${extraClassName}`;
 
 export const getOptionClassName = (active: boolean) =>
   `p-3 text-sm hover:bg-blue-600/30 hover:text-white hover:font-semibold cursor-pointer transition duration-200 ${
