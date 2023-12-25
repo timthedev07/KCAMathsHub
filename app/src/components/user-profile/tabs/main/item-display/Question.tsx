@@ -39,7 +39,7 @@ export const Question: FC<QuestionProps> = ({
           </div>
           <div
             className={`flex gap-2 ${
-              answered || anonymous ? "block" : "hidden"
+              answered || anonymous ? "flex" : "hidden"
             }`}
           >
             {anonymous ? <Anonymous /> : null}
