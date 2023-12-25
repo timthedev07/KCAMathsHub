@@ -12,3 +12,11 @@ export const titleSearchValidation = z
       .replaceAll(/(-)\1+/gi, "-")
       .trim();
   });
+
+export const userSearchValidation = z
+  .string()
+  .trim()
+  .max(32)
+  .transform((v) => {
+    return v.toLowerCase().replaceAll(/\s/gi, "-").trim();
+  });
