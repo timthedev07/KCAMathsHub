@@ -36,6 +36,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [category, setCategory] = useState<string | null>(null);
   const [errors, setErrors] = useState<{ q?: string; u?: string }>({});
+  // const [showToolbar, setShowToolbar] = useState<boolean>(false);
   const [inputLoading, setInputLoading] = useState<{
     q?: boolean;
     category?: boolean;
@@ -183,7 +184,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
             />
           </LabelErrorWrapper>
         </aside>
-        <div className="overflow-y-auto h-[90vh] w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-16 gap-4 items-center">
+        <div className="overflow-y-auto h-[90vh] w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-8 xl:px-16 gap-4 items-center">
           {questions.length > 0 ? (
             <InfiniteScrollingDisplay
               initialParams={initialParams}
