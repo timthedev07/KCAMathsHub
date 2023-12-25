@@ -9,8 +9,7 @@ import { publicProcedure } from "../../trpc";
 
 export const GetQSSchema = z.object({
   k: z.string().optional(), // undefined => all
-  sortBy: z.enum(["timestamp"]).optional().default("timestamp"),
-  order: z.enum(["asc", "desc"]).optional().default("desc"),
+  s: z.string().optional().default("desc"),
   cursor: z.string().nullish(),
   q: z.string().optional(),
   c: z.string().optional(),
@@ -20,12 +19,14 @@ export const GetQSSchema = z.object({
 
 export const getQuestions = publicProcedure
   .input(GetQSSchema)
-  .query(async ({ input: { k, sortBy, order, cursor, q, c, u, y: y_ } }) => {
+  .query(async ({ input: { k, s: order, cursor, q, c, u, y: y_ } }) => {
     let y = y_ ? parseInt(y_) : undefined;
 
     if (!!y_ && y && (isNaN(y) || !getYearGroupsByK(k).includes(y))) {
       return { questions: [] };
     }
+
+    const s = order === "desc" || order === "asc" ? order : "desc";
 
     if (
       (!!k && StudentStages.indexOf(k as any) < 0) ||
@@ -63,7 +64,7 @@ export const getQuestions = publicProcedure
             ...ySearch,
           },
           orderBy: {
-            [sortBy]: order,
+            timestamp: s,
           },
           include: {
             questioner: { select: { username: true, image: true } },
