@@ -40,7 +40,7 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
   const setParam = useCallback(
     (key: string, value?: string) => {
       const params = new URLSearchParams(searchParams);
-      if (!value && params.has(key)) params.delete(key);
+      if ((!value || !value.length) && params.has(key)) params.delete(key);
       else if (!!value) params.set(key, value);
       replace(`${pathname}?${params.toString()}`);
     },
@@ -138,7 +138,10 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
             label="By year group"
             className={fieldWrapperCN}
           >
-            <YGSelect k={searchParams.get("k")?.toString() || undefined} />
+            <YGSelect
+              setParam={setParam}
+              k={searchParams.get("k")?.toString() || undefined}
+            />
           </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
