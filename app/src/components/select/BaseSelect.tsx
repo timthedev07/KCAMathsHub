@@ -11,14 +11,19 @@ import {
 export interface BaseSelectProps {
   dataset: { value: string; displayName: string }[];
   onChange?: (_: string) => void;
+  defaultValue?: { value: string; displayName: string };
 }
 
-export const BaseSelect: FC<BaseSelectProps> = ({ dataset, onChange }) => {
+export const BaseSelect: FC<BaseSelectProps> = ({
+  dataset,
+  onChange,
+  defaultValue,
+}) => {
   const completeDataset: typeof dataset = [
     { value: "", displayName: "All" },
     ...dataset,
   ];
-  const [selected, setSelected] = useState(completeDataset[0]);
+  const [selected, setSelected] = useState(defaultValue || completeDataset[0]);
 
   return (
     <Listbox
