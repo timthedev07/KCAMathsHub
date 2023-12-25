@@ -29,7 +29,7 @@ const getSSRProps = async (aid: string) => {
   };
 };
 
-const Page: FC<NextPageParams<{ aid: string }>> = async ({
+const Page: FC<NextPageParams<{ aid: string }, "">> = async ({
   params: { aid },
 }) => {
   const { answer, user } = await getSSRProps(aid);
