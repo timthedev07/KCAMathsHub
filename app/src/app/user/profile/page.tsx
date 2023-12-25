@@ -21,9 +21,17 @@ const ProfileTabs = dynamic(
 );
 
 const Profile: NextPage = () => {
-  const { data: session } = useSession({ required: true });
+  const { data: session, status } = useSession();
 
-  if (!session?.user) {
+  if (status === "loading") {
+    return (
+      <div className="h-[80vh]">
+        <LoadingSpin size="md" />
+      </div>
+    );
+  }
+
+  if (!session) {
     notFound();
   }
 
