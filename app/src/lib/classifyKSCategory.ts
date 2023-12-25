@@ -17,3 +17,15 @@ export const classifyKSCategory = (
     return "KS5";
   }
 };
+
+export const classifyKSCategoryByYear = (year: number): StudentStageType => {
+  if (year <= 6) {
+    return "Primary";
+  } else if (year < 10) {
+    return "KS3";
+  } else if (year < 12) {
+    return "KS4";
+  } else {
+    return "KS5";
+  }
+};
