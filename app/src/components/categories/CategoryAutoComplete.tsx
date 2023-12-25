@@ -5,6 +5,7 @@ import { MAX_CATEGORIES_NUM } from "../../constants/catMax";
 import {
   SharedTransition,
   getEntryClassName,
+  getOptionClassName,
   getOptionsUIClassName,
 } from "../shared-styling/inputMenu";
 
@@ -94,13 +95,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
               <Combobox.Option key={each} value={each} as={Fragment}>
                 {({ active }) => {
                   return (
-                    <li
-                      className={`p-3 text-sm hover:bg-blue-600/30 hover:text-white hover:font-semibold cursor-pointer transition duration-200 ${
-                        active
-                          ? "text-white font-semibold bg-blue-600/30"
-                          : "text-white/80"
-                      } text-sm`}
-                    >
+                    <li className={getOptionClassName(active)}>
                       {each
                         .split(" ")
                         .map((each) =>

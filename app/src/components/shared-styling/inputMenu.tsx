@@ -23,3 +23,8 @@ export const getEntryClassName = (
   }`;
 export const getOptionsUIClassName = (extraClassName = "") =>
   `rounded-lg border border-slate-400/10 bg-slate-300/[0.04] overflow-hidden max-h-96 overflow-y-auto min-w-[250px] ${extraClassName}`;
+
+export const getOptionClassName = (active: boolean) =>
+  `p-3 text-sm hover:bg-blue-600/30 hover:text-white hover:font-semibold cursor-pointer transition duration-200 ${
+    active ? "text-white font-semibold bg-blue-600/30" : "text-white/80"
+  }`;
