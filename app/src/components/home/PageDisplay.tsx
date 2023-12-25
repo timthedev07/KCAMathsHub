@@ -164,8 +164,8 @@ export const PageDisplay: FC<Props> = ({ questions }) => {
           {questions.length > 0 ? (
             <InfiniteScrollingDisplay
               query={{
-                category: searchParams.get("c")?.toString() || undefined,
-                k: (searchParams.get("k")?.toString() as any) || undefined,
+                k: searchParams.get("c")?.toString() || undefined,
+                c: (searchParams.get("k")?.toString() as any) || undefined,
                 q: searchParams.get("q")?.toString() || undefined,
               }}
               initialData={questions}
