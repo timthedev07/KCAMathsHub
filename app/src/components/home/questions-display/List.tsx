@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { FC } from "react";
+import { FaCheck } from "react-icons/fa";
 import { FaAnglesRight } from "react-icons/fa6";
 import { dateTimeDisplay } from "../../../lib/datetimeDisplay";
 import { pageURLs } from "../../../lib/pageURLGen";
@@ -25,7 +26,18 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
     <ol className="w-full flex flex-col py-8 gap-8 items-center">
       {questions.map(
         (
-          { id, title, timestamp, anonymous, categories, questioner, content },
+          {
+            id,
+            title,
+            timestamp,
+            anonymous,
+            categories,
+            questioner,
+            content,
+            yearGroupAsked,
+            studentStage,
+            answered,
+          },
           ind
         ) => (
           <li
@@ -64,7 +76,16 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
               ))}
             </ul>
             <p className="w-full text-sm text-white/70">{content}</p>
-            <div className="h-8">
+            <div className="h-8 flex justify-start gap-3 items-center">
+              {answered && (
+                <div className="text-xs flex text-white/80 border rounded-full border-green-600/80 bg-green-500/50 py-1.5 px-4 items-center gap-2">
+                  Answered <FaCheck />
+                </div>
+              )}
+              <div className="text-xs flex border rounded-full border-teal-600/80 bg-teal-500/50 py-1.5 px-4 items-center gap-2">
+                Y{yearGroupAsked}, {studentStage}
+              </div>
+
               <Button className="w-fit ml-auto" color={"blue"} size="sm">
                 <Link href={pageURLs.question(id)}>Read more</Link>
                 <FaAnglesRight className="ml-2" />
