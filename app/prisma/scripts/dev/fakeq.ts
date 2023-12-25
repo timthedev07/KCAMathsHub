@@ -1,4 +1,4 @@
-import { categories } from "../../../src/categories.json";
+import { categories } from "../../../src/categories";
 import prisma from "../../../src/db";
 import { StudentStages } from "../../../src/types/StudentStage";
 

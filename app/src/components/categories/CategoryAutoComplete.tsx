@@ -1,6 +1,6 @@
 import { Combobox, Transition } from "@headlessui/react";
 import { FC, Fragment, useState } from "react";
-import d from "../../categories.json";
+import { categories } from "../../categories";
 import { MAX_CATEGORIES_NUM } from "../../constants/catMax";
 
 interface CategoryAutoCompleteProps {
@@ -20,7 +20,7 @@ export const CategoryAutoComplete: FC<CategoryAutoCompleteProps> = ({
   defaultValue,
   nullable = false,
 }) => {
-  const data = d.categories;
+  const data = categories;
   const [query, setQuery] = useState<string>(defaultValue || "");
 
   const [selected, setSelected] = useState<string | null>(defaultValue || null);

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { categories } from "../../../categories.json";
+import { categories } from "../../../categories";
 import { HOMEPAGE_QUESTION_PAGE_SIZE } from "../../../constants/pagination";
 import prisma from "../../../db";
 import { truncateAtWord } from "../../../lib/truncateAtWord";

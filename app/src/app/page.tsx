@@ -1,4 +1,4 @@
-import { categories } from "../categories.json";
+import { categories } from "../categories";
 import { PageDisplay } from "../components/home/PageDisplay";
 import { SSRCaller } from "../server";
 import { StudentStages } from "../types/StudentStage";
@@ -15,7 +15,7 @@ const getProps = async (searchParams: T["searchParams"]) => {
 
   const c = c_?.toString() || undefined;
 
-  if (!!c && !categories.includes(c)) {
+  if (!!c && !Array.from(categories).includes(c)) {
     return { questions: [] };
   }
 
