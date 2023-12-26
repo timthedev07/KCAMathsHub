@@ -1,4 +1,4 @@
-import { FC } from "react";
+import type { FC } from "react";
 import { QuestionForm } from "../../../components/forms/QuestionForm";
 
 const AskPage: FC = () => {
