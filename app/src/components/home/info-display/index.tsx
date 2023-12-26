@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { FaInfoCircle } from "react-icons/fa";
 import { IoMdLink } from "react-icons/io";
+import { PiWarningCircleFill } from "react-icons/pi";
 import { Section } from "./Section";
 
 export const HomePageInfoDisplay = () => {
@@ -27,7 +28,11 @@ export const HomePageInfoDisplay = () => {
           </li>
         </ul>
       </Section>
-      <Section colorScheme="orange" heading="Expectations" icon={FaInfoCircle}>
+      <Section
+        colorScheme="orange"
+        heading="Expectations"
+        icon={PiWarningCircleFill}
+      >
         <p className="mb-3">
           Students are expected to act sensibly and respectfully on the
           platform.
