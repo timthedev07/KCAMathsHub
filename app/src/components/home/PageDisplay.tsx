@@ -175,7 +175,10 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
             label="Proposed time"
             className={fieldWrapperCN}
           >
-            <QStatusSelect setParam={setParam} />
+            <QStatusSelect
+              defaultValue={processQP(searchParams.get("a"))}
+              setParam={setParam}
+            />
           </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"

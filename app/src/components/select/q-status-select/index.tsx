@@ -1,8 +1,9 @@
 import { type FC } from "react";
 import { BaseSelect } from "../BaseSelect";
 
-interface SortSelectProps {
-  setParam: (_: string, __: string) => void;
+interface QStatusSelectProps {
+  setParam: (_: string, __?: string) => void;
+  defaultValue?: string;
 }
 
 const options = [
@@ -11,11 +12,21 @@ const options = [
   { value: "unanswered", displayName: "Unanswered" },
 ];
 
-export const QStatusSelect: FC<SortSelectProps> = ({ setParam }) => {
+export const QStatusSelect: FC<QStatusSelectProps> = ({
+  setParam,
+  defaultValue,
+}) => {
+  let d;
+  const ind = options.findIndex((val) => val.value === defaultValue);
+  if (ind >= 0) {
+    d = options[ind];
+  } else if (!!defaultValue) {
+    setParam("a");
+  }
   return (
     <BaseSelect
       dataset={options}
-      defaultValue={options[0]}
+      defaultValue={d || options[0]}
       onChange={(v) => {
         setParam("a", v);
       }}
