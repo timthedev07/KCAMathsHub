@@ -67,24 +67,6 @@ export const ModerationModal: FC<ModerationModalProps> = ({
           };
         });
 
-      getModerations.setData({ aid }, (p) => {
-        if (!p) return p;
-        return [
-          {
-            ...formData,
-            id: "",
-            moderator: session?.user as any,
-            timestamp: new Date(),
-            moderationComment: {
-              compiledSource: formData.moderationComment,
-              frontmatter: {},
-              scope: {},
-            },
-          },
-          ...p,
-        ];
-      });
-
       return { prevX, prevY };
     },
     onError: async (_, __, ctx) => {
@@ -94,7 +76,6 @@ export const ModerationModal: FC<ModerationModalProps> = ({
           { quid, pageNum: answerCurrPage },
           ctx.prevX
         );
-      getModerations.setData({ aid }, ctx.prevY);
     },
     onSuccess: async () => {
       if (!aid) return;
@@ -107,7 +88,7 @@ export const ModerationModal: FC<ModerationModalProps> = ({
   const handleSubmit = async () => {
     const u = session?.user;
     if (!u) return;
-    if (!aid || !answerCurrPage) return;
+    if (!aid) return;
     if (anyError(errors, changed)) {
       return;
     }
