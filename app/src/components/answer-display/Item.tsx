@@ -14,7 +14,7 @@ import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers
 import { trpc } from "../../trpc/client";
 import { AttachmentList } from "../attachments";
 import { OptionalLinkWrapper } from "../helpers/OptionalLinkWrapper";
-import { ToastLevel } from "../helpers/time-message-toast/";
+import { ToastLevel } from "../helpers/time-message-toast/types";
 import { ProfileImgDisplay } from "../image/ProfileImgDisplay";
 import { mdxCustomComponents } from "../mdx/components";
 import { Button } from "../reusable/Button";
@@ -164,18 +164,20 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
                 <MdEdit className="ml-1" />
               </Button>
             </Link>
-            <DeletionButtonWithConfirmation
-              currPage={currPage}
-              quid={data.questionId!}
-              aid={data.id}
-              color="purple"
-              entity="answer"
-              isOwner
-              uid={session!.user.id}
-              onSuccess={() => {
-                displayToast("Answer deleted!", "success");
-              }}
-            />
+            {!data.accepted && !data.moderated && !data.approved && (
+              <DeletionButtonWithConfirmation
+                currPage={currPage}
+                quid={data.questionId!}
+                aid={data.id}
+                color="purple"
+                entity="answer"
+                isOwner
+                uid={session!.user.id}
+                onSuccess={() => {
+                  displayToast("Answer deleted!", "success");
+                }}
+              />
+            )}
           </>
         )}
       </div>
