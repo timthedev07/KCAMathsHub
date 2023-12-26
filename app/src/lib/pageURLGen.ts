@@ -16,6 +16,9 @@ export const pageURLs = {
   editQuestion(qid: string) {
     return `${HOST}/questions/${qid}/edit`;
   },
+  viewQuestion(qid: string) {
+    return `${HOST}/questions/${qid}`;
+  },
   notFound() {
     return `${HOST}/not-found`;
   },
