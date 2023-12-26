@@ -1,6 +1,6 @@
 import prisma from "../../../db";
-import { roleChecker } from "../../../lib/accessGuard";
 import { handlePrismaError } from "../../../lib/handlePrismaError";
+import { roleChecker } from "../../../lib/roleChecker";
 import { AnswerSubmissionSchema } from "../../../schema/answer";
 import { createError, createSuccessResponse } from "../../../trpc/createError";
 import { Role } from "../../../types/role";

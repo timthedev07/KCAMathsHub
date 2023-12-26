@@ -1,8 +1,8 @@
 import prisma from "../../../db";
-import { roleChecker } from "../../../lib/accessGuard";
 import { classifyKSCategory } from "../../../lib/classifyKSCategory";
 import { getCurrYear } from "../../../lib/getCurrYear";
 import { handlePrismaError } from "../../../lib/handlePrismaError";
+import { roleChecker } from "../../../lib/roleChecker";
 import { AskSubmissionSchema } from "../../../schema/ask";
 import { createError, createSuccessResponse } from "../../../trpc/createError";
 import { publicProcedure } from "../../trpc";

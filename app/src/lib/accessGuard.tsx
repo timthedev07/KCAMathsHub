@@ -3,21 +3,7 @@ import { NextPage } from "../types/nextpage";
 import { Role } from "../types/role";
 import { WithSessionProps } from "../types/withSessionPage";
 import { getServerSession } from "./authoptions";
-
-export const roleChecker = (
-  userRoles: Role[],
-  targetRoles: Role[],
-  hasAll: boolean = false
-) => {
-  let count = 0;
-  for (const targetRole of targetRoles) {
-    if (userRoles.includes(targetRole)) {
-      if (!hasAll) return true;
-      count++;
-    }
-  }
-  return hasAll ? count === targetRoles.length : false;
-};
+import { roleChecker } from "./roleChecker";
 
 export const withAccessGuard = async <T,>(
   Page: NextPage<WithSessionProps<T>>,

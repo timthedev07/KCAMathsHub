@@ -1,9 +1,9 @@
 "use client";
 import { TabItem, Tabs } from "flowbite-react/lib/esm/components/Tabs";
-import { Session } from "next-auth";
+import type { Session } from "next-auth";
 import dynamic from "next/dynamic";
 import { FC } from "react";
-import { roleChecker } from "../../../lib/accessGuard";
+import { roleChecker } from "../../../lib/roleChecker";
 import { AListDataProvider } from "../AListDataProvider";
 import { MainProfileTab } from "./main";
 

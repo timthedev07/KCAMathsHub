@@ -7,7 +7,6 @@ import { FC } from "react";
 import { FaCheckCircle, FaUserCheck } from "react-icons/fa";
 import { MdChecklist, MdEdit, MdRateReview } from "react-icons/md";
 import { DeletionButtonWithConfirmation } from "../../app/questions/[quid]/DeletionButtonWithConfirmation";
-import { roleChecker } from "../../lib/accessGuard";
 import { dateTimeDisplay } from "../../lib/datetimeDisplay";
 import { pageURLs } from "../../lib/pageURLGen";
 import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers";
@@ -22,6 +21,7 @@ import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { StyledWrapper } from "../richtext/StyledWrapper";
 import { AcceptButtonWithConfirmation } from "./AcceptButtonWithConfirmation";
 import { Arg } from "./type";
+import { roleChecker } from "../../lib/roleChecker";
 
 interface AnswerListItemProps {
   data: inferProcedureOutput<typeof getQuestionAnswers>["answers"][number];

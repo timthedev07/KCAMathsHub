@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import type { FC } from "react";
 import { LoadingSpin } from "../../../../components/loading/loading-spin";
-import { roleChecker } from "../../../../lib/accessGuard";
+import { roleChecker } from "../../../../lib/roleChecker";
 import { trpc } from "../../../../trpc/client";
 import { NextPageParams } from "../../../../types/nextPageParam";
 
