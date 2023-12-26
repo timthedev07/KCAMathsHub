@@ -84,7 +84,7 @@ model QuestionCategory {
 model Answer {
   id          String            @id @default(cuid())
   content     String            @db.VarChar(5000)
-  accepted    Boolean?
+  accepted    Boolean           @default(false)
   timestamp   DateTime          @default(now())
   editedAt    DateTime?
   // attachments relation
