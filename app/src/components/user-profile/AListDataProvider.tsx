@@ -4,8 +4,7 @@ import { inferProcedureOutput } from "@trpc/server";
 import React, { PropsWithChildren, useContext } from "react";
 import { getUserAnswers } from "../../server/crud/answers/getUserAnswers";
 import { trpc } from "../../trpc/client";
-
-export type Status = "error" | "success" | "loading";
+import { Status } from "../../types/TRPCQueryStatus";
 
 interface AListDataContextType {
   data?: inferProcedureOutput<typeof getUserAnswers>;
