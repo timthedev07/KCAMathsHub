@@ -5,12 +5,15 @@ import { ToggleSwitch } from "flowbite-react/lib/esm/components/ToggleSwitch";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import { FaEye, FaUserSecret } from "react-icons/fa";
+import { IconType } from "react-icons";
+import { FaClipboardCheck, FaEye, FaUserSecret } from "react-icons/fa";
 import { FaClipboardUser } from "react-icons/fa6";
 import { IoIosSend } from "react-icons/io";
+import { MdChecklist, MdLightbulb } from "react-icons/md";
 import { useAutoSave } from "../../hooks/useAutoSave";
 import { anyError } from "../../lib/anyError";
 import { uploadToAPI } from "../../lib/attachmentClientUpload";
+
 import { filteredError } from "../../lib/filterError";
 import { validateForm } from "../../lib/handleZodErr";
 import { pageURLs } from "../../lib/pageURLGen";
@@ -24,10 +27,13 @@ import { CategoryAutoComplete } from "../categories/CategoryAutoComplete";
 import { QCategoryBadge } from "../categories/QCategoryBadge";
 import { MessageActionModal } from "../helpers/message-action-modal";
 import { TimedMessageToast } from "../helpers/time-message-toast";
+import { ColorScheme, styles } from "../home/info-display/styles";
 import { AutoSaveSpinner } from "../loading/AutoSaveSpinner";
 import { LoadingOverlay } from "../loading/LoadingOverlay";
 import { Button } from "../reusable/Button";
+
 import { Input } from "../reusable/Input";
+
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { QAEditor } from "../richtext/ForwardRefEditor";
 import { StyledWrapper } from "../richtext/StyledWrapper";
@@ -47,9 +53,22 @@ interface QuestionFormProps {
 }
 
 const adviceListClassname =
-  "text-white/70 list-disc space-y-8 text-sm pl-5 pt-5";
+  "text-white/70 list-disc space-y-8 text-sm pl-12 pt-5";
 
 const storageKey = "question_form";
+
+const StyledIcon: FC<{ icon: IconType; colorScheme: ColorScheme }> = ({
+  icon: Icon,
+  colorScheme,
+}) => {
+  return (
+    <div
+      className={`rounded-xl w-10 h-10 p-2.5 flex justify-center items-center ${styles[colorScheme]}`}
+    >
+      <Icon className="w-full h-full" />
+    </div>
+  );
+};
 
 export const QuestionForm: FC<QuestionFormProps> = ({
   userId,
@@ -227,7 +246,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
         </div>
       </MessageActionModal>
       <div className="flex gap-6 md:px-8 lg:px-16 my-10">
-        <div className="flex-1 relative rounded-xl md:border border-slate-300/20 p-6 lg:p-10">
+        <div className="flex-1 relative rounded-xl md:border border-slate-300/20 bg-blue-900/[0.07] p-6 lg:p-10">
           <div className="absolute top-0 right-0 p-6 lg:p-10">
             {saveState !== "saved" && <AutoSaveSpinner />}
           </div>
@@ -339,8 +358,11 @@ export const QuestionForm: FC<QuestionFormProps> = ({
             </div>
           </form>
         </div>
-        <div className="hidden xl:flex flex-col flex-shrink-0 w-[380px] p-6 lg:p-10 border-slate-300/20 border bg-blue-500/[0.05] rounded-xl">
-          <p className="font-bold text-lg">Guidelines</p>
+        <div className="hidden xl:flex flex-col flex-shrink-0 w-[400px] p-6 lg:p-8 py-10 lg:py-10 border-slate-300/20 border bg-blue-500/[0.05] rounded-xl">
+          <h1 className="font-bold text-lg flex items-center gap-2">
+            <StyledIcon colorScheme="orange" icon={FaClipboardCheck} />
+            Guidelines
+          </h1>
           <ol className={adviceListClassname}>
             <li>
               Any offensive/inappropriate content entered or linked externally
@@ -356,7 +378,10 @@ export const QuestionForm: FC<QuestionFormProps> = ({
               for a chance of a reputation boost after moderation.
             </li>
           </ol>
-          <p className="font-bold text-lg mt-10">Requirements & Assumptions</p>
+          <h1 className="font-bold text-lg flex items-center gap-2 mt-10">
+            <StyledIcon colorScheme="blue" icon={MdChecklist} />
+            Requirements & Assumptions
+          </h1>
           <ol className={adviceListClassname}>
             <li>Respectful and decent use of language.</li>
             <li>
@@ -369,7 +394,10 @@ export const QuestionForm: FC<QuestionFormProps> = ({
               clearly visible with acceptable handwriting.
             </li>
           </ol>
-          <p className="font-bold text-lg mt-10">Tips</p>
+          <h1 className="font-bold text-lg flex items-center gap-2 mt-10">
+            <StyledIcon colorScheme="green" icon={MdLightbulb} />
+            Tips
+          </h1>
           <ol className={adviceListClassname}>
             <li>
               If stuck on a question, try taking a break before coming back and
