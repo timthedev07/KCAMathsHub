@@ -1,4 +1,3 @@
-import { serialize } from "next-mdx-remote/serialize";
 import { z } from "zod";
 import prisma from "../../../db";
 import { publicProcedure } from "../../trpc";
@@ -6,19 +5,18 @@ import { publicProcedure } from "../../trpc";
 export const getUserAnswers = publicProcedure
   .input(z.object({ uid: z.string() }))
   .query(async ({ input: { uid } }) => {
-    const answers = await prisma.answer.findMany({
+    return await prisma.answer.findMany({
       where: { answererId: uid },
-      include: {
+      select: {
         question: {
           select: { title: true, categories: { select: { name: true } } },
         },
+        accepted: true,
+        anonymous: true,
+        approved: true,
+        id: true,
+        moderated: true,
+        timestamp: true,
       },
     });
-
-    return Promise.all(
-      answers.map(async (answer) => ({
-        ...answer,
-        content: await serialize(answer.content),
-      }))
-    );
   });
