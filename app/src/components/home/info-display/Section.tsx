@@ -1,13 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 import type { IconType } from "react-icons";
-
-type ColorScheme = "blue" | "green" | "orange";
-
-const styles: Record<ColorScheme, string> = {
-  blue: "bg-sky-400/20 text-sky-500",
-  green: "bg-emerald-400/20 text-emerald-500",
-  orange: "bg-orange-400/20 text-orange-500",
-};
+import { ColorScheme, styles } from "./styles";
 
 interface SectionProps {
   icon: IconType;
