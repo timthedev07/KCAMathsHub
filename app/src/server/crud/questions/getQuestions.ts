@@ -55,7 +55,7 @@ export const getQuestions = publicProcedure
     const uSearch = !!u ? { questioner: { username: { contains: u } } } : {};
     const kSearch = !!k ? { studentStage: k } : {};
     const ySearch = !!y ? { yearGroupAsked: y } : {};
-    const aSearch = !!y ? { answered: a === "answered" } : {};
+    const aSearch = !!a ? { answered: a === "answered" } : {};
 
     try {
       const questions = (
