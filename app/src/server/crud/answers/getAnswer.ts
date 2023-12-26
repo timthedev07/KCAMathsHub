@@ -18,7 +18,11 @@ export const getAnswer = publicProcedure
         attachments: { select: { name: true, size: true, objKey: true } },
         content: true,
         question: {
-          select: { id: true, categories: { select: { name: true } } },
+          select: {
+            id: true,
+            categories: { select: { name: true } },
+            title: true,
+          },
         },
       },
     });
