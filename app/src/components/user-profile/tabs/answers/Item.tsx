@@ -49,7 +49,7 @@ export const Answer: FC<Answer> = ({
   },
 }) => {
   return (
-    <Link href={pageURLs.editAnswer(id)} passHref={true}>
+    <Link href={pageURLs.viewAnswer(id)} passHref={true}>
       <li className="py-4 px-6 hover:bg-slate-300/10 transition duration-200 cursur-pointer flex flex-col gap-3 group">
         <div className="flex justify-between items-center ">
           <div className="flex flex-col gap-2 w-[70%]">
