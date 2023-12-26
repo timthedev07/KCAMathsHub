@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       >
         <input
           ref={ref}
-          className={`focus:ring-2 ${error} focus:outline-none ${widthClassName} ${inputBase} ${
+          className={`focus:ring-2 focus:ring-[#3262e8] ${error} focus:outline-none ${widthClassName} ${inputBase} ${
             className || ""
           } border-slate-400/10 border`}
           {...props}
