@@ -19,5 +19,6 @@ export const useClickOutside = <T extends HTMLElement>(
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside as any);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref]);
 };
