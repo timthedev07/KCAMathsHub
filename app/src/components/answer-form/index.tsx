@@ -204,11 +204,11 @@ export const AnswerForm: FC<AnswerFormProps> = ({
             type="submit"
             disabled={
               anyError(errors, changed) ||
-              (!changed.content && !changed.anonymous) ||
-              (operationType === "update" &&
-                defaultValues?.formData.content === formData.content &&
-                defaultValues?.formData.anonymous === formData.anonymous &&
-                defaultValues.files === files) ||
+              (operationType === "update"
+                ? defaultValues?.formData.content === formData.content &&
+                  defaultValues?.formData.anonymous === formData.anonymous &&
+                  defaultValues.files === files
+                : !changed.content && !changed.anonymous) ||
               complete
             }
           >
