@@ -4,7 +4,7 @@ import { publicProcedure } from "../../trpc";
 
 const LIMIT = 5;
 
-export const getAllDashboardModerations = publicProcedure
+export const getNonUserDashboardModerations = publicProcedure
   .input(
     z.object({
       uid: z.string(),

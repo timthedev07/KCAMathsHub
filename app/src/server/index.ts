@@ -9,8 +9,8 @@ import { deleteAttachment } from "./crud/attachments/deleteAttachment";
 import { getExistingCategories } from "./crud/categories/getCategories";
 import { deleteModeration } from "./crud/moderations/deleteModerations";
 import {
-  getAllDashboardModerations,
   getDashboardUserModerations,
+  getNonUserDashboardModerations,
 } from "./crud/moderations/getDashboardModerations";
 import { getModerations } from "./crud/moderations/getModerations";
 import { moderate } from "./crud/moderations/moderate";
@@ -57,7 +57,7 @@ export const appRouter = router({
   deleteModeration,
   getModerations,
   getUserAnswers,
-  getAllDashboardModerations,
+  getNonUserDashboardModerations,
   getDashboardUserModerations,
 });
 
