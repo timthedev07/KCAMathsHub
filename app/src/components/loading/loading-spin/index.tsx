@@ -1,3 +1,3 @@
-import dynamic from "next/dynamic";
+import Component from "./Component";
 
-export const LoadingSpin = dynamic(() => import("./Component"), { ssr: false });
+export const LoadingSpin = Component;
