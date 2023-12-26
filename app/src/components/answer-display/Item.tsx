@@ -5,10 +5,11 @@ import { MDXRemote } from "next-mdx-remote";
 import Link from "next/link";
 import { FC } from "react";
 import { FaCheckCircle, FaUserCheck } from "react-icons/fa";
-import { MdChecklist, MdEdit, MdRateReview } from "react-icons/md";
+import { MdChecklist, MdEdit, MdLink, MdRateReview } from "react-icons/md";
 import { DeletionButtonWithConfirmation } from "../../app/questions/[quid]/DeletionButtonWithConfirmation";
 import { dateTimeDisplay } from "../../lib/datetimeDisplay";
 import { pageURLs } from "../../lib/pageURLGen";
+import { roleChecker } from "../../lib/roleChecker";
 import { getQuestionAnswers } from "../../server/crud/answers/getQuestionAnswers";
 import { trpc } from "../../trpc/client";
 import { AttachmentList } from "../attachments";
@@ -21,7 +22,6 @@ import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { StyledWrapper } from "../richtext/StyledWrapper";
 import { AcceptButtonWithConfirmation } from "./AcceptButtonWithConfirmation";
 import { Arg } from "./type";
-import { roleChecker } from "../../lib/roleChecker";
 
 interface AnswerListItemProps {
   data: inferProcedureOutput<typeof getQuestionAnswers>["answers"][number];
@@ -107,15 +107,18 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
       </div>
       <LabelErrorWrapper
         label={
-          <span className="flex gap-3 items-center">
-            Proposed answer{" "}
-            {accepted && (
-              <FaCheckCircle className="w-4.5 h-4.5 text-green-400" />
-            )}
-            {moderated && (
-              <FaUserCheck className="w-4.5 h-4.5 text-green-400" />
-            )}
-          </span>
+          <Link href={pageURLs.viewAnswer(data.id)} passHref>
+            <span className="flex gap-3 items-center">
+              Proposed answer{" "}
+              <MdLink className="w-5 h-5 text-cyan-500 hover:text-cyan-600 transition duration-200" />
+              {accepted && (
+                <FaCheckCircle className="w-4.5 h-4.5 text-green-400" />
+              )}
+              {moderated && (
+                <FaUserCheck className="w-4.5 h-4.5 text-green-400" />
+              )}
+            </span>
+          </Link>
         }
       >
         <StyledWrapper className="overflow-x-scroll mt-2">
