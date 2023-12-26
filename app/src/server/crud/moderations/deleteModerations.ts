@@ -13,6 +13,26 @@ export const deleteModeration = publicProcedure
       await prisma.moderation.delete({
         where: { answerId: aid, moderatorId: userId, id: moderationId },
       });
+      const a = await prisma.answer.findFirst({
+        where: { id: aid },
+        select: { moderations: { select: { id: true, approval: true } } },
+      });
+
+      let update: Record<string, boolean> = {};
+      let shouldUpdate = false;
+      if (a?.moderations.length || 0 === 0) {
+        update.moderated = false;
+        shouldUpdate = true;
+      }
+
+      if (a?.moderations.filter((each) => each.approval).length || 0 === 0) {
+        update.approved = false;
+        shouldUpdate = true;
+      }
+
+      if (shouldUpdate)
+        await prisma.answer.update({ where: { id: aid }, data: update });
+
       return createSuccessResponse("Moderation deleted");
     } catch (e) {
       return handlePrismaError(e);
