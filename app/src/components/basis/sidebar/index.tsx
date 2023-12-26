@@ -1,6 +1,7 @@
 import { Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
 import { Dispatch, FC, SetStateAction } from "react";
+import { IoDocumentText } from "react-icons/io5";
 import { AccountSVG } from "../../../svgs/sidebar/Account";
 import { AskSVG } from "../../../svgs/sidebar/Ask";
 import { HomeSVG } from "../../../svgs/sidebar/Home";
@@ -55,6 +56,12 @@ export const SideBar: FC<SidebarProps> = ({
             action="/questions/ask"
             text="Ask question"
             Icon={AskSVG}
+          />
+          <Item
+            setOpen={setOpen}
+            action="/docs"
+            text="Docs"
+            Icon={IoDocumentText}
           />
           <Item
             setOpen={setOpen}
