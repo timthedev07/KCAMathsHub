@@ -11,7 +11,7 @@ import { NextPageParams } from "../../../../types/nextPageParam";
 const QuestionForm = dynamic(
   async () =>
     (await import("../../../../components/forms/QuestionForm")).QuestionForm,
-  { ssr: false }
+  { ssr: false, loading: () => <LoadingSpin size="lg" /> }
 );
 
 const QuestionEditPage: FC<NextPageParams<{ quid: string }, "">> = ({
