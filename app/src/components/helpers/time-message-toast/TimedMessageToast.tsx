@@ -6,7 +6,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IoMdInformationCircle } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { RiErrorWarningFill } from "react-icons/ri";
-import { ToastLevel } from ".";
+import { ToastLevel } from "./types";
 
 interface Props {
   timeMilliseconds?: number;
