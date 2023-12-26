@@ -1,8 +1,8 @@
 import { inferProcedureOutput } from "@trpc/server";
 import { FC } from "react";
 import { getUserAnswers } from "../../../../server/crud/answers/getUserAnswers";
+import { Status } from "../../../../types/TRPCQueryStatus";
 import { LoadingSpin } from "../../../loading/loading-spin";
-import { Status } from "../../AListDataProvider";
 import { ProfileSubDisplay } from "../main/ProfileSubDisplay";
 import { Answer } from "./Item";
 
