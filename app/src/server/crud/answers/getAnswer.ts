@@ -16,6 +16,7 @@ export const getAnswer = publicProcedure
         timestamp: true,
         attachments: { select: { name: true, size: true, objKey: true } },
         content: true,
+        question: { select: { id: true } },
       },
     });
   });
