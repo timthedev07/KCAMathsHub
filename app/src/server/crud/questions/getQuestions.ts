@@ -15,22 +15,26 @@ export const GetQSSchema = z.object({
   c: z.string().optional(),
   u: z.string().optional(),
   y: z.string().optional(),
+  a: z.string().optional(),
 });
 
 export const getQuestions = publicProcedure
   .input(GetQSSchema)
-  .query(async ({ input: { k, s: order, cursor, q, c, u, y: y_ } }) => {
+  .query(async ({ input: { k, s: order, cursor, q, c, u, y: y_, a: a_ } }) => {
     let y = y_ ? parseInt(y_) : undefined;
 
     if (!!y_ && y && (isNaN(y) || !getYearGroupsByK(k).includes(y))) {
       return { questions: [] };
     }
 
+    const a = a_?.toLowerCase();
+
     const s = order === "desc" || order === "asc" ? order : "desc";
 
     if (
       (!!k && StudentStages.indexOf(k as any) < 0) ||
-      (!!c && categories.indexOf(c) < 0)
+      (!!c && categories.indexOf(c) < 0) ||
+      (!!a && ["answered", "unanswered"].indexOf(a) < 0)
     ) {
       return {
         questions: [],
@@ -51,6 +55,7 @@ export const getQuestions = publicProcedure
     const uSearch = !!u ? { questioner: { username: { contains: u } } } : {};
     const kSearch = !!k ? { studentStage: k } : {};
     const ySearch = !!y ? { yearGroupAsked: y } : {};
+    const aSearch = !!y ? { answered: a === "answered" } : {};
 
     try {
       const questions = (
@@ -62,6 +67,7 @@ export const getQuestions = publicProcedure
             ...cSearch,
             ...uSearch,
             ...ySearch,
+            ...aSearch,
           },
           orderBy: {
             timestamp: s,
