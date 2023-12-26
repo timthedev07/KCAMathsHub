@@ -35,34 +35,37 @@ export const ModerationModal: FC<ModerationModalProps> = ({
   const { getQuestionAnswers, getModerations } = trpc.useUtils();
   const mutate = trpc.moderate.useMutation({
     onMutate: async () => {
-      if (!answerCurrPage || !aid) return null;
+      if (!aid) return;
 
       const search = { quid, pageNum: answerCurrPage };
 
-      await getQuestionAnswers.cancel(search);
+      if (search.pageNum) await getQuestionAnswers.cancel(search as any);
+
       await getModerations.cancel({ aid });
 
-      const prevX = getQuestionAnswers.getData(search);
+      let prevX;
+      if (search.pageNum) prevX = getQuestionAnswers.getData(search as any);
       const prevY = getModerations.getData({ aid });
 
-      getQuestionAnswers.setData(search, (p) => {
-        if (!p) return { answers: [], lastPageSize: 0, totalPages: 0 };
+      if (search.pageNum)
+        getQuestionAnswers.setData(search as any, (p) => {
+          if (!p) return { answers: [], lastPageSize: 0, totalPages: 0 };
 
-        return {
-          lastPageSize: p?.lastPageSize || 0,
-          totalPages: p?.totalPages || 0,
-          answers: p?.answers
-            ? p.answers.map((v) =>
-                v.id === aid
-                  ? {
-                      ...v,
-                      moderated: true,
-                    }
-                  : v
-              )
-            : [],
-        };
-      });
+          return {
+            lastPageSize: p?.lastPageSize || 0,
+            totalPages: p?.totalPages || 0,
+            answers: p?.answers
+              ? p.answers.map((v) =>
+                  v.id === aid
+                    ? {
+                        ...v,
+                        moderated: true,
+                      }
+                    : v
+                )
+              : [],
+          };
+        });
 
       getModerations.setData({ aid }, (p) => {
         if (!p) return p;
@@ -85,13 +88,18 @@ export const ModerationModal: FC<ModerationModalProps> = ({
       return { prevX, prevY };
     },
     onError: async (_, __, ctx) => {
-      if (!answerCurrPage || !ctx || !aid) return;
-      getQuestionAnswers.setData({ quid, pageNum: answerCurrPage }, ctx.prevX);
+      if (!ctx || !aid) return;
+      if (answerCurrPage)
+        getQuestionAnswers.setData(
+          { quid, pageNum: answerCurrPage },
+          ctx.prevX
+        );
       getModerations.setData({ aid }, ctx.prevY);
     },
     onSuccess: async () => {
-      if (!answerCurrPage || !aid) return;
-      getQuestionAnswers.invalidate({ quid, pageNum: answerCurrPage });
+      if (!aid) return;
+      if (answerCurrPage)
+        getQuestionAnswers.invalidate({ quid, pageNum: answerCurrPage });
       getModerations.invalidate({ aid });
     },
   }).mutateAsync;
