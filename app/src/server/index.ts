@@ -2,6 +2,7 @@ import { acceptAnswer } from "./crud/answers/acceptAnswer";
 import { answerQuestion } from "./crud/answers/answerQuestion";
 import { deleteAnswer } from "./crud/answers/deleteAnswer";
 import { editAnswer } from "./crud/answers/editAnswer";
+import { getAnswer } from "./crud/answers/getAnswer";
 import { getAnswerForEdit } from "./crud/answers/getAnswerForEdit";
 import { getQuestionAnswers } from "./crud/answers/getQuestionAnswers";
 import { getUserAnswers } from "./crud/answers/getUserAnswers";
@@ -59,6 +60,7 @@ export const appRouter = router({
   getUserAnswers,
   getDashboardUserModerations,
   getAllAnswers,
+  getAnswer,
 });
 
 export type AppRouter = typeof appRouter;
