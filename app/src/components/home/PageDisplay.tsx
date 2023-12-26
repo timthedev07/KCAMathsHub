@@ -21,6 +21,7 @@ import { getQuestions } from "../../server/crud/questions/getQuestions";
 import { CategoryAutoComplete } from "../categories/CategoryAutoComplete";
 import { Input } from "../reusable/Input";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
+import { QStatusSelect } from "../select/q-status-select";
 import { SortSelect } from "../select/sort-select";
 import { YGSelect } from "../select/year-group-select";
 import { InputWait } from "./InputWait";
@@ -124,7 +125,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
 
   return (
     <>
-      <div className="flex lg:flex-row flex-col">
+      <div className="flex lg:flex-row flex-col min-h-[750px]">
         <aside
           ref={ref}
           className={`w-full lg:w-3/12 lg:border-r border-b border-slate-600/20 lg:min-h-[90vh] py-8 lg:px-4 xl:px-8 gap-8 ${
@@ -133,10 +134,48 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
         >
           <LabelErrorWrapper
             labelFontSize="text-base"
+            label="By year group"
+            className={fieldWrapperCN}
+          >
+            <YGSelect
+              defaultValue={processQP(searchParams.get("y"))}
+              setParam={setParam}
+              k={processQP(searchParams.get("k"))}
+            />
+          </LabelErrorWrapper>
+          <LabelErrorWrapper
+            labelFontSize="text-base"
+            label="By category"
+            className={fieldWrapperCN}
+          >
+            <CategoryAutoComplete
+              nullable={true}
+              defaultValue={processQP(searchParams.get("c"))}
+              resetOnChange={false}
+              widthClassName="w-full"
+              addCategory={(c) => {
+                setCategory(c);
+                setParam("c", c);
+              }}
+              selectedCategories={category ? [category] : []}
+            />
+          </LabelErrorWrapper>
+          <LabelErrorWrapper
+            labelFontSize="text-base"
             label="Proposed time"
             className={fieldWrapperCN}
           >
-            <SortSelect setParam={setParam} />
+            <SortSelect
+              defaultValue={processQP(searchParams.get("s"))}
+              setParam={setParam}
+            />
+          </LabelErrorWrapper>
+          <LabelErrorWrapper
+            labelFontSize="text-base"
+            label="Proposed time"
+            className={fieldWrapperCN}
+          >
+            <QStatusSelect setParam={setParam} />
           </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
@@ -165,35 +204,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
               }}
             />
           </LabelErrorWrapper>
-          <LabelErrorWrapper
-            labelFontSize="text-base"
-            label="By category"
-            className={fieldWrapperCN}
-          >
-            <CategoryAutoComplete
-              nullable={true}
-              defaultValue={processQP(searchParams.get("c"))}
-              resetOnChange={false}
-              widthClassName="w-full"
-              addCategory={(c) => {
-                setCategory(c);
-                setParam("c", c);
-              }}
-              selectedCategories={category ? [category] : []}
-            />
-          </LabelErrorWrapper>
 
-          <LabelErrorWrapper
-            labelFontSize="text-base"
-            label="By year group"
-            className={fieldWrapperCN}
-          >
-            <YGSelect
-              defaultValue={processQP(searchParams.get("y"))}
-              setParam={setParam}
-              k={processQP(searchParams.get("k"))}
-            />
-          </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
             label={
@@ -233,6 +244,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
                 u: processQP(searchParams.get("u")),
                 y: processQP(searchParams.get("y")),
                 s: processQP(searchParams.get("s")),
+                a: processQP(searchParams.get("a")),
               }}
               initialData={questions}
             />
