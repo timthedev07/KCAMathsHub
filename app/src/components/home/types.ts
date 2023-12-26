@@ -6,5 +6,5 @@ export type Query = z.infer<typeof GetQSSchema>;
 
 export type HomePageParams = NextPageParams<
   {},
-  "q" | "k" | "c" | "u" | "y" | "s"
+  "q" | "k" | "c" | "u" | "y" | "s" | "a"
 >;
