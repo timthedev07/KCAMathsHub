@@ -71,7 +71,7 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
           : accepted
           ? "rounded-xl bg-green-500/20"
           : moderated
-          ? "rounded-xl bg-cyan-500/20"
+          ? "rounded-xl bg-blue-500/20"
           : ""
       }`}
     >
