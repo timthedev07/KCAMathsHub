@@ -272,7 +272,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
             }}
           >
             <AiFillTool className="mr-2" />
-            Show toolbar
+            {showToolbar ? "Hide" : "Show"} toolbar
           </Button>
           <Button
             color="indigo"
