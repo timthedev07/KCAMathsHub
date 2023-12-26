@@ -8,7 +8,10 @@ import { getUserAnswers } from "./crud/answers/getUserAnswers";
 import { deleteAttachment } from "./crud/attachments/deleteAttachment";
 import { getExistingCategories } from "./crud/categories/getCategories";
 import { deleteModeration } from "./crud/moderations/deleteModerations";
-import { getDashboardModerations } from "./crud/moderations/getDashboardModerations";
+import {
+  getAllDashboardModerations,
+  getDashboardUserModerations,
+} from "./crud/moderations/getDashboardModerations";
 import { getModerations } from "./crud/moderations/getModerations";
 import { moderate } from "./crud/moderations/moderate";
 import { addAttachments } from "./crud/questions/addAttachment";
@@ -54,7 +57,8 @@ export const appRouter = router({
   deleteModeration,
   getModerations,
   getUserAnswers,
-  getDashboardModerations,
+  getAllDashboardModerations,
+  getDashboardUserModerations,
 });
 
 export type AppRouter = typeof appRouter;
