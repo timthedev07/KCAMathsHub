@@ -1,7 +1,9 @@
-import { Session } from "next-auth";
+import { type Session } from "next-auth";
 import { signIn, signOut } from "next-auth/react";
 import { Dispatch, FC, SetStateAction } from "react";
+import { FaUserShield } from "react-icons/fa6";
 import { IoDocumentText } from "react-icons/io5";
+import { roleChecker } from "../../../lib/roleChecker";
 import { AccountSVG } from "../../../svgs/sidebar/Account";
 import { AskSVG } from "../../../svgs/sidebar/Ask";
 import { HomeSVG } from "../../../svgs/sidebar/Home";
@@ -30,6 +32,8 @@ export const SideBar: FC<SidebarProps> = ({
   session,
 }) => {
   const loggedIn = !!session?.user;
+  const isMod = roleChecker(session?.user.roles || [], ["moderator"]);
+
   return (
     <>
       <aside
@@ -47,18 +51,6 @@ export const SideBar: FC<SidebarProps> = ({
           <Item setOpen={setOpen} action="/" text="Home" Icon={HomeSVG} />
           <Item
             setOpen={setOpen}
-            action="/user/profile"
-            text="Account"
-            Icon={AccountSVG}
-          />
-          <Item
-            setOpen={setOpen}
-            action="/questions/ask"
-            text="Ask question"
-            Icon={AskSVG}
-          />
-          <Item
-            setOpen={setOpen}
             action="/docs"
             text="Docs"
             Icon={IoDocumentText}
@@ -68,6 +60,27 @@ export const SideBar: FC<SidebarProps> = ({
             action="https://forms.gle/BdoFRQmFPEbjunpb9"
             text="Join our team"
             Icon={JoinSVG}
+          />
+          <SidebarSep />
+          <Item
+            setOpen={setOpen}
+            action="/user/profile"
+            text="Account"
+            Icon={AccountSVG}
+          />
+          {isMod && (
+            <Item
+              setOpen={setOpen}
+              action="/moderation/dashboard"
+              text="Mod-Dashboard"
+              Icon={FaUserShield}
+            />
+          )}
+          <Item
+            setOpen={setOpen}
+            action="/questions/ask"
+            text="Ask question"
+            Icon={AskSVG}
           />
           <SidebarSep />
           <Item
