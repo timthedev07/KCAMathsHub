@@ -4,6 +4,7 @@ import { Session } from "next-auth";
 import dynamic from "next/dynamic";
 import { FC } from "react";
 import { roleChecker } from "../../../lib/accessGuard";
+import { AListDataProvider } from "../AListDataProvider";
 import { MainProfileTab } from "./main";
 
 const QuestionsTab = dynamic(
@@ -34,33 +35,32 @@ export const ProfileTabs: FC<ProfileTabsProps> = ({ user, isCurrUser }) => {
   if (!u) return null;
 
   return (
-    <Tabs style="underline">
-      {/* main profile tab */}
-      <TabItem active title="Profile">
-        <MainProfileTab user={u} sameUser={isCurrUser} />
-      </TabItem>
-
-      {roleChecker(u.roles, ["moderator", "answerer"]) ? (
-        <TabItem title="Questions">
-          <QuestionsTab uid={u.id} />
+    <AListDataProvider uid={u.id}>
+      <Tabs style="underline">
+        {/* main profile tab */}
+        <TabItem active title="Profile">
+          <MainProfileTab user={u} sameUser={isCurrUser} />
         </TabItem>
-      ) : null}
 
-      {roleChecker(u.roles, ["answerer"]) ? (
-        <TabItem title="Answers">
-          <AnswersTab uid={u.id} />
-        </TabItem>
-      ) : null}
+        {roleChecker(u.roles, ["moderator", "answerer"]) ? (
+          <TabItem title="Questions">
+            <QuestionsTab uid={u.id} />
+          </TabItem>
+        ) : null}
 
-      {roleChecker(u.roles, ["moderator"]) ? (
-        <TabItem title="Moderations"></TabItem>
-      ) : null}
-      {isCurrUser && (
-        <TabItem title="Referral">
-          <ReferralTab />
-        </TabItem>
-      )}
-    </Tabs>
+        {roleChecker(u.roles, ["answerer"]) ? (
+          <TabItem title="Answers">
+            <AnswersTab uid={u.id} />
+          </TabItem>
+        ) : null}
+
+        {isCurrUser && (
+          <TabItem title="Referral">
+            <ReferralTab />
+          </TabItem>
+        )}
+      </Tabs>
+    </AListDataProvider>
   );
 };
 

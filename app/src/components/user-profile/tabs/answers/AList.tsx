@@ -1,17 +1,19 @@
+import { inferProcedureOutput } from "@trpc/server";
 import { FC } from "react";
-import { trpc } from "../../../../trpc/client";
+import { getUserAnswers } from "../../../../server/crud/answers/getUserAnswers";
 import { LoadingSpin } from "../../../loading/loading-spin";
+import { Status } from "../../AListDataProvider";
 import { ProfileSubDisplay } from "../main/ProfileSubDisplay";
 import { Answer } from "./Item";
 
-interface QListProps {
+interface AListProps {
   uid: string;
   className?: string;
+  data?: inferProcedureOutput<typeof getUserAnswers>;
+  status: Status;
 }
 
-export const AList: FC<QListProps> = ({ uid, className = "" }) => {
-  const { data, status } = trpc.getUserAnswers.useQuery({ uid });
-
+export const AList: FC<AListProps> = ({ data, className = "", status }) => {
   return (
     <ProfileSubDisplay>
       {status === "loading" || !data ? (

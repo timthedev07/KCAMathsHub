@@ -9,9 +9,11 @@ import { DAYS_BETWEEN_BIO_UPDATE } from "../../../../constants/updateIntervals";
 import { getCurrYear } from "../../../../lib/getCurrYear";
 import { ProfileImgDisplay } from "../../../image/ProfileImgDisplay";
 import { BadgesDisplay } from "../../BadgesDisplay";
+import { AList } from "../answers/AList";
 import { EditableTextArea } from "./EditableTextArea";
 import { QList } from "./item-display/QList";
 import { UsernameEditable } from "./username-editable";
+import { useAListData } from "../../AListDataProvider";
 
 interface MainProfileTabProps {
   user: Session["user"];
@@ -22,6 +24,7 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
   user: u,
   sameUser = false,
 }) => {
+  const ctx = useAListData();
   return (
     <div className="w-full sm:w-10/12 min-w-[460px] sm:mx-auto lg:w-full h-auto lg:h-[70vh] flex lg:flex-row flex-col gap-8 p-2">
       {/* This is the main profile section */}
@@ -88,10 +91,10 @@ export const MainProfileTab: FC<MainProfileTabProps> = ({
         </div>
       </div>
       <div className="flex flex-col gap-8 lg:w-1/2 lg:h-full md:h-auto py-8 lg:py-0">
-        {u.roles.includes("moderator") ? (
-          <></>
-        ) : u.roles.includes("answerer") ? (
-          <></>
+        {u.roles.includes("answerer") ? (
+          <>
+            <AList {...ctx} uid={u.id} />
+          </>
         ) : (
           <QList uid={u.id} />
         )}
