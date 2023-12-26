@@ -70,19 +70,19 @@ export const ModListWithTrigger: FC<ModListWithTriggerProps> = ({
         moderations={mods ? { aid, mods } : null}
         setModerations={() => {}}
       />
-      {(mods?.length || 0) > 0 && (
-        <Button
-          onClick={() => {
-            setShowModerations(true);
-          }}
-          pill
-          color={accepted ? "info" : "success"}
-        >
-          <MdChecklist className="mr-2 w-5 h-5" />
-          See Moderations
-        </Button>
-      )}
+
       <div className="h-8 w-full flex gap-4 justify-center md:justify-end">
+        {(mods?.length || 0) > 0 && (
+          <Button
+            onClick={() => {
+              setShowModerations(true);
+            }}
+            color={accepted ? "info" : "success"}
+          >
+            <MdChecklist className="mr-2 w-5 h-5" />
+            See Moderations
+          </Button>
+        )}
         {canMod && (
           <Button color="purple" onClick={() => moderate()}>
             Moderate
