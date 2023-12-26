@@ -1,38 +1,44 @@
-import { redirect } from "next/navigation";
-import { FC } from "react";
-import { QuestionForm } from "../../../../components/forms/QuestionForm";
+"use client";
+import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import { notFound } from "next/navigation";
+import type { FC } from "react";
+import { LoadingSpin } from "../../../../components/loading/loading-spin";
 import { roleChecker } from "../../../../lib/accessGuard";
-import { getServerSession } from "../../../../lib/authoptions";
-import { pageURLs } from "../../../../lib/pageURLGen";
-import { SSRCaller } from "../../../../server";
+import { trpc } from "../../../../trpc/client";
 import { NextPageParams } from "../../../../types/nextPageParam";
 
-const getSSRProps = async (quid: string) => {
-  const session = await getServerSession();
-  if (!session) redirect(pageURLs.notFound());
+const QuestionForm = dynamic(
+  async () =>
+    (await import("../../../../components/forms/QuestionForm")).QuestionForm,
+  { ssr: false }
+);
 
-  const a = await SSRCaller.getQuestion({ quid });
-
-  if (!a) redirect(pageURLs.notFound());
-
-  if (
-    roleChecker(session.user.roles, ["answerer"]) &&
-    a?.questionerId !== session.user.id
-  )
-    redirect(pageURLs.notFound());
-
-  return { user: session.user, question: a };
-};
-
-const QuestionEditPage: FC<NextPageParams<{ quid: string }, "">> = async ({
+const QuestionEditPage: FC<NextPageParams<{ quid: string }, "">> = ({
   params: { quid },
 }) => {
-  const { question, user } = await getSSRProps(quid);
+  const { data: question, status } = trpc.getQuestion.useQuery({ quid });
+  const { data: session, status: authStatus } = useSession();
+
+  if (authStatus === "loading" || status === "loading") {
+    return <LoadingSpin />;
+  }
+
+  if (!session) notFound();
+
+  if (!question) notFound();
+
+  if (
+    question &&
+    roleChecker(session.user.roles, ["answerer"]) &&
+    question?.questionerId !== session.user.id
+  )
+    notFound();
 
   return (
     <>
       <QuestionForm
-        userId={user.id}
+        userId={session.user.id}
         defaultValues={{
           anonymous: question.anonymous,
           categories: question.categories.map((each) => each.name),
