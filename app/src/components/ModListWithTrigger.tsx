@@ -71,7 +71,7 @@ export const ModListWithTrigger: FC<ModListWithTriggerProps> = ({
         setModerations={() => {}}
       />
 
-      <div className="h-8 w-full flex gap-4 justify-center md:justify-end">
+      <div className="h-8 w-full flex gap-4 justify-end">
         {(mods?.length || 0) > 0 && (
           <Button
             onClick={() => {
