@@ -1,7 +1,9 @@
 "use client";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 import { Dispatch, FC, SetStateAction } from "react";
+import coinsSrc from "../../../../public/coin.svg";
 import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
 import { Button } from "../../reusable/Button";
 import { BadgesDisplay } from "../../user-profile/BadgesDisplay";
@@ -30,6 +32,10 @@ export const UserExpandable: FC<UserExpandableProps> = ({
           <h5 className="mb-1 text-lg  text-white/80 font-mono">
             {user.username}
           </h5>
+          <div className="flex gap-2 text-white/70 items-center mb-2 text">
+            <Image src={coinsSrc} alt="" width={24} height={24} />
+            {user.credits}
+          </div>
           <BadgesDisplay center roles={user.roles} />
           <div className="flex mt-6 gap-4">
             <Button>
