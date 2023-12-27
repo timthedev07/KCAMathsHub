@@ -10,8 +10,6 @@ export const ListDisplay: FC<{ slugs: string[] }> = ({ slugs }) => {
   const p = usePathname();
   const curr = p.split("/").at(-1)!;
 
-  console.log(curr);
-
   return (
     <>
       <Link href={`/docs/`} passHref>
@@ -33,7 +31,10 @@ export const ListDisplay: FC<{ slugs: string[] }> = ({ slugs }) => {
               ` ${curr === each ? "font-medium text-cyan-500" : ""}`
             }
           >
-            {each.charAt(0).toUpperCase() + each.slice(1)}
+            {(each.charAt(0).toUpperCase() + each.slice(1)).replaceAll(
+              "-",
+              " "
+            )}
           </li>
         </Link>
       ))}
