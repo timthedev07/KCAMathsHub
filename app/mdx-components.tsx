@@ -8,24 +8,27 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ...components,
     h1: ({ className = "", ...props }) => {
       return (
-        <>
+        <div>
           <h1 className={`${className} mb-2 text-4xl font-bold`} {...props} />
-          <hr className={hrClassName} />
-        </>
+          <hr className={hrClassName + " mt-4"} />
+        </div>
       );
     },
     h2: ({ className = "", ...props }) => {
       return (
-        <h2
-          className={`${className} text-3xl font-semibold text-white/80`}
-          {...props}
-        />
+        <div className="mt-16">
+          <h2
+            className={`${className} text-3xl font-semibold text-white/90`}
+            {...props}
+          />
+          <hr className={hrClassName + " mt-2"} />
+        </div>
       );
     },
     h3: ({ className = "", ...props }) => {
       return (
         <h3
-          className={`${className} text-2xl font-semibold text-white/[0.75]`}
+          className={`${className} text-2xl font-semibold text-white/80 mt-12`}
           {...props}
         />
       );
@@ -33,7 +36,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h4: ({ className = "", ...props }) => {
       return (
         <h4
-          className={`${className} text-xl font-semibold text-white/[0.75]`}
+          className={`${className} text-xl font-semibold text-white/80`}
           {...props}
         />
       );
@@ -41,7 +44,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h5: ({ className = "", ...props }) => {
       return (
         <h5
-          className={`${className} text-lg font-semibold text-white/[0.75]`}
+          className={`${className} text-lg font-semibold text-white/80`}
           {...props}
         />
       );
@@ -49,7 +52,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h6: ({ className = "", ...props }) => {
       return (
         <h6
-          className={`${className} text-lg font-semibold text-white/[0.75]`}
+          className={`${className} text-lg font-semibold text-white/80`}
           {...props}
         />
       );
@@ -58,16 +61,18 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return <Link href={href} className={`${className}`} {...props} />;
     },
     ul: ({ className = "", ...props }) => {
-      return <ul className={`${className}`} {...props} />;
+      return <ul className={`${className} list-disc list-inside`} {...props} />;
     },
     ol: ({ className = "", ...props }) => {
       return <ol className={`${className}`} {...props} />;
     },
     p: ({ className = "", ...props }) => {
-      return <p className={`${className} text-white/70`} {...props} />;
+      return <p className={`${className} text-white/70 mt-8`} {...props} />;
     },
     li: ({ className = "", ...props }) => {
-      return <li className={`${className} text-white/70`} {...props} />;
+      return (
+        <li className={`${className} text-white/70 my-2 pl-4`} {...props} />
+      );
     },
     strong: ({ className = "", ...props }) => {
       return <strong className={`${className}`} {...props} />;
