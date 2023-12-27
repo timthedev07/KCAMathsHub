@@ -69,9 +69,7 @@ export const getQuestions = publicProcedure
             ...ySearch,
             ...aSearch,
           },
-          orderBy: {
-            timestamp: s,
-          },
+          orderBy: [{ timestamp: s }, { boosted: "desc" }],
           include: {
             questioner: { select: { username: true, image: true } },
             categories: { select: { name: true } },
@@ -82,18 +80,11 @@ export const getQuestions = publicProcedure
               }
             : undefined,
         })
-      )
-        .map((each) => ({
-          ...each,
-          title: truncateAtWord(each.title, 60),
-          content: truncateAtWord(each.content.replaceAll(/[`*_]/gi, ""), 200),
-        }))
-        .sort((a, b) => {
-          const x = a.boosted;
-          const y = b.boosted;
-          return x === y ? 0 : x ? -1 : 1;
-        });
-
+      ).map((each) => ({
+        ...each,
+        title: truncateAtWord(each.title, 60),
+        content: truncateAtWord(each.content.replaceAll(/[`*_]/gi, ""), 200),
+      }));
       let nextCursor: typeof cursor = undefined;
       if (questions.length > limit) {
         const nextItem = questions.pop();
