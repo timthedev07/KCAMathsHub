@@ -14,6 +14,7 @@ export const boostQuestion = publicProcedure
           id: quid,
           questioner: { id: uid, credits: { gte: BOOST_COST } },
           boosted: false,
+          answered: false,
         },
         data: {
           boosted: true,
