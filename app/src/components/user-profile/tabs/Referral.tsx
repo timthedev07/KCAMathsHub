@@ -1,16 +1,39 @@
 "use client";
 import { Toast, Tooltip } from "flowbite-react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { FC, PropsWithChildren, useState } from "react";
 import { BsAwardFill } from "react-icons/bs";
 import { FaCheckCircle, FaCopy } from "react-icons/fa";
 import { viewPanelBase } from ".";
+import coin from "../../../../public/coin.svg";
+import { calcCreatorCreditGain } from "../../../lib/calcCreatorCreditGain";
 import { pageURLs } from "../../../lib/pageURLGen";
 import { trpc } from "../../../trpc/client";
 import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
 import { LoadingSpin } from "../../loading/loading-spin";
 import { Button } from "../../reusable/Button";
+
+const FriendInvited: FC<
+  PropsWithChildren<{ username: string; userProfilePic: string; ind: number }>
+> = ({ children, username, userProfilePic, ind }) => {
+  const t = calcCreatorCreditGain(ind + 1);
+  return (
+    <Link href={pageURLs.user(username)}>
+      <li className="w-full py-3 px-4 flex mb-6 justify-between items-center text-base text-slate-100/70 hover:text-slate-50/90 hover:bg-slate-500/30 transition duration-200 cursor-pointer bg-slate-500/20 rounded-lg border border-slate-500/30">
+        <div className="flex gap-3 items-center">
+          <ProfileImgDisplay className="w-9 h-9" src={userProfilePic} />
+          <span>{children}</span>
+        </div>
+        <span className="font-mono flex gap-2 items-center">
+          <span>+{t}</span>
+          <Image src={coin} width={24} height={24} alt="" />
+        </span>
+      </li>
+    </Link>
+  );
+};
 
 export const ReferralTab: FC = ({}) => {
   const { data, status } = useSession();
@@ -62,22 +85,6 @@ export const ReferralTab: FC = ({}) => {
       </div>
     </div>
   );
-
-  const FriendInvited: FC<
-    PropsWithChildren<{ username: string; userProfilePic: string }>
-  > = ({ children, username, userProfilePic }) => {
-    return (
-      <Link href={pageURLs.user(username)}>
-        <li className="w-full py-3 px-4 flex justify-between items-center text-base text-slate-100/70 hover:text-slate-50/90 hover:bg-slate-500/30 transition duration-200 cursor-pointer bg-slate-500/20 rounded-lg border border-slate-500/30">
-          <div className="flex gap-3 items-center">
-            <ProfileImgDisplay className="w-9 h-9" src={userProfilePic} />
-            <span>{children}</span>
-          </div>
-          <span className="font-mono">+50xp</span>
-        </li>
-      </Link>
-    );
-  };
 
   const copyLink = (link?: string) => {
     if (link) {
@@ -152,7 +159,7 @@ export const ReferralTab: FC = ({}) => {
         </div>
 
         <div
-          className={`lg:w-1/2 h-full ${viewPanelBase} flex flex-col py-8 px-8 gap-8 md:px-12 items-center`}
+          className={`lg:w-1/2 h-full ${viewPanelBase} flex flex-col py-8 px-8 gap-8 md:px-12 items-center overflow-y-auto`}
         >
           <h1 className="text-2xl xl:text-3xl font-semibold">
             Friends invited
@@ -160,8 +167,9 @@ export const ReferralTab: FC = ({}) => {
 
           {users && !isLoading ? (
             <ol className="w-full">
-              {users.map((each) => (
+              {users.map((each, ind) => (
                 <FriendInvited
+                  ind={users.length - ind - 1}
                   userProfilePic={each.image || ""}
                   username={each.username}
                   key={each.id}
