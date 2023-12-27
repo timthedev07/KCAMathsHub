@@ -125,10 +125,10 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
 
   return (
     <>
-      <div className="flex lg:flex-row flex-col min-h-[750px]">
+      <div className="flex lg:flex-row flex-col">
         <aside
           ref={ref}
-          className={`w-full lg:w-3/12 lg:border-r border-b border-slate-600/20 lg:min-h-[90vh] py-8 lg:px-4 xl:px-8 gap-8 ${
+          className={`w-full fixed lg:relative z-40 lg:z-auto bg-[#121212] lg:w-3/12 lg:border-r border-b border-slate-600/20 lg:min-h-[750px] py-8 lg:px-4 xl:px-8 gap-8 ${
             showToolbar ? "flex flex-col" : "hidden"
           }`}
         >
@@ -236,7 +236,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
             />
           </LabelErrorWrapper>
         </aside>
-        <div className="overflow-y-auto h-[90vh] w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-8 xl:px-16 gap-4 items-center">
+        <div className="overflow-y-auto min-h-[750px] h-[90vh] w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-8 xl:px-16 gap-4 items-center">
           {questions.length > 0 ? (
             <InfiniteScrollingDisplay
               initialParams={initialParams}
@@ -259,11 +259,11 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
             </>
           )}
         </div>
-        <aside className="w-3/12 border-l border-slate-600/20 min-h-[90vh] hidden lg:block">
+        <aside className="w-3/12 border-l border-slate-600/20 min-h-[750px] hidden lg:block">
           <HomePageInfoDisplay />
         </aside>
       </div>
-      <div className="fixed bottom-4 right-[50%] left-[50%] md:left-auto md:right-4 transform -translate-x-1/2 md:translate-x-0 md:right-4 md:bottom-4 w-10/12 max-w-96 lg:w-60 h-16 bg-[#121212] border border-slate-400/20 rounded-xl">
+      <div className="z-50 fixed bottom-4 right-[50%] left-[50%] md:left-auto md:right-4 transform -translate-x-1/2 md:translate-x-0 md:right-4 md:bottom-4 w-10/12 max-w-96 lg:w-60 h-16 bg-[#121212] border border-slate-400/20 rounded-xl">
         <div className="w-full h-full bg-blue-700/10 flex justify-evenly py-3 rounded-xl">
           <Button
             className="lg:hidden block"
