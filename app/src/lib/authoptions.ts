@@ -6,6 +6,7 @@ import {
 import { AuthOptions, getServerSession as _ } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import prisma from "../db";
+import { Role } from "../types/role";
 import { PrismaAdapter } from "./prismaAdapter";
 
 export const authOptions: AuthOptions = {
@@ -45,7 +46,13 @@ export const authOptions: AuthOptions = {
       return process.env.NODE_ENV === "development";
     },
     async session({ session, user }) {
-      session.user = { ...user, image: user.image || null };
+      session.user = {
+        ...user,
+        image: user.image || null,
+        roles: (user.roles as unknown as { name: string }[]).map(
+          (each) => each.name
+        ) as unknown as Role[],
+      };
       return session;
     },
   },
