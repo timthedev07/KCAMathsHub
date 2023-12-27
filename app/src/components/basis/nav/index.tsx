@@ -40,7 +40,7 @@ export const Nav: FC<NavProps> = ({
             } transition duration-300 fill-neutral-200 group-hover:fill-white w-5 h-5 cursor-pointer`}
           />
         </button>
-        <div className="flex xl:w-4/12 lg:5/12 w-9/12 md:justify-between justify-evenly">
+        <div className="flex xl:w-4/12 lg:5/12 w-8/12 md:justify-between justify-evenly">
           <Link href={{ pathname: "/" }}>
             <h2 className="md:block hidden text-lg font-semibold">
               KCAMathsHub
