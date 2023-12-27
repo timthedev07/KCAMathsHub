@@ -1,8 +1,8 @@
 import { TRPCError } from "@trpc/server";
 import prisma from "../../../db";
+import { calcCreatorCreditGain } from "../../calcCreatorCreditGain";
 
-export const REFERRAL_REP_GAIN = 20;
-export const ACCEPT_REP_GAIN = 50;
+export const ACCEPT_CREDIT_GAIN = 50;
 
 export const acceptReferral = async (userId: string, referralId: string) => {
   const acceptingUser = await prisma.user.findFirst({
@@ -23,6 +23,10 @@ export const acceptReferral = async (userId: string, referralId: string) => {
 
   const creator = await prisma.user.findFirst({
     where: { referralCreated: { id: referralId } },
+    select: {
+      id: true,
+      referralCreated: { select: { acceptedUsers: { select: { id: true } } } },
+    },
   }); // find the user who created the referral
 
   if (!creator) {
@@ -31,6 +35,9 @@ export const acceptReferral = async (userId: string, referralId: string) => {
       message: "Referral not found",
     });
   }
+
+  const numAlreadyAccepted =
+    creator?.referralCreated?.acceptedUsers.length || 0;
 
   if (acceptingUser.id === creator.id) {
     throw new TRPCError({
@@ -46,11 +53,11 @@ export const acceptReferral = async (userId: string, referralId: string) => {
 
   await prisma.user.update({
     where: { id: creator.id },
-    data: { inquirerReputation: { increment: REFERRAL_REP_GAIN } },
+    data: { credits: { increment: calcCreatorCreditGain(numAlreadyAccepted) } },
   });
 
   await prisma.user.update({
     where: { id: userId },
-    data: { inquirerReputation: { increment: ACCEPT_REP_GAIN } },
+    data: { credits: { set: ACCEPT_CREDIT_GAIN } },
   });
 };
