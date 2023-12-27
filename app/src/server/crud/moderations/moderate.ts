@@ -24,10 +24,18 @@ export const moderate = publicProcedure
         return createError("You have already moderated the answer");
       }
 
+      const answererUpdate = approval
+        ? { answerer: { update: { credits: { increment: 40 } } } }
+        : {};
+
       try {
         await prisma.answer.update({
           where: { id: answerId },
-          data: { moderated: true, approved: approval ? true : undefined },
+          data: {
+            moderated: true,
+            approved: approval ? true : undefined,
+            ...answererUpdate,
+          },
         });
       } catch (e) {
         return handlePrismaError(e);
