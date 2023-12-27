@@ -36,7 +36,7 @@ export const Footer: FC<FooterProps> = ({}) => {
   const startY = 2023;
 
   return (
-    <footer className="bg-slate-900/60 from-0% to-80% flex flex-col lg:px-24 border-t-2 border-slate-600/70">
+    <footer className="bg-slate-900/60 from-0% to-80% flex flex-col lg:px-24 border-t-2 border-slate-600/20">
       <section className="flex lg:h-72 h-max justify-center py-16 gap-16 flex-col lg:flex-row">
         <section
           className={`${sBase} w-full h-32 lg:h-full flex-1 items-center lg:items-start justify-center`}
