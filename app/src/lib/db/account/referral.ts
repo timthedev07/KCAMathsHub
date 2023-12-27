@@ -58,6 +58,9 @@ export const acceptReferral = async (userId: string, referralId: string) => {
 
   await prisma.user.update({
     where: { id: userId },
-    data: { credits: { set: ACCEPT_CREDIT_GAIN } },
+    data: {
+      credits: { set: ACCEPT_CREDIT_GAIN },
+      referralAcceptedTimestamp: new Date(),
+    },
   });
 };
