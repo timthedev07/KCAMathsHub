@@ -20,7 +20,7 @@ export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
       <h1 className="font-bold text-xl text-center">Login as a member</h1>
       {r && (
         <span className="text-sm text-center text-white/80">
-          Join with a 50+ reputation head start!
+          Join with a 50+ credit head start!
         </span>
       )}
       <OAuthButton
