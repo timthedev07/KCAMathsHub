@@ -18,7 +18,7 @@ export const AppLayout: FC<AppLayoutProps> = ({ children, session }) => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
   return (
-    <div className="grid grid-cols-12 grid-rows-desktop overflow-hidden h-screen w-full">
+    <div className="grid grid-cols-12 grid-rows-desktop overflow-hidden overflow-x-scroll h-screen w-full">
       <Nav
         session={session}
         transDuration={barTransDuration}
@@ -34,7 +34,7 @@ export const AppLayout: FC<AppLayoutProps> = ({ children, session }) => {
         setOpen={setSidebarOpen}
         session={session}
       />
-      <div className="row-start-2 row-end-3 col-span-full overflow-y-auto">
+      <div className="min-w-[570px] overflow-x-auto row-start-2 row-end-3 col-span-full overflow-y-auto">
         <main className="min-h-[90vh]">{children}</main>
         <Footer />
       </div>
