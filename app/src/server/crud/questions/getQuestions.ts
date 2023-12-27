@@ -69,7 +69,7 @@ export const getQuestions = publicProcedure
             ...ySearch,
             ...aSearch,
           },
-          orderBy: [{ timestamp: s }, { boosted: "desc" }],
+          orderBy: [{ boosted: "desc" }, { timestamp: s }],
           include: {
             questioner: { select: { username: true, image: true } },
             categories: { select: { name: true } },
