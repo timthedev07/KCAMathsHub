@@ -10,7 +10,12 @@ export const getReferralEntity = publicProcedure
       where: { userId },
       include: {
         acceptedUsers: {
-          select: { username: true, id: true, image: true },
+          select: {
+            username: true,
+            id: true,
+            image: true,
+            referralAcceptedTimestamp: true,
+          },
         },
       },
     });
@@ -21,6 +26,11 @@ export const getReferralEntity = publicProcedure
 
     return {
       url: pageURLs.referral(id),
-      acceptedUsers,
+      acceptedUsers: acceptedUsers.sort((a, b) => {
+        return (
+          (b.referralAcceptedTimestamp?.valueOf() || 0) -
+          (a.referralAcceptedTimestamp?.valueOf() || 0)
+        );
+      }),
     };
   });
