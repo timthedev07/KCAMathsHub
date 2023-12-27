@@ -9,28 +9,29 @@ datasource db {
 
 model User {
   // next auth
-  email               String?      @unique
-  image               String?
-  accounts            Account[]
-  sessions            Session[]
+  email                     String?      @unique
+  image                     String?
+  accounts                  Account[]
+  sessions                  Session[]
   // custom
-  bio                 String       @default("A budding mathematician awaits...") @db.VarChar(150)
-  bioLastUpdated      DateTime?
-  usernameLastUpdated DateTime?
-  id                  String       @id @default(cuid())
-  username            String       @unique @db.VarChar(32)
-  blocked             Boolean      @default(false)
-  credits             Int          @default(0)
-  joinedDate          DateTime     @default(now())
-  joinedYear          Int?         @db.SmallInt // the year group of the user when joined; only applies to students
-  roles               Role[]
-  questions           Question[]
-  answers             Answer[]     @relation("WrittenAnswers")
-  moderations         Moderation[] @relation("Moderation")
-  referralCreated     Referral?    @relation("ReferralCreator")
-  referralAccepted    Referral?    @relation("ReferralAccepted", fields: [acceptedReferralId], references: [id])
-  acceptedReferralId  String?
-  hideEmail           Boolean      @default(true)
+  bio                       String       @default("A budding mathematician awaits...") @db.VarChar(150)
+  bioLastUpdated            DateTime?
+  usernameLastUpdated       DateTime?
+  id                        String       @id @default(cuid())
+  username                  String       @unique @db.VarChar(32)
+  blocked                   Boolean      @default(false)
+  credits                   Int          @default(0)
+  joinedDate                DateTime     @default(now())
+  joinedYear                Int?         @db.SmallInt // the year group of the user when joined; only applies to students
+  roles                     Role[]
+  questions                 Question[]
+  answers                   Answer[]     @relation("WrittenAnswers")
+  moderations               Moderation[] @relation("Moderation")
+  referralCreated           Referral?    @relation("ReferralCreator")
+  referralAccepted          Referral?    @relation("ReferralAccepted", fields: [acceptedReferralId], references: [id])
+  referralAcceptedTimestamp DateTime?
+  acceptedReferralId        String?
+  hideEmail                 Boolean      @default(true)
 }
 
 model Role {
