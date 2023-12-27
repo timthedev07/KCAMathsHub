@@ -29,5 +29,13 @@
     ".next/types/**/*.ts",
     "**/*.mdx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "mdx": {
+    "plugins": [
+      "remark-gfm",
+      "rehype-slug",
+      "rehype-autolink-headings",
+      "remark-emoji"
+    ]
+  }
 }

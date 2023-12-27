@@ -2,11 +2,12 @@ import analyzer from "@next/bundle-analyzer";
 import mdx from "@next/mdx";
 import { default as rehypeAutolinkHeadings } from "rehype-autolink-headings";
 import { default as rehypeSlug } from "rehype-slug";
+import { default as emoji } from "remark-emoji";
 import { default as remarkGfm } from "remark-gfm";
 
 const withMDX = mdx({
   options: {
-    remarkPlugins: [remarkGfm],
+    remarkPlugins: [remarkGfm, emoji],
     rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
   },
   extension: /\.mdx$/,
