@@ -131,7 +131,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
               </OptionalLinkWrapper>
             </div>
             <div
-              className={`flex gap-3 ml-auto h-8 ${
+              className={`flex justify-end gap-3 flex-wrap w-full ${
                 u && isOwner ? "block" : "hidden"
               }`}
             >
