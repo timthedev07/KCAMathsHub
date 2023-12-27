@@ -1,9 +1,13 @@
 import analyzer from "@next/bundle-analyzer";
 import mdx from "@next/mdx";
+import { default as rehypeAutolinkHeadings } from "rehype-autolink-headings";
 import { default as remarkGfm } from "remark-gfm";
 
 const withMDX = mdx({
-  options: { remarkPlugins: [remarkGfm], rehypePlugins: [] },
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [rehypeAutolinkHeadings],
+  },
 });
 const withBundleAnalyzer = analyzer({
   enabled: process.env.ANALYZE === "true",
