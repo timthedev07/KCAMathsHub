@@ -30,6 +30,8 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
         where: teacher ? { email: { contains: "@kings.education" } } : {},
       });
 
+      const isAuthority = teacher || data.email === "tim.bao@kcpupils.org";
+
       const newUname = `${teacher ? "t" : "u"}_${countToBaseN(count)}`;
       return (await p.user.create({
         data: {
@@ -37,16 +39,16 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
           email: data.email,
           joinedYear: year,
           image: data.image,
+          credits: isAuthority ? 200 : 0,
           roles: {
-            connect:
-              teacher || data.email === "tim.bao@kcpupils.org"
-                ? [
-                    { name: "inquirer" },
-                    { name: "answerer" },
-                    { name: "moderator" },
-                    { name: "admin" },
-                  ]
-                : { name: "inquirer" },
+            connect: isAuthority
+              ? [
+                  { name: "inquirer" },
+                  { name: "answerer" },
+                  { name: "moderator" },
+                  { name: "admin" },
+                ]
+              : { name: "inquirer" },
           }, // defaults to inquirer
         },
       })) as any;
