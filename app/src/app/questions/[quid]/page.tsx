@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
+import { HiChevronDoubleUp } from "react-icons/hi";
 import { MdEdit } from "react-icons/md";
 import remarkGfm from "remark-gfm";
 import { AttachmentList } from "../../../components/attachments";
@@ -17,6 +18,7 @@ import { dateTimeDisplay } from "../../../lib/datetimeDisplay";
 import { pageURLs } from "../../../lib/pageURLGen";
 import { SSRCaller } from "../../../server";
 import { NextPage } from "../../../types/nextpage";
+import { BoostButtonWithConfirmation } from "./BoostButtonWithConfirmation";
 import { DeletionButtonWithConfirmation } from "./DeletionButtonWithConfirmation";
 import { MarkAsAnswered } from "./MarkAsAnswered";
 
@@ -53,6 +55,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
       content,
       attachments,
       anonymous,
+      boosted,
       timestamp,
       answered,
       categories,
@@ -71,22 +74,32 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
           <div className="flex flex-col gap-4">
             <h1
               className={`font-bold text-2xl lg:text-4xl break-words w-full flex justify-between items-center ${
-                answered ? "bg-green-300/20 py-6 rounded-xl " + ap : ""
+                answered
+                  ? "bg-green-300/20 py-6 rounded-xl " + ap
+                  : boosted
+                  ? "bg-yellow-300/20 py-6 rounded-xl " + ap
+                  : ""
               }`}
             >
               <span className="mr-8">{title}</span>
               <div className="w-6 h-6">
                 {answered ? (
                   <FaCheckCircle className="text-green-400 w-6 h-6" />
+                ) : boosted ? (
+                  <HiChevronDoubleUp className="text-yellow-400 w-8 h-8" />
                 ) : null}
               </div>
             </h1>
-            <span className={`text-sm text-white/60 ${answered ? ap : ""}`}>
+            <span
+              className={`text-sm text-white/60 ${
+                answered || boosted ? ap : ""
+              }`}
+            >
               {dateTimeDisplay(timestamp)}
             </span>
             <ul
               className={`flex gap-2 items-start grow-[1] flex-wrap ${
-                answered ? ap : ""
+                answered || boosted ? ap : ""
               }`}
             >
               {categories.map((each, ind) => (
@@ -95,7 +108,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
             </ul>
             <div
               className={`mt-5 flex justify-between items-center ${
-                answered ? ap : ""
+                answered || boosted ? ap : ""
               }`}
             >
               <OptionalLinkWrapper
@@ -121,6 +134,13 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
                 u && isOwner ? "block" : "hidden"
               }`}
             >
+              {u && isOwner && u.credits >= 50 && !boosted && !answered && (
+                <BoostButtonWithConfirmation
+                  isOwner={isOwner}
+                  quid={quid}
+                  uid={u.id}
+                />
+              )}
               {u && isOwner && (
                 <Button color="blue">
                   <Link href={pageURLs.editQuestion(quid)}>Edit</Link>
