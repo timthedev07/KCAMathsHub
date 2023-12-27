@@ -2,34 +2,16 @@ import { inferProcedureOutput } from "@trpc/server";
 import { Tooltip } from "flowbite-react";
 import Link from "next/link";
 import { FC } from "react";
-import { FaCheckCircle, FaUser, FaUserSecret } from "react-icons/fa";
-import { FaUserCheck } from "react-icons/fa6";
+import { FaUserSecret } from "react-icons/fa";
 import { dateTimeDisplay } from "../../../../lib/datetimeDisplay";
 import { pageURLs } from "../../../../lib/pageURLGen";
 import { getUserAnswers } from "../../../../server/crud/answers/getUserAnswers";
+import { Accepted, Approved, Moderated } from "../../../ItemBadges";
 import { QCategoryBadge } from "../../../categories/QCategoryBadge";
 
 interface Answer {
   answer: inferProcedureOutput<typeof getUserAnswers>[number];
 }
-
-const Check = () => (
-  <div className="bg-green-300/20 rounded-md w-8 h-8 flex justify-center items-center">
-    <FaCheckCircle className="w-5 h-5 text-green-400" />
-  </div>
-);
-
-const Moderated = () => (
-  <div className="bg-blue-300/20 rounded-md w-8 h-8 flex justify-center items-center">
-    <FaUser className="w-5 h-5 text-blue-400" />
-  </div>
-);
-
-const Approved = () => (
-  <div className="bg-green-300/20 rounded-md w-8 h-8 flex justify-center items-center">
-    <FaUserCheck className="w-5 h-5 text-green-400" />
-  </div>
-);
 
 const Anonymous = () => (
   <div className="bg-amber-300/20 rounded-md w-8 h-8 flex justify-center items-center">
@@ -79,7 +61,7 @@ export const Answer: FC<Answer> = ({
             ) : null}
             {accepted ? (
               <Tooltip content="Accepted">
-                <Check />
+                <Accepted />
               </Tooltip>
             ) : null}
           </div>
