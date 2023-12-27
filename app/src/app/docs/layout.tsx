@@ -1,4 +1,5 @@
 import { readdirSync } from "fs";
+import { IoDocumentText } from "react-icons/io5";
 import { ListDisplay } from "./ListDisplay";
 
 const DIR = "./src/app/docs";
@@ -13,7 +14,12 @@ export default function MdxLayout({ children }: { children: React.ReactNode }) {
       <div
         className={`col-start-1 lg:col-end-3 col-end-4 border-r-2 border-slate-600/20 min-h-[90vh] px-10 ${sharedPadding}`}
       >
-        <h1 className="text-4xl font-bold">Guide</h1>
+        <h1 className="text-4xl font-bold flex gap-4">
+          <div className="hidden md:flex w-10 h-10 bg-blue-500/20 justify-center items-center p-2 text-blue-500/90 rounded-xl">
+            <IoDocumentText />
+          </div>
+          Guide
+        </h1>
         <ul className="list-inside pt-8 flex flex-col h-full">
           <ListDisplay slugs={slugs} />
         </ul>
