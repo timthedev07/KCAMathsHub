@@ -53,8 +53,10 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
           >
             <div className="flex flex-col w-full">
               <span className="text-2xl font-semibold flex justify-between mb-6">
-                <h2 className="max-w-[90%]">{title}</h2>
-                <HiChevronDoubleUp className="text-yellow-400 w-8 h-8" />
+                <h2 className={(boosted && "max-w-[90%]") || ""}>{title}</h2>
+                {boosted && (
+                  <HiChevronDoubleUp className="text-yellow-400 w-8 h-8" />
+                )}
               </span>
               <div className="flex gap-3 flex-col xl:flex-row xl:items-center">
                 <div className="flex gap-2 items-center w-fit">
