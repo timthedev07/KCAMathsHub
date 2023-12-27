@@ -11,8 +11,17 @@ interface QuestionProps {
 }
 
 export const Question: FC<QuestionProps> = ({
-  question: { title, id, categories, answered, timestamp, anonymous, boosted },
+  question: {
+    title,
+    id,
+    categories,
+    answered,
+    timestamp,
+    anonymous,
+    boosted: _boosted,
+  },
 }) => {
+  const boosted = _boosted > 0;
   return (
     <Link href={pageURLs.question(id)} passHref={true}>
       <li className="py-4 px-6 hover:bg-slate-300/10 transition duration-200 cursur-pointer flex flex-col gap-3 group">

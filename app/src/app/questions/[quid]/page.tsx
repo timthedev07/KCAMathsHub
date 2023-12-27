@@ -55,7 +55,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
       content,
       attachments,
       anonymous,
-      boosted,
+      boosted: _boosted,
       timestamp,
       answered,
       categories,
@@ -66,6 +66,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
   } = await getSSRProps(quid);
 
   const isAnswerer = Boolean(u && u.roles.includes("answerer"));
+  const boosted = _boosted > 0;
 
   return (
     <>

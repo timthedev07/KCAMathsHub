@@ -44,7 +44,7 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
         ) => (
           <li
             className={`w-full ${
-              boosted
+              boosted > 0
                 ? "hover:bg-yellow-500/[0.27] bg-yellow-500/30"
                 : "hover:bg-blue-500/10 bg-blue-500/[0.125]"
             } flex flex-col rounded-2xl py-10 px-8 xl:px-12 transition duration-200 flex flex-col gap-6 group`}
@@ -53,8 +53,10 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
           >
             <div className="flex flex-col w-full">
               <span className="text-2xl font-semibold flex justify-between mb-6">
-                <h2 className={(boosted && "max-w-[90%]") || ""}>{title}</h2>
-                {boosted && (
+                <h2 className={(boosted > 0 && "max-w-[90%]") || ""}>
+                  {title}
+                </h2>
+                {boosted > 0 && (
                   <HiChevronDoubleUp className="text-yellow-400 w-8 h-8" />
                 )}
               </span>
