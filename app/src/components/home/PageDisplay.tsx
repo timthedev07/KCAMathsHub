@@ -263,7 +263,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
           <HomePageInfoDisplay />
         </aside>
       </div>
-      <div className="fixed right-4 bottom-4 w-96 lg:w-60 h-16 bg-[#121212] border border-slate-400/20 rounded-xl">
+      <div className="fixed bottom-4 right-[50%] left-[50%] md:left-auto md:right-4 transform -translate-x-1/2 md:translate-x-0 md:right-4 md:bottom-4 w-10/12 max-w-96 lg:w-60 h-16 bg-[#121212] border border-slate-400/20 rounded-xl">
         <div className="w-full h-full bg-blue-700/10 flex justify-evenly py-3 rounded-xl">
           <Button
             className="lg:hidden block"
