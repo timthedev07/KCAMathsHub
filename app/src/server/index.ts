@@ -17,6 +17,7 @@ import { getModerations } from "./crud/moderations/getModerations";
 import { moderate } from "./crud/moderations/moderate";
 import { addAttachments } from "./crud/questions/addAttachment";
 import { askQuestion } from "./crud/questions/askQuestion";
+import { boostQuestion } from "./crud/questions/boostQuestion";
 import { deleteQuestion } from "./crud/questions/deleteQuestion";
 import { getQuestion } from "./crud/questions/getQuestion";
 import { getQuestions } from "./crud/questions/getQuestions";
@@ -61,6 +62,7 @@ export const appRouter = router({
   getDashboardUserModerations,
   getAllAnswers,
   getAnswer,
+  boostQuestion,
 });
 
 export type AppRouter = typeof appRouter;
