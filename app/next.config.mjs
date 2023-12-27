@@ -1,7 +1,11 @@
-const withMDX = require("@next/mdx")({
-  options: { remarkPlugins: [], rehypePlugins: [] },
+import analyzer from "@next/bundle-analyzer";
+import mdx from "@next/mdx";
+import { default as remarkGfm } from "remark-gfm";
+
+const withMDX = mdx({
+  options: { remarkPlugins: [remarkGfm], rehypePlugins: [] },
 });
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
+const withBundleAnalyzer = analyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
@@ -19,4 +23,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(withMDX(nextConfig));
+export default withBundleAnalyzer(withMDX(nextConfig));
