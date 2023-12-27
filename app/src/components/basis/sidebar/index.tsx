@@ -70,6 +70,7 @@ export const SideBar: FC<SidebarProps> = ({
           />
           {isMod && (
             <Item
+              className="hidden"
               setOpen={setOpen}
               action="/moderation/dashboard"
               text="Mod-Dashboard"

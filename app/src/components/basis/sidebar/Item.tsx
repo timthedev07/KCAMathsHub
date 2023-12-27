@@ -7,11 +7,20 @@ interface ItemProps {
   text: string;
   action: string | Function;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  className?: string;
 }
 
-export const Item: FC<ItemProps> = ({ Icon, text, action, setOpen }) => {
+export const Item: FC<ItemProps> = ({
+  className = "",
+  Icon,
+  text,
+  action,
+  setOpen,
+}) => {
   const base = (
-    <li className="cursor-pointer transition duration-300 flex gap-3 items-end group rounded-md hover:bg-tertiary-accent-bg px-4 py-2">
+    <li
+      className={`cursor-pointer transition duration-300 flex gap-3 items-end group rounded-md hover:bg-tertiary-accent-bg px-4 py-2 ${className}`}
+    >
       <Icon className="w-6 h-6 group-hover:text-white text-tertiary-accent-bg transition-all duration-300 " />
       <span className="font-semibold">{text}</span>
     </li>
