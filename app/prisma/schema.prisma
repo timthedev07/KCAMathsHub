@@ -58,7 +58,7 @@ model Question {
   title          String             @db.VarChar(128)
   content        String             @db.VarChar(5000)
   timestamp      DateTime           @default(now())
-  boosted        Boolean            @default(false)
+  boosted        Int                @default(0) @db.TinyInt
   editedAt       DateTime?
   // attachment relation
   attachments    ImageAttachment[]
