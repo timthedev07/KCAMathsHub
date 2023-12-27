@@ -375,7 +375,7 @@ export const QuestionForm: FC<QuestionFormProps> = ({
             <li>
               Remember to mark as solved once you have figured out the solution.
               Answer your own question to help others too if you feel like it
-              for a chance of a reputation boost after moderation.
+              for a chance of a credit boost after moderation.
             </li>
           </ol>
           <h1 className="font-bold text-lg flex items-center gap-2 mt-10">

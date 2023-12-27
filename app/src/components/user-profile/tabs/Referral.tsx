@@ -69,9 +69,7 @@ export const ReferralTab: FC = ({}) => {
       <div className="rounded-3xl text-cyan-600 w-40 h-40 flex justify-center items-center bg-cyan-300/10">
         <BsAwardFill className="w-28 h-28" />
       </div>
-      <p className="text-3xl font-semibold">
-        Invite users for reputation boosts!
-      </p>
+      <p className="text-3xl font-semibold">Invite users for credit boosts!</p>
       <div className="">
         <Button
           size="lg"
