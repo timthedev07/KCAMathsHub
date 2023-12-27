@@ -13,11 +13,11 @@ export const boostQuestion = publicProcedure
         where: {
           id: quid,
           questioner: { id: uid, credits: { gte: BOOST_COST } },
-          boosted: false,
+          boosted: 0,
           answered: false,
         },
         data: {
-          boosted: true,
+          boosted: 1,
           questioner: { update: { credits: { decrement: BOOST_COST } } },
         },
       });
