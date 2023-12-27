@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FC } from "react";
 import { FaCheck } from "react-icons/fa";
 import { FaAnglesRight } from "react-icons/fa6";
+import { HiChevronDoubleUp } from "react-icons/hi";
 import { dateTimeDisplay } from "../../../lib/datetimeDisplay";
 import { pageURLs } from "../../../lib/pageURLGen";
 import { QCategoryBadge } from "../../categories/QCategoryBadge";
@@ -37,17 +38,23 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
             yearGroupAsked,
             studentStage,
             answered,
+            boosted,
           },
           ind
         ) => (
           <li
-            className="w-full bg-blue-500/10 flex flex-col rounded-2xl py-10 px-8 xl:px-12 hover:bg-blue-500/[0.125] transition duration-200 flex flex-col gap-6 group"
+            className={`w-full ${
+              boosted
+                ? "hover:bg-yellow-500/[0.27] bg-yellow-500/30"
+                : "hover:bg-blue-500/10 bg-blue-500/[0.125]"
+            } flex flex-col rounded-2xl py-10 px-8 xl:px-12 transition duration-200 flex flex-col gap-6 group`}
             key={id}
             ref={ind === questions.length - 1 ? lastQRef : null}
           >
-            <div className="flex flex-col gap-6 w-full">
-              <span className="text-2xl font-semibold text-white/90 group-hover:text-white transition duration-300">
-                {title}
+            <div className="flex flex-col w-full">
+              <span className="text-2xl font-semibold flex justify-between mb-6">
+                <h2 className="max-w-[90%]">{title}</h2>
+                <HiChevronDoubleUp className="text-yellow-400 w-8 h-8" />
               </span>
               <div className="flex gap-3 flex-col xl:flex-row xl:items-center">
                 <div className="flex gap-2 items-center w-fit">
