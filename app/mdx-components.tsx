@@ -68,10 +68,17 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     ul: ({ className = "", ...props }) => {
-      return <ul className={`${className} list-disc list-inside`} {...props} />;
+      return (
+        <ul className={`${className} list-disc list-inside mt-4`} {...props} />
+      );
     },
     ol: ({ className = "", ...props }) => {
-      return <ol className={`${className}`} {...props} />;
+      return (
+        <ol
+          className={`${className} list-decimal list-inside mt-4`}
+          {...props}
+        />
+      );
     },
     p: ({ className = "", ...props }) => {
       return <p className={`${className} text-white/80 mt-8`} {...props} />;
