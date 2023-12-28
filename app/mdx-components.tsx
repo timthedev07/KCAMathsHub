@@ -62,7 +62,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return (
         <Link
           href={href}
-          className={`${className} text-blue-500 underline underline-offset-[3px]`}
+          className={`${className} text-blue-400 underline underline-offset-[3px]`}
           {...props}
         />
       );
