@@ -23,7 +23,7 @@ export default function MdxLayout({ children }: { children: React.ReactNode }) {
           <div className="hidden md:flex w-10 h-10 bg-blue-500/20 justify-center items-center p-2 text-blue-500/90 rounded-xl">
             <IoDocumentText />
           </div>
-          Guide
+          Docs
         </h1>
         <ListDisplay slugs={slugs} />
       </div>
