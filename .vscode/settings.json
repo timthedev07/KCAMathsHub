@@ -17,7 +17,7 @@
     {
       "language": "mdx",
       "scheme": "file",
-      "pattern": "app/src/app/docs/**/*.mdxj"
+      "pattern": "app/src/app/docs/**/*.mdx"
     }
   ]
 }
