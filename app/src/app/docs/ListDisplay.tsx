@@ -27,7 +27,7 @@ export const ListDisplay: FC<{
       <section key={ind} className="mt-8">
         <h3 className="font-semibold text-lg mb-2 flex gap-2 items-center">
           {capitalize(categoryPages.category).replaceAll("-", " ")}{" "}
-          {<Icon className="text-emerald-500 w-5 h-5" />}
+          {<Icon className="text-sky-500 w-5 h-5" />}
         </h3>
         <ul className="list-inside flex flex-col h-full">
           {ind === 0 && (
