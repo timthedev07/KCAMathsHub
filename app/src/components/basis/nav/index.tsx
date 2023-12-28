@@ -26,7 +26,7 @@ export const Nav: FC<NavProps> = ({
 }) => {
   const u = session?.user;
   return (
-    <nav className={`${bg} ${className || ""} relative z-20`}>
+    <nav className={`${bg} ${className || ""} min-w-[570px] relative z-20`}>
       <div className="flex items-center justify-start gap-6 px-8 h-full">
         <button
           onClick={() => {
