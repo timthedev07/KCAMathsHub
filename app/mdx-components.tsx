@@ -2,6 +2,7 @@ import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 
 const hrClassName = "border-0 h-[1px] bg-slate-400/20";
+const tableShared = "py-2.5 px-4 border-b border-slate-400/10";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -73,11 +74,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return <ol className={`${className}`} {...props} />;
     },
     p: ({ className = "", ...props }) => {
-      return <p className={`${className} text-white/70 mt-8`} {...props} />;
+      return <p className={`${className} text-white/80 mt-8`} {...props} />;
     },
     li: ({ className = "", ...props }) => {
       return (
-        <li className={`${className} text-white/70 my-2 pl-4`} {...props} />
+        <li className={`${className} text-white/80 my-2 pl-4`} {...props} />
       );
     },
     strong: ({ className = "", ...props }) => {
@@ -88,6 +89,23 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     },
     hr: ({ className = "", ...props }) => {
       return <hr className={`${className} ${hrClassName}`} {...props} />;
+    },
+    table: ({ className: _, ...props }) => {
+      return (
+        <table
+          className="text-left border-hidden my-8 border-collapse text-sm w-full max-w-[780px] border-spacing-0"
+          {...props}
+        ></table>
+      );
+    },
+    td: ({ className: _, ...props }) => {
+      return <td className={`${tableShared} text-white/80`} {...props}></td>;
+    },
+    tr: ({ ...props }) => {
+      return <tr {...props}></tr>;
+    },
+    th: ({ className: _, ...props }) => {
+      return <th className={`${tableShared} font-medium`} {...props}></th>;
     },
   };
 }
