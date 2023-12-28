@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { FC, PropsWithChildren } from "react";
 import { FaCheck, FaUser, FaUserCheck } from "react-icons/fa";
 import { MdLink } from "react-icons/md";
-import remarkGfm from "remark-gfm";
+import remarkGfm from "remark-gfm-legacy";
 import { ModListWithTrigger } from "../../../components/ModListWithTrigger";
 import { AttachmentList } from "../../../components/attachments";
 import { QCategoryBadge } from "../../../components/categories/QCategoryBadge";
