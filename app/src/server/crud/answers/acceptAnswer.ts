@@ -12,12 +12,16 @@ export const acceptAnswer = publicProcedure
     })
   )
   .mutation(async ({ input: { aid, quid } }) => {
-    const q = await prisma.question.findFirst({ where: { id: quid } });
+    const q = await prisma.question.findFirst({
+      where: { id: quid },
+      include: { answers: { where: { id: aid }, select: { timestamp: true } } },
+    });
     if (!q) return createError("Invalid question");
 
     const dateAsked = q.timestamp;
     const answeredWithinADay =
-      dateAsked.valueOf() + 24 * 3600 * 1000 >= Date.now();
+      dateAsked.valueOf() + 24 * 3600 * 1000 >=
+      q.answers[0].timestamp.valueOf();
 
     try {
       await prisma.answer.update({
