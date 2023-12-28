@@ -13,12 +13,11 @@
     "typescript",
     "typescriptreact"
   ],
-  "cSpell.enableFiletypes": ["mdx"],
   "grammarly.selectors": [
     {
       "language": "mdx",
       "scheme": "file",
-      "pattern": "app/src/app/docs/**/*.mdx"
+      "pattern": "app/src/app/docs/**/*.mdxj"
     }
   ]
 }
