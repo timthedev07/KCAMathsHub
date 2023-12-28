@@ -25,7 +25,7 @@ export default function MdxLayout({ children }: { children: React.ReactNode }) {
         </ul>
       </div>
       <div
-        className={`col-end-9 lg:col-start-3 col-start-4 min-h-[90vh] ${sharedPadding} px-8 lg:px-12 xl:px-16`}
+        className={`col-end-9 lg:col-start-3 col-start-4 min-h-[90vh] ${sharedPadding} mb-64 px-8 lg:px-12 xl:px-16`}
       >
         {children}
       </div>
