@@ -5,7 +5,10 @@ import {
   FaUserCheck,
   FaUserSecret,
 } from "react-icons/fa";
+import { FaCircleXmark } from "react-icons/fa6";
 import { HiChevronDoubleUp } from "react-icons/hi";
+
+type HasBg = FC<{ hasBg?: boolean; className?: string }>;
 
 export const Moderated = () => (
   <div className="bg-blue-300/20 rounded-md w-8 h-8 flex justify-center items-center">
@@ -13,18 +16,28 @@ export const Moderated = () => (
   </div>
 );
 
+export const Cross: HasBg = ({ hasBg = true, className = "" }) => {
+  return hasBg ? (
+    <div className="bg-red-300/20 rounded-md w-8 h-8 flex justify-center items-center">
+      <FaCircleXmark className="w-5 h-5 text-red-400" />
+    </div>
+  ) : (
+    <FaCircleXmark className={"w-5 h-5 text-red-400 " + className} />
+  );
+};
+
 export const Approved = () => (
   <div className="bg-green-300/20 rounded-md w-8 h-8 flex justify-center items-center">
     <FaUserCheck className="w-5 h-5 text-green-400" />
   </div>
 );
-export const Accepted: FC<{ hasBg?: boolean }> = ({ hasBg = true }) => {
+export const Accepted: HasBg = ({ hasBg = true, className = "" }) => {
   return hasBg ? (
     <div className="bg-green-300/20 rounded-md w-8 h-8 flex justify-center items-center">
       <FaCheckCircle className="w-5 h-5 text-green-400" />
     </div>
   ) : (
-    <FaCheckCircle className="w-5 h-5 text-green-400" />
+    <FaCheckCircle className={"w-5 h-5 text-green-400 " + className} />
   );
 };
 
