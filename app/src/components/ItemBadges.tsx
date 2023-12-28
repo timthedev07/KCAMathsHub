@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   FaCheckCircle,
   FaUser,
@@ -17,11 +18,15 @@ export const Approved = () => (
     <FaUserCheck className="w-5 h-5 text-green-400" />
   </div>
 );
-export const Accepted = () => (
-  <div className="bg-green-300/20 rounded-md w-8 h-8 flex justify-center items-center">
+export const Accepted: FC<{ hasBg?: boolean }> = ({ hasBg = true }) => {
+  return hasBg ? (
+    <div className="bg-green-300/20 rounded-md w-8 h-8 flex justify-center items-center">
+      <FaCheckCircle className="w-5 h-5 text-green-400" />
+    </div>
+  ) : (
     <FaCheckCircle className="w-5 h-5 text-green-400" />
-  </div>
-);
+  );
+};
 
 export const Anonymous = () => (
   <div className="bg-amber-300/20 rounded-md w-8 h-8 flex justify-center items-center">
