@@ -12,13 +12,22 @@ export const acceptAnswer = publicProcedure
     })
   )
   .mutation(async ({ input: { aid, quid } }) => {
+    const q = await prisma.question.findFirst({ where: { id: quid } });
+    if (!q) return createError("Invalid question");
+
+    const dateAsked = q.timestamp;
+    const answeredWithinADay =
+      dateAsked.valueOf() + 24 * 3600 * 1000 >= Date.now();
+
     try {
       await prisma.answer.update({
         where: { id: aid, questionId: quid },
         data: {
           accepted: true,
           question: { update: { answered: true } },
-          answerer: { update: { credits: { increment: 50 } } },
+          answerer: {
+            update: { credits: { increment: answeredWithinADay ? 70 : 40 } },
+          },
         },
       });
 
