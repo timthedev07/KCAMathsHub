@@ -16,7 +16,7 @@ export const ListDisplay: FC<{
   return slugs.map((categoryPages, ind) => (
     <section key={ind} className="mt-8">
       <h3 className="font-semibold text-lg mb-2">
-        {capitalize(categoryPages.category)}
+        {capitalize(categoryPages.category).replaceAll("-", " ")}
       </h3>
       <ul className="list-inside flex flex-col h-full">
         {ind === 0 && (
