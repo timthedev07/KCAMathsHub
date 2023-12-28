@@ -58,7 +58,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       );
     },
     a: ({ className = "", href = "", ref: _, ...props }) => {
-      return <Link href={href} className={`${className}`} {...props} />;
+      return (
+        <Link
+          href={href}
+          className={`${className} text-blue-500 underline underline-offset-[3px]`}
+          {...props}
+        />
+      );
     },
     ul: ({ className = "", ...props }) => {
       return <ul className={`${className} list-disc list-inside`} {...props} />;
