@@ -1,4 +1,5 @@
 import { readdirSync } from "fs";
+import { join } from "path";
 import { IoDocumentText } from "react-icons/io5";
 import { ListDisplay } from "./ListDisplay";
 
@@ -7,7 +8,11 @@ const DIR = "./src/app/docs";
 const sharedPadding = "py-8 lg:py-12 xl:py-16";
 
 export default function MdxLayout({ children }: { children: React.ReactNode }) {
-  const slugs = readdirSync(DIR).filter((v) => !v.includes("."));
+  const firstLevel = readdirSync(DIR).filter((v) => !v.includes("."));
+  const slugs = firstLevel.map((category) => ({
+    category,
+    pages: readdirSync(join(DIR, category)).filter((v) => !v.includes(".")),
+  }));
 
   return (
     <div className="grid grid-cols-8">
@@ -20,9 +25,7 @@ export default function MdxLayout({ children }: { children: React.ReactNode }) {
           </div>
           Guide
         </h1>
-        <ul className="list-inside pt-8 flex flex-col h-full">
-          <ListDisplay slugs={slugs} />
-        </ul>
+        <ListDisplay slugs={slugs} />
       </div>
       <div
         className={`col-end-9 lg:col-start-3 col-start-4 min-h-[90vh] ${sharedPadding} mb-64 px-8 lg:px-12 xl:px-16`}
