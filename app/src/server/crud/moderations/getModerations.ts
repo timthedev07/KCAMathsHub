@@ -1,5 +1,5 @@
 import { serialize } from "next-mdx-remote/serialize";
-import remarkGfm from "remark-gfm";
+import remarkGfm from "remark-gfm-legacy";
 import { z } from "zod";
 import prisma from "../../../db";
 import { publicProcedure } from "../../trpc";

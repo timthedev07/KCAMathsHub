@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
 import { HiChevronDoubleUp } from "react-icons/hi";
 import { MdEdit } from "react-icons/md";
-import remarkGfm from "remark-gfm";
+import remarkGfm from "remark-gfm-legacy";
 import { AttachmentList } from "../../../components/attachments";
 import { QCategoryBadge } from "../../../components/categories/QCategoryBadge";
 import { OptionalLinkWrapper } from "../../../components/helpers/OptionalLinkWrapper";
