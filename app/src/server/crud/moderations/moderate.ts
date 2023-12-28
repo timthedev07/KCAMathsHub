@@ -24,8 +24,26 @@ export const moderate = publicProcedure
         return createError("You have already moderated the answer");
       }
 
+      const q = await prisma.question.findFirst({
+        where: { answers: { some: { id: answerId } } },
+        include: {
+          answers: { where: { id: answerId }, select: { timestamp: true } },
+        },
+      });
+
+      if (!q) return createError("Invalid answer");
+
+      const dateAsked = q.timestamp;
+      const answeredWithinADay =
+        dateAsked.valueOf() + 24 * 3600 * 1000 >=
+        q.answers[0].timestamp.valueOf();
+
       const answererUpdate = approval
-        ? { answerer: { update: { credits: { increment: 40 } } } }
+        ? {
+            answerer: {
+              update: { credits: { increment: answeredWithinADay ? 70 : 40 } },
+            },
+          }
         : {};
 
       try {
