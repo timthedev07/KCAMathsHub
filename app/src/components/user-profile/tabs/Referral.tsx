@@ -1,16 +1,15 @@
 "use client";
 import { Toast, Tooltip } from "flowbite-react";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { FC, PropsWithChildren, useState } from "react";
 import { BsAwardFill } from "react-icons/bs";
 import { FaCheckCircle, FaCopy } from "react-icons/fa";
 import { viewPanelBase } from ".";
-import coin from "../../../../public/coin.svg";
 import { calcCreatorCreditGain } from "../../../lib/calcCreatorCreditGain";
 import { pageURLs } from "../../../lib/pageURLGen";
 import { trpc } from "../../../trpc/client";
+import { Coin } from "../../helpers/Coin";
 import { ProfileImgDisplay } from "../../image/ProfileImgDisplay";
 import { LoadingSpin } from "../../loading/loading-spin";
 import { Button } from "../../reusable/Button";
@@ -28,7 +27,7 @@ const FriendInvited: FC<
         </div>
         <span className="font-mono flex gap-2 items-center">
           <span>+{t}</span>
-          <Image src={coin} width={24} height={24} alt="" />
+          <Coin width={24} height={24} />
         </span>
       </li>
     </Link>
