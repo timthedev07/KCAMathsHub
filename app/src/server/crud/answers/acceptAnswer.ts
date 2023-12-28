@@ -30,7 +30,11 @@ export const acceptAnswer = publicProcedure
           accepted: true,
           question: { update: { answered: true } },
           answerer: {
-            update: { credits: { increment: answeredWithinADay ? 60 : 40 } },
+            update: {
+              credits: {
+                increment: q.boosted ? (answeredWithinADay ? 60 : 40) : 40,
+              },
+            },
           },
         },
       });

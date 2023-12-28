@@ -33,15 +33,23 @@ export const moderate = publicProcedure
 
       if (!q) return createError("Invalid answer");
 
-      const dateAsked = q.timestamp;
-      const answeredWithinADay =
-        dateAsked.valueOf() + 24 * 3600 * 1000 >=
-        q.answers[0].timestamp.valueOf();
+      let dateAsked, answeredWithinADay;
+
+      if (q.boosted) {
+        dateAsked = q.timestamp;
+        answeredWithinADay =
+          dateAsked.valueOf() + 24 * 3600 * 1000 >=
+          q.answers[0].timestamp.valueOf();
+      }
 
       const answererUpdate = approval
         ? {
             answerer: {
-              update: { credits: { increment: answeredWithinADay ? 70 : 40 } },
+              update: {
+                credits: {
+                  increment: q.boosted ? (answeredWithinADay ? 70 : 40) : 40,
+                },
+              },
             },
           }
         : {};
