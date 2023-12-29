@@ -46,13 +46,15 @@ export const Nav: FC<NavProps> = ({
               KCAMathsHub
             </h2>
           </Link>
-          {StudentStages.toReversed().map((each) => (
-            <NavItem
-              key={each}
-              text={each}
-              url={{ pathname: "/", query: { k: each } }}
-            />
-          ))}
+          {StudentStages.slice()
+            .reverse()
+            .map((each) => (
+              <NavItem
+                key={each}
+                text={each}
+                url={{ pathname: "/", query: { k: each } }}
+              />
+            ))}
         </div>
         <div className="ml-auto">
           {!!u ? (

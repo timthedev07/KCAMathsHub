@@ -15,5 +15,7 @@ export const getUserDisplayQuestions = publicProcedure
         where: { questionerId: uid },
         select: userQuestionListDisplaySelect,
       })
-    ).toReversed()
+    )
+      .slice()
+      .reverse()
   );
