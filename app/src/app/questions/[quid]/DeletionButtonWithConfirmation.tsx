@@ -37,11 +37,12 @@ export const DeletionButtonWithConfirmation: FC<
   const [show, setShow] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [x, setX] = useState<string>("");
-  const { getQuestion, getQuestionAnswers } = trpc.useUtils();
+  const { getQuestion, getQuestionAnswers, getQuestions } = trpc.useUtils();
 
   const mutateQ = trpc.deleteQuestion.useMutation({
     onSuccess: async () => {
       await getQuestion.invalidate({ quid });
+      await getQuestions.invalidate({}, { refetchType: "all" });
     },
   }).mutateAsync;
 
