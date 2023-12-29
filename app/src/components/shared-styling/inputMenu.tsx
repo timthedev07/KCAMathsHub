@@ -23,7 +23,7 @@ export const getEntryClassName = (
     disabled ? "cursor-not-allowed" : ""
   }`;
 export const getOptionsUIClassName = (extraClassName = "w-full") =>
-  `absolute rounded-lg border border-slate-400/10 bg-[#1a1e26] overflow-hidden max-h-96 overflow-y-auto min-w-[250px] ${extraClassName}`;
+  `z-10 absolute rounded-lg border border-slate-400/10 bg-[#1a1e26] overflow-hidden max-h-96 overflow-y-auto min-w-[250px] ${extraClassName}`;
 
 export const getOptionClassName = (active: boolean) =>
   `p-3 text-sm hover:bg-blue-600/30 hover:text-white hover:font-semibold cursor-pointer transition duration-200 ${
