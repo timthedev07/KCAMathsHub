@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { getFetch, httpBatchLink, loggerLink } from "@trpc/client";
 import React, { useState } from "react";
 import superjson from "superjson";
+import { HOST } from "../lib/hostAddr";
 import { trpc } from "./client";
 
 export const TRPCProvider = ({ children }: { children: React.ReactNode }) => {
@@ -13,9 +14,10 @@ export const TRPCProvider = ({ children }: { children: React.ReactNode }) => {
       })
   );
 
-  const url = process.env.NEXT_PUBLIC_VERCEL_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/trpc/`
-    : "http://localhost:3000/api/trpc/";
+  const url =
+    process.env.NODE_ENV === "production"
+      ? `${HOST}/api/trpc/`
+      : "http://localhost:3000/api/trpc/";
 
   const [trpcClient] = useState(() =>
     trpc.createClient({
