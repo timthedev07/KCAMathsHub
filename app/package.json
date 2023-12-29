@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "yarn prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "populate:categories": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/categories.ts",
