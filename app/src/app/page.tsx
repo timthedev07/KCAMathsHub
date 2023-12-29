@@ -1,10 +1,18 @@
+import type { Metadata } from "next";
 import { categories } from "../categories";
 import { PageDisplay } from "../components/home/PageDisplay";
 import { HomePageParams } from "../components/home/types";
 import { getYearGroupsByK } from "../components/select/year-group-select/getDataSet";
+import { getMetadata } from "../lib/getMetadata";
 import { processQP } from "../lib/processQueryParam";
 import { SSRCaller } from "../server";
 import { StudentStages } from "../types/StudentStage";
+
+export const metadata: Metadata = getMetadata({
+  title: "Homepage",
+  description: "A community-based Q&A platform for students at KCA.",
+  pathName: "/",
+});
 
 const getProps = async (searchParams: HomePageParams["searchParams"]) => {
   const { k: k_, q: q_, c: c_, u: u_, y: y_, s: s_, a: a_ } = searchParams;
