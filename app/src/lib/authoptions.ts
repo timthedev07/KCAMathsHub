@@ -44,7 +44,7 @@ export const authOptions: AuthOptions = {
       // forbid blocked users
       if (u && u.blocked) return false;
 
-      return process.env.NODE_ENV === "development";
+      return true;
     },
     async session({ session, user }) {
       session.user = {
