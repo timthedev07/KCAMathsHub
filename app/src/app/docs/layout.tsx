@@ -1,8 +1,11 @@
-import { readdirSync } from "fs";
+import { readdir } from "fs/promises";
 import { join } from "path";
 import { IoDocumentText } from "react-icons/io5";
 import { getMetadata } from "../../lib/getMetadata";
 import { ListDisplay } from "./ListDisplay";
+
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
 export const metadata = getMetadata({
   title: "Docs",
@@ -10,20 +13,27 @@ export const metadata = getMetadata({
   description: "Official documentation",
 });
 
-const DIR = "./src/app/docs";
+const DIR = "src/app/docs";
 
 const sharedPadding = "py-8 lg:py-12 xl:py-16";
 
-export default function MdxLayout({ children }: { children: React.ReactNode }) {
-  const firstLevel = readdirSync(join(process.cwd(), DIR)).filter(
+export default async function MdxLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const firstLevel = (await readdir(join(process.cwd(), DIR))).filter(
     (v) => !v.includes(".")
   );
-  const slugs = firstLevel.map((category) => ({
-    category,
-    pages: readdirSync(join(process.cwd(), DIR, category)).filter(
-      (v) => !v.includes(".")
-    ),
-  }));
+  const slugs = await Promise.all(
+    firstLevel.map(async (category) => ({
+      category,
+      pages: (
+        await readdir(join(process.cwd(), DIR, category))
+      ).filter((v) => !v.includes(".")),
+    }))
+  );
+  console.log(firstLevel, slugs);
 
   return (
     <div className="grid grid-cols-8">

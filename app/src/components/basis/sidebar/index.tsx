@@ -1,5 +1,4 @@
-import { type Session } from "next-auth";
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { Dispatch, FC, SetStateAction } from "react";
 import { FaUserShield } from "react-icons/fa6";
 import { IoDocumentText } from "react-icons/io5";
@@ -17,7 +16,6 @@ interface SidebarProps {
   bg: string;
   transDuration: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  session: Session | null;
 }
 
 const SidebarSep = () => {
@@ -29,8 +27,8 @@ export const SideBar: FC<SidebarProps> = ({
   bg,
   transDuration,
   setOpen,
-  session,
 }) => {
+  const { data: session } = useSession();
   const loggedIn = !!session?.user;
   const isMod = roleChecker(session?.user.roles || [], ["moderator"]);
 

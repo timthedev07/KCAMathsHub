@@ -1,4 +1,5 @@
-import { Session } from "next-auth";
+"use session";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FC } from "react";
 import { Hamburger } from "../../../svgs/sidebar/Hamburger";
@@ -13,7 +14,6 @@ interface NavProps {
   bg: string;
   sidebarOpen: boolean;
   transDuration: string;
-  session: Session | null;
 }
 
 export const Nav: FC<NavProps> = ({
@@ -22,9 +22,11 @@ export const Nav: FC<NavProps> = ({
   onHomeClick,
   sidebarOpen,
   transDuration,
-  session,
 }) => {
+  const { data: session } = useSession();
+
   const u = session?.user;
+
   return (
     <nav className={`${bg} ${className || ""} min-w-[570px] relative z-20`}>
       <div className="flex items-center justify-start gap-6 px-8 h-full">

@@ -3,7 +3,6 @@ import { Roboto } from "next/font/google";
 import { AppLayout } from "../components/AppLayout";
 import { PageProgressBarProvider } from "../components/contexts/ProgressProvider";
 import SessionProvider from "../components/contexts/SessionProvider";
-import { getServerSession } from "../lib/authoptions";
 import { getMetadata } from "../lib/getMetadata";
 import { TRPCProvider } from "../trpc/Provider";
 import "./globals.css";
@@ -23,8 +22,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
-
   return (
     <html
       lang="en"
@@ -37,10 +34,10 @@ export default async function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <SessionProvider session={session}>
+        <SessionProvider>
           <TRPCProvider>
             <PageProgressBarProvider>
-              <AppLayout session={session}>{children}</AppLayout>
+              <AppLayout>{children}</AppLayout>
             </PageProgressBarProvider>
           </TRPCProvider>
         </SessionProvider>
