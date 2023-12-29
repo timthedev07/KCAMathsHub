@@ -15,10 +15,14 @@ const DIR = "./src/app/docs";
 const sharedPadding = "py-8 lg:py-12 xl:py-16";
 
 export default function MdxLayout({ children }: { children: React.ReactNode }) {
-  const firstLevel = readdirSync(DIR).filter((v) => !v.includes("."));
+  const firstLevel = readdirSync(join(process.cwd(), DIR)).filter(
+    (v) => !v.includes(".")
+  );
   const slugs = firstLevel.map((category) => ({
     category,
-    pages: readdirSync(join(DIR, category)).filter((v) => !v.includes(".")),
+    pages: readdirSync(join(process.cwd(), DIR, category)).filter(
+      (v) => !v.includes(".")
+    ),
   }));
 
   return (
