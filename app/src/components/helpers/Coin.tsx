@@ -1,6 +1,8 @@
 import { FC } from "react";
 
-export const Coin: FC<{ height: number; width: number }> = (props) => {
+export const Coin: FC<{ height: number; width: number; className?: string }> = (
+  props
+) => {
   return (
     <svg
       {...props}
