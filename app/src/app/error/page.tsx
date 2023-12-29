@@ -1,34 +1,25 @@
-"use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "../../components/reusable/Button";
+import { Metadata } from "next";
+import { getMetadata } from "../../lib/getMetadata";
+import { truncateAtWord } from "../../lib/truncateAtWord";
 import { NextPage } from "../../types/nextpage";
+import { Content } from "./Content";
+
+export async function generateMetadata({
+  searchParams: { err },
+}: {
+  searchParams: { err?: string[] | string | null };
+}): Promise<Metadata> {
+  return getMetadata({
+    title: err ? `${truncateAtWord(err.toString(), 48)}` : "Error",
+    description: truncateAtWord(err?.toString() || "", 60),
+  });
+}
 
 const ErrorPage: NextPage = () => {
-  const { get } = useSearchParams();
-  const { back, push } = useRouter();
-
-  const err = get("err") || "Unknown error...";
-
   return (
     <div className="w-full h-[90vh] flex justify-center items-center flex-col gap-8">
       <h1 className="text-6xl text-red-400 font-bold">Blunder...</h1>
-      <p className="text-red-400/80 font-medium">{err}</p>
-      <div className="flex justify-between w-full max-w-[300px]">
-        <Button
-          onClick={() => {
-            back();
-          }}
-        >
-          Go back
-        </Button>
-        <Button
-          onClick={() => {
-            push("/");
-          }}
-        >
-          Home
-        </Button>
-      </div>
+      <Content />
     </div>
   );
 };

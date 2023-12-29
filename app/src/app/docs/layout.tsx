@@ -1,7 +1,14 @@
 import { readdirSync } from "fs";
 import { join } from "path";
 import { IoDocumentText } from "react-icons/io5";
+import { getMetadata } from "../../lib/getMetadata";
 import { ListDisplay } from "./ListDisplay";
+
+export const metadata = getMetadata({
+  title: "Docs",
+  pathName: "/docs",
+  description: "Official documentation",
+});
 
 const DIR = "./src/app/docs";
 

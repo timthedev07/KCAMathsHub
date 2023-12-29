@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -15,7 +16,9 @@ import { mdxCustomComponents } from "../../../components/mdx/components";
 import { Button } from "../../../components/reusable/Button";
 import { getServerSession } from "../../../lib/authoptions";
 import { dateTimeDisplay } from "../../../lib/datetimeDisplay";
+import { getMetadata } from "../../../lib/getMetadata";
 import { pageURLs } from "../../../lib/pageURLGen";
+import { truncateAtWord } from "../../../lib/truncateAtWord";
 import { SSRCaller } from "../../../server";
 import { NextPage } from "../../../types/nextpage";
 import { BoostButtonWithConfirmation } from "./BoostButtonWithConfirmation";
@@ -30,6 +33,20 @@ const AnswersDisplay = dynamic(
   () => import("../../../components/answer-display/index"),
   { ssr: false, loading: () => <LoadingSpin className="mb-32 min-h-64" /> }
 );
+
+export async function generateMetadata({
+  params: { quid },
+}: Props): Promise<Metadata> {
+  // read route params
+
+  // fetch data
+  const question = await SSRCaller.getQuestion({ quid });
+
+  return getMetadata({
+    title: question ? `${question.title}` : "Question not found",
+    description: truncateAtWord(question?.content || "", 60),
+  });
+}
 
 const getSSRProps = async (quid: string) => {
   const question = await SSRCaller.getQuestion({ quid });

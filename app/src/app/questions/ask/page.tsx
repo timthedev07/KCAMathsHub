@@ -1,5 +1,11 @@
 import type { FC } from "react";
 import { QuestionForm } from "../../../components/forms/QuestionForm";
+import { getMetadata } from "../../../lib/getMetadata";
+
+export const metadata = getMetadata({
+  title: "Ask a question",
+  description: "Ask a question on KCAMathsHub",
+});
 
 const AskPage: FC = () => {
   return (

@@ -1,9 +1,14 @@
-"use client";
-
-import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
+import { redirect } from "next/navigation";
 import { LoadingSpin } from "../../../components/loading/loading-spin";
+import { getServerSession } from "../../../lib/authoptions";
+import { getMetadata } from "../../../lib/getMetadata";
 import { NextPage } from "../../../types/nextpage";
+
+export const metadata = getMetadata({
+  title: "Profile",
+  description: "Your profile",
+});
 
 const ProfileTabs = dynamic(
   () => import("../../../components/user-profile/tabs"),
@@ -19,20 +24,14 @@ const ProfileTabs = dynamic(
   }
 );
 
-const Profile: NextPage = () => {
-  const { data: session, status } = useSession({ required: true });
+const Profile: NextPage = async () => {
+  const session = await getServerSession();
 
-  if (status === "loading") {
-    return (
-      <div className="h-[80vh]">
-        <LoadingSpin size="md" />
-      </div>
-    );
-  }
+  if (!session?.user) redirect("/user/signin");
 
   return (
     <div className="my-6 mx-8 md:mx-24">
-      <ProfileTabs isCurrUser user={session.user} />
+      <ProfileTabs isCurrUser user={session?.user} />
     </div>
   );
 };
