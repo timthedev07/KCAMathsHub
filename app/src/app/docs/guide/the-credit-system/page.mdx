@@ -1,1 +1,37 @@
+import { Accepted, Cross } from "../../../../components/ItemBadges";
+import { Coin } from "../../../../components/helpers/Coin";
+
 # The Credit System
+
+The credit <Coin className="inline-block -mt-1 mr-1" width={18} height={18} /> system is used to reflect the performance and influence of a user on the platform, as well as to be spent.
+
+## Spending credits
+
+Credits can be used to _boost_ your questions; this is the process where your question becomes prioritized and most visible. Therefore having a higher chance of being answered earlier.
+
+To do so, make sure you have enough credits - each boost costs **<Coin className="inline-block -mt-1" width={18} height={18} /> 50**.
+
+A question can be boosted if and only if it is **not answered/resolved**.
+
+## Earning credits
+
+By inviting new students through the referral program, you can boost your credits:
+
+| Number of users referred | Credit gain                                                                      |
+| ------------------------ | -------------------------------------------------------------------------------- |
+| 1-2                      | <div className="flex items-center gap-2"><Coin width={20} height={20} />30</div> |
+| 3-5                      | <div className="flex items-center gap-2"><Coin width={20} height={20} />40</div> |
+| 6+                       | <div className="flex items-center gap-2"><Coin width={20} height={20} />50</div> |
+
+By answering questions:
+
+|                Question boosted                |             Answered within 1 day              |                                    Credit gained by answerer                                    |
+| :--------------------------------------------: | :--------------------------------------------: | :---------------------------------------------------------------------------------------------: |
+| <Accepted className="mx-auto" hasBg={false} /> | <Accepted className="mx-auto" hasBg={false} /> | <div className="flex items-center gap-2 justify-center"><Coin width={20} height={20} />70</div> |
+| <Accepted className="mx-auto" hasBg={false} /> |  <Cross className="mx-auto" hasBg={false} />   | <div className="flex items-center gap-2 justify-center"><Coin width={20} height={20} />40</div> |
+|  <Cross className="mx-auto" hasBg={false} />   | <Accepted className="mx-auto" hasBg={false} /> | <div className="flex items-center gap-2 justify-center"><Coin width={20} height={20} />40</div> |
+|  <Cross className="mx-auto" hasBg={false} />   |  <Cross className="mx-auto" hasBg={false} />   | <div className="flex items-center gap-2 justify-center"><Coin width={20} height={20} />40</div> |
+
+By moderating questions, moderators receive <Coin className="inline-block -mt-1" width={18} height={18} /> 50 each time. However, moderators must not spam moderation for credit gains, otherwise, it will be a permanent ban.
+
+Deleting a moderation will take the 50 credits back.
