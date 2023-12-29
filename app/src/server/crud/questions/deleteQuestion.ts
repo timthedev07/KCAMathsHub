@@ -18,7 +18,7 @@ export const deleteQuestion = publicProcedure
         where: {
           id: quid,
           questionerId: uid,
-          answered: true,
+          answered: false,
           answers: {
             some: {
               AND: [{ accepted: false }, { moderated: false }],
