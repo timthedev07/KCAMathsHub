@@ -33,6 +33,11 @@ export const deleteModeration = publicProcedure
       if (shouldUpdate)
         await prisma.answer.update({ where: { id: aid }, data: update });
 
+      prisma.user.update({
+        where: { id: userId },
+        data: { credits: { decrement: 50 } },
+      });
+
       return createSuccessResponse("Moderation deleted");
     } catch (e) {
       return handlePrismaError(e);
