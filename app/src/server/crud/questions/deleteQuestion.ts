@@ -19,11 +19,16 @@ export const deleteQuestion = publicProcedure
           id: quid,
           questionerId: uid,
           answered: false,
-          answers: {
-            some: {
-              AND: [{ accepted: false }, { moderated: false }],
+          OR: [
+            {
+              answers: {
+                some: {
+                  AND: [{ accepted: false }, { moderated: false }],
+                },
+              },
             },
-          },
+            { answers: { none: {} } },
+          ],
         },
         include: { attachments: { select: { objKey: true } } },
       });
