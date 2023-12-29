@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kcamathshub.vercel.app
+
+# Sitemaps
+Sitemap: https://kcamathshub.vercel.app/sitemap.xml
