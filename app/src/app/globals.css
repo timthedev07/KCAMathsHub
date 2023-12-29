@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "e69MPVENRun1:::Lora";
+  font-style: normal;
+  font-weight: 600;
+  src: url(https://fonts.gstatic.com/l/font?kit=0QI6MX1D_JOuGQbT0gvTJPa787zAvCJGgKkd&skey=1d294b6d956fb8e&v=v32)
+    format("truetype");
+}
+
 :root {
   --scroll-bar-border: 3.5px solid rgba(0, 0, 0, 0);
 }
