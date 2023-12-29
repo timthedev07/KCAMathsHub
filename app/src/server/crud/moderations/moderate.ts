@@ -77,6 +77,11 @@ export const moderate = publicProcedure
             moderator: { connect: { id: moderatorId } },
           },
         });
+
+        await prisma.user.update({
+          where: { id: moderatorId },
+          data: { credits: { increment: 50 } },
+        });
         return createSuccessResponse("Answer moderated");
       } catch (e) {
         return handlePrismaError(e);
