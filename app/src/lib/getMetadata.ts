@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { HOST } from "./hostAddr";
+import { PROD_HOST } from "./hostAddr";
 
 type Options = {
   title?: string;
@@ -25,11 +25,12 @@ export const getMetadata = ({
     other: {
       "google-site-verification": "ou31BwzL6hYs78yHQZrfEFRvZIBWxVoPkErFfm0f2z4",
     },
+    metadataBase: new URL(PROD_HOST),
     openGraph: {
       type: "article",
       title,
       description,
-      url: `${HOST}${pathName}`,
+      url: `${pathName}`,
     },
   } as Metadata;
 };
