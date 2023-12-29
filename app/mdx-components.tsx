@@ -92,7 +92,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return <strong className={`${className}`} {...props} />;
     },
     em: ({ className = "", ...props }) => {
-      return <em className={`${className}`} {...props} />;
+      return <em className={`${className} pr-0.5`} {...props} />;
     },
     hr: ({ className = "", ...props }) => {
       return <hr className={`${className} ${hrClassName}`} {...props} />;
