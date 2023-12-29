@@ -10,6 +10,7 @@ export const SharedTransition: FC<PropsWithChildren> = ({ children }) => (
     leave="transition duration-75 ease-out"
     leaveFrom="transform scale-100 opacity-100"
     leaveTo="transform scale-95 opacity-0"
+    className={"z-10"}
   >
     {children}
   </Transition>
