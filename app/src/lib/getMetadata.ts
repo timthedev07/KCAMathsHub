@@ -6,6 +6,7 @@ type Options = {
   description: string;
   categories?: string[];
   pathName?: string;
+  sectionPrepend?: string;
 };
 
 export const getMetadata = ({
@@ -13,8 +14,11 @@ export const getMetadata = ({
   description,
   title: title_,
   pathName,
+  sectionPrepend,
 }: Options) => {
-  const title = title_ ? `${title_} | KCAMathsHub` : `KCAMathsHub`;
+  const title = title_
+    ? `${sectionPrepend ? sectionPrepend + ": " : ""}${title_} | KCAMathsHub`
+    : `KCAMathsHub`;
 
   return {
     title,
