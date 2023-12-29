@@ -28,12 +28,13 @@ export const authOptions: AuthOptions = {
     async signIn({ user /**account, profile, email, credentials */ }) {
       if (
         process.env.NODE_ENV === "production" &&
-        (!(
-          user.email?.endsWith("@kcpupils.org") &&
-          user.email?.endsWith("@kings.education") &&
-          user.email?.endsWith("@kingsgroup.org")
-        ) ||
-          !user.email)
+        (!user.email ||
+          !(
+            user.email.endsWith("@kcpupils.org") ||
+            user.email.endsWith("@kings.education") ||
+            user.email.endsWith("@kingsgroup.org") ||
+            user.email === "kcamathshub.testing@gmail.com"
+          ))
       ) {
         return false;
       }
