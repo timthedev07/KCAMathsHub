@@ -228,7 +228,10 @@ export const QuestionForm: FC<QuestionFormProps> = ({
       <TimedMessageToast show={showToast} setShow={setShowToast} level="error">
         {toastMsg}
       </TimedMessageToast>
-      <LoadingOverlay isLoading={loading} />
+      <LoadingOverlay
+        message="Checking and recording abuse..."
+        isLoading={loading}
+      />
       <MessageActionModal
         heading="Back"
         open={modalOpen}
