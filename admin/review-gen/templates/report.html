@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Performance review - {{month}}, {{year}}</title>
+    <style>
+      body {
+        font-family: "Times New Roman", Times, serif;
+      }
+      main {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1 style="width: full; text-align: center; font-weight: 500">
+        Performance review - {{month}}, {{year}}
+      </h1>
+      <h4
+        style="
+          width: full;
+          text-align: center;
+          font-weight: 500;
+          color: rgb(30, 30, 30);
+        "
+      >
+        Generated on {{genDate.day}} of {{genDate.month}}, {{genDate.year}}
+      </h4>
+    </main>
+  </body>
+</html>
