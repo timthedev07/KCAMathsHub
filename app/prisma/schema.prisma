@@ -20,7 +20,7 @@ model User {
   id                        String       @id @default(cuid())
   username                  String       @unique @db.VarChar(32)
   blocked                   Boolean      @default(false)
-  credits                   Int          @default(0)
+  credits                   Int          @default(50)
   joinedDate                DateTime     @default(now())
   joinedYear                Int?         @db.SmallInt // the year group of the user when joined; only applies to students
   roles                     Role[]
