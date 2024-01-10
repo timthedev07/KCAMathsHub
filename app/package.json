@@ -20,6 +20,7 @@
     "start": "next start",
     "lint": "next lint",
     "populate:categories": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/categories.ts",
+    "prod:populate:categories": "dotenv -e .env.prod -- ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/categories.ts",
     "populate:roles": "ts-node --compiler-options {\\\"module\\\":\\\"CommonJS\\\"} prisma/scripts/prePopulateRoles.ts",
     "populate": "yarn populate:roles && yarn populate:categories",
     "dev:migrate": "dotenv -e .env.local -- prisma migrate dev --name",
