@@ -34,6 +34,8 @@ import { Button } from "../reusable/Button";
 
 import { Input } from "../reusable/Input";
 
+import { z } from "zod";
+import { contentSchema } from "../../schema/shared/content";
 import { LabelErrorWrapper } from "../reusable/WithLabelWrapper";
 import { QAEditor } from "../richtext/ForwardRefEditor";
 import { StyledWrapper } from "../richtext/StyledWrapper";
@@ -157,8 +159,17 @@ export const QuestionForm: FC<QuestionFormProps> = ({
 
     try {
       if (operationType === "ask") {
+        const { content, ...rest } = formData;
         const response = await ask({
-          ...formData,
+          ...rest,
+          content: (
+            await validateForm(
+              { content },
+              z.object({ content: contentSchema })
+            )
+          ).success
+            ? content
+            : "Please see the attachments for the question, thank you!",
           userId: (userId || session?.user.id)!,
           attachmentIds: atts,
         });
@@ -176,10 +187,23 @@ export const QuestionForm: FC<QuestionFormProps> = ({
         push(pageURLs.question(_quid));
       } else {
         if (!quid) return;
+        const { content, ...rest } = formData;
         try {
           await update({
             quid,
-            updateData: { ...formData, attachmentIds: atts },
+            updateData: {
+              ...rest,
+              content: (
+                await validateForm(
+                  { content },
+                  z.object({ content: contentSchema })
+                )
+              ).success
+                ? content
+                : "Please see the attachments for the question, thank you!",
+
+              attachmentIds: atts,
+            },
           });
           clearStorage();
         } catch (e) {
