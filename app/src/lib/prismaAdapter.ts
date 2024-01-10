@@ -39,7 +39,7 @@ export function PrismaAdapter(p: PrismaClient): Adapter {
           email: data.email,
           joinedYear: year,
           image: data.image,
-          credits: isAuthority ? 200 : 0,
+          credits: isAuthority ? 200 : undefined,
           roles: {
             connect: isAuthority
               ? [
