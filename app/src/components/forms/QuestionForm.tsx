@@ -88,11 +88,17 @@ export const QuestionForm: FC<QuestionFormProps> = ({
   const [formData, setFormData] = useState<FormData>(() => {
     if (defaultValues && operationType === "update") {
       const { files: _, ...rest } = defaultValues;
-      return rest;
+      return {
+        ...rest,
+        content: rest.content.length
+          ? rest.content
+          : "Please see the attachments for the question that I have, thank you!",
+      };
     } else {
       return {
         title: "",
-        content: "",
+        content:
+          "Please see the attachments for the question that I have, thank you!",
         categories: [],
         anonymous: false,
       };
