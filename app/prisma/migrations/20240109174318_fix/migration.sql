@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `User` MODIFY `credits` INTEGER NOT NULL DEFAULT 50;

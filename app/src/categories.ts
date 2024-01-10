@@ -36,4 +36,8 @@ export const categories = [
   "transformation",
   "trigonometry",
   "vectors",
+  "physics",
+  "chemistry",
+  "biology",
+  "others",
 ];
