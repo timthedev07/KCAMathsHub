@@ -41,7 +41,7 @@ const POST = async (request: Request) => {
   // fname is the uuid file name; name is Attachment_1, Attachment_2, etc.
   const imgUrls: ImgUrlsType = [];
 
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV === "production") {
     const awsS3Client = createAWSS3Client();
 
     let a = 1;
