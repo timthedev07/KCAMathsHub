@@ -27,13 +27,14 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async signIn({ user /**account, profile, email, credentials */ }) {
       if (
+        // if app in production and...
         process.env.NODE_ENV === "production" &&
+        // the user's email domain is in one of the following (disallowing external logins)
         (!user.email ||
           !(
             user.email.endsWith("@kcpupils.org") ||
             user.email.endsWith("@kings.education") ||
-            user.email.endsWith("@kingsgroup.org") ||
-            user.email === "kcamathshub.testing@gmail.com"
+            user.email.endsWith("@kingsgroup.org")
           ))
       ) {
         return false;
