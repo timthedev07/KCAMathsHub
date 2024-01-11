@@ -111,7 +111,7 @@ const ViewQuestionPage: FC<NextPageParams<{ aid: string }, "">> = async ({
               </div>
             </OptionalLinkWrapper>
           </div>
-          <StyledWrapper className="mx-auto">
+          <StyledWrapper className="mx-auto w-full">
             <div className="overflow-x-scroll w-full max-h-[600px] overflow-y-auto min-h-[100px] [&>*]:mb-4 [&>p]:text-white/80 [&>p]:text-sm">
               <MDXRemote
                 options={{
