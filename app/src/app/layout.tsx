@@ -14,7 +14,7 @@ const inter = Roboto({
 
 export const metadata: Metadata = getMetadata({
   description:
-    "A community-based platform for providing peer-assistance with Math school work and questions; currently available internally at KCA.",
+    "A community-based platform for providing peer-assistance with Math school work and questions; available at KCA.",
 });
 
 export default async function RootLayout({

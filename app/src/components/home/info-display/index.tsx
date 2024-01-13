@@ -10,9 +10,9 @@ export const HomePageInfoDisplay = () => {
     <div className="flex flex-col gap-10 p-8">
       <Section colorScheme="blue" heading="Welcome" icon={FaInfoCircle}>
         <div className="flex flex-col">
-          Welcome to KCAMathsHub, an internally maintained and used platform for
-          asking, answering, and moderating questions that students at any
-          stage, in any year group, encountered.
+          Welcome to KCAMathsHub, a platform for asking, answering, and
+          moderating questions that students at any stage, in any year group,
+          encountered.
         </div>
       </Section>
       <Section colorScheme="green" heading="Quick access" icon={IoMdLink}>
