@@ -3,8 +3,8 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { FC } from "react";
-import { OAuthButton } from "react-auth-provider-buttons";
 import { HOST } from "../../lib/hostAddr";
+import { GoogleSVG } from "../../svgs/Google";
 import { LogoSVG } from "../helpers/Logo";
 
 interface SignInPanelProps {
@@ -23,8 +23,8 @@ export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
           Join with a 50+ credit head start!
         </span>
       )}
-      <OAuthButton
-        provider="google"
+      <button
+        className="flex rounded-full bg-neutral-600/30 border border-slate-500/30 pl-2 pr-4 items-center"
         onClick={async () => {
           if (r)
             await signIn("google", {
@@ -32,7 +32,9 @@ export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
             });
           else await signIn("google");
         }}
-      />
+      >
+        <GoogleSVG className="w-10 h-10" /> Sign in with Google
+      </button>
       <hr className="w-9/12 border-0 h-[1px] bg-neutral-300/20" />
       <span className="text-xs text-neutral-100/40 leading-loose">
         By logging in, you agree with our{" "}

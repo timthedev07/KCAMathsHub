@@ -11,7 +11,7 @@ export const SignInButton: FC<SignInButtonProps> = ({ signedIn }) => {
     <div
       onClick={() => {
         if (signedIn) signOut();
-        else signIn("google");
+        else signIn();
       }}
       className="font-bold transtion duration-200 text-sm hover:bg-slate-400/10 border border-transparent hover:border-slate-400/20 rounded-lg cursor-pointer px-4 py-1.5"
     >
