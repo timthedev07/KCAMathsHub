@@ -28,7 +28,12 @@ export const acceptAnswer = publicProcedure
         where: { id: aid, questionId: quid },
         data: {
           accepted: true,
-          question: { update: { answered: true } },
+          question: {
+            update: {
+              answered: true,
+              questioner: { update: { credits: { increment: 45 } } },
+            },
+          },
           answerer: {
             update: {
               credits: {
