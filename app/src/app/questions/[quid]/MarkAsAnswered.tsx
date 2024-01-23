@@ -55,7 +55,11 @@ export const MarkAsAnswered: FC<MarkAsAnsweredProps> = ({
         }}
       >
         <div className="space-y-6 text-sm">
-          <p>This will mark the question as answered; it cannot be undone.</p>
+          <p>
+            This will mark the question as answered, and it is used only when
+            you have solved the problem yourself before you received any working
+            solution; it cannot be undone.
+          </p>
           <p>
             If this operation is executed by accident, please contact our team
             for further discussion.
