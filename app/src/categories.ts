@@ -15,6 +15,7 @@ export const categories = [
   "function modeling",
   "functions",
   "geometric progression",
+  "geometry",
   "graphs",
   "identities",
   "integration",
