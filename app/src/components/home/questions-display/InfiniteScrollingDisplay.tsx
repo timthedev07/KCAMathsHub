@@ -19,7 +19,15 @@ export const InfiniteScrollingDisplay: FC<InfiniteScrollingDisplayProps> = ({
       getNextPageParam: (last) => last.nextCursor,
       enabled:
         !!query &&
-        !queryParamCompare(initialParams, query, ["c", "k", "q", "u", "y"]),
+        !queryParamCompare(initialParams, query, [
+          "c",
+          "k",
+          "q",
+          "u",
+          "y",
+          "a",
+          "s",
+        ]),
       keepPreviousData: true,
     });
 
