@@ -172,7 +172,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
           </LabelErrorWrapper>
           <LabelErrorWrapper
             labelFontSize="text-base"
-            label="Proposed time"
+            label="Status"
             className={fieldWrapperCN}
           >
             <QStatusSelect
