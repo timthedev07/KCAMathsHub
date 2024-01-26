@@ -59,7 +59,12 @@ export const AnswerListItem: FC<AnswerListItemProps> = ({
   const canEdit = Boolean(
     session?.user && data.answerer?.username === session.user.username
   );
-  const canAccept = Boolean(!data.accepted && !isAnswered && canEdit);
+  const canAccept = Boolean(
+    !data.accepted &&
+      !isAnswered &&
+      canEdit &&
+      data.answererId !== session?.user.id
+  );
   const moderated =
     data.moderated && !!moderations && moderations.some((v) => v.approval);
 
