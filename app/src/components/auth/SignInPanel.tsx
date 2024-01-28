@@ -17,7 +17,9 @@ export const SignInPanel: FC<SignInPanelProps> = ({ r }) => {
       <div className="rounded-full bg-neutral-950 shadow-xl overflow-hidden flex justify-center items-center w-24 h-24">
         <LogoSVG className="w-9/12 h-9/12 mb-2" />
       </div>
-      <h1 className="font-bold text-xl text-center">Login as a member</h1>
+      <h1 className="font-bold text-xl text-center">
+        Login with school account
+      </h1>
       {r && (
         <span className="text-sm text-center text-white/80">
           Join with a 50+ credit head start!
