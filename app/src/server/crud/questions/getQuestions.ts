@@ -81,16 +81,16 @@ export const getQuestions = publicProcedure
             : undefined,
         })
       )
+        .sort((a, b) => {
+          if (!a.answered && !b.answered) return 0;
+          if (a.answered && b.answered) return 0;
+          return a.answered ? 1 : -1;
+        })
         .map((each) => ({
           ...each,
           title: truncateAtWord(each.title, 60),
           content: truncateAtWord(each.content.replaceAll(/[`*_]/gi, ""), 200),
-        }))
-        .toSorted((a, b) => {
-          if (!a.answered && !b.answered) return 0;
-          if (a.answered && b.answered) return 0;
-          return a.answered ? 1 : -1;
-        });
+        }));
       let nextCursor: typeof cursor = undefined;
       if (questions.length > limit) {
         const nextItem = questions.pop();
