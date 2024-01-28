@@ -41,6 +41,8 @@ export const MarkAsAnswered: FC<MarkAsAnsweredProps> = ({
     },
   }).mutateAsync;
 
+  return <></>;
+
   return (
     <>
       <MessageActionModal
