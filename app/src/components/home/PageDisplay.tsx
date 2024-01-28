@@ -127,7 +127,6 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
     <>
       <div className="flex lg:flex-row flex-col">
         <aside
-          ref={ref}
           className={`w-full fixed lg:relative z-40 lg:z-auto bg-[#121212] lg:w-3/12 lg:border-r border-b border-slate-600/20 lg:min-h-[750px] py-8 lg:px-4 xl:px-8 gap-8 ${
             showToolbar ? "flex flex-col" : "hidden"
           }`}
@@ -237,6 +236,7 @@ export const PageDisplay: FC<Props> = ({ questions, initialParams }) => {
           </LabelErrorWrapper>
         </aside>
         <div className="overflow-y-auto min-h-[750px] h-[90vh] w-full md:w-9/12 md:mx-auto lg:mx-[unset] lg:w-1/2 flex flex-col py-8 px-12 md:px-12 lg:px-8 xl:px-16 gap-4 items-center">
+          <div className="w-full h-1" ref={ref}></div>
           {questions.length > 0 ? (
             <InfiniteScrollingDisplay
               initialParams={initialParams}
