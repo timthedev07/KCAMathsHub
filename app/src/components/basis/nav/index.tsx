@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FC } from "react";
+import { TbPencilQuestion } from "react-icons/tb";
 import { Hamburger } from "../../../svgs/sidebar/Hamburger";
 import { StudentStages } from "../../../types/StudentStage";
 import { SignInButton } from "../../auth/SignInButton";
@@ -42,7 +43,7 @@ export const Nav: FC<NavProps> = ({
             } transition duration-300 fill-neutral-200 group-hover:fill-white w-5 h-5 cursor-pointer`}
           />
         </button>
-        <div className="flex xl:w-4/12 lg:w-5/12 w-6/12 md:justify-between justify-evenly">
+        <div className="flex xl:w-4/12 lg:w-5/12 w-6/12 md:justify-start gap-12 justify-evenly">
           <Link href={{ pathname: "/" }}>
             <h2 className="md:block hidden text-lg font-semibold">
               KCAMathsHub
@@ -58,7 +59,15 @@ export const Nav: FC<NavProps> = ({
               />
             ))}
         </div>
-        <div className="ml-auto">
+        <div className="ml-auto hidden md:flex items-center gap-16">
+          {!!u && (
+            <Link
+              href="/questions/ask"
+              className="font-medium flex gap-2 items-center"
+            >
+              Ask Question <TbPencilQuestion className="w-7 h-7" />
+            </Link>
+          )}
           {!!u ? (
             <ConditionalProfilePic user={u} />
           ) : (
