@@ -39,6 +39,7 @@ export const InfiniteScrollingDisplay: FC<InfiniteScrollingDisplayProps> = ({
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, isFetching]);
+  // it's because ind evelopment i allow my own accouns
 
   const questions = data
     ? data?.pages.flatMap(({ questions }) => questions)

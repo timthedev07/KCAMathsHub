@@ -30,7 +30,7 @@ export const AppLayout: FC<AppLayoutProps> = ({ children }) => {
         open={sidebarOpen}
         setOpen={setSidebarOpen}
       />
-      <div className="min-w-[570px] overflow-x-auto row-start-2 row-end-3 col-span-full overflow-y-auto">
+      <div className="min-w-[370px] overflow-x-auto row-start-2 row-end-3 col-span-full overflow-y-auto">
         <main className="min-h-[90vh]">{children}</main>
         <Footer />
       </div>

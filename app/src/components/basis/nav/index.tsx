@@ -28,7 +28,7 @@ export const Nav: FC<NavProps> = ({
   const u = session?.user;
 
   return (
-    <nav className={`${bg} ${className || ""} min-w-[570px] relative z-20`}>
+    <nav className={`${bg} ${className || ""} min-w-[370px] relative z-20`}>
       <div className="flex items-center justify-start gap-6 px-8 h-full">
         <button
           onClick={() => {
@@ -42,7 +42,7 @@ export const Nav: FC<NavProps> = ({
             } transition duration-300 fill-neutral-200 group-hover:fill-white w-5 h-5 cursor-pointer`}
           />
         </button>
-        <div className="flex xl:w-4/12 lg:5/12 w-8/12 md:justify-between justify-evenly">
+        <div className="flex xl:w-4/12 lg:w-5/12 w-6/12 md:justify-between justify-evenly">
           <Link href={{ pathname: "/" }}>
             <h2 className="md:block hidden text-lg font-semibold">
               KCAMathsHub

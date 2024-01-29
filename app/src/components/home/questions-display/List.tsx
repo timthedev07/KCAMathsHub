@@ -86,7 +86,9 @@ export const List: FC<ListProps> = ({ questions, lastQRef, isFetching }) => {
                 <QCategoryBadge name={each.name} ind={ind} key={each.name} />
               ))}
             </ul>
-            <p className="w-full text-sm text-white/70">{content}</p>
+            <p className="w-full text-sm text-white/70 break-words">
+              {content}
+            </p>
             <div className="h-8 flex justify-start gap-3 items-center">
               {answered && (
                 <div className="text-xs flex text-white/80 border rounded-full border-green-600/80 bg-green-500/50 py-1.5 px-4 items-center gap-2">

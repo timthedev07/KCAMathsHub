@@ -13,7 +13,7 @@ export const SignInButton: FC<SignInButtonProps> = ({ signedIn }) => {
         if (signedIn) signOut();
         else signIn();
       }}
-      className="font-bold transtion duration-200 text-sm hover:bg-slate-400/10 border border-transparent hover:border-slate-400/20 rounded-lg cursor-pointer px-4 py-1.5"
+      className="font-bold md:text-sm md:min-w-auto transtion duration-200 text-md hover:bg-slate-400/10 border border-transparent hover:border-slate-400/20 rounded-lg cursor-pointer px-4 py-1.5"
     >
       Sign {signedIn ? "out" : "in"}
     </div>

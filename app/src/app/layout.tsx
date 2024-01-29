@@ -33,7 +33,8 @@ export default async function RootLayout({
           content="ou31BwzL6hYs78yHQZrfEFRvZIBWxVoPkErFfm0f2z4"
         />
       </head>
-      <body className={inter.className}>
+      {/* ugly app to fix... */}
+      <body className={inter.className + " bg-primary-bg"}>
         <SessionProvider>
           <TRPCProvider>
             <PageProgressBarProvider>

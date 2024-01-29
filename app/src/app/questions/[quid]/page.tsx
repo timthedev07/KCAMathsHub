@@ -88,7 +88,7 @@ const Question: NextPage<Props> = async ({ params: { quid } }) => {
   return (
     <>
       <div className="flex flex-col items-center">
-        <div className="min-w-[300px] max-w-[700px] w-full flex flex-col gap-12 py-24 md:px-0 px-12">
+        <div className="min-w-[280px] max-w-[700px] w-full flex flex-col gap-12 py-24 md:px-0 px-12">
           <div className="flex flex-col gap-4">
             <h1
               className={`font-bold text-2xl lg:text-4xl break-words w-full flex justify-between items-center ${

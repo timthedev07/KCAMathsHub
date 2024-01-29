@@ -54,7 +54,7 @@ const ErrorPage: FC = () => {
   const { get } = useSearchParams();
   const { back } = useRouter();
   return (
-    <div className="w-full h-[90vh] min-w-[800px] flex items-center flex-col gap-8 pt-24">
+    <div className="w-full h-[90vh]  flex items-center flex-col gap-8 pt-24">
       <SvgComponent className="w-52" />
       <h1 className="text-center text-white text-5xl font-bold mt-4">
         Problem signing in...
