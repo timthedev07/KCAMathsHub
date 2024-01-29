@@ -59,11 +59,11 @@ export const Nav: FC<NavProps> = ({
               />
             ))}
         </div>
-        <div className="ml-auto hidden md:flex items-center gap-16">
+        <div className="ml-auto flex items-center gap-16">
           {!!u && (
             <Link
               href="/questions/ask"
-              className="font-medium flex gap-2 items-center"
+              className="font-medium gap-2 items-center hidden md:flex"
             >
               Ask Question <TbPencilQuestion className="w-7 h-7" />
             </Link>
